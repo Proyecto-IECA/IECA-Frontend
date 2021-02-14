@@ -2,39 +2,136 @@
   <div class="forms-container">
     <div class="signin-signup">
 
+      <!-- Login Form -->
       <form class="sign-in-form">
-        <!--<app-login></app-login>-->
         <h2 class="title">Sign in</h2>
+        <!-- Email -->
         <div class="input-field">
-          <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username"/>
+          <i class="fas fa-envelope" ></i>
+          <input type="text" placeholder="Email"/>
         </div>
+        <!-- Password -->
         <div class="input-field">
           <i class="fas fa-lock"></i>
           <input type="password" placeholder="Password" />
+        </div>
+        <!-- Type -->
+        <div class="input-field">
+          <i class="fas fa-angle-down"></i>
+          <select class="form-select" id="inputGroupSelect01" name="type" [(ngModel)]="type">
+            <option selected>Soy...</option>
+            <option value="e">Empresa</option>
+            <option value="u">Usuario</option>
+          </select>
+        </div>
+        <!-- RememberMe -->
+        <div class="checkbox checkbox-primary">
+          <input type="checkbox" name="rememberMe" id="checkbox-signup">
+          <label for="checkbox-signup">&nbsp;Remember me </label>
         </div>
         <button class="btn" [class.solid]="!register">Login</button>
         <app-social-media></app-social-media>
       </form>
 
+      <!-- Register Form -->
       <form class="sign-up-form">
         <h2 class="title">Sign up</h2>
+        <!-- Seleción de formulario -->
         <div class="input-field">
-          <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username" />
+          <i class="fas fa-angle-down"></i>
+          <select class="form-select" id="inputGroupSelect02" name="type" [(ngModel)]="type">
+            <option selected>Soy...</option>
+            <option value="e">Empresa</option>
+            <option value="u">Usuario</option>
+          </select>
         </div>
-        <div class="input-field">
-          <i class="fas fa-envelope"></i>
-          <input type="email" placeholder="Email" />
+
+        <!-- Si selecciona Usuario -->
+        <div *ngIf="type == 'u'">
+          <!-- Nombre -->
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Nombre" />
+          </div>
+          <!-- Apellidos -->
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="text" placeholder="Apellidos" />
+          </div>
+          <!-- Fecha de nacimiento -->
+          <div class="input-field">
+            <i class="fas fa-envelope" title="Fecha de nacimiento"></i>
+            <input type="date" placeholder="Fecha de nacimiento" title="Fecha de nacimiento"/>
+          </div>
+          <!-- Email -->
+          <div class="input-field">
+            <i class="fas fa-envelope" ></i>
+            <input type="email" placeholder="Email" />
+          </div>
+          <!-- Password -->
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="pass1" placeholder="Password" />
+          </div>
+          <!-- Confirm Password -->
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="pass2" placeholder="Confirm Password" />
+          </div>
+          <!-- Género -->
+          <div class="input-field">
+            <i class="fas fa-angle-down"></i>
+            <select class="form-select" id="inputGroupSelect03">
+              <option selected>Género...</option>
+              <option value="H">Hombre</option>
+              <option value="M">Mujer</option>
+              <option value="X">Prefiero no decir</option>
+            </select>
+          </div>
         </div>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" />
+
+        <!-- Si selecciona Empresa -->
+        <div *ngIf="type == 'e'">
+          <!-- Nombre de la empresa -->
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Nombre de la empresa" />
+          </div>
+          <!-- Nombre del administrador -->
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Nombre del administrador" />
+          </div>
+          <!-- Giro de la empresa -->
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Giro de la empresa" /><!--Cambiar a un desplegable (Select)-->
+          </div>
+          <!-- Direccion -->
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Dirección" />
+          </div>
+          <!-- Email -->
+          <div class="input-field">
+            <i class="fas fa-envelope" ></i>
+            <input type="email" placeholder="Email" />
+          </div>
+          <!-- Password -->
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="pass1" placeholder="Password" />
+          </div>
+          <!-- Confirm Password -->
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="pass2" placeholder="Confirm Password" />
+          </div>
         </div>
+
         <input type="submit" class="btn" value="Sign up" />
         <app-social-media></app-social-media>
       </form>
-      <!--<app-register></app-register>-->
     </div>
   </div>
 
@@ -46,7 +143,7 @@
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
           ex ratione. Aliquid!
         </p>
-        <button (click)="register = !register" class="btn transparent" id="sign-up-btn">
+        <button (click)="formulario()" class="btn transparent" id="sign-up-btn">
           Sign up
         </button>
       </div>
@@ -59,7 +156,7 @@
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
           laboriosam ad deleniti.
         </p>
-        <button (click)="register = !register" class="btn transparent" id="sign-in-btn">
+        <button (click)="formulario()" class="btn transparent" id="sign-in-btn">
           Sign in
         </button>
       </div>
