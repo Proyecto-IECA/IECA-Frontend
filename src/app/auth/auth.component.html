@@ -4,33 +4,38 @@
     <div class="signin-signup">
 
       <!-- Login Form -->
-      <form class="sign-in-form">
+      <form class="sign-in-form" autocomplete="off" (ngSubmit)="login()" [formGroup]="loginForm">
         <h2 class="title">Sign in</h2>
         <!-- Email -->
         <div class="input-field">
           <i class="fas fa-envelope" ></i>
-          <input type="text" placeholder="Email"/>
+          <input type="text"
+                 placeholder="Email"
+                 formControlName="email">
         </div>
+        <small *ngIf="loginControlNoValid('email')" class="form-text text-danger">* Email no válido <br></small>
         <!-- Password -->
         <div class="input-field">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Password" formControlName="pass"/>
         </div>
+        <small *ngIf="loginControlNoValid('pass')" class="form-text text-danger">* Debe ser mayor o igual a 6 letras <br></small>
         <!-- Type -->
         <div class="input-field">
           <i class="fas fa-angle-down"></i>
-          <select class="form-select" id="inputGroupSelect01" name="type" [(ngModel)]="type">
-            <option selected>Soy...</option>
+          <select class="form-select" id="inputGroupSelect01" name="type" formControlName="type">
+            <option value="null">Soy...</option>
+            <option value="u">Aspirante</option>
             <option value="e">Empresa</option>
-            <option value="u">Usuario</option>
           </select>
         </div>
+        <small *ngIf="loginControlNoValid('type')" class="form-text text-danger">* Elija una opción válida <br></small>
         <!-- RememberMe -->
         <div class="checkbox checkbox-primary">
-          <input type="checkbox" name="rememberMe" id="checkbox-signup">
+          <input type="checkbox" name="rememberMe" id="checkbox-signup" formControlName="rememberMe">
           <label for="checkbox-signup" class="subtitle">&nbsp;Remember me </label>
         </div>
-        <button class="btn" [class.solid]="!register">Login</button>
+        <button class="btn submit" [class.solid]="!register">Login</button>
         <app-social-media></app-social-media>
       </form>
 
