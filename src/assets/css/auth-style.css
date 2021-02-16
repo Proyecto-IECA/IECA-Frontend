@@ -67,6 +67,12 @@ form.sign-in-form {
   margin-bottom: 10px;
 }
 
+.subtitle {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 10px;
+}
+
 .input-field {
   max-width: 380px;
   width: 100%;

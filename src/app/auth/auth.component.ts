@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EmpresaI } from '../services/empresa';
-import { UsuarioI } from '../services/usuario';
+import { EmpresaI } from '../models/empresa';
+import { UsuarioI } from '../models/usuario';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
@@ -14,8 +15,11 @@ export class AuthComponent implements OnInit {
   empresa: EmpresaI;
 
   //  ---------- VARIABLES ---------- //
-  register = true; // Siempre en falso
-  type: string;
+  register = false; // (Siempre en falso) Cambia la vista entre el login y el register
+  type: string; // Distingue entre usuario y empresa
+  form = true;
+  loginForm: FormGroup;
+  registerForm: FormGroup;
 
   constructor() {
     this.type = 'Soy...';
@@ -25,6 +29,7 @@ export class AuthComponent implements OnInit {
   }
 
   //  ---------- VALIDADORES ---------- //
+
 
   //  ---------- MÉTODOS ---------- //
   // Cambiar el tipo de formulario (Ingresar o registrarte)

@@ -1,4 +1,5 @@
 <div class="container" [class.sign-up-mode]="register">
+  <!-- Formularios -->
   <div class="forms-container">
     <div class="signin-signup">
 
@@ -27,7 +28,7 @@
         <!-- RememberMe -->
         <div class="checkbox checkbox-primary">
           <input type="checkbox" name="rememberMe" id="checkbox-signup">
-          <label for="checkbox-signup">&nbsp;Remember me </label>
+          <label for="checkbox-signup" class="subtitle">&nbsp;Remember me </label>
         </div>
         <button class="btn" [class.solid]="!register">Login</button>
         <app-social-media></app-social-media>
@@ -53,15 +54,15 @@
             <i class="fas fa-user"></i>
             <input type="text" placeholder="Nombre" />
           </div>
-          <!-- Apellidos -->
+          <!-- Apellido paterno -->
           <div class="input-field">
             <i class="fas fa-envelope"></i>
-            <input type="text" placeholder="Apellidos" />
+            <input type="text" placeholder="Apellido Paterno" />
           </div>
-          <!-- Fecha de nacimiento -->
+          <!-- Apellido materno -->
           <div class="input-field">
-            <i class="fas fa-envelope" title="Fecha de nacimiento"></i>
-            <input type="date" placeholder="Fecha de nacimiento" title="Fecha de nacimiento"/>
+            <i class="fas fa-envelope"></i>
+            <input type="text" placeholder="Apellido Materno" />
           </div>
           <!-- Email -->
           <div class="input-field">
@@ -129,32 +130,35 @@
           </div>
         </div>
 
-        <input type="submit" class="btn" value="Sign up" />
+        <input *ngIf="form" type="submit" class="btn" value="Sign up" />
         <app-social-media></app-social-media>
       </form>
     </div>
   </div>
 
+  <!-- Paneles para la informar -->
   <div class="panels-container">
+    <!-- Registro botón y parrafo -->
     <div class="panel left-panel">
       <div class="content">
-        <h3>New here ?</h3>
+        <h3>¿Nuevo aquí?</h3>
+        <!--<h3>New here ?</h3>-->
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-          ex ratione. Aliquid!
+          Si no tienes cuenta y quieres formar parte de esta comunidad,
+          registrate... ¿Qué esperas?
         </p>
         <button (click)="formulario()" class="btn transparent" id="sign-up-btn">
-          Sign up
+          Registrar
         </button>
       </div>
       <img src="assets/img/log.svg" class="image" alt="" />
     </div>
+    <!-- Login botón y parrafo -->
     <div class="panel right-panel">
       <div class="content">
-        <h3>One of us ?</h3>
+        <h3>¿Tienes cuenta?</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-          laboriosam ad deleniti.
+          Ingresa con tu correo y contraseña para utilizar la plataforma.
         </p>
         <button (click)="formulario()" class="btn transparent" id="sign-in-btn">
           Sign in

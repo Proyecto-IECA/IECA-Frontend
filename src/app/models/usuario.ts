@@ -1,6 +1,7 @@
 export class UsuarioI {
   nombre?: string;
-  apellidos?: string;
+  apellido_paterno?: string;
+  apellido_materno?: string;
   fecha?: Date;
   email: string;
   pass;
