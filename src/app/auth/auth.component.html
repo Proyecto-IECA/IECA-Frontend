@@ -4,22 +4,30 @@
     <div class="signin-signup">
 
       <!-- Login Form -->
-      <form class="sign-in-form" autocomplete="off" (ngSubmit)="login()" [formGroup]="loginForm">
+      <form class="sign-in-form" autocomplete="off" (ngSubmit)="login(loginForm)" [formGroup]="loginForm">
         <h2 class="title">Sign in</h2>
         <!-- Email -->
         <div class="input-field">
-          <i class="fas fa-envelope" ></i>
+          <i class="fas fa-envelope"></i>
           <input type="text"
                  placeholder="Email"
                  formControlName="email">
         </div>
-        <small *ngIf="loginControlNoValid('email')" class="form-text text-danger">* Email no válido <br></small>
+        <small *ngIf="controlNoValid(loginForm,'email')"
+               class="form-text text-danger">
+          * Email no válido
+          <br>
+        </small>
         <!-- Password -->
         <div class="input-field">
           <i class="fas fa-lock"></i>
           <input type="password" placeholder="Password" formControlName="pass"/>
         </div>
-        <small *ngIf="loginControlNoValid('pass')" class="form-text text-danger">* Debe ser mayor o igual a 6 letras <br></small>
+        <small *ngIf="controlNoValid(loginForm,'pass')"
+               class="form-text text-danger">
+          * Debe ser mayor o igual a 6 letras
+          <br>
+        </small>
         <!-- Type -->
         <div class="input-field">
           <i class="fas fa-angle-down"></i>
@@ -29,7 +37,11 @@
             <option value="e">Empresa</option>
           </select>
         </div>
-        <small *ngIf="loginControlNoValid('type')" class="form-text text-danger">* Elija una opción válida <br></small>
+        <small *ngIf="controlNoValid(loginForm,'type')"
+               class="form-text text-danger">
+          * Elija una opción válida
+          <br>
+        </small>
         <!-- RememberMe -->
         <div class="checkbox checkbox-primary">
           <input type="checkbox" name="rememberMe" id="checkbox-signup" formControlName="rememberMe">
@@ -46,97 +58,212 @@
         <div class="input-field">
           <i class="fas fa-angle-down"></i>
           <select class="form-select" id="inputGroupSelect02" name="type" [(ngModel)]="type">
-            <option selected>Soy...</option>
+            <option value="">Soy...</option>
+            <option value="u">Aspirante</option>
             <option value="e">Empresa</option>
-            <option value="u">Usuario</option>
           </select>
         </div>
 
-        <!-- Si selecciona Usuario -->
-        <div *ngIf="type == 'u'">
-          <!-- Nombre -->
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="Nombre" />
+        <!-- Si selecciona USUARIO -->
+        <form autocomplete="off" (ngSubmit)="registro(registerUsuarioForm)" [formGroup]="registerUsuarioForm">
+          <!-- Mostrar formulario -->
+          <div *ngIf="type == 'u'">
+            <div *ngIf="part">
+              <!-- Nombre -->
+              <div class="input-field">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Nombre" formControlName="nombre"/>
+              </div>
+              <small *ngIf="controlNoValid(registerUsuarioForm,'nombre')"
+                     class="form-text text-danger">
+                * Debe contener al menos 3 letras
+                <br>
+              </small>
+              <!-- Apellido paterno -->
+              <div class="input-field">
+                <i class="fas fa-envelope"></i>
+                <input type="text" placeholder="Apellido Paterno" formControlName="apellido_paterno"/>
+              </div>
+              <small *ngIf="controlNoValid(registerUsuarioForm,'apellido_paterno')"
+                     class="form-text text-danger">
+                * Debe contener al menos 3 letras
+                <br>
+              </small>
+              <!-- Apellido materno -->
+              <div class="input-field">
+                <i class="fas fa-envelope"></i>
+                <input type="text" placeholder="Apellido Materno" formControlName="apellido_materno"/>
+              </div>
+              <small *ngIf="controlNoValid(registerUsuarioForm,'apellido_materno')"
+                     class="form-text text-danger">
+                * Debe contener al menos 3 letras
+                <br>
+              </small>
+              <!-- Género -->
+              <div class="input-field">
+                <i class="fas fa-angle-down"></i>
+                <select class="form-select" id="inputGroupSelect03" formControlName="sexo">
+                  <option value="null">Género...</option>
+                  <option value="H">Hombre</option>
+                  <option value="M">Mujer</option>
+                  <option value="X">Prefiero no decir</option>
+                </select>
+              </div>
+              <small *ngIf="controlNoValid(registerUsuarioForm,'sexo')"
+                     class="form-text text-danger">
+                * Elija una opción válida
+                <br>
+              </small>
+            </div>
+            <div *ngIf="!part">
+              <!-- Email -->
+              <div class="input-field">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Email" formControlName="email"/>
+              </div>
+              <small *ngIf="controlNoValid(registerUsuarioForm,'email')"
+                     class="form-text text-danger">
+                * Email no válido
+                <br>
+              </small>
+              <!-- Password -->
+              <div class="input-field">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" formControlName="pass"/>
+              </div>
+              <small *ngIf="controlNoValid(registerUsuarioForm,'pass')"
+                     class="form-text text-danger">
+                * Debe contener al menos 6 letras
+                <br>
+              </small>
+              <!-- Confirm Password -->
+              <div class="input-field">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Confirm Password" formControlName="password"/>
+              </div>
+              <small *ngIf="controlNoValid(registerUsuarioForm,'password')"
+                     class="form-text text-danger">
+                * Debe contener al menos 6 letras
+                <br>
+              </small>
+            </div>
           </div>
-          <!-- Apellido paterno -->
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="text" placeholder="Apellido Paterno" />
+          <!-- Mostrar botones -->
+          <div *ngIf="type == 'u'">
+            <!-- Next Form -->
+            <button *ngIf="part" (click)="part = !part" class="btn btn-work" type="button">
+              Siguiente &nbsp;
+              <i class="fas fa-angle-right"></i>
+            </button>
+            <!-- Previous Form and Button submit -->
+            <div *ngIf="!part">
+              <button (click)="part = !part" class="btn btn-work" type="button">
+                <i class="fas fa-angle-left"></i> Regresar
+              </button>
+              &nbsp;
+              <button type="submit" class="btn btn-work">Sign up</button>
+            </div>
           </div>
-          <!-- Apellido materno -->
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="text" placeholder="Apellido Materno" />
-          </div>
-          <!-- Email -->
-          <div class="input-field">
-            <i class="fas fa-envelope" ></i>
-            <input type="email" placeholder="Email" />
-          </div>
-          <!-- Password -->
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="pass1" placeholder="Password" />
-          </div>
-          <!-- Confirm Password -->
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="pass2" placeholder="Confirm Password" />
-          </div>
-          <!-- Género -->
-          <div class="input-field">
-            <i class="fas fa-angle-down"></i>
-            <select class="form-select" id="inputGroupSelect03">
-              <option selected>Género...</option>
-              <option value="H">Hombre</option>
-              <option value="M">Mujer</option>
-              <option value="X">Prefiero no decir</option>
-            </select>
-          </div>
-        </div>
+        </form>
 
-        <!-- Si selecciona Empresa -->
+        <!-- Si selecciona EMPRESA -->
+        <form (ngSubmit)="registro(registerEmpresaForm)" [formGroup]="registerEmpresaForm">
+        <!-- Mostrar formulario -->
         <div *ngIf="type == 'e'">
+          <div *ngIf="part">
           <!-- Nombre de la empresa -->
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Nombre de la empresa" />
+            <input type="text" placeholder="Nombre de la empresa" formControlName="nombre"/>
           </div>
+            <small *ngIf="controlNoValid(registerEmpresaForm,'nombre')"
+                   class="form-text text-danger">
+              * Debe contener al menos 3 letras
+              <br>
+            </small>
           <!-- Nombre del administrador -->
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Nombre del administrador" />
+            <input type="text" placeholder="Nombre del administrador" formControlName="administrador"/>
           </div>
+            <small *ngIf="controlNoValid(registerEmpresaForm,'administrador')"
+                   class="form-text text-danger">
+              * Debe contener al menos 3 letras
+              <br>
+            </small>
+          <!-- Ubicación -->
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Dirección" formControlName="ubicacion"/>
+          </div>
+            <small *ngIf="controlNoValid(registerEmpresaForm,'ubicacion')"
+                   class="form-text text-danger">
+              * Debe contener al menos 5 letras
+              <br>
+            </small>
           <!-- Giro de la empresa -->
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Giro de la empresa" /><!--Cambiar a un desplegable (Select)-->
+            <input type="text" placeholder="Giro de la empresa" formControlName="giro"/><!--Cambiar a un desplegable (Select)-->
           </div>
-          <!-- Direccion -->
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="Dirección" />
+            <small *ngIf="controlNoValid(registerEmpresaForm,'giro')"
+                   class="form-text text-danger">
+              * Seleciona una opción válida
+              <br>
+            </small>
           </div>
+          <div *ngIf="!part">
           <!-- Email -->
           <div class="input-field">
-            <i class="fas fa-envelope" ></i>
-            <input type="email" placeholder="Email" />
+            <i class="fas fa-envelope"></i>
+            <input type="email" placeholder="Email" formControlName="email"/>
           </div>
+            <small *ngIf="controlNoValid(registerEmpresaForm,'email')"
+                   class="form-text text-danger">
+              * Email no válido
+              <br>
+            </small>
           <!-- Password -->
           <div class="input-field">
             <i class="fas fa-lock"></i>
-            <input type="pass1" placeholder="Password" />
+            <input type="password" placeholder="Password" formControlName="pass"/>
           </div>
+            <small *ngIf="controlNoValid(registerEmpresaForm,'pass')"
+                   class="form-text text-danger">
+              * Debe contener al menos 6 letras
+              <br>
+            </small>
           <!-- Confirm Password -->
           <div class="input-field">
             <i class="fas fa-lock"></i>
-            <input type="pass2" placeholder="Confirm Password" />
+            <input type="password" placeholder="Confirm Password" formControlName="password"/>
+          </div>
+            <small *ngIf="controlNoValid(registerEmpresaForm,'password')"
+                   class="form-text text-danger">
+              * Debe contener al menos 6 letras
+              <br>
+            </small>
           </div>
         </div>
+        <!-- Mostrar botones -->
+        <div *ngIf="type == 'e'">
+          <!-- Next Form -->
+          <button *ngIf="part" (click)="part = !part" class="btn btn-work" type="button">
+            Siguiente &nbsp;
+            <i class="fas fa-angle-right"></i>
+          </button>
+          <!-- Previous Form and Button submit -->
+          <div *ngIf="!part">
+            <button (click)="part = !part" class="btn btn-work" type="button">
+              <i class="fas fa-angle-left"></i> Regresar
+            </button>
+            &nbsp;
+            <button type="submit" class="btn btn-work">Sign up</button>
+          </div>
+        </div>
+      </form>
 
-        <input *ngIf="form" type="submit" class="btn" value="Sign up" />
-        <app-social-media></app-social-media>
+        <app-social-media *ngIf="type==''"></app-social-media>
       </form>
     </div>
   </div>
@@ -156,7 +283,7 @@
           Registrar
         </button>
       </div>
-      <img src="assets/img/log.svg" class="image" alt="" />
+      <img src="assets/img/log.svg" class="image" alt=""/>
     </div>
     <!-- Login botón y parrafo -->
     <div class="panel right-panel">
@@ -169,7 +296,7 @@
           Sign in
         </button>
       </div>
-      <img src="assets/img/register.svg" class="image" alt="" />
+      <img src="assets/img/register.svg" class="image" alt=""/>
     </div>
   </div>
 </div>

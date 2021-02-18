@@ -1,8 +1,15 @@
 export class EmpresaI {
-  nombre?: string;
+  id_empresa: number;
   administrador?: string;
-  giro?: string;
-  ubicacion?: string;
+  calificacion?: number;
   email: string;
+  email_validado: number;
+  foto_empresa: string;
+  giro?: string;
+  nombre?: string;
+  pagina_web: string;
   pass: string;
+  suscripcion_notificacion: string;
+  telefono: string;
+  ubicacion?: string;
 }

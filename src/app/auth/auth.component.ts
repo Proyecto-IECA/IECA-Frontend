@@ -16,27 +16,43 @@ export class AuthComponent implements OnInit {
   empresa: EmpresaI;
 
   //  ---------- VARIABLES ---------- //
-  register = false; // (Siempre en falso) Cambia la vista entre el login y el register
-  form = true;
-  type;
+  register = true; // (Siempre en falso) Cambia la vista entre el login y el register
+  part = true; // True - Muestra la 1ra parte del formulario. False - Muestra la 2da parte del formulario
+  type = 'e'; // Dejarlo vacío ''
   loginForm: FormGroup;
-  registerForm: FormGroup;
+  registerUsuarioForm: FormGroup;
+  registerEmpresaForm: FormGroup;
 
   constructor(private formB: FormBuilder,
               /*private validator: ValidatorsService,*/
               router: Router) {
-    this.type = '';
     this.loginCreateForm();
+    this.registerUsuarioCreateForm();
+    this.registerEmpresaCreateForm();
   }
 
   ngOnInit(): void {
   }
 
   //  ---------- VALIDADORES ---------- //
-  /* Validar los control name por un metodo */
-  loginControlNoValid(controlName: string): boolean {
+  /* Validar los control name */
+  controlNoValid(form: FormGroup, controlName: string): boolean {
+    return form.controls[controlName].errors
+      && form.controls[controlName].touched;
+  }
+  /*loginControlNoValid(controlName: string): boolean {
     // return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
     return this.loginForm.controls[controlName].errors && this.loginForm.controls[controlName].touched;
+  }*/
+
+  /* Validar formulario */
+  formularioNoValido(form: FormGroup): boolean {
+    if (form.invalid) {
+      form.markAllAsTouched();
+      this.part = true;
+      return true;
+    }
+    return false;
   }
 
   //  ---------- FORMULARIOS ---------- //
@@ -46,13 +62,34 @@ export class AuthComponent implements OnInit {
       email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
       pass: [, [Validators.required, Validators.minLength(6)]],
       type: [ , Validators.required],
-      rememberMe: [false]
+      rememberMe: false
     });
   }
 
-  /* Formulario REGISTRO */
-  registerCreateForm(): void {
-    this.registerForm = this.formB.group({});
+  /* Formulario REGISTRO para USUARIO */
+  registerUsuarioCreateForm(): void {
+    this.registerUsuarioForm = this.formB.group({
+      nombre: [, [Validators.required, Validators.minLength(3)]],
+      apellido_paterno: [, [Validators.required, Validators.minLength(3)]],
+      apellido_materno: [, [Validators.required, Validators.minLength(3)]],
+      email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
+      pass: [, [Validators.required, Validators.minLength(6)]],
+      password: [, [Validators.required, Validators.minLength(6)]],
+      sexo: [, Validators.required],
+    });
+  }
+
+  /* Formulario REGISTRO para EMPRESA */
+  registerEmpresaCreateForm(): void {
+    this.registerEmpresaForm = this.formB.group({
+      nombre: [, [Validators.required, Validators.minLength(3)]],
+      administrador: [, [Validators.required, Validators.minLength(3)]],
+      giro: [, Validators.required],
+      ubicacion: [, [Validators.required, Validators.minLength(5)]],
+      email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
+      pass: [, [Validators.required, Validators.minLength(6)]],
+      password: [, [Validators.required, Validators.minLength(6)]],
+    });
   }
 
   //  ---------- MÉTODOS ---------- //
@@ -61,30 +98,46 @@ export class AuthComponent implements OnInit {
     this.register = !this.register;
   }
 
-  // Revisa que metodo (login o registro) se va a usar y el tipo (usuario o empresa)
-
-
   // Ingresar
-  login(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+  login(loginForm: FormGroup): void {
+    /* Validar formulario */
+    if (this.formularioNoValido(loginForm)) {
       return;
     }
-
-    if (this.loginForm.value.type === 'u') {
+    /* Dirigir el tipo de servicio a solicitar */
+    if (loginForm.value.type === 'u') {
       // Servicio de LOGIN para USUARIO
       console.log('Loging Usuario');
-      this.loginForm.reset();
+      loginForm.reset();
+      return;
     }
-    else {
+    if (loginForm.value.type === 'e') {
       // Servicio de LOGIN para EMPRESA
       console.log('Loging Empresa');
-      this.loginForm.reset();
+      loginForm.reset();
+      return;
     }
   }
 
   // Registrarse
-  registro(): void {
+  registro(form: FormGroup): void {
+    /* Validar formulario */
+    if (this.formularioNoValido(form)) {
+      return;
+    }
+    /* Dirigir el tipo de servicio a solicitar */
+    if (this.type === 'u') {
+      // Servicio de REGISTRO para USUARIO
+      console.log('Registro Usuario');
+      form.reset();
+      return;
+    }
+    if (this.type === 'e') {
+      // Servicio de REGISTRO para EMPRESA
+      console.log('Registro Empresa');
+      form.reset();
+      return;
+    }
   }
 
 }
