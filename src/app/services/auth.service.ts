@@ -5,6 +5,7 @@ import { UsuarioI } from '../models/usuario';
 import { EmpresaI } from '../models/empresa';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthResponseI } from '../models/auth-response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class AuthService {
   private _empresa!: EmpresaI;
   userToken: string;
 
-  get usuario() {
+  get usuario(): UsuarioI {
     return { ...this._usuario };
   }
 
-  get empresa() {
+  get empresa(): EmpresaI {
     return { ...this._empresa };
   }
 
@@ -32,30 +33,24 @@ export class AuthService {
     localStorage.clear();
   }
 
-  loginUsuario(email: string, password: string): any {
-    const url  = `${ this.baseUrl }/usuario/auth`;
-    const body = { email, password };
-
-    return this.http.post<UsuarioI>(url, body);
+  loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
+    const url  = `${ this.baseUrl }/auth-postulantes/login`;
+    return this.http.post<AuthResponseI>(url, form);
   }
 
-  loginEmpresa(email: string, password: string): any {
-    const url  = `${ this.baseUrl }/empresa/auth`;
-    const body = { email, password };
-
-    return this.http.post<EmpresaI>(url, body);
+  registroUsuario(form: UsuarioI): Observable<AuthResponseI> {
+    const url  = `${ this.baseUrl }/auth-postulantes/register`;
+    return this.http.post<AuthResponseI>(url, form);
   }
 
-  registroUsuario(form: UsuarioI): any {
-    const url  = `${ this.baseUrl }/usuario/register`;
-
-    return this.http.post<UsuarioI>(url, form);
+  loginEmpresa(form: EmpresaI): Observable<AuthResponseI> {
+    const url  = `${ this.baseUrl }/auth-empresas/login`;
+    return this.http.post<AuthResponseI>(url, form);
   }
 
-  registroEmpresa(form: EmpresaI): any {
-    const url  = `${ this.baseUrl }/empresa/register`;
-
-    return this.http.post<EmpresaI>(url, form);
+  registroEmpresa(form: EmpresaI): Observable<AuthResponseI> {
+    const url  = `${ this.baseUrl }/auth-empresas/register`;
+    return this.http.post<AuthResponseI>(url, form);
   }
 
   validarToken(): Observable<boolean> {

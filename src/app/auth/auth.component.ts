@@ -3,6 +3,7 @@ import { EmpresaI } from '../models/empresa';
 import { UsuarioI } from '../models/usuario';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -16,16 +17,17 @@ export class AuthComponent implements OnInit {
   empresa: EmpresaI;
 
   //  ---------- VARIABLES ---------- //
-  register = true; // (Siempre en falso) Cambia la vista entre el login y el register
+  register = false; // (Siempre en falso) Cambia la vista entre el login y el register
   part = true; // True - Muestra la 1ra parte del formulario. False - Muestra la 2da parte del formulario
-  type = 'e'; // Dejarlo vacío ''
+  type = ''; // Dejarlo vacío ''
   loginForm: FormGroup;
   registerUsuarioForm: FormGroup;
   registerEmpresaForm: FormGroup;
 
   constructor(private formB: FormBuilder,
               /*private validator: ValidatorsService,*/
-              router: Router) {
+              private authService: AuthService,
+              private router: Router) {
     this.loginCreateForm();
     this.registerUsuarioCreateForm();
     this.registerEmpresaCreateForm();
@@ -76,6 +78,7 @@ export class AuthComponent implements OnInit {
       pass: [, [Validators.required, Validators.minLength(6)]],
       password: [, [Validators.required, Validators.minLength(6)]],
       sexo: [, Validators.required],
+      fecha_nacimiento: [, Validators.required],
     });
   }
 
@@ -104,39 +107,69 @@ export class AuthComponent implements OnInit {
     if (this.formularioNoValido(loginForm)) {
       return;
     }
+
+    const data = loginForm.value;
+
     /* Dirigir el tipo de servicio a solicitar */
     if (loginForm.value.type === 'u') {
       // Servicio de LOGIN para USUARIO
-      console.log('Loging Usuario');
+      this.authService.loginUsuario(data).subscribe(postulante => {
+        if (postulante.status) {
+          console.log(postulante);
+          loginForm.reset();
+          return; // Cambiar por this.route.navigateByUrl('/dashboard')
+        }
+        console.log('Loging Usuario Fallido');
+        return;
+      });
       loginForm.reset();
       return;
     }
     if (loginForm.value.type === 'e') {
       // Servicio de LOGIN para EMPRESA
-      console.log('Loging Empresa');
-      loginForm.reset();
-      return;
+      this.authService.loginEmpresa(data).subscribe(empresa => {
+        if (empresa.status) {
+          console.log(empresa);
+          loginForm.reset();
+          return; // Cambiar por this.route.navigateByUrl('/dashboard')
+        }
+        console.log('Loging Empresa Fallido');
+        return;
+      });
     }
   }
 
   // Registrarse
   registro(form: FormGroup): void {
+    const data = form.value;
     /* Validar formulario */
-    if (this.formularioNoValido(form)) {
+    if (this.formularioNoValido(data)) {
       return;
     }
     /* Dirigir el tipo de servicio a solicitar */
     if (this.type === 'u') {
       // Servicio de REGISTRO para USUARIO
-      console.log('Registro Usuario');
-      form.reset();
-      return;
+      this.authService.registroUsuario(data).subscribe( postulante => {
+        if (postulante.status) {
+          console.log(postulante);
+          form.reset();
+          return; // Cambiar por this.route.navigateByUrl('/dashboard')
+        }
+        console.log('Registro Usuario Fallido');
+        return;
+      });
     }
     if (this.type === 'e') {
       // Servicio de REGISTRO para EMPRESA
-      console.log('Registro Empresa');
-      form.reset();
-      return;
+      this.authService.registroEmpresa(data).subscribe(empresa => {
+        if (empresa.status) {
+          console.log(empresa);
+          form.reset();
+          return; // Cambiar por this.route.navigateByUrl('/dashboard')
+        }
+        console.log('Registro Empresa Fallido');
+        return;
+      });
     }
   }
 
