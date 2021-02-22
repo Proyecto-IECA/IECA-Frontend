@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { EmpresaI } from '../models/empresa';
-import { UsuarioI } from '../models/usuario';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+
+import Swal from 'sweetalert2';
+
 import { ValidatorsService } from '../services/validators.service';
+import { AuthService } from '../services/auth.service';
+
+import { EmpresaI } from '../models/empresa';
+import { UsuarioI } from '../models/usuario';
 
 @Component({
   selector: 'app-auth',
