@@ -4,6 +4,7 @@ import { UsuarioI } from '../models/usuario';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ValidatorsService } from '../services/validators.service';
 
 @Component({
   selector: 'app-auth',
@@ -25,7 +26,7 @@ export class AuthComponent implements OnInit {
   registerEmpresaForm: FormGroup;
 
   constructor(private formB: FormBuilder,
-              /*private validator: ValidatorsService,*/
+              private validators: ValidatorsService,
               private authService: AuthService,
               private router: Router) {
     this.loginCreateForm();
@@ -42,10 +43,6 @@ export class AuthComponent implements OnInit {
     return form.controls[controlName].errors
       && form.controls[controlName].touched;
   }
-  /*loginControlNoValid(controlName: string): boolean {
-    // return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
-    return this.loginForm.controls[controlName].errors && this.loginForm.controls[controlName].touched;
-  }*/
 
   /* Validar formulario */
   formularioNoValido(form: FormGroup): boolean {
@@ -55,6 +52,11 @@ export class AuthComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  /* Validar password (Sean iguales) */
+  validarPassword(form: FormGroup): boolean {
+    return form.hasError('noSonIguales') && this.controlNoValid(form, 'password');
   }
 
   //  ---------- FORMULARIOS ---------- //
@@ -76,10 +78,13 @@ export class AuthComponent implements OnInit {
       apellido_materno: [, [Validators.required, Validators.minLength(3)]],
       email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
       pass: [, [Validators.required, Validators.minLength(6)]],
-      password: [, [Validators.required, Validators.minLength(6)]],
+      password: [, [Validators.required]],
       sexo: [, Validators.required],
       fecha_nacimiento: [, Validators.required],
-    });
+    },
+      {
+        validators: [this.validators.ValidarPassword('pass', 'password')],
+      });
   }
 
   /* Formulario REGISTRO para EMPRESA */
@@ -91,8 +96,11 @@ export class AuthComponent implements OnInit {
       ubicacion: [, [Validators.required, Validators.minLength(5)]],
       email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
       pass: [, [Validators.required, Validators.minLength(6)]],
-      password: [, [Validators.required, Validators.minLength(6)]],
-    });
+      password: [, [Validators.required]],
+    },
+      {
+        validators: [this.validators.ValidarPassword('pass', 'password')],
+      });
   }
 
   //  ---------- MÉTODOS ---------- //
@@ -108,14 +116,20 @@ export class AuthComponent implements OnInit {
       return;
     }
 
+    /* Asigna los valores del formualrio en una variable llamada data */
     const data = loginForm.value;
 
     /* Dirigir el tipo de servicio a solicitar */
     if (loginForm.value.type === 'u') {
-      // Servicio de LOGIN para USUARIO
+      /* Servicio de LOGIN para USUARIO */
       this.authService.loginUsuario(data).subscribe(postulante => {
         if (postulante.status) {
-          console.log(postulante);
+          console.log(postulante); // Borrar
+          /* If rememberMe TRUE or False */
+          if (loginForm.value.rememberMe) {
+            localStorage.setItem('email', data.email);
+          }
+
           loginForm.reset();
           return; // Cambiar por this.route.navigateByUrl('/dashboard')
         }
@@ -126,10 +140,15 @@ export class AuthComponent implements OnInit {
       return;
     }
     if (loginForm.value.type === 'e') {
-      // Servicio de LOGIN para EMPRESA
+      /* Servicio de LOGIN para EMPRESA */
       this.authService.loginEmpresa(data).subscribe(empresa => {
         if (empresa.status) {
-          console.log(empresa);
+          console.log(empresa); // Borrar
+          /* If rememberMe TRUE or False */
+          if (loginForm.value.rememberMe) {
+            localStorage.setItem('email', data.email);
+          }
+
           loginForm.reset();
           return; // Cambiar por this.route.navigateByUrl('/dashboard')
         }
@@ -141,14 +160,16 @@ export class AuthComponent implements OnInit {
 
   // Registrarse
   registro(form: FormGroup): void {
+    /* Asigna los valores del formualrio en una variable llamada data */
     const data = form.value;
+
     /* Validar formulario */
     if (this.formularioNoValido(data)) {
       return;
     }
     /* Dirigir el tipo de servicio a solicitar */
     if (this.type === 'u') {
-      // Servicio de REGISTRO para USUARIO
+      /* Servicio de REGISTRO para USUARIO */
       this.authService.registroUsuario(data).subscribe( postulante => {
         if (postulante.status) {
           console.log(postulante);
