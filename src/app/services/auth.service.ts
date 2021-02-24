@@ -70,15 +70,7 @@ export class AuthService {
   validarToken(): Observable<boolean> {
     const url = `${ this.baseUrl }/auth-postulante/renew-token`;
     const headers = new HttpHeaders()
-<<<<<<< HEAD
       .set('x-token', [localStorage.getItem('token'),this._usuario.email] || '' );
-=======
-      .set('x-token',
-        [
-          localStorage.getItem('token'),
-          localStorage.getItem('refreshToken')
-        ] || '');
->>>>>>> 7cfce2b2236a2bed55314b1e62e037ef9b2e7b24
 
     return this.http.get<AuthResponseI>( url, { headers } )
       .pipe(
