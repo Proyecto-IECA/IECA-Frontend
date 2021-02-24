@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
+import { RouterModule } from "@angular/router";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,12 +8,18 @@ import { AuthComponent } from './auth/auth.component';
 import { SocialMediaComponent } from './auth/components/social-media/social-media.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { HeadbarComponent } from './shared/headbar/headbar.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     SocialMediaComponent,
+    SidebarComponent,
+    HeadbarComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,6 +27,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forRoot([
+    { path: 'dashboard', component: DashboardComponent }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -28,7 +28,7 @@
                 <div class="input-field">
                     <i class="fas fa-angle-down"></i>
                     <select class="form-select" id="inputGroupSelect01" name="type" formControlName="type">
-            <option value="null" >Soy un(a) ...</option>
+            <option value="null" hidden selected > Quiero registrarme como.. </option>
             <option value="u">Aspirante</option>
             <option value="e">Empresa</option>
           </select>
@@ -42,7 +42,7 @@
                     <input type="checkbox" name="rememberMe" id="checkbox-signup" formControlName="rememberMe">
                     <label for="checkbox-signup" class="subtitle">&nbsp;¿Recordárme? </label>
                 </div>
-                <button class="btn submit" [class.solid]="!register">Entrar</button>
+                <button class="btn submit" routerLink="/headbar" [class.solid]="!register">Entrar</button>
                 <app-social-media></app-social-media>
             </form>
 
