@@ -67,7 +67,7 @@ export class AuthComponent implements OnInit {
   /* Formulario LOGIN */
   loginCreateForm(): void {
     this.loginForm = this.formB.group({
-      email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
+      email: [ localStorage.getItem('email') || '', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
       pass: [, [Validators.required, Validators.minLength(6)]],
       type: [ , Validators.required],
       rememberMe: false

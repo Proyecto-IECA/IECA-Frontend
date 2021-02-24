@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
 import { UsuarioI } from '../models/usuario';
 import { EmpresaI } from '../models/empresa';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AuthResponseI } from '../models/auth-response';
+
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -58,20 +61,15 @@ export class AuthService {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '' );
 
-    return this.http.get<any>( url, { headers } )
-      /*.pipe(
-        map( resp => {
-          localStorage.setItem('token', resp.token! );
-          this._usuario = {
-            name: resp.name!,
-            uid: resp.uid!,
-            email: resp.email!
-          }
+    return this.http.get<AuthResponseI>( url, { headers } )
+      .pipe(
+        map( (resp) => {
+          localStorage.setItem('token', resp.token!);
 
-          return resp.ok;
+          return resp.status;
         }),
         catchError( err => of(false) )
-      )*/;
+      );
   }
 
 }
