@@ -36,20 +36,10 @@ export class AuthService {
     localStorage.clear();
   }
 
+  public email ;
   loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
     const url  = `${ this.baseUrl }/auth-postulantes/login`;
-    return this.http.post<AuthResponseI>(url, form)
-    pipe(
-      map(
-        (usuario: any) => {
-          if(!usuario.status){
-            return;
-          }
-          this._usuario = usuario.data;
-        }
-      )
-    )
-    ;
+    return this.http.post<AuthResponseI>(url, form);
   }
 
   registroUsuario(form: UsuarioI): Observable<AuthResponseI> {
@@ -69,8 +59,11 @@ export class AuthService {
 
   validarToken(): Observable<boolean> {
     const url = `${ this.baseUrl }/auth-postulante/renew-token`;
-    const headers = new HttpHeaders()
-      .set('x-token', [localStorage.getItem('token'),this._usuario.email] || '' );
+    const headers = new HttpHeaders(
+      {Authorization: ['token' + localStorage.getItem('token'), 'email' + this.email]}
+    );
+      /* .set('x-token', [localStorage.getItem('token')] || '' ); */
+      /* ({'x-token': localStorage.getItem('token')},{'email': this.email}); */
 
     return this.http.get<AuthResponseI>( url, { headers } )
       .pipe(

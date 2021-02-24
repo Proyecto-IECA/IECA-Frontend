@@ -130,6 +130,7 @@ export class AuthComponent implements OnInit {
       this.authService.loginUsuario(data).subscribe(postulante => {
         if (postulante.status) {
           console.log(postulante); // Borrar
+          this.authService.email=data.email;
           /* If rememberMe TRUE or False */
           if (loginForm.value.rememberMe) {
             localStorage.setItem('email', data.email);
