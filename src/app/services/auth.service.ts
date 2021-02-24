@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, pipe } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { UsuarioI } from '../models/usuario';
@@ -38,7 +38,18 @@ export class AuthService {
 
   loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
     const url  = `${ this.baseUrl }/auth-postulantes/login`;
-    return this.http.post<AuthResponseI>(url, form);
+    return this.http.post<AuthResponseI>(url, form)
+    pipe(
+      map(
+        (usuario: any) => {
+          if(!usuario.status){
+            return;
+          }
+          this._usuario = usuario.data;
+        }
+      )
+    )
+    ;
   }
 
   registroUsuario(form: UsuarioI): Observable<AuthResponseI> {
@@ -57,9 +68,9 @@ export class AuthService {
   }
 
   validarToken(): Observable<boolean> {
-    const url = `${ this.baseUrl }/auth/renew`;
+    const url = `${ this.baseUrl }/auth-postulante/renew-token`;
     const headers = new HttpHeaders()
-      .set('x-token', localStorage.getItem('token') || '' );
+      .set('x-token', [localStorage.getItem('token'),this._usuario.email] || '' );
 
     return this.http.get<AuthResponseI>( url, { headers } )
       .pipe(

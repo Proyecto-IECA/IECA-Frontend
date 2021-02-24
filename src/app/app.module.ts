@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeadbarComponent } from './shared/headbar/headbar.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PagesRoutingModule } from './pages/pages-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +18,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     AuthComponent,
     SocialMediaComponent,
     SidebarComponent,
-    HeadbarComponent,
-    DashboardComponent,
+    HeadbarComponent
   ],
   imports: [
     BrowserModule,
@@ -27,9 +26,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot([
-    { path: 'dashboard', component: DashboardComponent }
-    ])
+    PagesRoutingModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

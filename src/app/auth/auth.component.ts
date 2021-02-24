@@ -123,6 +123,7 @@ export class AuthComponent implements OnInit {
     /* Asigna los valores del formualrio en una variable llamada data */
     const data = loginForm.value;
 
+
     /* Dirigir el tipo de servicio a solicitar */
     if (loginForm.value.type === 'u') {
       /* Servicio de LOGIN para USUARIO */
@@ -135,7 +136,7 @@ export class AuthComponent implements OnInit {
           }
 
           loginForm.reset();
-          return; // Cambiar por this.route.navigateByUrl('/dashboard')
+          this.router.navigateByUrl('/dashboard');
         }
         console.log('Loging Usuario Fallido');
         return;
@@ -154,7 +155,7 @@ export class AuthComponent implements OnInit {
           }
 
           loginForm.reset();
-          return; // Cambiar por this.route.navigateByUrl('/dashboard')
+          this.router.navigateByUrl('/dashboard');
         }
         console.log('Loging Empresa Fallido');
         return;
