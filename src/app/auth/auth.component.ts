@@ -131,12 +131,15 @@ export class AuthComponent implements OnInit {
         if (postulante.status) {
           console.log(postulante); // Borrar
           /* If rememberMe TRUE or False */
+          this.authService.email = data.email;
           if (loginForm.value.rememberMe) {
             localStorage.setItem('email', data.email);
           }
-
+          localStorage.setItem('x-token', postulante.token);
+  
           loginForm.reset();
           this.router.navigateByUrl('/dashboard');
+          return;
         }
         console.log('Loging Usuario Fallido');
         return;
@@ -178,6 +181,7 @@ export class AuthComponent implements OnInit {
       this.authService.registroUsuario(data).subscribe( postulante => {
         if (postulante.status) {
           console.log(postulante);
+          
           form.reset();
           return; // Cambiar por this.route.navigateByUrl('/dashboard')
         }
