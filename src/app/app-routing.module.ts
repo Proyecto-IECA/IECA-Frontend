@@ -5,11 +5,12 @@ import { PagesRoutingModule } from './pages/pages-routing.module';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
+  { path: '', pathMatch: 'full', redirectTo: '/auth' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true }),
+  imports: [
+    RouterModule.forRoot(routes, { useHash: true }),
     PagesRoutingModule
   ],
   exports: [RouterModule]

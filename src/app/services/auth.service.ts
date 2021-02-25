@@ -37,6 +37,7 @@ export class AuthService {
     localStorage.clear();
   }
 
+  public email ;
   loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
     const url  = `${ this.baseUrl }/auth-postulantes/login`;
     return this.http.post<AuthResponseI>(url, form);
@@ -58,6 +59,7 @@ export class AuthService {
   }
 
   validarToken(): Observable<boolean> {
+<<<<<<< HEAD
     const url = `${ this.baseUrl }/auth-postulantes/renew-token`;
     const token = localStorage.getItem('token') || '';
     
@@ -67,6 +69,16 @@ export class AuthService {
         'email': this.email
       }
      })
+=======
+    const url = `${ this.baseUrl }/auth-postulante/renew-token`;
+    const headers = new HttpHeaders(
+      {Authorization: ['token' + localStorage.getItem('token'), 'email' + this.email]}
+    );
+      /* .set('x-token', [localStorage.getItem('token')] || '' ); */
+      /* ({'x-token': localStorage.getItem('token')},{'email': this.email}); */
+
+    return this.http.get<AuthResponseI>( url, { headers } )
+>>>>>>> 36f7559ac32edc038b2bed72adb27d65cdd71a56
       .pipe(
         map( (resp) => {
           console.log(resp);
