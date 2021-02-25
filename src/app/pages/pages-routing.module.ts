@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { Routes, CanActivate, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { PagesComponent } from './pages.component';
+
 import { GuardGuard } from '../guards/guard.guard';
+
+import { PagesComponent } from './pages.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -13,15 +14,15 @@ export const routes: Routes = [
     /* canActivate: [GuardGuard], */
     children: [
       { path: 'dashboard', component: DashboardComponent }
-    ]
-  }
-]
+    ],
+  },
+];
 
 @NgModule({
-  declarations: [],
   imports: [
+    RouterModule.forChild(routes),
     CommonModule,
-    RouterModule.forChild(routes)
-  ]
+  ],
+  exports: [RouterModule],
 })
 export class PagesRoutingModule { }
