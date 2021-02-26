@@ -6,14 +6,16 @@ import { GuardGuard } from '../guards/guard.guard';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
-    /* canActivate: [GuardGuard], */
+   /*  canActivate: [GuardGuard], */
     children: [
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'profile', component: ProfileComponent }
     ],
   },
 ];
