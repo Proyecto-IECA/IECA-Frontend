@@ -7,12 +7,14 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
   declarations: [
     PagesComponent,
     DashboardComponent,
+    ProfileComponent,
   ],
   exports: [
     PagesComponent,
