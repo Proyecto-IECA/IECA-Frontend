@@ -18,7 +18,10 @@ export class AuthService {
   private baseUrl: string = environment.baseUrl;
   private _usuario!: UsuarioI;
   private _empresa!: EmpresaI;
-  userToken: string;
+
+  public email: string;
+  private token: string;
+  private refreshToken: string;
 
   get usuario(): UsuarioI {
     return { ...this._usuario };
@@ -29,14 +32,15 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient) {
-    this.userToken = '';
+    this.email = '';
+    this.token = '';
+    this.refreshToken = '';
   }
 
   logout(): void {
     localStorage.clear();
   }
 
-  public email ;
   loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
     const url  = `${ this.baseUrl }/auth-postulantes/login`;
     return this.http.post<AuthResponseI>(url, form);
@@ -55,6 +59,11 @@ export class AuthService {
   registroEmpresa(form: EmpresaI): Observable<AuthResponseI> {
     const url  = `${ this.baseUrl }/auth-empresas/register`;
     return this.http.post<AuthResponseI>(url, form);
+  }
+
+  validarEmail(email: string): Observable<AuthResponseI> {
+    const url = `${ this.baseUrl }/`; // Falta URL
+    return this.http.post<AuthResponseI>(url, email);
   }
 
   validarToken(): Observable<boolean> {

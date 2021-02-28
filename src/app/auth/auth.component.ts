@@ -9,6 +9,8 @@ import { AuthService } from '../services/auth.service';
 
 import { EmpresaI } from '../models/empresa';
 import { UsuarioI } from '../models/usuario';
+import { AuthResponseI } from '../models/auth-response';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -61,6 +63,56 @@ export class AuthComponent implements OnInit {
   /* Validar password (Sean iguales) */
   validarPassword(form: FormGroup): boolean {
     return form.hasError('noSonIguales') && this.controlNoValid(form, 'password');
+  }
+
+  /* Validar Email para recuperar la contraseña */
+  validateEmail(email: string): void {
+    this.authService.validarEmail(email).subscribe(value => {
+      Swal.close();
+      /* Si la respuesta es correcta */
+      if (value.status) {
+        const data = value.data; // Mandar data al componente
+        Swal.close();
+        this.router.navigate(['/forgetPassword']);
+      }
+      /* Mensaje de error, preguntar si quiere intentarlo de nuevo */
+      Swal.fire({
+        title: 'No encotramos tu correo electrónico',
+        text: '¿Quieres volver a intentar?',
+        icon: 'question',
+        showCancelButton: true,
+        cancelButtonText: 'No, gracias!',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, por favor!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.recoverPassword();
+        }
+      });
+    },
+      error => {
+      /* Mensaje de error si el servidor no recibe las peticiones */
+      this.errorServer();
+    });
+  }
+
+  errorServer(): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+    Swal.fire({
+      icon: 'error',
+      title: 'Petición NO procesada',
+      text: `Vuelve a intentar de nuevo...
+      Si el error persiste ponerse en contacto con soporte técnico`,
+    });
+  }
+
+  errorMassage(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Datos incorrectos',
+      text: 'Vuelve a intentar de nuevo...',
+      footer: '<a (click)="recoverPassword()" href>¿Olvidaste la contraseña?</a>'
+    });
   }
 
   //  ---------- FORMULARIOS ---------- //
@@ -117,6 +169,8 @@ export class AuthComponent implements OnInit {
   login(loginForm: FormGroup): void {
     /* Validar formulario */
     if (this.formularioNoValido(loginForm)) {
+      /* Mensaje de error en Sweetalert2 */
+      this.errorMassage();
       return;
     }
 
@@ -127,10 +181,11 @@ export class AuthComponent implements OnInit {
     /* Dirigir el tipo de servicio a solicitar */
     if (loginForm.value.type === 'u') {
       /* Servicio de LOGIN para USUARIO */
-      this.authService.loginUsuario(data).subscribe(postulante => {
+      this.authService.loginUsuario(data).subscribe(
+        postulante => {
         if (postulante.status) {
           console.log(postulante); // Borrar
-          this.authService.email=data.email;
+          this.authService.email = data.email;
           /* If rememberMe TRUE or False */
           if (loginForm.value.rememberMe) {
             localStorage.setItem('email', data.email);
@@ -139,15 +194,22 @@ export class AuthComponent implements OnInit {
           loginForm.reset();
           this.router.navigateByUrl('/dashboard');
         }
+        /* Mensaje de error en Sweetalert2 */
+        this.errorMassage();
         console.log('Loging Usuario Fallido');
         return;
-      });
+      },
+        error => {
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          this.errorServer();
+        });
       loginForm.reset();
       return;
     }
     if (loginForm.value.type === 'e') {
       /* Servicio de LOGIN para EMPRESA */
-      this.authService.loginEmpresa(data).subscribe(empresa => {
+      this.authService.loginEmpresa(data).subscribe(
+        empresa => {
         if (empresa.status) {
           console.log(empresa); // Borrar
           /* If rememberMe TRUE or False */
@@ -158,9 +220,15 @@ export class AuthComponent implements OnInit {
           loginForm.reset();
           this.router.navigateByUrl('/dashboard');
         }
+        /* Mensaje de error en Sweetalert2 */
+        this.errorMassage();
         console.log('Loging Empresa Fallido');
         return;
-      });
+      },
+        error => {
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          this.errorServer();
+        });
     }
   }
 
@@ -171,33 +239,71 @@ export class AuthComponent implements OnInit {
 
     /* Validar formulario */
     if (this.formularioNoValido(data)) {
+      /* Mensaje de error en Sweetalert2 */
+      this.errorMassage();
       return;
     }
     /* Dirigir el tipo de servicio a solicitar */
     if (this.type === 'u') {
       /* Servicio de REGISTRO para USUARIO */
-      this.authService.registroUsuario(data).subscribe( postulante => {
+      this.authService.registroUsuario(data).subscribe(
+        postulante => {
         if (postulante.status) {
           console.log(postulante);
           form.reset();
           return; // Cambiar por this.route.navigateByUrl('/dashboard')
         }
+        /* Mensaje de error en Sweetalert2 */
+        this.errorMassage();
         console.log('Registro Usuario Fallido');
         return;
-      });
+      },
+        error => {
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          this.errorServer();
+        });
     }
     if (this.type === 'e') {
       // Servicio de REGISTRO para EMPRESA
-      this.authService.registroEmpresa(data).subscribe(empresa => {
+      this.authService.registroEmpresa(data).subscribe(
+        empresa => {
         if (empresa.status) {
           console.log(empresa);
           form.reset();
-          return; // Cambiar por this.route.navigateByUrl('/dashboard')
+          this.router.navigateByUrl('/dashboard');
         }
+        /* Mensaje de error en Sweetalert2 */
+        this.errorMassage();
         console.log('Registro Empresa Fallido');
         return;
-      });
+      },
+        error => {
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          this.errorServer();
+        });
     }
+  }
+
+  // Recuperar contraseña
+  recoverPassword(): void {
+    Swal.fire({
+      title: '¿Olvidaste tu contraseña?',
+      text: 'Escribe tu correo electrónico',
+      input: 'email',
+      inputPlaceholder: 'ejemplo@swal.com',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Validar',
+      showLoaderOnConfirm: true,
+      preConfirm: (email) => {
+        /* Validamos el correo ingresado */
+        Swal.showLoading();
+        this.validateEmail(email);
+      }
+    });
   }
 
 }

@@ -1,0 +1,22 @@
+<div *ngIf="!usuario.email_validado" class="alert alert-danger mt-3" role="alert">
+  <h4 class="alert-heading text-center">Correo por validar</h4>
+  <div class="text-center">
+    <i class="mb-3  fa fa-exclamation-triangle fa-4x"></i>
+    <p class="text-break">
+      Por favor válida tu correo para ingresar.
+    </p>
+    <p>
+      Si aún no te a llegado el correo por favor da click <a class="subtitle fs-3"  [routerLink]="['/perfil']">Aquí</a>
+    </p>
+  </div>
+</div>
+
+<div *ngIf="usuario.email_validado" class="alert alert-primary text-center mt-3" role="alert">
+  <h4 class="alert-heading text-center">Correo validado</h4>
+  <div class="text-center">
+    <i class="mb-3  fa fa-check fa-4x"></i>
+  </div>
+  <p class="text-break">
+    Puedes ingresar a tu perfil dandole click <a class="subtitle fs-3"  [routerLink]="['/perfil']">Aquí</a>
+  </p>
+</div>
