@@ -66,35 +66,35 @@ export class AuthComponent implements OnInit {
   /* Validar Email para recuperar la contraseña */
   validateEmail(email: string): void {
     this.authService.validarEmail(email).subscribe(value => {
-      Swal.close();
-      /* Si la respuesta es correcta */
-      if (value.status) {
-        const data = value.data; // Mandar data al componente
         Swal.close();
-        this.router.navigate(['/forgetPassword']);
-      }
-      /* Mensaje de error, preguntar si quiere intentarlo de nuevo */
-      Swal.fire({
-        title: 'No encotramos tu correo electrónico',
-        text: '¿Quieres volver a intentar?',
-        icon: 'question',
-        showCancelButton: true,
-        cancelButtonText: 'No, gracias!',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, por favor!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.recoverPassword();
+        /* Si la respuesta es correcta */
+        if (value.status) {
+          this.emailEnviado();
+          return;
         }
-      });
-    },
+        /* Mensaje de error, preguntar si quiere intentarlo de nuevo */
+        Swal.fire({
+          title: 'No encotramos tu correo electrónico',
+          text: '¿Quieres volver a intentar?',
+          icon: 'question',
+          showCancelButton: true,
+          cancelButtonText: 'No, gracias!',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, por favor!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.recoverPassword();
+          }
+        });
+      },
       error => {
-      /* Mensaje de error si el servidor no recibe las peticiones */
-      this.errorServer();
-    });
+        /* Mensaje de error si el servidor no recibe las peticiones */
+        this.errorServer();
+      });
   }
 
+  //  ---------- MENSAJES ---------- //
   errorServer(): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: 'error',
@@ -113,13 +113,23 @@ export class AuthComponent implements OnInit {
     });
   }
 
+  emailEnviado(): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Correo enviado',
+      text: 'Favor de revisar su bandeja de entrada o spam',
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+
   //  ---------- FORMULARIOS ---------- //
   /* Formulario LOGIN */
   loginCreateForm(): void {
     this.loginForm = this.formB.group({
-      email: [ localStorage.getItem('email') || '', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
+      email: [localStorage.getItem('email') || '', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
       pass: [, [Validators.required, Validators.minLength(6)]],
-      type: [ , Validators.required],
+      type: [, Validators.required],
       rememberMe: false
     });
   }
@@ -127,15 +137,15 @@ export class AuthComponent implements OnInit {
   /* Formulario REGISTRO para USUARIO */
   registerUsuarioCreateForm(): void {
     this.registerUsuarioForm = this.formB.group({
-      nombre: [, [Validators.required, Validators.minLength(3)]],
-      apellido_paterno: [, [Validators.required, Validators.minLength(3)]],
-      apellido_materno: [, [Validators.required, Validators.minLength(3)]],
-      email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
-      pass: [, [Validators.required, Validators.minLength(6)]],
-      password: [, [Validators.required]],
-      sexo: [, Validators.required],
-      fecha_nacimiento: [, Validators.required],
-    },
+        nombre: [, [Validators.required, Validators.minLength(3)]],
+        apellido_paterno: [, [Validators.required, Validators.minLength(3)]],
+        apellido_materno: [, [Validators.required, Validators.minLength(3)]],
+        email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
+        pass: [, [Validators.required, Validators.minLength(6)]],
+        password: [, [Validators.required]],
+        sexo: [, Validators.required],
+        fecha_nacimiento: [, Validators.required],
+      },
       {
         validators: [this.validators.ValidarPassword('pass', 'password')],
       });
@@ -144,14 +154,14 @@ export class AuthComponent implements OnInit {
   /* Formulario REGISTRO para EMPRESA */
   registerEmpresaCreateForm(): void {
     this.registerEmpresaForm = this.formB.group({
-      nombre: [, [Validators.required, Validators.minLength(3)]],
-      administrador: [, [Validators.required, Validators.minLength(3)]],
-      giro: [, Validators.required],
-      ubicacion: [, [Validators.required, Validators.minLength(5)]],
-      email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
-      pass: [, [Validators.required, Validators.minLength(6)]],
-      password: [, [Validators.required]],
-    },
+        nombre: [, [Validators.required, Validators.minLength(3)]],
+        administrador: [, [Validators.required, Validators.minLength(3)]],
+        giro: [, Validators.required],
+        ubicacion: [, [Validators.required, Validators.minLength(5)]],
+        email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
+        pass: [, [Validators.required, Validators.minLength(6)]],
+        password: [, [Validators.required]],
+      },
       {
         validators: [this.validators.ValidarPassword('pass', 'password')],
       });
@@ -180,19 +190,19 @@ export class AuthComponent implements OnInit {
       /* Servicio de LOGIN para USUARIO */
       this.authService.loginUsuario(data).subscribe(
         postulante => {
-        if (postulante.status) {
-          this.authService.email = data.email;
+          console.log(postulante);
+          if (!postulante.status) {
+            /* Mensaje de error en Sweetalert2 */
+            this.errorMassage();
+            return;
+          }
           /* If rememberMe TRUE or False */
           if (loginForm.value.rememberMe) {
             localStorage.setItem('email', data.email);
           }
-
           loginForm.reset();
           this.router.navigateByUrl('/dashboard');
-        }
-        /* Mensaje de error en Sweetalert2 */
-        this.errorMassage();
-      },
+        },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer();
@@ -204,19 +214,19 @@ export class AuthComponent implements OnInit {
       /* Servicio de LOGIN para EMPRESA */
       this.authService.loginEmpresa(data).subscribe(
         empresa => {
-        if (empresa.status) {
-          /* If rememberMe TRUE or False */
-          if (loginForm.value.rememberMe) {
-            localStorage.setItem('email', data.email);
-          }
+          if (empresa.status) {
+            /* If rememberMe TRUE or False */
+            if (loginForm.value.rememberMe) {
+              localStorage.setItem('email', data.email);
+            }
 
-          loginForm.reset();
-          this.router.navigateByUrl('/dashboard');
-        }
-        /* Mensaje de error en Sweetalert2 */
-        this.errorMassage();
-        return;
-      },
+            loginForm.reset();
+            this.router.navigateByUrl('/dashboard');
+          }
+          /* Mensaje de error en Sweetalert2 */
+          this.errorMassage();
+          return;
+        },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer();
@@ -240,14 +250,15 @@ export class AuthComponent implements OnInit {
       /* Servicio de REGISTRO para USUARIO */
       this.authService.registroUsuario(data).subscribe(
         postulante => {
-        if (postulante.status) {
-          form.reset();
-          return; // Cambiar por this.route.navigateByUrl('/dashboard')
-        }
-        /* Mensaje de error en Sweetalert2 */
-        this.errorMassage();
-        return;
-      },
+          if (postulante.status) {
+            form.reset();
+            this.emailEnviado();
+            return;
+          }
+          /* Mensaje de error en Sweetalert2 */
+          this.errorMassage();
+          return;
+        },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer();
@@ -257,14 +268,15 @@ export class AuthComponent implements OnInit {
       // Servicio de REGISTRO para EMPRESA
       this.authService.registroEmpresa(data).subscribe(
         empresa => {
-        if (empresa.status) {
-          form.reset();
-          this.router.navigateByUrl('/dashboard');
-        }
-        /* Mensaje de error en Sweetalert2 */
-        this.errorMassage();
-        return;
-      },
+          if (empresa.status) {
+            form.reset();
+            this.emailEnviado();
+            return;
+          }
+          /* Mensaje de error en Sweetalert2 */
+          this.errorMassage();
+          return;
+        },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer();

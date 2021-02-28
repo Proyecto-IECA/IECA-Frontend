@@ -19,7 +19,7 @@ export class AuthService {
   private _usuario!: UsuarioI;
   private _empresa!: EmpresaI;
 
-  public email: string;
+  private email: string;
   private token: string;
   private refreshToken: string;
 
@@ -37,23 +37,69 @@ export class AuthService {
     this.refreshToken = '';
   }
 
+  //  ---------- QUERY ---------- //
+  private postQuery(tipo: string, accion: string, body: UsuarioI | EmpresaI | string): Observable<AuthResponseI> {
+    // Declaracion de los headers
+    /*const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('x-token', this.token);
+    headers.append('email', this.email);*/
+
+    // Variable para la assignation de la URL completo
+    const url  = `${ this.baseUrl }/${tipo}/${accion}`;
+
+    // Petition http con la URL completa agregando los headers
+    return this.http.post<AuthResponseI>(url, body)
+      .pipe(
+        map(response => {
+          this.email = response.data.email;
+          this.token = response.token;
+          this.refreshToken = response.refreshToken;
+          return response;
+        })
+      );
+  }
+
+  private getQuery(tipo: string, accion: string): any {
+    // Variable para la assignation de la URL completo
+    const url  = `${ this.baseUrl }/${tipo}/${accion}`;
+
+    // Petition http con la URL completa agregando los headers
+    return this.http.get<AuthResponseI>(url);
+  }
+
+  //  ---------- MÉTODOS GENERALES ---------- //
   logout(): void {
     localStorage.clear();
   }
 
+  validarEmail(email: string): Observable<AuthResponseI> {
+    return this.postQuery('auth-postulantes', 'send-email-password', email);
+  }
+
+  nuevoPassword(form: UsuarioI): Observable<AuthResponseI> {
+    const body = {
+      email: this.email,
+      pass: form.pass,
+    };
+
+    // Variable para la assignation de la URL completa
+    const url  = `${ this.baseUrl }/auth-postulantes/renew-pass`;
+    return this.http.put<AuthResponseI>(url, body, {  });
+  }
+
+  //  ---------- ASPIRANTE | USUARIO | POSTULANTE ---------- //
   loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
-    const url  = `${ this.baseUrl }/auth-postulantes/login`;
-    return this.http.post<AuthResponseI>(url, form);
+    return this.postQuery('auth-postulantes', 'login', form);
   }
 
   registroUsuario(form: UsuarioI): Observable<AuthResponseI> {
-    const url  = `${ this.baseUrl }/auth-postulantes/register`;
-    return this.http.post<AuthResponseI>(url, form);
+    return this.postQuery('auth-postulantes', 'register', form);
   }
 
+  //  ---------- EMPRESA ---------- //
   loginEmpresa(form: EmpresaI): Observable<AuthResponseI> {
-    const url  = `${ this.baseUrl }/auth-empresas/login`;
-    return this.http.post<AuthResponseI>(url, form);
+    return this.postQuery('auth-empresas', 'login', form);
   }
 
   registroEmpresa(form: EmpresaI): Observable<AuthResponseI> {
@@ -61,18 +107,14 @@ export class AuthService {
     return this.http.post<AuthResponseI>(url, form);
   }
 
-  validarEmail(email: string): Observable<AuthResponseI> {
-    const url = `${ this.baseUrl }/`; // Falta URL
-    return this.http.post<AuthResponseI>(url, email);
-  }
-
   validarToken(): Observable<boolean> {
-    const url = `${ this.baseUrl }/auth-postulante/renew-token`;
-    const headers = new HttpHeaders(
+    const url = `${ this.baseUrl }/auth-postulantes/renew-token`;
+    const headers = new HttpHeaders();
+    headers.append('x-token', this.token);
+    headers.append('email', this.email);
+    /*const headers = new HttpHeaders(
       {Authorization: ['token' + localStorage.getItem('token'), 'email' + this.email]}
-    );
-      /* .set('x-token', [localStorage.getItem('token')] || '' ); */
-      /* ({'x-token': localStorage.getItem('token')},{'email': this.email}); */
+    );*/
 
     return this.http.get<AuthResponseI>( url, { headers } )
       .pipe(
