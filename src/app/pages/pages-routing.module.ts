@@ -12,7 +12,7 @@ export const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
-   /*  canActivate: [GuardGuard], */
+    canActivate: [GuardGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent }

@@ -9,8 +9,6 @@ import { AuthService } from '../services/auth.service';
 
 import { EmpresaI } from '../models/empresa';
 import { UsuarioI } from '../models/usuario';
-import { AuthResponseI } from '../models/auth-response';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -171,7 +169,6 @@ export class AuthComponent implements OnInit {
     if (this.formularioNoValido(loginForm)) {
       /* Mensaje de error en Sweetalert2 */
       this.errorMassage();
-      return;
     }
 
     /* Asigna los valores del formualrio en una variable llamada data */
@@ -184,7 +181,6 @@ export class AuthComponent implements OnInit {
       this.authService.loginUsuario(data).subscribe(
         postulante => {
         if (postulante.status) {
-          console.log(postulante); // Borrar
           this.authService.email = data.email;
           /* If rememberMe TRUE or False */
           if (loginForm.value.rememberMe) {
@@ -196,8 +192,6 @@ export class AuthComponent implements OnInit {
         }
         /* Mensaje de error en Sweetalert2 */
         this.errorMassage();
-        console.log('Loging Usuario Fallido');
-        return;
       },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
@@ -211,7 +205,6 @@ export class AuthComponent implements OnInit {
       this.authService.loginEmpresa(data).subscribe(
         empresa => {
         if (empresa.status) {
-          console.log(empresa); // Borrar
           /* If rememberMe TRUE or False */
           if (loginForm.value.rememberMe) {
             localStorage.setItem('email', data.email);
@@ -222,7 +215,6 @@ export class AuthComponent implements OnInit {
         }
         /* Mensaje de error en Sweetalert2 */
         this.errorMassage();
-        console.log('Loging Empresa Fallido');
         return;
       },
         error => {
@@ -249,13 +241,11 @@ export class AuthComponent implements OnInit {
       this.authService.registroUsuario(data).subscribe(
         postulante => {
         if (postulante.status) {
-          console.log(postulante);
           form.reset();
           return; // Cambiar por this.route.navigateByUrl('/dashboard')
         }
         /* Mensaje de error en Sweetalert2 */
         this.errorMassage();
-        console.log('Registro Usuario Fallido');
         return;
       },
         error => {
@@ -268,13 +258,11 @@ export class AuthComponent implements OnInit {
       this.authService.registroEmpresa(data).subscribe(
         empresa => {
         if (empresa.status) {
-          console.log(empresa);
           form.reset();
           this.router.navigateByUrl('/dashboard');
         }
         /* Mensaje de error en Sweetalert2 */
         this.errorMassage();
-        console.log('Registro Empresa Fallido');
         return;
       },
         error => {
