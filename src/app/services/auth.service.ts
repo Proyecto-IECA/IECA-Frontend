@@ -60,12 +60,28 @@ export class AuthService {
       );
   }
 
-  private getQuery(tipo: string, accion: string): any {
+  private getQuery(tipo: string, accion: string, token?: string): any {
+    if (token) {
+      this.token = token;
+    }
+    // Declaracion de los headers
+    /*const headers = new HttpHeaders();
+    headers.append('x-token', this.token);*/
+
     // Variable para la assignation de la URL completo
     const url  = `${ this.baseUrl }/${tipo}/${accion}`;
 
     // Petition http con la URL completa agregando los headers
-    return this.http.get<AuthResponseI>(url);
+    return this.http.get<AuthResponseI>(url, { headers: { 'x-token': this.token } })
+      .pipe(
+        map((response) => {
+          console.log(response);
+          this.email = response.data.email;
+          this.token = response.token;
+          this.refreshToken = response.refreshToken;
+          return response;
+        })
+      );
   }
 
   //  ---------- MÉTODOS GENERALES ---------- //
@@ -73,8 +89,8 @@ export class AuthService {
     localStorage.clear();
   }
 
-  validarEmail(email: string): Observable<AuthResponseI> {
-    return this.postQuery('auth-postulantes', 'send-email-password', email);
+  verificarEmail(email: string): Observable<AuthResponseI> {
+    return this.postQuery('auth', 'send-email-password', email);
   }
 
   nuevoPassword(form: UsuarioI): Observable<AuthResponseI> {
@@ -86,25 +102,6 @@ export class AuthService {
     // Variable para la assignation de la URL completa
     const url  = `${ this.baseUrl }/auth-postulantes/renew-pass`;
     return this.http.put<AuthResponseI>(url, body, {  });
-  }
-
-  //  ---------- ASPIRANTE | USUARIO | POSTULANTE ---------- //
-  loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
-    return this.postQuery('auth-postulantes', 'login', form);
-  }
-
-  registroUsuario(form: UsuarioI): Observable<AuthResponseI> {
-    return this.postQuery('auth-postulantes', 'register', form);
-  }
-
-  //  ---------- EMPRESA ---------- //
-  loginEmpresa(form: EmpresaI): Observable<AuthResponseI> {
-    return this.postQuery('auth-empresas', 'login', form);
-  }
-
-  registroEmpresa(form: EmpresaI): Observable<AuthResponseI> {
-    const url  = `${ this.baseUrl }/auth-empresas/register`;
-    return this.http.post<AuthResponseI>(url, form);
   }
 
   validarToken(): Observable<boolean> {
@@ -125,6 +122,33 @@ export class AuthService {
         }),
         catchError( err => of(false) )
       );
+  }
+
+  //  ---------- ASPIRANTE | USUARIO | POSTULANTE ---------- //
+  loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
+    return this.postQuery('auth-postulantes', 'login', form);
+  }
+
+  registroUsuario(form: UsuarioI): Observable<AuthResponseI> {
+    return this.postQuery('auth-postulantes', 'register', form);
+  }
+
+  validarEmailUsuario(token: string): Observable<AuthResponseI> {
+    return this.getQuery('auth-postulantes', 'valid-email', token);
+  }
+
+  //  ---------- EMPRESA ---------- //
+  loginEmpresa(form: EmpresaI): Observable<AuthResponseI> {
+    return this.postQuery('auth-empresas', 'login', form);
+  }
+
+  registroEmpresa(form: EmpresaI): Observable<AuthResponseI> {
+    const url  = `${ this.baseUrl }/auth-empresas/register`;
+    return this.http.post<AuthResponseI>(url, form);
+  }
+
+  validarEmailEmpresa(token: string): Observable<AuthResponseI> {
+    return this.getQuery('auth-empresas', 'valid-email', token);
   }
 
 }

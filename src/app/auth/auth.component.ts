@@ -65,7 +65,7 @@ export class AuthComponent implements OnInit {
 
   /* Validar Email para recuperar la contraseña */
   validateEmail(email: string): void {
-    this.authService.validarEmail(email).subscribe(value => {
+    this.authService.verificarEmail(email).subscribe(value => {
         Swal.close();
         /* Si la respuesta es correcta */
         if (value.status) {
