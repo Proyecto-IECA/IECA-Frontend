@@ -91,16 +91,8 @@ export class ForgetPasswordComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.tipo = Number(params.tipo);
       this.token = params.token;
-      console.log(this.tipo);
+      console.log('Tipo: ', this.tipo);
       console.log(this.token);
-      if (this.tipo === 1) {
-        console.log('Tipo: ', this.tipo);
-        // this.validarEmailPostulante();
-      }
-      if (this.tipo === 2) {
-        console.log('Tipo: ', this.tipo);
-        // this.validarEmailEmpresa();
-      }
     });
   }
 
@@ -117,13 +109,21 @@ export class ForgetPasswordComponent implements OnInit {
 
   /* Metodo para recuperar contraseña */
   forgetPassword(form: FormGroup): void {
-    /*if (this.formularioNoValido(form)) {
-      /!* Mensaje de error en Sweetalert2 *!/
-      this.errorMassage();
-    }*/
+
 
     // Extraer los valores del formulario
     const data = form.value;
+    console.log(data);
+
+    if (data.pass !== data.password) {
+      /* Mensaje de error en Sweetalert2 */
+      Swal.fire({
+        icon: 'error',
+        title: 'Error en contraseñas',
+        text: 'Las contraseñas no son iguales'
+      });
+      return;
+    }
 
     console.log('Tipo: ', this.tipo);
     // Distribuye el flujo para saber si es Postulante o Empresa
@@ -131,7 +131,6 @@ export class ForgetPasswordComponent implements OnInit {
       // Utilizar el servicio de Auth para recuperar contraseña
       this.authService.renewPasswordUsuario(data, this.token).subscribe(
         postulante => {
-          console.log(postulante);
           if (!postulante.status) {
             /* Mensaje de error en Sweetalert2 */
             this.errorMassage(postulante.message);
