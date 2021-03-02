@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
     PagesComponent,
     DashboardComponent,
     ProfileComponent,
+    EditProfileComponent,
   ],
   exports: [
     PagesComponent,
