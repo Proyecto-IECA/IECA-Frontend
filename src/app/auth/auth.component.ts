@@ -18,8 +18,9 @@ import { UsuarioI } from '../models/usuario';
 export class AuthComponent implements OnInit {
 
   //  ---------- OBJETOS ---------- //
-  usuario: UsuarioI;
-  empresa: EmpresaI;
+  /*usuario: UsuarioI;
+  empresa: EmpresaI;*/
+  data: UsuarioI | EmpresaI;
 
   //  ---------- VARIABLES ---------- //
   register = false; // (Siempre en falso) Cambia la vista entre el login y el register
@@ -68,40 +69,42 @@ export class AuthComponent implements OnInit {
     this.authService.verificarEmail(email).subscribe(value => {
         Swal.close();
         /* Si la respuesta es correcta */
-        if (value.status) {
-          this.emailEnviado();
+        if (!value.status) {
+          /* Mensaje de error, preguntar si quiere intentarlo de nuevo */
+          Swal.fire({
+            title: 'No encotramos tu correo electrónico',
+            text: '¿Quieres volver a intentar?',
+            icon: 'question',
+            showCancelButton: true,
+            cancelButtonText: 'No, gracias!',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, por favor!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.recoverPassword();
+            }
+          });
           return;
         }
-        /* Mensaje de error, preguntar si quiere intentarlo de nuevo */
-        Swal.fire({
-          title: 'No encotramos tu correo electrónico',
-          text: '¿Quieres volver a intentar?',
-          icon: 'question',
-          showCancelButton: true,
-          cancelButtonText: 'No, gracias!',
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, por favor!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.recoverPassword();
-          }
-        });
+        this.emailEnviado();
+        return;
       },
       error => {
         /* Mensaje de error si el servidor no recibe las peticiones */
-        this.errorServer();
+        this.errorServer(error);
       });
   }
 
   //  ---------- MENSAJES ---------- //
-  errorServer(): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+  errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: 'error',
       title: 'Petición NO procesada',
       text: `Vuelve a intentar de nuevo...
       Si el error persiste ponerse en contacto con soporte técnico`,
     });
+    console.log(error);
   }
 
   errorMassage(): void {
@@ -109,7 +112,7 @@ export class AuthComponent implements OnInit {
       icon: 'error',
       title: 'Datos incorrectos',
       text: 'Vuelve a intentar de nuevo...',
-      footer: '<a (click)="recoverPassword()" href>¿Olvidaste la contraseña?</a>'
+      footer: '<button type="button" class="btn" (click)="recoverPassword()" >¿Olvidaste la contraseña?</button>'
     });
   }
 
@@ -119,7 +122,7 @@ export class AuthComponent implements OnInit {
       title: 'Correo enviado',
       text: 'Favor de revisar su bandeja de entrada o spam',
       showConfirmButton: false,
-      timer: 1500
+      timer: 2700
     });
   }
 
@@ -190,7 +193,6 @@ export class AuthComponent implements OnInit {
       /* Servicio de LOGIN para USUARIO */
       this.authService.loginUsuario(data).subscribe(
         postulante => {
-          console.log(postulante);
           if (!postulante.status) {
             /* Mensaje de error en Sweetalert2 */
             this.errorMassage();
@@ -202,34 +204,36 @@ export class AuthComponent implements OnInit {
           }
           loginForm.reset();
           this.router.navigateByUrl('/dashboard');
-        },
-        error => {
-          /* Mensaje de error si el servidor no recibe las peticiones */
-          this.errorServer();
-        });
-      loginForm.reset();
-      return;
-    }
-    if (loginForm.value.type === 'e') {
-      /* Servicio de LOGIN para EMPRESA */
-      this.authService.loginEmpresa(data).subscribe(
-        empresa => {
-          if (empresa.status) {
-            /* If rememberMe TRUE or False */
-            if (loginForm.value.rememberMe) {
-              localStorage.setItem('email', data.email);
-            }
-
-            loginForm.reset();
-            this.router.navigateByUrl('/dashboard');
-          }
-          /* Mensaje de error en Sweetalert2 */
-          this.errorMassage();
           return;
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
-          this.errorServer();
+          this.errorServer(error);
+          console.log(error);
+        });
+    }
+
+    if (loginForm.value.type === 'e') {
+      /* Servicio de LOGIN para EMPRESA */
+      this.authService.loginEmpresa(data).subscribe(
+        empresa => {
+          if (!empresa.status) {
+            /* Mensaje de error en Sweetalert2 */
+            this.errorMassage();
+            return;
+          }
+          /* If rememberMe TRUE or False */
+          if (loginForm.value.rememberMe) {
+            localStorage.setItem('email', data.email);
+          }
+
+          loginForm.reset();
+          this.router.navigateByUrl('/dashboard');
+          return;
+        },
+        error => {
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          this.errorServer(error);
         });
     }
   }
@@ -245,41 +249,44 @@ export class AuthComponent implements OnInit {
       this.errorMassage();
       return;
     }
+
     /* Dirigir el tipo de servicio a solicitar */
     if (this.type === 'u') {
       /* Servicio de REGISTRO para USUARIO */
       this.authService.registroUsuario(data).subscribe(
         postulante => {
-          if (postulante.status) {
-            form.reset();
-            this.emailEnviado();
+          if (!postulante.status) {
+            /* Mensaje de error en Sweetalert2 */
+            this.errorMassage();
             return;
           }
-          /* Mensaje de error en Sweetalert2 */
-          this.errorMassage();
+          form.reset(); // Limpiar fomrulario
+          this.emailEnviado(); // Mendaje de ok
           return;
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
-          this.errorServer();
+          this.errorServer(error);
         });
     }
+
+    /* Dirigir el tipo de servicio a solicitar */
     if (this.type === 'e') {
       // Servicio de REGISTRO para EMPRESA
       this.authService.registroEmpresa(data).subscribe(
         empresa => {
-          if (empresa.status) {
-            form.reset();
-            this.emailEnviado();
+          if (!empresa.status) {
+            /* Mensaje de error en Sweetalert2 */
+            this.errorMassage();
             return;
           }
-          /* Mensaje de error en Sweetalert2 */
-          this.errorMassage();
+          form.reset(); // Limpiar fomrulario
+          this.emailEnviado(); // Mendaje de ok
           return;
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
-          this.errorServer();
+          this.errorServer(error);
         });
     }
   }

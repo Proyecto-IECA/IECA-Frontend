@@ -39,34 +39,31 @@ export class AuthService {
 
   //  ---------- QUERY ---------- //
   private postQuery(tipo: string, accion: string, body: UsuarioI | EmpresaI | string): Observable<AuthResponseI> {
-    // Declaracion de los headers
-    /*const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('x-token', this.token);
-    headers.append('email', this.email);*/
 
     // Variable para la assignation de la URL completo
     const url  = `${ this.baseUrl }/${tipo}/${accion}`;
 
     // Petition http con la URL completa agregando los headers
-    return this.http.post<AuthResponseI>(url, body)
+    return this.http.post<AuthResponseI>(url, body, { headers: { 'x-token' : this.token } })
       .pipe(
         map(response => {
-          this.email = response.data.email;
-          this.token = response.token;
-          this.refreshToken = response.refreshToken;
+          console.log(response);
+          if (response.data) {
+            this.email = response.data.email;
+            this.token = response.token;
+            this.refreshToken = response.refreshToken;
+          }
           return response;
         })
       );
   }
 
   private getQuery(tipo: string, accion: string, token?: string): any {
+
+    // Si recibimos el token de parametro lo asignamos a nuestro token
     if (token) {
       this.token = token;
     }
-    // Declaracion de los headers
-    /*const headers = new HttpHeaders();
-    headers.append('x-token', this.token);*/
 
     // Variable para la assignation de la URL completo
     const url  = `${ this.baseUrl }/${tipo}/${accion}`;
@@ -76,9 +73,36 @@ export class AuthService {
       .pipe(
         map((response) => {
           console.log(response);
-          this.email = response.data.email;
-          this.token = response.token;
-          this.refreshToken = response.refreshToken;
+          if (response.data) {
+            this.email = response.data.email;
+            this.token = response.token;
+            this.refreshToken = response.refreshToken;
+          }
+          return response;
+        })
+      );
+  }
+
+  private putQuery(tipo: string, accion: string, body: UsuarioI | EmpresaI, token: string): any {
+
+    // Si recibimos el token de parametro lo asignamos a nuestro token
+    if (token) {
+      this.token = token;
+    }
+
+    // Variable para la assignation de la URL completo
+    const url  = `${ this.baseUrl }/${tipo}/${accion}`;
+
+    // Petition http con la URL completa agregando los headers
+    return this.http.put<AuthResponseI>(url, body, { headers: { 'x-token': this.token } })
+      .pipe(
+        map((response) => {
+          console.log(response);
+          if (response.data) {
+            this.email = response.data.email;
+            this.token = response.token;
+            this.refreshToken = response.refreshToken;
+          }
           return response;
         })
       );
@@ -90,18 +114,13 @@ export class AuthService {
   }
 
   verificarEmail(email: string): Observable<AuthResponseI> {
-    return this.postQuery('auth', 'send-email-password', email);
-  }
 
-  nuevoPassword(form: UsuarioI): Observable<AuthResponseI> {
+    // Asignar el email a un cuerpo JSON
     const body = {
-      email: this.email,
-      pass: form.pass,
+      email
     };
 
-    // Variable para la assignation de la URL completa
-    const url  = `${ this.baseUrl }/auth-postulantes/renew-pass`;
-    return this.http.put<AuthResponseI>(url, body, {  });
+    return this.postQuery('auth', 'send-email-password', body);
   }
 
   validarToken(): Observable<boolean> {
@@ -137,6 +156,10 @@ export class AuthService {
     return this.getQuery('auth-postulantes', 'valid-email', token);
   }
 
+  renewPasswordUsuario(form: UsuarioI, token: string): Observable<AuthResponseI> {
+    return this.putQuery('auth-postulantes', 'renew-pass', form, token);
+  }
+
   //  ---------- EMPRESA ---------- //
   loginEmpresa(form: EmpresaI): Observable<AuthResponseI> {
     return this.postQuery('auth-empresas', 'login', form);
@@ -149,6 +172,10 @@ export class AuthService {
 
   validarEmailEmpresa(token: string): Observable<AuthResponseI> {
     return this.getQuery('auth-empresas', 'valid-email', token);
+  }
+
+  renewPasswordEmpresa(form: EmpresaI, token: string): Observable<AuthResponseI> {
+    return this.putQuery('auth-empresas', 'renew-pass', form, token);
   }
 
 }
