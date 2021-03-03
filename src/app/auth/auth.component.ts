@@ -116,6 +116,22 @@ export class AuthComponent implements OnInit {
     });
   }
 
+  errorMassageLogin(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Datos incorrectos',
+      text: 'Correo electrónico y/o contraseña incorrecto',
+      showCancelButton: true,
+      confirmButtonText: '¿Olvidaste la contraseña?',
+      cancelButtonText: 'Intentarlo de nuevo',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.recoverPassword();
+      }
+    });
+  }
+
   emailEnviado(): void {
     Swal.fire({
       icon: 'success',
@@ -195,7 +211,7 @@ export class AuthComponent implements OnInit {
         postulante => {
           if (!postulante.status) {
             /* Mensaje de error en Sweetalert2 */
-            this.errorMassage();
+            this.errorMassageLogin();
             return;
           }
           /* If rememberMe TRUE or False */
@@ -209,7 +225,6 @@ export class AuthComponent implements OnInit {
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer(error);
-          console.log(error);
         });
     }
 
@@ -219,7 +234,7 @@ export class AuthComponent implements OnInit {
         empresa => {
           if (!empresa.status) {
             /* Mensaje de error en Sweetalert2 */
-            this.errorMassage();
+            this.errorMassageLogin();
             return;
           }
           /* If rememberMe TRUE or False */
