@@ -18,15 +18,10 @@ export class AuthService {
   private baseUrl: string = environment.baseUrl;
   private _usuario!: UsuarioI;
   private _empresa!: EmpresaI;
-<<<<<<< HEAD
-  userToken: string;
-  public email;
-=======
 
   private email: string;
   private token: string;
   private refreshToken: string;
->>>>>>> main
 
   get usuario(): UsuarioI {
     return { ...this._usuario };
@@ -129,36 +124,18 @@ export class AuthService {
   }
 
   validarToken(): Observable<boolean> {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const url = `${ this.baseUrl }/auth-postulantes/renew-token`;
-    const token = localStorage.getItem('token') || '';
-    
-    return this.http.get<AuthResponseI>( url, { 
-      headers: {
-        'x-token': localStorage.getItem('x-token'),
-        'email': this.email
-      }
-     })
-=======
-    const url = `${ this.baseUrl }/auth-postulante/renew-token`;
-    const headers = new HttpHeaders(
-=======
     const url = `${ this.baseUrl }/auth-postulantes/renew-token`;
     const headers = new HttpHeaders();
     headers.append('x-token', this.token);
     headers.append('email', this.email);
     /*const headers = new HttpHeaders(
->>>>>>> main
       {Authorization: ['token' + localStorage.getItem('token'), 'email' + this.email]}
     );*/
 
     return this.http.get<AuthResponseI>( url, { headers } )
->>>>>>> 36f7559ac32edc038b2bed72adb27d65cdd71a56
       .pipe(
         map( (resp) => {
-          console.log(resp);
-          localStorage.setItem('x-token', resp.token!);
+          localStorage.setItem('token', resp.token!);
           localStorage.setItem('refreshToken', resp.refreshToken!);
           return resp.status;
         }),
