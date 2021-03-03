@@ -19,7 +19,7 @@ export class ValidatorsService {
         pass2Control.setErrors({ noSonIguales: true }); // Regresa un TRUE en enviar error
         return { noSonIguales: true };
       }
-      pass2Control.setErrors({ noSonIguales: false }); // Regresa un FALSE en enviar error
+      pass2Control.setErrors(null); // Regresa un FALSE en enviar error
       return { noSonIguales: false };
     };
   }
