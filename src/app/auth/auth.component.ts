@@ -214,6 +214,7 @@ export class AuthComponent implements OnInit {
             this.errorMassageLogin();
             return;
           }
+          /* If rememberMe TRUE or False */
           if (loginForm.value.rememberMe) {
             localStorage.setItem('email', data.email);
           }
