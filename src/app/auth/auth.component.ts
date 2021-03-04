@@ -214,24 +214,9 @@ export class AuthComponent implements OnInit {
             this.errorMassageLogin();
             return;
           }
-          /* If rememberMe TRUE or False */
-          this.authService.email = data.email;
           if (loginForm.value.rememberMe) {
             localStorage.setItem('email', data.email);
           }
-<<<<<<< HEAD
-          localStorage.setItem('x-token', postulante.token);
-  
-          loginForm.reset();
-          this.router.navigateByUrl('/dashboard');
-          return;
-        }
-        console.log('Loging Usuario Fallido');
-        return;
-      });
-      loginForm.reset();
-      return;
-=======
           loginForm.reset();
           this.router.navigateByUrl('/dashboard');
           return;
@@ -240,7 +225,6 @@ export class AuthComponent implements OnInit {
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer(error);
         });
->>>>>>> main
     }
 
     if (loginForm.value.type === 'e') {
@@ -283,18 +267,6 @@ export class AuthComponent implements OnInit {
     /* Dirigir el tipo de servicio a solicitar */
     if (this.type === 'u') {
       /* Servicio de REGISTRO para USUARIO */
-<<<<<<< HEAD
-      this.authService.registroUsuario(data).subscribe( postulante => {
-        if (postulante.status) {
-          console.log(postulante);
-          
-          form.reset();
-          return; // Cambiar por this.route.navigateByUrl('/dashboard')
-        }
-        console.log('Registro Usuario Fallido');
-        return;
-      });
-=======
       this.authService.registroUsuario(data).subscribe(
         postulante => {
           if (!postulante.status) {
@@ -310,7 +282,6 @@ export class AuthComponent implements OnInit {
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer(error);
         });
->>>>>>> main
     }
 
     /* Dirigir el tipo de servicio a solicitar */
