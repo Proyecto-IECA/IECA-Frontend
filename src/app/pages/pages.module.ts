@@ -14,7 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
   declarations: [
     PagesComponent,
     DashboardComponent,
-    ProfileComponent,
+    ProfileComponent
   ],
   exports: [
     PagesComponent,

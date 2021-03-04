@@ -110,7 +110,6 @@ export class ForgetPasswordComponent implements OnInit {
   /* Metodo para recuperar contraseña */
   forgetPassword(form: FormGroup): void {
 
-
     // Extraer los valores del formulario
     const data = form.value;
     console.log(data);
