@@ -13,24 +13,36 @@ export class GuardGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService,
               private router: Router) {  }
 
-  canActivate(): Observable<boolean> | boolean {
-    return this.authService.validarToken()
+  canActivate(route: ActivatedRouteSnapshot,
+              state: RouterStateSnapshot): Observable<boolean> | boolean {
+    console.log('Guardian canActivate');
+    // return this.authService.validarToken()
+    return this.authService.validarEmailValidado()
       .pipe(
-        tap(valid => {
+        tap((valid) => {
+          console.log(valid);
           if (!valid) {
-            this.router.navigateByUrl('/auth');
+            const tipo = localStorage.getItem('tipo');
+            const token = '0';
+            this.router.navigate(['/validarEmail', tipo, token]);
           }
+          return true;
         })
       );
   }
 
   canLoad(): Observable<boolean> | boolean {
+    console.log('Guardian canLoad');
+    // return this.authService.validarEmailValidado()
     return this.authService.validarToken()
       .pipe(
-        tap(valid => {
+        tap((valid) => {
           if (!valid) {
+            console.log(valid);
+            // this.router.navigateByUrl('/validarEmail');
             this.router.navigateByUrl('/auth');
           }
+          return true;
         })
       );
   }
