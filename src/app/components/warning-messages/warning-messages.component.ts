@@ -41,16 +41,14 @@ export class WarningMessagesComponent implements OnInit {
       icon: 'error',
       title: 'Datos incorrectos',
       text: 'Vuelve a intentarlo de nuevo...',
-      footer: '<a (click)="recoverPassword()">¿Olvidaste la contraseña?</a>'
     });
   }
 
   params(): void {
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe(
+      params => {
       this.tipo = Number(params.tipo);
       this.token = params.token;
-      console.log(this.tipo);
-      console.log(this.token);
       if (this.tipo === 1) {
         console.log('Tipo: ', this.tipo);
         this.validarEmailPostulante();
@@ -93,8 +91,11 @@ export class WarningMessagesComponent implements OnInit {
         this.email_validado = true;
         return;
       },
-      error => /* Mensaje de error si el servidor no recibe las peticiones */
-        this.errorServer()
+      error => {
+        /* Mensaje de error si el servidor no recibe las peticiones */
+        this.errorServer();
+        console.log(error);
+      }
     );
   }
 

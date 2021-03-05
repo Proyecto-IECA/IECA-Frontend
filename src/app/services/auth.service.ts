@@ -9,6 +9,7 @@ import { EmpresaI } from '../models/empresa';
 import { AuthResponseI } from '../models/auth-response';
 
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,42 +17,41 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   //  ---------- VARIABLES ---------- //
   private baseUrl: string = environment.baseUrl;
-  private _usuario!: UsuarioI;
-  private _empresa!: EmpresaI;
+  // tslint:disable-next-line:variable-name
+  private _usuario!: UsuarioI | EmpresaI;
 
   private email: string;
-  private token: string;
   private refreshToken: string;
 
   get usuario(): UsuarioI {
     return { ...this._usuario };
   }
 
-  get empresa(): EmpresaI {
-    return { ...this._empresa };
-  }
-
-  constructor(private http: HttpClient) {
-    this.email = '';
-    this.token = '';
-    this.refreshToken = '';
+  constructor(private http: HttpClient,
+              private router: Router) {
+    // this.tipo = 0; // Tipo = 1 = Postulante | tipo = 2 = Empresa
+    this.email = null;
+    this.refreshToken = null;
+    localStorage.setItem('tipo', '');
+    localStorage.setItem('token', '');
   }
 
   //  ---------- QUERY ---------- //
-  private postQuery(tipo: string, accion: string, body: UsuarioI | EmpresaI | string): Observable<AuthResponseI> {
+  private postQuery(tipo: string, accion: string, body: UsuarioI | EmpresaI | { email: string }): Observable<AuthResponseI> {
 
     // Variable para la assignation de la URL completo
     const url  = `${ this.baseUrl }/${tipo}/${accion}`;
 
     // Petition http con la URL completa agregando los headers
-    return this.http.post<AuthResponseI>(url, body, { headers: { 'x-token' : this.token } })
+    return this.http.post<AuthResponseI>(url, body, { headers: { 'x-token' : localStorage.getItem('token') } })
       .pipe(
         map(response => {
           console.log(response);
           if (response.data) {
+            localStorage.setItem('token', response.token);
             this.email = response.data.email;
-            this.token = response.token;
             this.refreshToken = response.refreshToken;
+            this._usuario = response.data;
           }
           return response;
         })
@@ -62,21 +62,27 @@ export class AuthService {
 
     // Si recibimos el token de parametro lo asignamos a nuestro token
     if (token) {
-      this.token = token;
+      localStorage.setItem('token', token);
     }
+
+    const headers = new HttpHeaders({
+      'x-token': localStorage.getItem('token'),
+      email: this.email
+    });
 
     // Variable para la assignation de la URL completo
     const url  = `${ this.baseUrl }/${tipo}/${accion}`;
 
     // Petition http con la URL completa agregando los headers
-    return this.http.get<AuthResponseI>(url, { headers: { 'x-token': this.token } })
+    return this.http.get<AuthResponseI>(url, { headers })
       .pipe(
         map((response) => {
           console.log(response);
           if (response.data) {
+            localStorage.setItem('token', token);
             this.email = response.data.email;
-            this.token = response.token;
             this.refreshToken = response.refreshToken;
+            this._usuario = response.data;
           }
           return response;
         })
@@ -87,25 +93,71 @@ export class AuthService {
 
     // Si recibimos el token de parametro lo asignamos a nuestro token
     if (token) {
-      this.token = token;
+      localStorage.setItem('token', token);
     }
 
     // Variable para la assignation de la URL completo
     const url  = `${ this.baseUrl }/${tipo}/${accion}`;
 
     // Petition http con la URL completa agregando los headers
-    return this.http.put<AuthResponseI>(url, body, { headers: { 'x-token': this.token } })
+    return this.http.put<AuthResponseI>(url, body, { headers: { 'x-token': localStorage.getItem('token') } })
       .pipe(
         map((response) => {
           console.log(response);
           if (response.data) {
+            localStorage.setItem('token', token);
             this.email = response.data.email;
-            this.token = response.token;
             this.refreshToken = response.refreshToken;
+            this._usuario = response.data;
           }
           return response;
         })
       );
+  }
+
+  //  ---------- VALIDADORES ---------- //
+  validarToken(): Observable<boolean> {
+    const tipo = localStorage.getItem('tipo');
+    if (tipo === '1') {
+      return this.getQuery('auth-postulantes', 'renew-token')
+        .pipe(
+          map((response: AuthResponseI) => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+              return false;
+            }
+            return true;
+          }));
+    }
+    if (tipo === '2') {
+      return this.getQuery('auth-empresas', 'renew-token')
+        .pipe(
+          map((response: AuthResponseI) => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+              return false;
+            }
+            return true;
+          }));
+    }
+
+    this.router.navigateByUrl('/auth');
+  }
+
+  validarEmailValidado(): Observable<boolean> {
+    const tipo = localStorage.getItem('tipo');
+    if (tipo === '1') {
+      return this.getQuery('auth-postulantes', 'renew-token')
+        .pipe(
+          map((response: AuthResponseI) => response.data.email_validado));
+    }
+    if (tipo === '2') {
+      return this.getQuery('auth-empresas', 'renew-token')
+        .pipe(
+          map((response: AuthResponseI) => response.data.email_validado));
+    }
+
+    this.router.navigateByUrl('/auth');
   }
 
   //  ---------- MÉTODOS GENERALES ---------- //
@@ -123,28 +175,9 @@ export class AuthService {
     return this.postQuery('auth', 'send-email-password', body);
   }
 
-  validarToken(): Observable<boolean> {
-    const url = `${ this.baseUrl }/auth-postulantes/renew-token`;
-    const headers = new HttpHeaders();
-    headers.append('x-token', this.token);
-    headers.append('email', this.email);
-    /*const headers = new HttpHeaders(
-      {Authorization: ['token' + localStorage.getItem('token'), 'email' + this.email]}
-    );*/
-
-    return this.http.get<AuthResponseI>( url, { headers } )
-      .pipe(
-        map( (resp) => {
-          localStorage.setItem('token', resp.token!);
-          localStorage.setItem('refreshToken', resp.refreshToken!);
-          return resp.status;
-        }),
-        catchError( err => of(false) )
-      );
-  }
-
   //  ---------- ASPIRANTE | USUARIO | POSTULANTE ---------- //
   loginUsuario(form: UsuarioI): Observable<AuthResponseI>  {
+    localStorage.setItem('tipo', '1');
     return this.postQuery('auth-postulantes', 'login', form);
   }
 
@@ -162,6 +195,7 @@ export class AuthService {
 
   //  ---------- EMPRESA ---------- //
   loginEmpresa(form: EmpresaI): Observable<AuthResponseI> {
+    localStorage.setItem('tipo', '2');
     return this.postQuery('auth-empresas', 'login', form);
   }
 

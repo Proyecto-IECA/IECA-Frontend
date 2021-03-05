@@ -112,7 +112,14 @@ export class AuthComponent implements OnInit {
       icon: 'error',
       title: 'Datos incorrectos',
       text: 'Vuelve a intentar de nuevo...',
-      footer: '<button type="button" class="btn" (click)="recoverPassword()" >¿Olvidaste la contraseña?</button>'
+      showCancelButton: true,
+      confirmButtonText: '¿Olvidaste la contraseña?',
+      cancelButtonText: 'Intentarlo de nuevo',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.recoverPassword();
+      }
     });
   }
 
@@ -202,7 +209,6 @@ export class AuthComponent implements OnInit {
 
     /* Asigna los valores del formualrio en una variable llamada data */
     const data = loginForm.value;
-
 
     /* Dirigir el tipo de servicio a solicitar */
     if (loginForm.value.type === 'u') {

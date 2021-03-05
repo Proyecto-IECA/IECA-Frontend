@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'validarEmail/:tipo/:token', component: WarningMessagesComponent },
   { path: 'forgetPassword/:tipo/:token', component: ForgetPasswordComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/auth' },
+  { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
 ];
 
 @NgModule({
