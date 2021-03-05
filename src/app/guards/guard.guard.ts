@@ -22,9 +22,7 @@ export class GuardGuard implements CanActivate, CanLoad {
         tap((valid) => {
           console.log(valid);
           if (!valid) {
-            const tipo = localStorage.getItem('tipo');
-            const token = '0';
-            this.router.navigate(['/validarEmail', tipo, token]);
+            this.router.navigateByUrl('/validarEmail');
           }
           return true;
         })

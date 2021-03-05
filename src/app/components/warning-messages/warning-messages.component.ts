@@ -49,21 +49,25 @@ export class WarningMessagesComponent implements OnInit {
       params => {
       this.tipo = Number(params.tipo);
       this.token = params.token;
-      if (this.tipo === 1) {
-        console.log('Tipo: ', this.tipo);
-        this.validarEmailPostulante();
-      }
-      if (this.tipo === 2) {
-        console.log('Tipo: ', this.tipo);
-        this.validarEmailEmpresa();
-      }
+      this.tipoPeticion();
     });
+  }
+
+  tipoPeticion(): void {
+    if (this.tipo === 1) {
+      console.log('Tipo: ', this.tipo);
+      this.validarEmailPostulante();
+    }
+    if (this.tipo === 2) {
+      console.log('Tipo: ', this.tipo);
+      this.validarEmailEmpresa();
+    }
+    // Peticion mamalona para reenviar el correo de validacion
   }
 
   validarEmailPostulante(): void {
       this.authService.validarEmailUsuario(this.token).subscribe(
         postulante => {
-          console.log(postulante);
           if (!postulante.status) {
             /* Mensaje de error en Sweetalert2 */
             this.errorMassage();
@@ -83,7 +87,6 @@ export class WarningMessagesComponent implements OnInit {
   validarEmailEmpresa(): void {
     this.authService.validarEmailEmpresa(this.token).subscribe(
       empresa => {
-        console.log(empresa);
         if (!empresa.status) {
           /* Mensaje de error en Sweetalert2 */
           this.errorMassage();

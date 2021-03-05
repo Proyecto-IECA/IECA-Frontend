@@ -30,8 +30,8 @@ export class AuthService {
   constructor(private http: HttpClient,
               private router: Router) {
     // this.tipo = 0; // Tipo = 1 = Postulante | tipo = 2 = Empresa
-    this.email = null;
-    this.refreshToken = null;
+    this.email = '';
+    this.refreshToken = '';
     localStorage.setItem('tipo', '');
     localStorage.setItem('token', '');
   }
@@ -121,7 +121,7 @@ export class AuthService {
     if (tipo === '1') {
       return this.getQuery('auth-postulantes', 'renew-token')
         .pipe(
-          map((response: AuthResponseI) => {
+          map(() => {
             const token = localStorage.getItem('token');
             if (!token) {
               return false;
@@ -132,7 +132,7 @@ export class AuthService {
     if (tipo === '2') {
       return this.getQuery('auth-empresas', 'renew-token')
         .pipe(
-          map((response: AuthResponseI) => {
+          map(() => {
             const token = localStorage.getItem('token');
             if (!token) {
               return false;
@@ -149,12 +149,22 @@ export class AuthService {
     if (tipo === '1') {
       return this.getQuery('auth-postulantes', 'renew-token')
         .pipe(
-          map((response: AuthResponseI) => response.data.email_validado));
+          map((response: AuthResponseI) => {
+            if (response.data.email_validado){
+              return true;
+            }
+            return false;
+          }));
     }
     if (tipo === '2') {
       return this.getQuery('auth-empresas', 'renew-token')
         .pipe(
-          map((response: AuthResponseI) => response.data.email_validado));
+          map((response: AuthResponseI) => {
+            if (response.data.email_validado){
+              return true;
+            }
+            return false;
+          }));
     }
 
     this.router.navigateByUrl('/auth');

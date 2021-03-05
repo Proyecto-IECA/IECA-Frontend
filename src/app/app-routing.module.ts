@@ -7,6 +7,7 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent },
+  { path: 'validarEmail', component: WarningMessagesComponent },
   { path: 'validarEmail/:tipo/:token', component: WarningMessagesComponent },
   { path: 'forgetPassword/:tipo/:token', component: ForgetPasswordComponent },
   { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
