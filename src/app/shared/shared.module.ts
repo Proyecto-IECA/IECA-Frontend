@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { PagesRoutingModule } from '../pages/pages-routing.module';
+
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeadbarComponent } from './headbar/headbar.component';
-import { PagesRoutingModule } from '../pages/pages-routing.module';
-import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 
 
@@ -12,16 +14,17 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [
     SidebarComponent,
     HeadbarComponent,
-    FooterComponent
+    FooterComponent,
   ],
   exports: [
     SidebarComponent,
-    HeadbarComponent
+    HeadbarComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class SharedModule { }
