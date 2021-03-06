@@ -7,6 +7,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthComponent } from './auth/auth/auth.component';
 import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
 import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
+import { GuardGuard } from './guards/guard.guard';
 
 const routes: Routes =[
   {
@@ -32,6 +33,7 @@ const routes: Routes =[
   }, {
     path: '',
     component: AdminLayoutComponent,
+    canActivate: [GuardGuard],
     children: [{
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'

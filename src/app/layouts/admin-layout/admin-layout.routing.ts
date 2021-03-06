@@ -8,8 +8,6 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
-import { AdminLayoutComponent } from './admin-layout.component';
-import { GuardGuard } from 'app/guards/guard.guard';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -54,19 +52,14 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
-    {
-        path: '',
-        component: AdminLayoutComponent,
-        canActivate: [GuardGuard],
-        children: [
-            { path: 'dashboard',      component: DashboardComponent },
-            { path: 'user-profile',   component: UserProfileComponent },
-            { path: 'table-list',     component: TableListComponent },
-            { path: 'typography',     component: TypographyComponent },
-            { path: 'icons',          component: IconsComponent },
-            { path: 'maps',           component: MapsComponent },
-            { path: 'notifications',  component: NotificationsComponent },
-            { path: 'upgrade',        component: UpgradeComponent },
-        ]
-    }
+    
+        
+    { path: 'dashboard',      component: DashboardComponent },
+    { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'table-list',     component: TableListComponent },
+    { path: 'typography',     component: TypographyComponent },
+    { path: 'icons',          component: IconsComponent },
+    { path: 'maps',           component: MapsComponent },
+    { path: 'notifications',  component: NotificationsComponent },
+    { path: 'upgrade',        component: UpgradeComponent },    
 ];
