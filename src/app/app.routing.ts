@@ -33,7 +33,7 @@ const routes: Routes =[
   }, {
     path: '',
     component: AdminLayoutComponent,
-    canActivate: [GuardGuard],
+    /* canActivate: [GuardGuard], */
     children: [{
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
