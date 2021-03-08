@@ -18,7 +18,7 @@ export class ValidEmailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private router: Router
-  ) { 
+  ) {
     this.tipo = 0;
     this.token = '';
     this.email_validado = false;
@@ -46,6 +46,17 @@ export class ValidEmailComponent implements OnInit {
     });
   }
 
+  emailEnviado(): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Correo enviado',
+      text: 'Favor de revisar su bandeja de entrada o spam',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  //  ---------- RECIBIR PARAMETROS DE LA URL ---------- //
   params(): void {
     this.activatedRoute.params.subscribe(
       params => {
@@ -55,6 +66,7 @@ export class ValidEmailComponent implements OnInit {
     });
   }
 
+  //  ----------  ---------- //
   tipoPeticion(): void {
     if (this.tipo === 1) {
       console.log('Tipo: ', this.tipo);
@@ -64,9 +76,9 @@ export class ValidEmailComponent implements OnInit {
       console.log('Tipo: ', this.tipo);
       this.validarEmailEmpresa();
     }
-    // Peticion mamalona para reenviar el correo de validacion
   }
 
+  //  ---------- PETICIONES ---------- //
   validarEmailPostulante(): void {
       this.authService.validarEmailUsuario(this.token).subscribe(
         postulante => {
@@ -101,6 +113,26 @@ export class ValidEmailComponent implements OnInit {
         this.errorServer();
         console.log(error);
       }
+    );
+  }
+
+  reenviarCorreo(): void {
+    // Peticion mamalona para reenviar el correo de validacion
+    this.authService.validarEmail().subscribe(
+        response => {
+          if (!response.status) {
+            /* Mensaje de error en Sweetalert2 */
+            this.errorMassage();
+            return;
+          }
+          this.emailEnviado();
+          // email enviado
+        },
+        error => {
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          this.errorServer();
+          console.log(error);
+        }
     );
   }
 

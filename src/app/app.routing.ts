@@ -14,17 +14,17 @@ const routes: Routes =[
     path: 'auth',
     component: AuthComponent
   },
-  { 
-    path: 'validarEmail', 
-    component: ValidEmailComponent 
+  {
+    path: 'validarEmail',
+    component: ValidEmailComponent
   },
-  { 
-    path: 'validarEmail/:tipo/:token', 
-    component: ValidEmailComponent 
+  {
+    path: 'validarEmail/:tipo/:token',
+    component: ValidEmailComponent
   },
-  { 
-    path: 'forgetPassword/:tipo/:token', 
-    component: ForgetPasswordComponent 
+  {
+    path: 'forgetPassword/:tipo/:token',
+    component: ForgetPasswordComponent
   },
   {
     path: '',
