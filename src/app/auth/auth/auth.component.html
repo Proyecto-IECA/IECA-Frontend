@@ -42,7 +42,7 @@
                     <input type="checkbox" name="rememberMe" id="checkbox-signup" formControlName="rememberMe">
                     <label for="checkbox-signup" class="subtitle">&nbsp;¿Recordárme? </label>
                 </div>
-                <button class="btn btn-primary" [class.solid]="!register">Entrar</button>
+                <button class="btn btn-primary" [disabled]="loginForm.invalid" [class.solid]="!register">Entrar</button>
                 <a class="subtitle" (click)="recoverPassword()"> Olvidé mi contraseña </a>
                 <app-social-media></app-social-media>
             </form>
@@ -155,7 +155,7 @@
                                 <i class="material-icons">keyboard_arrow_left</i>
                                 Regresar
               </button> &nbsp;
-                            <button type="submit" class="btn btn-primary">Registrar</button>
+                            <button type="submit" [disabled]="registerUsuarioForm.invalid" class="btn btn-primary">Registrar</button>
                         </div>
                     </div>
                 </form>
@@ -245,13 +245,14 @@
                             <button (click)="part = !part" class="btn btn-work" type="button">
                 <i class="fas fa-angle-left"></i> Regresar
               </button> &nbsp;
-                            <button type="submit" class="btn btn-work">Registrar</button>
+                            <button type="submit" [disabled]="registerEmpresaForm.invalid" class="btn btn-work">Registrar</button>
                         </div>
                     </div>
                 </form>
 
                 <app-social-media *ngIf="type==''"></app-social-media>
             </form>
+
         </div>
     </div>
 
