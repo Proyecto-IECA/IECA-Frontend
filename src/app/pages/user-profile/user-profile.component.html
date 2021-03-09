@@ -1,7 +1,7 @@
 <div class="main-content">
     <div class="container-fluid">
         <!-- ===== Primer Renglón ===== -->
-        <div class="row">
+        <div class="row align-items-center">
             <!-- ===== Columna de Perfil -->
             <div class="col-md-4">
                 <!-- ===== Foto de Perfil ====== -->
@@ -36,88 +36,14 @@
                     <!-- ===== Contenido de Card ===== -->
                     <div class="card-body">
                         <!-- ===== Formulario de Datos Personales ===== -->
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nombre(s)" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Apellido Paterno" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Apellido Materno" type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Fecha de Nacimiento" type="date">
-                                    </mat-form-field>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Teléfono Casa" type="tel">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Teléfono Móvil" type="tel">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Sexo</mat-label>
-                                        <mat-select>
-                                            <mat-option *ngFor="let s of sexo" value=[s.value]>
-                                                {{s.viewValue}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Dirección" type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Ciudad" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="País" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Código Postal" type="number">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-                            <button mat-raised-button type="submit" class="btn btn-primary pull-right">Actualizar Cambios</button>
-                            <div class="clearfix"></div>
-                        </form>
+                        <app-user-form></app-user-form>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- ===== Segundo Renglón ===== -->
-        <div class="row">
+        <div class="row align-items-center">
             <!-- ===== Columna de Habilidades y Valores ===== -->
             <div class="col-md-4">
                 <!-- ===== Card de Habilidades ===== -->
@@ -146,32 +72,6 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <!-- ===== Card de Valores ===== -->
-                <div class="card">
-                    <!-- ===== Encabezado de card ===== -->
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title">
-                            Valores
-                        </h4>
-                        <p class="card-catergory">
-                            Completa tu perfil
-                        </p>
-                    </div>
-                    <!-- ===== Cuerpo del card ===== -->
-                    <div class="card-body">
-                        <!-- ===== Chips de valores ===== -->
-                        <mat-form-field class="example-chip-list">
-                            <mat-label>Valores favoritos</mat-label>
-                            <mat-chip-list #chipList aria-label="habilidad selection">
-                                <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="remove(habilidad)">
-                                    {{habilidad.name}}
-                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                </mat-chip>
-                                <input placeholder="Nuevo Valor" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
-                            </mat-chip-list>
-                        </mat-form-field>
-                    </div>
-                </div>
             </div>
             <!-- ===== Columna de Experiencia Laboral ===== -->
             <div class="col-md-8">
@@ -184,163 +84,42 @@
                     </div>
                     <!-- ===== Cuerpo del card ===== -->
                     <div class="card-body">
-                        <!-- ===== ngif para mostrar la lista o el formulario ===== -->
-                        <div>
-                            <!-- ===== Renglón centrado ===== -->
-                            <div class="row align-items-center">
-                                <!-- ===== Columna de datos de experiencia laboral ===== -->
-                                <div class="col-md-10">
-                                    <!-- ===== Renglón 1 ===== -->
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <p>Puesto</p>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <p>Empresa</p>
-                                        </div>
-                                        <div class="col-md-2">
-                                            activo
-                                        </div>
-                                    </div>
-                                    <!-- ===== Renglón 2 ===== -->
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <p>Actividades</p>
-                                        </div>
-                                    </div>
-                                    <!-- ===== Renglón 3 ===== -->
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p>Fecha de entrada: </p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Fecha de salida:</p>
-                                        </div>
-                                    </div>
+                        <mat-accordion class="example-headers-align" multi>
+                            <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Nueva
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Experiencia Laboral
+                                        <mat-icon>add</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!-- ===== Formulario para agregar una experiencia laboral ===== -->
+                                <app-experiencia-laboral-form></app-experiencia-laboral-form>
+                            </mat-expansion-panel>
 
-                                </div>
-
-                                <!-- ===== Columna de botones de editar y remover ===== -->
-                                <div class="col-md-2">
-                                    <!-- ===== Renglon justificado al final ===== -->
-                                    <div class="row justify-content-end">
-                                        <!-- ===== Btn icono editar ===== -->
-                                        <button mat-raised-button type="button" matTooltip="Editar" [matTooltipPosition]="'above'" class="btn btn-warning btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <!-- ===== btn icono remover ===== -->
-                                        <button mat-raised-button type="button" matTooltip="Eliminar" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ===== Línea de separación ===== -->
-                            <hr>
-                        </div>
-
-                        <!-- ===== ngif para mostrar la lista o el formulario ===== -->
-                        <div>
-                            <!-- ===== Formulario de datos experiencia laboral ===== -->
-                            <form>
-                                <!-- ===== Renglón  -->
-                                <div class="row">
-                                    <!-- ===== Columna de Puesto ===== -->
-                                    <div class="col-md-4">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Puesto" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <!-- ===== Columna de Empresa ===== -->
-                                    <div class="col-md-4">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Empresa" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <!-- ===== Columna de Empleo estutus ===== -->
-                                    <div class="col-md-4">
-                                        <mat-slide-toggle>
-                                            ¿Empleo actual?
-                                        </mat-slide-toggle>
-                                    </div>
-                                </div>
-                                <!-- ===== Renglón ===== -->
-                                <div class="row">
-                                    <!-- ===== Columna de Actividades ===== -->
-                                    <div class="col-md-12">
-                                        <mat-form-field>
-                                            <textarea matInput placeholder="Escribe aquí tus actividades" type="text"></textarea>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <!-- ===== Renglón ===== -->
-                                <div class="row">
-                                    <!-- ===== Columna de Mes Entrada ===== -->
-                                    <div class="col-md-3">
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Mes de Entrada</mat-label>
-                                            <mat-select>
-                                                <mat-option *ngFor="let m of meses" value=[m.value]>
-                                                    {{m.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <!-- ===== Columna de año Entrada ===== -->
-                                    <div class="col-md-3">
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Año de Entrada</mat-label>
-                                            <mat-select>
-                                                <mat-option *ngFor="let m of meses" value=[m.value]>
-                                                    {{m.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <!-- ===== Columna de Mes Salida ===== -->
-                                    <div class="col-md-3">
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Mes de Salida</mat-label>
-                                            <mat-select>
-                                                <mat-option *ngFor="let m of meses" value=[m.value]>
-                                                    {{m.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <!-- ===== Columna de año Salida ===== -->
-                                    <div class="col-md-3">
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Año de Salida</mat-label>
-                                            <mat-select>
-                                                <mat-option *ngFor="let m of meses" value=[m.value]>
-                                                    {{m.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <!-- Renglón justificado al final -->
-                                <div class="row justify-content-end">
-                                    <!-- ===== btn icon cancelar ===== -->
-                                    <button class="btn btn-danger btn-sm btn-just-icon">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                    <!-- ===== btn icon aceptar ===== -->
-                                    <button type="button" class="btn btn-warning btn-sm btn-just-icon">
-                                        <i class="material-icons">done</i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
+                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Director General
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Productividad Empresarial
+                                        <mat-icon>done</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!-- ===== Formulario para editar experiencia laboral ===== -->
+                                <app-experiencia-laboral-form></app-experiencia-laboral-form>
+                            </mat-expansion-panel>
+                        </mat-accordion>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- ===== Tercer Renglón ===== -->
-        <div class="row">
+        <div class="row align-items-center">
             <!-- ===== Columna de Idiomas ===== -->
             <div class="col-md-4">
                 <div class="card">
@@ -383,126 +162,71 @@
                         </p>
                     </div>
                     <div class="card-body">
-                        <!-- ===== ngif para mostrar la lista o el formulario ===== -->
-                        <div>
-                            <!-- ===== Renglón centrado ===== -->
-                            <div class="row align-items-center">
-                                <!-- ===== Columna de datos de experiencia laboral ===== -->
-                                <div class="col-md-10">
-                                    <!-- ===== Renglón 1 ===== -->
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p>Nivel</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Institución</p>
-                                        </div>
 
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            activo
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Generación</p>
-                                        </div>
-                                    </div>
-                                </div>
+                        <mat-accordion class="example-headers-align" multi>
+                            <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Nueva
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Experiencia
+                                        <mat-icon>add</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!-- ===== Formulario para agregar una experiencia academica ===== -->
+                                <app-experiencia-academica-form></app-experiencia-academica-form>
+                            </mat-expansion-panel>
 
-                                <!-- ===== Columna de botones de editar y remover ===== -->
-                                <div class="col-md-2">
-                                    <!-- ===== Renglon justificado al final ===== -->
-                                    <div class="row justify-content-end">
-                                        <!-- ===== Btn icono editar ===== -->
-                                        <button mat-raised-button type="button" matTooltip="Editar" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <!-- ===== btn icono remover ===== -->
-                                        <button mat-raised-button type="button" matTooltip="Eliminar" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ===== Línea de separación ===== -->
-                            <hr>
-                        </div>
-                        <!-- ===== ngif para mostrar la lista o el formulario ===== -->
-                        <div>
-                            <!-- ===== Formulario de datos experiencia laboral ===== -->
-                            <form>
-                                <!-- ===== Renglón  -->
-                                <div class="row">
-                                    <!-- ===== Columna de Puesto ===== -->
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Nivel" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <!-- ===== Columna de Empresa ===== -->
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Institución" type="text">
-                                        </mat-form-field>
-                                    </div>
-
-                                </div>
-                                <!-- ===== Renglón ===== -->
-                                <div class="row">
-                                    <!-- ===== Columna de Empleo estutus ===== -->
-                                    <div class="col-md-4">
-                                        <mat-slide-toggle>
-                                            ¿Estudio actual?
-                                        </mat-slide-toggle>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Año de Entrada</mat-label>
-                                            <mat-select>
-                                                <mat-option *ngFor="let m of meses" value=[m.value]>
-                                                    {{m.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Año de Salida</mat-label>
-                                            <mat-select>
-                                                <mat-option *ngFor="let m of meses" value=[m.value]>
-                                                    {{m.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <!-- Renglón justificado al final -->
-                                <div class="row justify-content-end">
-                                    <!-- ===== btn icon cancelar ===== -->
-                                    <button class="btn btn-danger btn-sm btn-just-icon">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                    <!-- ===== btn icon aceptar ===== -->
-                                    <button type="button" class="btn btn-primary btn-sm btn-just-icon">
-                                        <i class="material-icons">done</i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Licenciatura
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        ITSPR
+                                        <mat-icon>done</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!-- ===== Formulario para editar experiencia academica ===== -->
+                                <app-experiencia-academica-form></app-experiencia-academica-form>
+                            </mat-expansion-panel>
+                        </mat-accordion>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- ===== Cuarto Renglón ===== -->
-        <div class="row ">
+        <div class="row align-items-center">
             <!-- ==== btn Descargar CV ====-->
-            <div class="col-md-4 ">
-                <img src="../../../assets/img/log.svg" class="img-fluid" alt="...">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-warning" type="button">Descargar CV</button>
+            <div class="col-md-4">
+                <!-- ===== Card de Valores ===== -->
+                <div class="card">
+                    <!-- ===== Encabezado de card ===== -->
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">
+                            Valores
+                        </h4>
+                        <p class="card-catergory">
+                            Completa tu perfil
+                        </p>
+                    </div>
+                    <!-- ===== Cuerpo del card ===== -->
+                    <div class="card-body">
+                        <!-- ===== Chips de valores ===== -->
+                        <mat-form-field class="example-chip-list">
+                            <mat-label>Valores favoritos</mat-label>
+                            <mat-chip-list #chipList aria-label="habilidad selection">
+                                <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="remove(habilidad)">
+                                    {{habilidad.name}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                </mat-chip>
+                                <input placeholder="Nuevo Valor" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                            </mat-chip-list>
+                        </mat-form-field>
+                    </div>
                 </div>
-
             </div>
 
             <!-- ===== Cursos y/o Certificados =====-->
@@ -518,99 +242,47 @@
                         </p>
                     </div>
                     <div class="card-body">
-                        <!-- ===== ngif para mostrar la lista o el formulario ===== -->
-                        <div>
-                            <!-- ===== Renglón centrado ===== -->
-                            <div class="row align-items-center">
-                                <!-- ===== Columna de datos de cursos ===== -->
-                                <div class="col-md-10">
-                                    <!-- ===== Renglón 1 ===== -->
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p>Nombre</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Descripción</p>
-                                        </div>
 
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p>Constancia</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Link</p>
-                                        </div>
-                                    </div>
-                                </div>
+                        <mat-accordion class="example-headers-align" multi>
+                            <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Agregar
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Nuevo curso o certificacion
+                                        <mat-icon>add</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!-- ===== Formulario para agregar un curso o certificacion ===== -->
+                                <app-curso-certificacion-form></app-curso-certificacion-form>
+                            </mat-expansion-panel>
 
-                                <!-- ===== Columna de botones de editar y remover ===== -->
-                                <div class="col-md-2">
-                                    <!-- ===== Renglon justificado al final ===== -->
-                                    <div class="row justify-content-end">
-                                        <!-- ===== Btn icono editar ===== -->
-                                        <button mat-raised-button type="button" matTooltip="Editar" [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <!-- ===== btn icono remover ===== -->
-                                        <button mat-raised-button type="button" matTooltip="Eliminar" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ===== Línea de separación ===== -->
-                            <hr>
-                        </div>
-                        <!-- ===== ngif para mostrar la lista o el formulario ===== -->
-                        <div>
-                            <!-- ===== Formulario de datos cursos ===== -->
-                            <form>
-                                <!-- ===== Renglón  -->
-                                <div class="row">
-                                    <!-- ===== Columna de Puesto ===== -->
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Nombre" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <!-- ===== Columna de Empresa ===== -->
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Descripción" type="text">
-                                        </mat-form-field>
-                                    </div>
-
-                                </div>
-                                <!-- ===== Renglón ===== -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Constancia" type="text">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Link" type="text">
-                                        </mat-form-field>
-                                    </div>
-
-                                </div>
-                                <!-- Renglón justificado al final -->
-                                <div class="row justify-content-end">
-                                    <!-- ===== btn icon cancelar ===== -->
-                                    <button class="btn btn-danger btn-sm btn-just-icon">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                    <!-- ===== btn icon aceptar ===== -->
-                                    <button type="button" class="btn btn-success btn-sm btn-just-icon">
-                                        <i class="material-icons">done</i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Nombre
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Constancia
+                                        <mat-icon>done</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!-- ===== Formulario para agregar un curso o certificacion ===== -->
+                                <app-curso-certificacion-form></app-curso-certificacion-form>
+                            </mat-expansion-panel>
+                        </mat-accordion>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-6 text-center">
+                <img src="../../../assets/img/log.svg" class="img-fluid" alt="..." width="50%">
+            </div>
+            <div class="col-md-6 text-center">
+                <button class="btn btn-warning" type="button">Descargar CV</button>
             </div>
         </div>
     </div>

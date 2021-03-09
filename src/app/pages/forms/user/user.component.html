@@ -1,0 +1,77 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nombre(s)" type="text">
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Apellido Paterno" type="text">
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Apellido Materno" type="text">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Teléfono Casa" type="tel">
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Teléfono Móvil" type="tel">
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+                <mat-label>Sexo</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let s of sexo" value=[s.value]>
+                        {{s.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Dirección" type="text">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Ciudad" type="text">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="País" type="text">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Código Postal" type="number">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <button mat-raised-button type="submit" class="btn btn-primary pull-right">Actualizar Cambios</button>
+    <div class="clearfix"></div>
+</form>

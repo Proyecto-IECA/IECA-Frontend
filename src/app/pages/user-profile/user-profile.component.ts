@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatChipInputEvent } from "@angular/material/chips";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-interface Sexo{
-  value: string;
-  viewValue: string;
-}
 
-interface Mes{
-  value: string;
-  viewValue: string;
-}
 
 export interface Habilidad{
   name: string;
@@ -21,31 +13,14 @@ export interface Habilidad{
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-
-  sexo: Sexo[] = [
-    {value: 'H', viewValue: 'Hombre'},
-    {value: 'M', viewValue: 'Mujer'},
-    {value: 'X', viewValue: 'Prefiero no decirlo'}
-  ]
-
-  meses: Mes[] = [
-    {value: 'Enero', viewValue: 'Enero'},
-    {value: 'Febrero', viewValue: 'Febrero'},
-    {value: 'Marzo', viewValue: 'Marzo'},
-    {value: 'Abril', viewValue: 'Abril'},
-    {value: 'Mayo', viewValue: 'Mayo'},
-    {value: 'Junio', viewValue: 'Junio'},
-    {value: 'Julio', viewValue: 'Julio'},
-    {value: 'Agosto', viewValue: 'Agosto'},
-    {value: 'Septiembre', viewValue: 'Septiembre'},
-    {value: 'Octubre', viewValue: 'Octubre'},
-    {value: 'Noviembre', viewValue: 'Noviembre'},
-    {value: 'Diciembre', viewValue: 'Diciembre'},
-  ]
+  
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
+  panelOpenState = false;
+
+
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   habilidades: Habilidad[] = [
     {name: 'Lemon'},
@@ -75,9 +50,10 @@ export class UserProfileComponent implements OnInit {
       this.habilidades.splice(index, 1);
     }
   }
+  
   constructor() { }
 
   ngOnInit() {
   }
-
+  
 }

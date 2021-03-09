@@ -11,15 +11,24 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatRippleModule} from '@angular/material/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle'
-import { MatChipsModule } from "@angular/material/chips";
-import { MatIconModule } from "@angular/material/icon";
+
+import { UserComponent } from 'app/pages/forms/user/user.component';
+import { ExperienciaLaboralComponent } from '../../pages/forms/experiencia-laboral/experiencia-laboral.component';
+import { ExperienciaAcademicaComponent } from 'app/pages/forms/experiencia-academica/experiencia-academica.component';
+import { CursoCertificacionComponent } from 'app/pages/forms/curso-certificacion/curso-certificacion.component';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -35,7 +44,10 @@ import { MatIconModule } from "@angular/material/icon";
     MatInputModule,
     MatSlideToggleModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatExpansionModule
   ],
   declarations: [
     DashboardComponent,
@@ -46,6 +58,10 @@ import { MatIconModule } from "@angular/material/icon";
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
+    UserComponent,
+    ExperienciaLaboralComponent,
+    ExperienciaAcademicaComponent,
+    CursoCertificacionComponent
   ]
 })
 

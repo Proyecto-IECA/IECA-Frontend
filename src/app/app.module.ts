@@ -28,8 +28,6 @@ import { SocialMediaComponent } from './auth/social-media/social-media.component
 import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
 import { MatInputModule } from '@angular/material/input';
 
-
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -50,8 +48,7 @@ import { MatInputModule } from '@angular/material/input';
     AuthComponent,
     ForgetPasswordComponent,
     SocialMediaComponent,
-    ValidEmailComponent,
-
+    ValidEmailComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
