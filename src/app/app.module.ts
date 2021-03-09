@@ -25,8 +25,9 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthComponent } from './auth/auth/auth.component';
 import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
 import { SocialMediaComponent } from './auth/social-media/social-media.component';
-import { MatInputModule } from '@angular/material/input';
 import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 @NgModule({
