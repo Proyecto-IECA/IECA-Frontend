@@ -1,3 +1,83 @@
 <div class="main-content">
-    <p>Hola</p>
+    <!-- Content here -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- ===== Columna de Perfil -->
+            <div class="col-md-4">
+                <!-- ===== Foto de Perfil ====== -->
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                            <img class="img" src="./assets/img/faces/marc.jpg" />
+                        </a>
+                    </div>
+                    <!-- Cuerpo del card -->
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">Nombre Empresa</h6>
+                        <h4 class="card-title">Página Web</h4>
+                        <p class="card-description">
+                            Telefono
+                        </p>
+                        <button class="btn btn-rose">Cargar foto</button>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- ===== Columna de Datos personales ===== -->
+            <div class="col-md-8">
+                <!-- ===== Card de Datos personales ===== -->
+                <div class="card">
+                    <!-- ===== Encabezado de Card ===== -->
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Editar Perfil</h4>
+                        <p class="card-category">Completa tu perfil</p>
+                    </div>
+                    <!-- ===== Contenido de Card ===== -->
+                    <div class="card-body">
+                        <!-- ===== Formulario de Datos Empresa ===== -->
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nombre de la Empresa" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nombre del(a) Administrador(a)" type="text">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Teléfono" type="date">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Ubicación" type="text">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Giro" type="tel">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                            <button mat-raised-button type="submit" class="btn btn-primary pull-right">Actualizar Cambios</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
