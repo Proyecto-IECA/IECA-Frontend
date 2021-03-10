@@ -27,22 +27,25 @@ import { ForgetPasswordComponent } from './auth/forget-password/forget-password.
 import { SocialMediaComponent } from './auth/social-media/social-media.component';
 import { MatInputModule } from '@angular/material/input';
 import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
+import { CreateVacancyComponent } from './pages/create-vacancy/create-vacancy.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    SharedModule,
-    RouterModule,
-    AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
-    MatInputModule
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        SharedModule,
+        RouterModule,
+        AppRoutingModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+        }),
+        MatInputModule,
+        MaterialFileInputModule
+    ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
@@ -50,7 +53,7 @@ import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
     ForgetPasswordComponent,
     SocialMediaComponent,
     ValidEmailComponent,
-
+    CreateVacancyComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

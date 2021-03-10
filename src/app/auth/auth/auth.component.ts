@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
     private validators: ValidatorsService,
     private authService: AuthService,
     private router: Router
-  ) { 
+  ) {
     this.loginCreateForm();
     this.registerUsuarioCreateForm();
     this.registerEmpresaCreateForm();

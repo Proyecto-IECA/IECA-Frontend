@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { Observable, of, pipe } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -9,7 +10,7 @@ import { EmpresaI } from '../models/empresa';
 import { AuthResponseI } from '../models/auth-response';
 
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
+
 
 @Injectable({
     providedIn: 'root'
@@ -57,7 +58,7 @@ export class AuthService {
             );
     }
 
-    private getQuery(tipo: string, accion: string, token?: string): any {
+    private getQuery(tipo: string, accion: string, token?: string): Observable<AuthResponseI> {
 
         // Si recibimos el token de parametro lo asignamos a nuestro token
         if (token) {
@@ -88,7 +89,7 @@ export class AuthService {
             );
     }
 
-    private putQuery(tipo: string, accion: string, body: UsuarioI | EmpresaI, token: string): any {
+    private putQuery(tipo: string, accion: string, body: UsuarioI | EmpresaI, token: string): Observable<AuthResponseI> {
 
         // Si recibimos el token de parametro lo asignamos a nuestro token
         if (token) {

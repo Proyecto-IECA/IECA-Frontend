@@ -1,0 +1,81 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Crear Vacante -->
+			<div class="col-md-8 ">
+				<div class="card">
+					<!-- Header -->
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Vacante</h4>
+						<p class="card-category">Crea una vacante para tu negocio</p>
+					</div>
+
+					<!-- Cuerpo del Form -->
+					<div class="card-body">
+						<!-- Formulario -->
+						<form autocomplete="off" (ngSubmit)="create()" [formGroup]="vacantForm">
+							<!-- Datos del puesto -->
+							<div class="row">
+								<!-- Mensaje de Campos requeridos -->
+								<div class="col-md-12">
+									<small class="form-text text-danger ml-3">* Campos requeridos</small>
+								</div>
+								<!-- Puesto -->
+								<div class="col-md-8">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Puesto" type="text" formControlName="puesto" required>
+									</mat-form-field>
+								</div>
+								<!-- Sueldo -->
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Sueldo" type="number" formControlName="sueldo" required>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<!-- Descripción del Puesto -->
+							<div class="row">
+								<div class="col-md-12">
+									<mat-form-field appearance="fill">
+										<mat-label>Descripción del Puesto</mat-label>
+										<textarea matInput formControlName="descripcion" required></textarea>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<!-- Archivo -->
+							<div class="row">
+								<div class="col-md-12">
+									<mat-form-field>
+
+										<ngx-mat-file-input placeholder="Archivo adicional (opcional)" formControlName="imagen"></ngx-mat-file-input>
+										<i class="material-icons" matSuffix>upload_file</i>
+										<!--<i *ngIf="vacantForm.value.imagen !== null" class="material-icons" matSuffix (click)="vacantForm.controls['imagen'].reset()">highlight_off</i>
+										<small *ngIf="vacantForm.value.imagen === null" class="form-text">Los formatos que acepta son PDF, JPG y PNG</small>-->
+									</mat-form-field>
+								</div>
+							</div>
+
+							<button mat-raised-button type="submit" class="btn btn-primary pull-right">Crear vacante</button>
+							<div class="clearfix"></div>
+
+							<!-- Mensajes de error del formControlName -->
+							<small *ngIf="controlNoValid('puesto')" class="form-text text-danger">
+								* Favor de poner el nombre del puesto mayor a 5 letras
+							</small>
+							<small *ngIf="controlNoValid('sueldo')" class="form-text text-danger">
+								* El sueldo debe ser mayor a cero
+							</small>
+							<small *ngIf="controlNoValid('descripcion')" class="form-text text-danger">
+								* Favor de poner la descripción del puesto
+							</small>
+
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
