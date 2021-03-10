@@ -27,8 +27,6 @@ import { ForgetPasswordComponent } from './auth/forget-password/forget-password.
 import { SocialMediaComponent } from './auth/social-media/social-media.component';
 import { MatInputModule } from '@angular/material/input';
 import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
-import { CreateVacancyComponent } from './pages/create-vacancy/create-vacancy.component';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 
 @NgModule({
@@ -43,8 +41,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
         }),
-        MatInputModule,
-        MaterialFileInputModule
+        MatInputModule
     ],
   declarations: [
     AppComponent,
@@ -52,8 +49,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     AuthComponent,
     ForgetPasswordComponent,
     SocialMediaComponent,
-    ValidEmailComponent,
-    CreateVacancyComponent,
+    ValidEmailComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

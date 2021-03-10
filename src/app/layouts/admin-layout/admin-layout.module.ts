@@ -31,6 +31,8 @@ import { UserComponent } from 'app/pages/forms/user/user.component';
 import { ExperienciaLaboralComponent } from '../../pages/forms/experiencia-laboral/experiencia-laboral.component';
 import { ExperienciaAcademicaComponent } from 'app/pages/forms/experiencia-academica/experiencia-academica.component';
 import { CursoCertificacionComponent } from 'app/pages/forms/curso-certificacion/curso-certificacion.component';
+import { CompanyProfileComponent } from '../../pages/company-profile/company-profile.component';
+import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacancy.component';
 
 
 
@@ -41,7 +43,6 @@ import { CursoCertificacionComponent } from 'app/pages/forms/curso-certificacion
         RouterModule.forChild(AdminLayoutRoutes),
         FormsModule,
         ReactiveFormsModule,
-
         MatButtonModule,
         MatRippleModule,
         MatFormFieldModule,
@@ -68,7 +69,9 @@ import { CursoCertificacionComponent } from 'app/pages/forms/curso-certificacion
         UserComponent,
         ExperienciaLaboralComponent,
         ExperienciaAcademicaComponent,
-        CursoCertificacionComponent
+        CursoCertificacionComponent,
+        CompanyProfileComponent,
+        CreateVacancyComponent
     ]
 })
 
