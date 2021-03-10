@@ -3,10 +3,8 @@ export class ExperienciaLaboralI {
     puesto?: string;
     empresa?: string;
     actividades?: string;
-    mes_entrada?: string;
-    anio_entrada?: string;
-    mes_salida?: string;
-    anio_salida?: string;
+    fecha_entrada?: string;
+    fecha_salida?: string;
     trabajando?: boolean;
     id_postulante?: number;
 }
