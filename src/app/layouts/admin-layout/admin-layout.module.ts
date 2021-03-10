@@ -16,6 +16,7 @@ import { UserComponent } from 'app/pages/forms/user/user.component';
 import { ExperienciaLaboralComponent } from '../../pages/forms/experiencia-laboral/experiencia-laboral.component';
 import { ExperienciaAcademicaComponent } from 'app/pages/forms/experiencia-academica/experiencia-academica.component';
 import { CursoCertificacionComponent } from 'app/pages/forms/curso-certificacion/curso-certificacion.component';
+import { CompanyProfileComponent } from '../../pages/company-profile/company-profile.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
@@ -61,7 +62,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     UserComponent,
     ExperienciaLaboralComponent,
     ExperienciaAcademicaComponent,
-    CursoCertificacionComponent
+    CursoCertificacionComponent,
+    CompanyProfileComponent
   ]
 })
 
