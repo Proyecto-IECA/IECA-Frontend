@@ -49,7 +49,7 @@ import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
     AuthComponent,
     ForgetPasswordComponent,
     SocialMediaComponent,
-    ValidEmailComponent
+    ValidEmailComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
