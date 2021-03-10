@@ -1,77 +1,85 @@
-<form>
+<form [formGroup]="userForm">
     <div class="row">
         <div class="col-md-6">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Nombre(s)" type="text">
+                <input matInput placeholder="Nombre(s)" type="text" formControlName="nombre">
+                <mat-error *ngIf="campoNoValido('nombre')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <div class="col-md-3">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Apellido Paterno" type="text">
+                <input matInput placeholder="Apellido Paterno" type="text" formControlName="apellidoP">
+                <mat-error *ngIf="campoNoValido('apellidoP')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <div class="col-md-3">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Apellido Materno" type="text">
+                <input matInput placeholder="Apellido Materno" type="text" formControlName="apellidoM">
+                <mat-error *ngIf="campoNoValido('apellidoM')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-3">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width m-t">
                 <mat-label>Fecha de Nacimiento</mat-label>
-                <input matInput [matDatepicker]="picker">
+                <input matInput [matDatepicker]="picker" formControlName="fechaN">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="campoNoValido('fechaN')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <div class="col-md-3">
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder="Teléfono Casa" type="number" maxlength="10">
+            <mat-form-field class="example-full-width m-t">
+                <input matInput placeholder="Teléfono Casa" type="tel" formControlName="telefonoC" pattern="\d*" maxlength="10">
+                <mat-error *ngIf="campoNoValido('telefonoC')">Este campo no acepta letras*</mat-error>
             </mat-form-field>
         </div>
         <div class="col-md-3">
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder="Teléfono Móvil" type="tel">
+            <mat-form-field class="example-full-width m-t">
+                <input matInput placeholder="Teléfono Móvil" type="tel" formControlName="telefonoM" pattern="\d*" maxlength="10">
+                <mat-error *ngIf="campoNoValido('telefonoM')">Este campo no acepta letras*</mat-error>
             </mat-form-field>
         </div>
         <div class="col-md-3">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width m-t">
                 <mat-label>Sexo</mat-label>
-                <mat-select>
+                <mat-select formControlName="sexo">
                     <mat-option *ngFor="let s of sexo" value=[s.value]>
                         {{s.viewValue}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="campoNoValido('sexo')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width m-t">
                 <input matInput placeholder="Dirección" type="text">
             </mat-form-field>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width m-t">
                 <input matInput placeholder="Ciudad" type="text">
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width m-t">
                 <input matInput placeholder="País" type="text">
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder="Código Postal" type="number">
+            <mat-form-field class="example-full-width m-t">
+                <input matInput placeholder="Código Postal" type="tel" pattern="\d*" maxlength="5" formControlName="cp">
+                <mat-error *ngIf="campoNoValido('cp')">En este campo no se aceptan letras*</mat-error>
             </mat-form-field>
         </div>
     </div>
 
-    <button mat-raised-button type="submit" class="btn btn-primary pull-right">Actualizar Cambios</button>
+    <button mat-raised-button type="submit" class="btn btn-primary pull-right m-t">Actualizar Cambios</button>
     <div class="clearfix"></div>
 </form>

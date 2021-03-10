@@ -1,25 +1,28 @@
-<form>
+<form [formGroup]="laboralForm">
     <!-- ===== Renglón  -->
     <div class="row">
         <!-- ===== Columna de Puesto ===== -->
         <div class="col-md-6">
             <mat-form-field>
-                <input matInput placeholder="Puesto" type="text">
+                <input matInput placeholder="Puesto" type="text" formControlName="puesto">
+                <mat-error *ngIf="campoNoValido('puesto')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <!-- ===== Columna de Empresa ===== -->
         <div class="col-md-6">
             <mat-form-field>
-                <input matInput placeholder="Empresa" type="text">
+                <input matInput placeholder="Empresa" type="text" formControlName="empresa">
+                <mat-error *ngIf="campoNoValido('empresa')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
     </div>
     <!-- ===== Renglón ===== -->
     <div class="row">
         <!-- ===== Columna de Actividades ===== -->
-        <div class="col-md-12">
+        <div class="col-md-12 m-t">
             <mat-form-field>
-                <textarea matInput placeholder="Escribe aquí tus actividades" type="text"></textarea>
+                <textarea matInput placeholder="Escribe aquí tus actividades" type="text" formControlName="actividades"></textarea>
+                <mat-error *ngIf="campoNoValido('actividades')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
     </div>
@@ -27,17 +30,18 @@
     <div class="row align-items-center">
         <!-- ===== Columna de Fecha Entrada ===== -->
         <div class="col-md-4">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width m-t">
                 <mat-label>Fecha de Entrada</mat-label>
-                <input matInput [matDatepicker]="dp" [formControl]="date">
+                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="fecha">
                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event, 1)" (monthSelected)="chosenMonthHandler($event, dp, 1)" panelClass="example-month-picker">
                 </mat-datepicker>
+                <mat-error *ngIf="campoNoValido('fecha')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <!-- ===== Columna de Fecha Salida ===== -->
         <div class="col-md-4">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width m-t">
                 <mat-label>Fecha de Salida</mat-label>
                 <input matInput [matDatepicker]="dp2" [formControl]="date2">
                 <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>

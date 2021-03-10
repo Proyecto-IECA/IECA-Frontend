@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
+import { FormBuilder, Validators } from "@angular/forms";
+
 // the `default as` syntax.
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -33,6 +35,17 @@ export const MY_FORMATS = {
 })
 export class ExperienciaLaboralComponent implements OnInit {
 
+  public formSubmitted = true;
+
+  public laboralForm = this.formBuilder.group(
+    {
+      puesto: ['', Validators.required],
+      empresa: ['', Validators.required],
+      actividades: ['', Validators.required],
+      fecha: ['', Validators.required]
+    }
+  )
+
   date = new FormControl(moment([2000, 0]));
   date2 = new FormControl(moment([2000, 0]));
   
@@ -63,9 +76,17 @@ export class ExperienciaLaboralComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+  }
+
+  campoNoValido(campo: string): boolean {
+    if(this.laboralForm.get(campo).invalid && this.formSubmitted){
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
