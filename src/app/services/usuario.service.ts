@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from "./auth.service";
+import { AuthService } from './auth.service';
 import { PeticionesService } from './peticiones.service';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import { AuthResponseI } from '../models/auth-response';
 import { UsuarioI } from '../models/usuario';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,6 @@ export class UsuarioService {
 
   //  ---------- VARIABLES ---------- //
   private tipo = 'postulantes';
-  
 
   constructor(private authService: AuthService, private peticion: PeticionesService) { }
 
@@ -23,24 +23,23 @@ export class UsuarioService {
   }
 
   updateUsuario (form: UsuarioI): Observable<AuthResponseI> {
-    return this.peticion.putQuery(this.tipo, 'usuario', form); 
+    return this.peticion.putQuery(this.tipo, 'usuario', form);
   }
 
    //  ---------- EXPERIENCIA LABORAL CRUD ---------- //
-  
-   createExpLaboral (form: UsuarioI): Observable<AuthResponseI>{
+   createExpLaboral (form: UsuarioI): Observable<AuthResponseI> {
      return this.peticion.postQuery(this.tipo, 'expLaboral', form);
    }
 
-   readExpLaboral (id: number): Observable<AuthResponseI>{
+   readExpLaboral (id: number): Observable<AuthResponseI> {
      return this.peticion.getQuery(this.tipo, 'expLaboral', id);
    }
 
-   updateExpLaboral (form: UsuarioI, id: number): Observable<AuthResponseI>{
+   updateExpLaboral (form: UsuarioI, id: number): Observable<AuthResponseI> {
      return this.peticion.putQuery(this.tipo, 'expLaboral', form, id);
    }
 
-   deleteExpLaboral (id: number): Observable<AuthResponseI>{
+   deleteExpLaboral (id: number): Observable<AuthResponseI> {
     return this.peticion.deleteQuery(this.tipo, 'expLaboral', id);
    }
 }

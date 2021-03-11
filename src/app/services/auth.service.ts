@@ -170,6 +170,31 @@ export class AuthService {
         this.router.navigateByUrl('/auth');
     }
 
+    validarPerfil(): Observable<boolean> {
+        const tipo = localStorage.getItem('tipo');
+        if (tipo === '1') {
+            return this.getQuery('auth-postulantes', 'perfil')
+                .pipe(
+                    map((response: AuthResponseI) => {
+                        console.log(response);
+                        if (response.data) {
+                            return true;
+                        }
+                        return false;
+                    }));
+        }
+        if (tipo === '2') {
+            return this.getQuery('auth-empresas', 'perfil')
+                .pipe(
+                    map((response: AuthResponseI) => {
+                        if (response.data) {
+                            return true;
+                        }
+                        return false;
+                    }));
+        }
+    }
+
     //  ---------- MÉTODOS GENERALES ---------- //
     logout(): void {
         localStorage.clear();
