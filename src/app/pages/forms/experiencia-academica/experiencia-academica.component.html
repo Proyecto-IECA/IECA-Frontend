@@ -1,16 +1,18 @@
-<form>
+<form [formGroup]="academicaForm">
     <!-- ===== Renglón  -->
     <div class="row">
         <!-- ===== Columna de Nivel ===== -->
         <div class="col-md-6">
             <mat-form-field>
-                <input matInput placeholder="Nivel" type="text">
+                <input matInput placeholder="Nivel" type="text" formControlName="nivel" required>
+                <mat-error *ngIf="campoNoValido('nivel')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <!-- ===== Columna de Institucion ===== -->
         <div class="col-md-6">
             <mat-form-field>
-                <input matInput placeholder="Institución" type="text">
+                <input matInput placeholder="Institución" type="text" formControlName="instituto" required>
+                <mat-error *ngIf="campoNoValido('instituto')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
 
@@ -21,10 +23,11 @@
         <div class="col-md-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Año de Ingreso</mat-label>
-                <input matInput [matDatepicker]="dp" [formControl]="date">
+                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="ingreso" required>
                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event, dp, 1)" panelClass="example-month-picker">
                 </mat-datepicker>
+                <mat-error *ngIf="campoNoValido('ingreso')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <div class="col-md-4">

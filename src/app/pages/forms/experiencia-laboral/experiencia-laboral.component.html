@@ -4,14 +4,14 @@
         <!-- ===== Columna de Puesto ===== -->
         <div class="col-md-6">
             <mat-form-field>
-                <input matInput placeholder="Puesto" type="text" formControlName="puesto">
+                <input matInput placeholder="Puesto" type="text" formControlName="puesto" required>
                 <mat-error *ngIf="campoNoValido('puesto')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <!-- ===== Columna de Empresa ===== -->
         <div class="col-md-6">
             <mat-form-field>
-                <input matInput placeholder="Empresa" type="text" formControlName="empresa">
+                <input matInput placeholder="Empresa" type="text" formControlName="empresa" required>
                 <mat-error *ngIf="campoNoValido('empresa')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
@@ -21,7 +21,7 @@
         <!-- ===== Columna de Actividades ===== -->
         <div class="col-md-12 m-t">
             <mat-form-field>
-                <textarea matInput placeholder="Escribe aquí tus actividades" type="text" formControlName="actividades"></textarea>
+                <textarea matInput placeholder="Escribe aquí tus actividades" type="text" formControlName="actividades" required></textarea>
                 <mat-error *ngIf="campoNoValido('actividades')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
@@ -32,7 +32,7 @@
         <div class="col-md-4">
             <mat-form-field class="example-full-width m-t">
                 <mat-label>Fecha de Entrada</mat-label>
-                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="fecha">
+                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="fecha" required>
                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event, 1)" (monthSelected)="chosenMonthHandler($event, dp, 1)" panelClass="example-month-picker">
                 </mat-datepicker>

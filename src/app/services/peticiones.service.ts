@@ -44,13 +44,13 @@ export class PeticionesService {
         );
   }
 
-  getQuery(tipo: string, accion: string, body?: any): Observable<any> {
+  getQuery(tipo: string, accion: string, id?: number): Observable<any> {
 
       // Asignamos los headers a una variable local
       const headers = this.headers
 
     // Variable para la assignation de la URL completo
-    const url = `${this.baseUrl}/${tipo}/${accion}`;
+    const url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
 
     // Petition http con la URL completa agregando los headers
     return this.http.get<AuthResponseI>(url, { headers }, )
@@ -62,13 +62,18 @@ export class PeticionesService {
         );
   }
 
-  putQuery(tipo: string, accion: string, body: any): Observable<any> {
+  putQuery(tipo: string, accion: string, body: any, id?: number): Observable<any> {
 
+    let url = "";
+    if(!id){
+      // Variable para la assignation de la URL completo
+    url = `${this.baseUrl}/${tipo}/${accion}`;
+    } else {
+      // Variable para la assignation de la URL completo
+    url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
+    }
       // Asignamos los headers a una variable local
-      const headers = this.headers
-
-    // Variable para la assignation de la URL completo
-    const url = `${this.baseUrl}/${tipo}/${accion}`;
+      const headers = this.headers;
 
     // Petition http con la URL completa agregando los headers
     return this.http.put<AuthResponseI>(url, body, { headers })
@@ -79,6 +84,24 @@ export class PeticionesService {
             })
         );
   }
+
+  deleteQuery(tipo: string, accion: string, id?: number): Observable<any> {
+
+    // Asignamos los headers a una variable local
+    const headers = this.headers
+
+  // Variable para la assignation de la URL completo
+  const url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
+
+  // Petition http con la URL completa agregando los headers
+  return this.http.delete<AuthResponseI>(url, { headers }, )
+      .pipe(
+          map((response) => {
+            console.log(response);
+            return response;
+          })
+      );
+}
 
 
 }
