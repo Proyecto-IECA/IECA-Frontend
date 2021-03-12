@@ -1,7 +1,8 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../services/usuario.service';
 import { UsuarioI } from '../../../models/usuario';
+import Swal from 'sweetalert2';
 
 interface Sexo{
   value: string;
@@ -13,11 +14,11 @@ interface Sexo{
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit, DoCheck {
+export class UserComponent implements OnInit {
 
   public selected;
   @Input() usuario: UsuarioI;
-  public formSubmitted = true;
+  public formSubmitted = false;
   loading = false;
 
   public userForm = this.formBuilder.group(
@@ -43,10 +44,10 @@ export class UserComponent implements OnInit, DoCheck {
   ]
 
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
+ 
   
-  ngDoCheck(): void {
-    this.loadData(this.usuario);
-  }
+ 
+  
 
   ngOnInit(): void {
 
@@ -64,10 +65,45 @@ export class UserComponent implements OnInit, DoCheck {
     this.userForm.reset(usuario);
   }
 
-  imprimir() {
-    console.log(this.usuario);
+  updateUser( ) {
+    this.formSubmitted = true;
+    if(this.userForm.valid){
+      console.log('Hola');
+      
+    } else {
+      this.errorMassage();
+    }
+  }
+  //  ---------- MENSAJES ---------- //
+  errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+    Swal.fire({
+      icon: 'error',
+      title: 'Petición NO procesada',
+      text: `Vuelve a intentar de nuevo...
+      Si el error persiste ponerse en contacto con soporte técnico`,
+    });
+    console.log(error);
   }
 
+  errorMassage(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Revisa el formulario',
+      text: 'Revisa que el formulario esté correctamente llenado',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  doneMassage(): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Vacante generada',
+      text: 'Éxito en la busqueda del nuevo integrante',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
 
 
 }

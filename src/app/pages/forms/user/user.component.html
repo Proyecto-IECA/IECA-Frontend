@@ -1,4 +1,5 @@
-<form [formGroup]="userForm">
+<form [formGroup]="userForm" (ngSubmit)="updateUser()">
+
     <div class="row">
         <div class="col-md-6">
             <mat-form-field class="example-full-width">
@@ -81,6 +82,15 @@
         </div>
     </div>
 
-    <button mat-raised-button type="submit" (click)='imprimir()' class="btn btn-primary pull-right m-t">Actualizar Cambios</button>
-    <div class="clearfix"></div>
+    <!-- Renglón justificado al final -->
+    <div class="row justify-content-end">
+        <!-- ===== btn icon cancelar ===== -->
+        <button class="btn btn-danger btn-sm btn-just-icon m-r">
+            <i class="material-icons">close</i>
+        </button>
+        <!-- ===== btn icon aceptar ===== -->
+        <button type="submit" class="btn btn-primary btn-sm btn-just-icon m-r">
+            <i class="material-icons">done</i>
+        </button>
+    </div>
 </form>
