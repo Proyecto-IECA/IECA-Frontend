@@ -9,6 +9,8 @@ import * as _moment from 'moment';
 import * as _rollupMoment from 'moment';
 
 import {Moment} from 'moment';
+import { UsuarioService } from '../../../services/usuario.service';
+import { ExperienciaAcademicaI } from '../../../models/experiencia_academica';
 
 const moment = _rollupMoment || _moment;
 
@@ -39,8 +41,10 @@ export class ExperienciaAcademicaComponent implements OnInit {
   public academicaForm = this.formBuilder.group(
     {
       nivel: ['', Validators.required],
-      instituto: ['', Validators.required],
-      ingreso: ['', Validators.required]
+      institucion: ['', Validators.required],
+      anio_entrada: ['', Validators.required],
+      anio_salida: [''],
+      carrera: ['']
     }
   )
   date = new FormControl(moment([2000, 0]));
@@ -60,7 +64,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
     }
   }
   
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService ) { }
 
   ngOnInit(): void {
   }
@@ -70,5 +74,9 @@ export class ExperienciaAcademicaComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  loadData( expAcademica: ExperienciaAcademicaI) {
+    this.academicaForm.reset(expAcademica);
   }
 }

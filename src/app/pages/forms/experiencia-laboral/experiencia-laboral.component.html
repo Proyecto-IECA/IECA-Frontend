@@ -32,21 +32,21 @@
         <div class="col-md-4">
             <mat-form-field class="example-full-width m-t">
                 <mat-label>Fecha de Entrada</mat-label>
-                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="fechaE" required>
+                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="fecha_entrada" required>
                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event, 1)" (monthSelected)="chosenMonthHandler($event, dp, 1)" panelClass="example-month-picker">
                 </mat-datepicker>
-                <mat-error *ngIf="campoNoValido('fechaE')">Este campo es obligatorio*</mat-error>
+                <mat-error *ngIf="campoNoValido('fecha_entrada')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <!-- ===== Columna de Fecha Salida ===== -->
         <div class="col-md-4">
             <mat-form-field class="example-full-width m-t">
                 <mat-label>Fecha de Salida</mat-label>
-                <input matInput [matDatepicker]="dp2" [formControl]="date2" formControlName="fechaS">
+                <input matInput [matDatepicker]="dp2" [formControl]="date2" formControlName="fecha_salida">
                 <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
                 <mat-datepicker #dp2 startView="multi-year" (yearSelected)="chosenYearHandler($event, 2)" (monthSelected)="chosenMonthHandler($event, dp2, 2)" panelClass="example-month-picker">
-                    <mat-error *ngIf="campoNoValido('fechaS')">Este campo no acepta letras*</mat-error>
+                    <mat-error *ngIf="campoNoValido('fecha_salida')">Este campo no acepta letras*</mat-error>
                 </mat-datepicker>
             </mat-form-field>
         </div>
