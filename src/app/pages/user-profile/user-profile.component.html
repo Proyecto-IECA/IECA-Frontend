@@ -13,10 +13,10 @@
                     </div>
                     <!-- Cuerpo del card -->
                     <div class="card-body">
-                        <h6 class="card-category text-gray">Nombre Completo</h6>
-                        <h4 class="card-title">Email</h4>
+                        <h6 class="card-category text-gray">{{nombreCompleto}}</h6>
+                        <h4 class="card-title">{{email}}</h4>
                         <p class="card-description">
-                            Telefono
+                            {{telefono_celular}}
                         </p>
                         <button class="btn btn-rose">Cargar foto</button>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <!-- ===== Formulario de Datos Personales ===== -->
                         <p class="text-danger">Campos obligatorios *</p>
-                        <app-user-form></app-user-form>
+                        <app-user-form [usuario]="usuario"></app-user-form>
                     </div>
                 </div>
             </div>
@@ -97,22 +97,24 @@
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <!-- ===== Formulario para agregar una experiencia laboral ===== -->
-                                <app-experiencia-laboral-form></app-experiencia-laboral-form>
+                                <app-experiencia-laboral-form [tipo]='add'></app-experiencia-laboral-form>
                             </mat-expansion-panel>
 
-                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        Director General
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                        Productividad Empresarial
-                                        <mat-icon>done</mat-icon>
-                                    </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                <!-- ===== Formulario para editar experiencia laboral ===== -->
-                                <app-experiencia-laboral-form></app-experiencia-laboral-form>
-                            </mat-expansion-panel>
+                            <div *ngFor="let expL of experienciasLaborales">
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{expL.puesto}}
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                            {{expL.empresa}}
+                                            <mat-icon>done</mat-icon>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <!-- ===== Formulario para editar experiencia laboral ===== -->
+                                    <app-experiencia-laboral-form></app-experiencia-laboral-form>
+                                </mat-expansion-panel>
+                            </div>
                         </mat-accordion>
                     </div>
                 </div>
@@ -179,19 +181,22 @@
                                 <app-experiencia-academica-form></app-experiencia-academica-form>
                             </mat-expansion-panel>
 
-                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        Licenciatura
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                        ITSPR
-                                        <mat-icon>done</mat-icon>
-                                    </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                <!-- ===== Formulario para editar experiencia academica ===== -->
-                                <app-experiencia-academica-form></app-experiencia-academica-form>
-                            </mat-expansion-panel>
+                            <div *ngFor="let expA of experienciasAcademicas">
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{expA.nivel}}
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                            {{expA.institucion}}
+                                            <mat-icon>done</mat-icon>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <!-- ===== Formulario para editar experiencia academica ===== -->
+                                    <app-experiencia-academica-form></app-experiencia-academica-form>
+                                </mat-expansion-panel>
+                            </div>
+
                         </mat-accordion>
                     </div>
                 </div>
@@ -259,19 +264,21 @@
                                 <app-curso-certificacion-form></app-curso-certificacion-form>
                             </mat-expansion-panel>
 
-                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        Nombre
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                        Constancia
-                                        <mat-icon>done</mat-icon>
-                                    </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                <!-- ===== Formulario para agregar un curso o certificacion ===== -->
-                                <app-curso-certificacion-form></app-curso-certificacion-form>
-                            </mat-expansion-panel>
+                            <div *ngFor="let curC of cursosCertificaciones">
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{curC.nombre}}
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                            {{curC.constancia}}
+                                            <mat-icon>done</mat-icon>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <!-- ===== Formulario para agregar un curso o certificacion ===== -->
+                                    <app-curso-certificacion-form></app-curso-certificacion-form>
+                                </mat-expansion-panel>
+                            </div>
                         </mat-accordion>
                     </div>
                 </div>

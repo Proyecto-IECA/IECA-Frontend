@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../services/usuario.service';
 import { UsuarioI } from '../../../models/usuario';
-import { AuthResponseI } from '../../../models/auth-response';
 
 interface Sexo{
   value: string;
@@ -14,10 +13,12 @@ interface Sexo{
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, DoCheck {
 
-  private usuario: UsuarioI;
+  public selected;
+  @Input() usuario: UsuarioI;
   public formSubmitted = true;
+  loading = false;
 
   public userForm = this.formBuilder.group(
     {
@@ -42,14 +43,13 @@ export class UserComponent implements OnInit {
   ]
 
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
+  
+  ngDoCheck(): void {
+    this.loadData(this.usuario);
+  }
 
   ngOnInit(): void {
-    this.usuarioService.readUsuario().subscribe((resp: AuthResponseI ) => {
-      if(resp.status) {
-        this.usuario = resp.data;
-        this.loadData(this.usuario);
-      }
-    })
+
   }
 
   campoNoValido(campo: string): boolean {
@@ -63,6 +63,11 @@ export class UserComponent implements OnInit {
   loadData( usuario: UsuarioI ) {
     this.userForm.reset(usuario);
   }
+
+  imprimir() {
+    console.log(this.usuario);
+  }
+
 
 
 }
