@@ -42,7 +42,8 @@ export class ExperienciaLaboralComponent implements OnInit {
       puesto: ['', Validators.required],
       empresa: ['', Validators.required],
       actividades: ['', Validators.required],
-      fecha: ['', Validators.required]
+      fechaE: ['', Validators.required],
+      fechaS: ['']
     }
   )
 
