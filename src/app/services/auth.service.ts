@@ -33,7 +33,9 @@ export class AuthService {
         this.email = '';
         this.refreshToken = '';
         localStorage.setItem('tipo', '');
-        // localStorage.getItem('token');
+        if (localStorage.getItem('data')) {
+            this._usuario = JSON.parse(localStorage.getItem('data'));
+        }
     }
 
     //  ---------- QUERY ---------- //
@@ -52,6 +54,7 @@ export class AuthService {
                         this.email = response.data.email;
                         this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
+                        localStorage.setItem('data', JSON.stringify(response.data));
                     }
                     return response;
                 })
@@ -83,6 +86,7 @@ export class AuthService {
                         this.email = response.data.email;
                         this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
+                        localStorage.setItem('data', JSON.stringify(response.data));
                     }
                     return response;
                 })
@@ -109,6 +113,7 @@ export class AuthService {
                         this.email = response.data.email;
                         this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
+                        localStorage.setItem('data', JSON.stringify(response.data));
                     }
                     return response;
                 })

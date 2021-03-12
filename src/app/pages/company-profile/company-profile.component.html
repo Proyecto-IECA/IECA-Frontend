@@ -2,79 +2,113 @@
     <!-- Content here -->
     <div class="container-fluid">
         <div class="row">
-            <!-- ===== Columna de Perfil -->
+
+            <!-- ===== Card de Perfil ===== -->
             <div class="col-md-4">
-                <!-- ===== Foto de Perfil ====== -->
                 <div class="card card-profile">
+                    <!-- Foto de Perfil -->
                     <div class="card-avatar">
                         <a href="javascript:void(0)">
                             <img class="img" src="./assets/img/faces/marc.jpg" />
-                        </a>
+                        </a> <!-- Hacer click para ver la foto en grande -->
                     </div>
                     <!-- Cuerpo del card -->
                     <div class="card-body">
                         <h6 class="card-category text-gray">Nombre Empresa</h6>
                         <h4 class="card-title">Página Web</h4>
-                        <p class="card-description">
-                            Telefono
-                        </p>
-                        <button class="btn btn-rose">Cargar foto</button>
+                        <p class="card-description">Teléfono</p>
+                        <h5 class="text-muted">Calificación:</h5>
+                        <button class="btn btn-rose">Subir foto</button>
                     </div>
                 </div>
-
-
             </div>
-            <!-- ===== Columna de Datos personales ===== -->
+
+            <!-- ===== Card Editar Perfil ===== -->
             <div class="col-md-8">
-                <!-- ===== Card de Datos personales ===== -->
                 <div class="card">
-                    <!-- ===== Encabezado de Card ===== -->
+                    <!-- Encabezado de Card -->
                     <div class="card-header card-header-primary">
                         <h4 class="card-title">Editar Perfil</h4>
-                        <p class="card-category">Completa tu perfil</p>
+                        <p class="card-category">Actualiza tu perfil</p>
                     </div>
-                    <!-- ===== Contenido de Card ===== -->
+                    <!-- Cuerpo del card -->
                     <div class="card-body">
-                        <!-- ===== Formulario de Datos Empresa ===== -->
-                        <form>
+
+                        <!-- Formulario de Datos Empresa -->
+                        <form (ngSubmit)="updateCompany()" [formGroup]="companyForm">
+                            <!-- Mensaje de Campos Obligatorios -->
+                            <small class="text-danger">Campos obligatorios *</small>
+                            <!-- Nombre de la empresa y administrador -->
                             <div class="row">
+                                <!-- Nombre de la empresa -->
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nombre de la Empresa" type="text">
+                                        <input matInput placeholder="Nombre de la Empresa" type="text" formControlName="nombre" required>
                                     </mat-form-field>
+                                    <small *ngIf="controlNoValid('nombre')" class="form-text text-danger">* Este campo es obligatorio</small>
                                 </div>
+
+                                <!-- Nombre del administrador -->
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nombre del(a) Administrador(a)" type="text">
+                                        <input matInput placeholder="Nombre del(a) Administrador(a)" type="text" formControlName="administrador" required>
                                     </mat-form-field>
+                                    <small *ngIf="controlNoValid('administrador')" class="form-text text-danger">* Este campo es obligatorio</small>
                                 </div>
-
                             </div>
 
+                            <!-- Ubicación y Giro -->
                             <div class="row">
-                                <div class="col-md-4">
+                                <!-- Ubicación -->
+                                <div class="col-md-7">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Teléfono" type="date">
+                                        <input matInput placeholder="Ubicación" type="text" formControlName="ubicacion" required>
                                     </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Ubicación" type="text">
-                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid('ubicacion')" class="form-text text-danger">* Este campo es obligatorio</small>
                                 </div>
 
-                                <div class="col-md-4">
+                                <!-- Giro -->
+                                <div class="col-md-5">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Giro" type="tel">
+                                        <input matInput placeholder="Giro" type="tel" formControlName="giro" required>
                                     </mat-form-field>
+                                    <small *ngIf="controlNoValid('giro')" class="form-text text-danger">* Este campo es obligatorio</small>
                                 </div>
-
                             </div>
 
+                            <!-- Teléfono, Página Web -->
+                            <div class="row">
+                                <!-- Página Web -->
+                                <div class="col-md-7">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Página web" type="url" formControlName="pagina_web" required>
+                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid('pagina_web')" class="form-text text-danger">* Este campo es obligatorio</small>
+                                </div>
 
-                            <button mat-raised-button type="submit" class="btn btn-primary pull-right">Actualizar Cambios</button>
+                                <!-- Teléfono -->
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Teléfono" type="tel" pattern="\d*" maxlength="10" formControlName="telefono" required>
+                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid('telefono')" class="form-text text-danger">* En este campo no se aceptan letras</small>
+                                </div>
+                            </div>
+
+                            <!-- Renglón justificado al final -->
+                            <div class="row justify-content-end">
+                                <!-- ===== btn icon cancelar ===== -->
+                                <button class="btn btn-danger btn-sm btn-just-icon m-r">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <!-- ===== btn icon aceptar ===== -->
+                                <button type="button" class="btn btn-success btn-sm btn-just-icon m-r">
+                                    <i class="material-icons">done</i>
+                                </button>
+                            </div>
                             <div class="clearfix"></div>
                         </form>
+
                     </div>
                 </div>
             </div>

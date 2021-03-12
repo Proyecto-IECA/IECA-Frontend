@@ -13,7 +13,7 @@ export class PeticionesService {
 
   //  ---------- VARIABLES ---------- //
   private baseUrl: string = environment.baseUrl;
-  private email: string = this.authService.usuario.email;
+  private email = '';
 
   // Creación y asignación de valores de los headers
   headers = new HttpHeaders({
@@ -23,6 +23,7 @@ export class PeticionesService {
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
+      this.email = this.authService.usuario.email;
   }
 
   //  ---------- QUERY ---------- //
@@ -64,8 +65,8 @@ export class PeticionesService {
 
   putQuery(tipo: string, accion: string, body: any, id?: number): Observable<any> {
 
-    let url = "";
-    if(!id){
+    let url = '';
+    if (!id) {
       // Variable para la assignation de la URL completo
     url = `${this.baseUrl}/${tipo}/${accion}`;
     } else {

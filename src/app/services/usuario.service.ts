@@ -12,8 +12,21 @@ export class UsuarioService {
 
   //  ---------- VARIABLES ---------- //
   private tipo = 'postulantes';
+  private _usuario: UsuarioI;
 
-  constructor(private authService: AuthService, private peticion: PeticionesService) { }
+  constructor(private authService: AuthService,
+              private peticion: PeticionesService) {
+
+      if (localStorage.getItem('data')) {
+          this._usuario = JSON.parse(localStorage.getItem('data'));
+      }
+
+      this._usuario = authService.usuario;
+  }
+
+    get usuario(): UsuarioI {
+        return { ...this._usuario };
+    }
 
 
   //  ---------- USUARIO CRUD ---------- //
