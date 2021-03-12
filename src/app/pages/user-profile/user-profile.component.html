@@ -37,7 +37,9 @@
                     <div class="card-body">
                         <!-- ===== Formulario de Datos Personales ===== -->
                         <p class="text-danger">Campos obligatorios *</p>
-                        <app-user-form [usuario]="usuario"></app-user-form>
+                        <div *ngIf="usuario">
+                            <app-user-form [usuario]="usuario"></app-user-form>
+                        </div>
                     </div>
                 </div>
             </div>

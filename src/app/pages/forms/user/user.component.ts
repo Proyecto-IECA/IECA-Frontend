@@ -44,13 +44,9 @@ export class UserComponent implements OnInit {
   ]
 
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
- 
-  
- 
-  
 
   ngOnInit(): void {
-
+    this.userForm.reset(this.usuario)
   }
 
   campoNoValido(campo: string): boolean {
