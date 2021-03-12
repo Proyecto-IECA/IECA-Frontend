@@ -18,7 +18,7 @@ export class UsuarioI {
   pais?: string;
   codigo_postal?: string;
   ciudad?: string;
-  domino?: string;
+  domicilio?: string;
   foto_perfil?: string;
   cv?: string;
   calificacion?: number;

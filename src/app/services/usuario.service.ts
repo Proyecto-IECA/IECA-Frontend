@@ -17,82 +17,83 @@ export class UsuarioService {
   private _usuario: UsuarioI;
 
   constructor(private authService: AuthService,
-              private peticion: PeticionesService) {
+    private peticion: PeticionesService) {
 
-      if (localStorage.getItem('data')) {
-          this._usuario = JSON.parse(localStorage.getItem('data'));
-      }
+    if (localStorage.getItem('data')) {
+      this._usuario = JSON.parse(localStorage.getItem('data'));
+    }
 
-      this._usuario = authService.usuario;
+    this._usuario = authService.usuario;
   }
 
-    get usuario(): UsuarioI {
-        return { ...this._usuario };
-    }
+  get usuario(): UsuarioI {
+    return { ...this._usuario };
+  }
 
 
   //  ---------- USUARIO CRUD ---------- //
 
-  readUsuario (id: number): Observable<AuthResponseI> {
-    return this.peticion.getQuery(this.tipo, 'usuario', id);
+  readUsuario(): Observable<AuthResponseI> {
+    let id = this.usuario.id_postulante;
+    return this.peticion.getQuery(this.tipo, 'perfil-completo', id);
   }
 
-  updateUsuario (form: UsuarioI): Observable<AuthResponseI> {
+  updateUsuario(form: UsuarioI): Observable<AuthResponseI> {
     return this.peticion.putQuery(this.tipo, 'usuario', form);
   }
 
-   //  ---------- EXPERIENCIA LABORAL CRUD ---------- //
-  
-   createExpLaboral (form: ExperienciaLaboralI): Observable<AuthResponseI>{
-     return this.peticion.postQuery(this.tipo, 'expLaboral', form);
-   }
+  //  ---------- EXPERIENCIA LABORAL CRUD ---------- //
 
-   readExpLaboral (id: number): Observable<AuthResponseI> {
-     return this.peticion.getQuery(this.tipo, 'expLaboral', id);
-   }
+  createExpLaboral(form: ExperienciaLaboralI): Observable<AuthResponseI> {
+    return this.peticion.postQuery(this.tipo, 'expLaboral', form);
+  }
 
-   updateExpLaboral (form: ExperienciaLaboralI, id: number): Observable<AuthResponseI>{
-     return this.peticion.putQuery(this.tipo, 'expLaboral', form, id);
-   }
+  readExpLaboral(id: number): Observable<AuthResponseI> {
+    return this.peticion.getQuery(this.tipo, 'expLaboral', id);
+  }
 
-   deleteExpLaboral (id: number): Observable<AuthResponseI> {
+  updateExpLaboral(form: ExperienciaLaboralI, id: number): Observable<AuthResponseI> {
+    return this.peticion.putQuery(this.tipo, 'expLaboral', form, id);
+  }
+
+  deleteExpLaboral(id: number): Observable<AuthResponseI> {
     return this.peticion.deleteQuery(this.tipo, 'expLaboral', id);
-   }
+  }
 
-   //  ---------- EXPERIENCIA ACADÉMICA CRUD ---------- //
+  //  ---------- EXPERIENCIA ACADÉMICA CRUD ---------- //
 
-   createExpAcademica (form: ExperienciaAcademicaI): Observable<AuthResponseI>{
-     return this.peticion.postQuery(this.tipo, 'expAcademica', form);
-   }
+  createExpAcademica(form: ExperienciaAcademicaI): Observable<AuthResponseI> {
+    return this.peticion.postQuery(this.tipo, 'expAcademica', form);
+  }
 
-   readExpAcademica (id: number): Observable<AuthResponseI>{
-     return this.peticion.getQuery(this.tipo, 'expAcademica', id);
-   }
+  readExpAcademica(id: number): Observable<AuthResponseI> {
+    return this.peticion.getQuery(this.tipo, 'expAcademica', id);
+  }
 
-   updateExpAcademica (form: ExperienciaAcademicaI, id: number): Observable<AuthResponseI>{
-     return this.peticion.putQuery(this.tipo, 'expAcademica', form, id);
-   }
+  updateExpAcademica(form: ExperienciaAcademicaI, id: number): Observable<AuthResponseI> {
+    return this.peticion.putQuery(this.tipo, 'expAcademica', form, id);
+  }
 
-   deleteExpAcademica (id: number): Observable<AuthResponseI>{
-     return this.peticion.deleteQuery(this.tipo, 'expAcademica', id);
-   }
+  deleteExpAcademica(id: number): Observable<AuthResponseI> {
+    return this.peticion.deleteQuery(this.tipo, 'expAcademica', id);
+  }
 
-   //  ---------- CURSO Y/O CERTIFICACION CRUD ---------- //
+  //  ---------- CURSO Y/O CERTIFICACION CRUD ---------- //
 
-   createCurso (form: CursoCertificacionI): Observable<AuthResponseI>{
-     return this.peticion.postQuery(this.tipo, 'curso', form);
-   }
+  createCurso(form: CursoCertificacionI): Observable<AuthResponseI> {
+    return this.peticion.postQuery(this.tipo, 'curso', form);
+  }
 
-   readCurso (id: number): Observable<AuthResponseI>{
-     return this.peticion.putQuery(this.tipo, 'curso', id);
-   }
+  readCurso(id: number): Observable<AuthResponseI> {
+    return this.peticion.putQuery(this.tipo, 'curso', id);
+  }
 
-   updateCurso (form: CursoCertificacionI, id: number): Observable<AuthResponseI>{
-     return this.peticion.putQuery(this.tipo, 'curso', form);
-   }
+  updateCurso(form: CursoCertificacionI, id: number): Observable<AuthResponseI> {
+    return this.peticion.putQuery(this.tipo, 'curso', form);
+  }
 
-   deleteCurso (id: number): Observable<AuthResponseI>{
-     return this.peticion.deleteQuery(this.tipo, 'curso', id);
-   }
+  deleteCurso(id: number): Observable<AuthResponseI> {
+    return this.peticion.deleteQuery(this.tipo, 'curso', id);
+  }
 
 }

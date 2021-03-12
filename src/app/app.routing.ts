@@ -7,7 +7,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthComponent } from './auth/auth/auth.component';
 import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
 import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
-import { GuardGuard } from './guards/guard.guard';
+import { AuthGuard } from './guards/auth.guard'
 
 const routes: Routes =[
   {

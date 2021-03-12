@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { UsuarioService } from '../../../services/usuario.service';
+import { UsuarioI } from '../../../models/usuario';
+import { AuthResponseI } from '../../../models/auth-response';
 
 interface Sexo{
   value: string;
@@ -13,19 +16,22 @@ interface Sexo{
 })
 export class UserComponent implements OnInit {
 
-
+  private usuario: UsuarioI;
   public formSubmitted = true;
 
   public userForm = this.formBuilder.group(
     {
     nombre: ['', Validators.required],
-    apellidoP: ['', Validators.required],
-    apellidoM: ['', Validators.required],
+    apellido_paterno: ['', Validators.required],
+    apellido_materno: ['', Validators.required],
     sexo: ['', Validators.required],
-    fechaN: ['', Validators.required],
-    telefonoC: [''],
-    telefonoM: [''],
-    cp: ['']
+    fecha_nacimiento: ['', Validators.required],
+    telefono_casa: [''],
+    telefono_celular: [''],
+    codigo_postal: [''],
+    domicilio:[''],
+    ciudad:[''],
+    pais:['']
    }
   )
 
@@ -35,9 +41,15 @@ export class UserComponent implements OnInit {
     {value: 'X', viewValue: 'Prefiero no decirlo'}
   ]
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    this.usuarioService.readUsuario().subscribe((resp: AuthResponseI ) => {
+      if(resp.status) {
+        this.usuario = resp.data;
+        this.loadData(this.usuario);
+      }
+    })
   }
 
   campoNoValido(campo: string): boolean {
@@ -46,6 +58,10 @@ export class UserComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  loadData( usuario: UsuarioI ) {
+    this.userForm.reset(usuario);
   }
 
 
