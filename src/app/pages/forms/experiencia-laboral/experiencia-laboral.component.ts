@@ -10,6 +10,9 @@ import * as _moment from 'moment';
 import * as _rollupMoment from 'moment';
 
 import {Moment} from 'moment';
+import { UsuarioService } from '../../../services/usuario.service';
+import { ExperienciaLaboralI } from '../../../models/experiencia_laboral';
+import { AuthResponseI } from '../../../models/auth-response';
 
 const moment = _rollupMoment || _moment;
 
@@ -32,7 +35,7 @@ export const MY_FORMATS = {
   providers: [
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}
   ]
-})
+}) 
 export class ExperienciaLaboralComponent implements OnInit {
 
   public formSubmitted = true;
@@ -42,8 +45,8 @@ export class ExperienciaLaboralComponent implements OnInit {
       puesto: ['', Validators.required],
       empresa: ['', Validators.required],
       actividades: ['', Validators.required],
-      fechaE: ['', Validators.required],
-      fechaS: ['']
+      fecha_entrada: ['', Validators.required],
+      fecha_salida: ['']
     }
   )
 
@@ -77,9 +80,10 @@ export class ExperienciaLaboralComponent implements OnInit {
     }
   }
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    
   }
 
   campoNoValido(campo: string): boolean {
@@ -88,6 +92,10 @@ export class ExperienciaLaboralComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  loadData( expLaboral: ExperienciaLaboralI) {
+    this.laboralForm.reset(expLaboral);
   }
 
 }

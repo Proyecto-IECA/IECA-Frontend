@@ -16,6 +16,7 @@ export class UsuarioService {
   private tipo = 'postulantes';
   private _usuario: UsuarioI;
 
+
   constructor(private authService: AuthService,
     private peticion: PeticionesService) {
 
@@ -29,7 +30,6 @@ export class UsuarioService {
   get usuario(): UsuarioI {
     return { ...this._usuario };
   }
-
 
   //  ---------- USUARIO CRUD ---------- //
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
+import { UsuarioService } from '../../../services/usuario.service';
+import { CursoCertificacionI } from '../../../models/cursos_certificaciones';
 @Component({
   selector: 'app-curso-certificacion-form',
   templateUrl: './curso-certificacion.component.html',
@@ -14,10 +16,11 @@ export class CursoCertificacionComponent implements OnInit {
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       constancia: ['', Validators.required],
+      link: ['']
     }
   )
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
   }
@@ -29,4 +32,7 @@ export class CursoCertificacionComponent implements OnInit {
     }
   }
 
+  loadData(cursoCertificacion: CursoCertificacionI) {
+    this.certificadoForm.reset(cursoCertificacion);
+  }
 }
