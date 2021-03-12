@@ -64,7 +64,7 @@
                         <mat-form-field class="example-chip-list">
                             <mat-label>Habilidades favoritas</mat-label>
                             <mat-chip-list #chipList aria-label="habilidad selection">
-                                <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="remove(habilidad)">
+                                <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="removeHab(habilidad)">
                                     {{habilidad.name}}
                                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                 </mat-chip>
@@ -137,9 +137,9 @@
                         <!-- ===== Chips de idiomas ===== -->
                         <mat-form-field class="example-chip-list">
                             <mat-label>Idiomas favoritos</mat-label>
-                            <mat-chip-list #chipList aria-label="habilidad selection">
-                                <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="remove(habilidad)">
-                                    {{habilidad.name}}
+                            <mat-chip-list #chipList aria-label="idioma selection">
+                                <mat-chip *ngFor="let idioma of idiomas" [selectable]="selectable" [removable]="removable" (removed)="removeIdi(idioma)">
+                                    {{idioma.name}}
                                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                 </mat-chip>
                                 <input placeholder="Nuevo Idioma" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
@@ -218,9 +218,9 @@
                         <!-- ===== Chips de valores ===== -->
                         <mat-form-field class="example-chip-list">
                             <mat-label>Valores favoritos</mat-label>
-                            <mat-chip-list #chipList aria-label="habilidad selection">
-                                <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="remove(habilidad)">
-                                    {{habilidad.name}}
+                            <mat-chip-list #chipList aria-label="valor selection">
+                                <mat-chip *ngFor="let valor of valores" [selectable]="selectable" [removable]="removable" (removed)="removeVal(valor)">
+                                    {{valor.name}}
                                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                 </mat-chip>
                                 <input placeholder="Nuevo Valor" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
