@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate, CanLoad {
     return this.authService.validarEmailValidado()
       .pipe(
         tap((valid) => {
-          console.log(valid);
           if (!valid) {
             this.router.navigateByUrl('/validarEmail');
           }
@@ -36,7 +35,6 @@ export class AuthGuard implements CanActivate, CanLoad {
       .pipe(
         tap((valid) => {
           if (!valid) {
-            console.log(valid);
             // this.router.navigateByUrl('/validarEmail');
             this.router.navigateByUrl('/auth');
           }

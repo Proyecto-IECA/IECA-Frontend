@@ -9,7 +9,7 @@ import { ForgetPasswordComponent } from './auth/forget-password/forget-password.
 import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
 import { AuthGuard } from './guards/auth.guard'
 
-const routes: Routes =[
+const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent
@@ -33,7 +33,7 @@ const routes: Routes =[
   }, {
     path: '',
     component: AdminLayoutComponent,
-    /* canActivate: [GuardGuard], */
+    canActivate: [AuthGuard],
     children: [{
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
@@ -45,7 +45,7 @@ const routes: Routes =[
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes,{
+    RouterModule.forRoot(routes, {
        useHash: true
     })
   ],

@@ -64,11 +64,11 @@ export class CompanyProfileComponent implements OnInit {
 
   doneMassage(): void {
     Swal.fire({
+      position: 'top-end',
       icon: 'success',
       title: 'Perfil actualizado',
-      text: 'Tu perfil se actualizó de forma exitosa',
       showConfirmButton: false,
-      timer: 2700
+      timer: 1700
     });
   }
 

@@ -17,9 +17,15 @@ export class CreateVacancyComponent implements OnInit {
   constructor(private formB: FormBuilder,
               private empresaSvc: EmpresaService) {
     this.vacantCreateForm();
+
+    console.log(this.empresaSvc.company);
   }
 
   ngOnInit(): void {
+    this.vacantForm.reset({
+      id_empresa: this.empresaSvc.company.id_empresa,
+      imagen: ''
+    });
   }
 
   //  ---------- VALIDADORES ---------- //
@@ -30,9 +36,9 @@ export class CreateVacancyComponent implements OnInit {
   }
 
   /* Validar formulario */
-  formularioNoValido(form: FormGroup): boolean {
-    if (form.invalid) {
-      form.markAllAsTouched();
+  formularioNoValido(): boolean {
+    if (this.vacantForm.invalid) {
+      this.vacantForm.markAllAsTouched();
       return true;
     }
     return false;
@@ -73,6 +79,7 @@ export class CreateVacancyComponent implements OnInit {
   //  ---------- FORMULARIO ---------- //
   vacantCreateForm(): void {
     this.vacantForm = this.formB.group({
+      id_empresa: [],
       puesto: [, [Validators.required, Validators.minLength(5)]],
       sueldo: [, [Validators.required, Validators.min(1)]],
       descripcion: [, Validators.required],
@@ -82,9 +89,12 @@ export class CreateVacancyComponent implements OnInit {
 
   create(): void {
     // Si el formulario es invalido
-    if (this.vacantForm.invalid) {
+    if (this.formularioNoValido()) {
       this.errorMassage();
+      return;
     }
+
+    console.log(this.vacantForm.value);
 
     this.empresaSvc.createVacante(this.vacantForm.value).subscribe(
         response => {
@@ -95,6 +105,7 @@ export class CreateVacancyComponent implements OnInit {
           this.doneMassage();
           // Limpiar el formulario
           this.vacantForm.reset();
+          this.vacantForm.markAsUntouched();
         },
         error => this.errorServer(error)
     );

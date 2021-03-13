@@ -24,14 +24,25 @@ export class AuthService {
     private email: string;
     private refreshToken: string;
 
-    get usuario(): UsuarioI {
+    get usuario(): UsuarioI | EmpresaI {
         return { ...this._usuario };
+    }
+
+    getEmail(): void {
+        if (localStorage.getItem('email')) {
+            this._usuario = JSON.parse(localStorage.getItem('data'));
+            this.email = localStorage.getItem('email');
+        }
+        localStorage.setItem('tipo', '');
+        localStorage.setItem('data', '');
+        localStorage.setItem('token', '');
     }
 
     constructor(private http: HttpClient,
                 private router: Router) {
         this.email = '';
         this.refreshToken = '';
+        // this.getEmail();
         localStorage.setItem('tipo', '');
         if (localStorage.getItem('data')) {
             this._usuario = JSON.parse(localStorage.getItem('data'));
@@ -82,11 +93,9 @@ export class AuthService {
                 map((response) => {
                     console.log(response);
                     if (response.data) {
-                        localStorage.setItem('token', token);
                         this.email = response.data.email;
                         this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
-                        localStorage.setItem('data', JSON.stringify(response.data));
                     }
                     return response;
                 })
@@ -109,11 +118,9 @@ export class AuthService {
                 map((response) => {
                     console.log(response);
                     if (response.data) {
-                        localStorage.setItem('token', token);
                         this.email = response.data.email;
                         this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
-                        localStorage.setItem('data', JSON.stringify(response.data));
                     }
                     return response;
                 })
@@ -178,24 +185,24 @@ export class AuthService {
     validarPerfil(): Observable<boolean> {
         const tipo = localStorage.getItem('tipo');
         if (tipo === '1') {
-            return this.getQuery('auth-postulantes', 'perfil')
+            return this.getQuery('postulantes', 'valid-perfil-completo')
                 .pipe(
                     map((response: AuthResponseI) => {
                         console.log(response);
-                        if (response.data) {
-                            return true;
+                        if (!response.status) {
+                            return false;
                         }
-                        return false;
+                        return response.data;
                     }));
         }
         if (tipo === '2') {
-            return this.getQuery('auth-empresas', 'perfil')
+            return this.getQuery('empresas', 'valid-perfil-completo')
                 .pipe(
                     map((response: AuthResponseI) => {
-                        if (response.data) {
-                            return true;
+                        if (!response.status) {
+                            return false;
                         }
-                        return false;
+                        return response.data;
                     }));
         }
     }
@@ -249,11 +256,6 @@ export class AuthService {
     loginEmpresa(form: EmpresaI): Observable<AuthResponseI> {
         localStorage.setItem('tipo', '2');
         return this.postQuery('auth-empresas', 'login', form);
-    }
-
-    registroEmpresa(form: EmpresaI): Observable<AuthResponseI> {
-        const url = `${this.baseUrl}/auth-empresas/register`;
-        return this.http.post<AuthResponseI>(url, form);
     }
 
     validarEmailEmpresa(token: string): Observable<AuthResponseI> {

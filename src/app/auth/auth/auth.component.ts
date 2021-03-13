@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 
 import { EmpresaI } from '../../models/empresa';
 import { UsuarioI } from '../../models/usuario';
+import { EmpresaService } from '../../services/empresa.service';
+import { UsuarioService } from '../../services/usuario.service';
 
 
 @Component({
@@ -34,6 +36,8 @@ export class AuthComponent implements OnInit {
     private formB: FormBuilder,
     private validators: ValidatorsService,
     private authService: AuthService,
+    private empresaSvc: EmpresaService,
+    private usuarioSvc: UsuarioService,
     private router: Router
   ) {
     this.loginCreateForm();
@@ -278,7 +282,6 @@ export class AuthComponent implements OnInit {
       /* Servicio de REGISTRO para USUARIO */
       this.authService.registroUsuario(data).subscribe(
         (postulante) => {
-          console.log('Hola 2');
           if (!postulante.status) {
             /* Mensaje de error en Sweetalert2 */
             this.errorMassage();
@@ -297,7 +300,7 @@ export class AuthComponent implements OnInit {
     /* Dirigir el tipo de servicio a solicitar */
     if (this.type === 'e') {
       // Servicio de REGISTRO para EMPRESA
-      this.authService.registroEmpresa(data).subscribe(
+      this.empresaSvc.createCompany(data).subscribe(
         empresa => {
           if (!empresa.status) {
             /* Mensaje de error en Sweetalert2 */

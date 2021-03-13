@@ -64,6 +64,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'vacante',        component: CreateVacancyComponent,    /*canActivate: [PerfilCompletoGuard]*/ },
+    { path: 'vacante',        component: CreateVacancyComponent,    canActivate: [PerfilCompletoGuard] },
     { path: 'company-profile', component: CompanyProfileComponent}
 ];

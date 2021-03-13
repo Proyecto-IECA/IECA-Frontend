@@ -3,7 +3,9 @@ import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { PeticionesService } from './peticiones.service';
 import { EmpresaI } from '../models/empresa';
-import { UsuarioI } from '../models/usuario';
+import { VacantesI } from '../models/vacantes';
+import { AuthResponseI } from '../models/auth-response';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,6 @@ import { UsuarioI } from '../models/usuario';
 export class EmpresaService {
 
   //  ---------- VARIABLES ---------- //
-  private tipo = 'empresas';
   private _company: EmpresaI;
 
   constructor(private authService: AuthService,
@@ -30,37 +31,43 @@ export class EmpresaService {
   }
 
   //  ---------- VACANTE CRUD ---------- //
-  createVacante(form: any): Observable<any> {
-    return this.peticion.postQuery(this.tipo, 'vacante', form);
+  createVacante(form: VacantesI): Observable<AuthResponseI> {
+    return this.peticion.postQuery('vacantes', 'add', form)
+        .pipe(
+            map(response => {
+              console.log(response);
+              return response;
+            })
+        );
   }
 
-  readVacante(form: any): Observable<any> {
-    return this.peticion.getQuery(this.tipo, 'vacante', form);
+  readVacante(id?: number): Observable<AuthResponseI> {
+    return this.peticion.getQuery('vacantes', '', id);
   }
 
-  updateVacante(form: any): Observable<any> {
-    return this.peticion.putQuery(this.tipo, 'vacante', form);
+  updateVacante(form: VacantesI): Observable<AuthResponseI> {
+    return this.peticion.putQuery('vacantes', 'update', form);
   }
 
-  deleteVacante(form: number): Observable<any> {
-    return this.peticion.getQuery(this.tipo, 'vacante', form);
+  deleteVacante(form: number): Observable<AuthResponseI> {
+    return this.peticion.getQuery('vacantes', 'delete', form);
   }
 
   //  ---------- COMPANY CRUD ---------- //
   createCompany(form: any): Observable<any> {
-    return this.peticion.postQuery(this.tipo, 'vacante', form);
+    return this.peticion.postQuery('auth-postulantes', 'register', form);
   }
 
   readCompany(form: any): Observable<any> {
-    return this.peticion.getQuery(this.tipo, 'vacante', form);
+    return this.peticion.getQuery('empresas', 'vacante', form);
   }
 
   updateCompany(form: any): Observable<any> {
-    return this.peticion.putQuery(this.tipo, 'vacante', form);
+    return this.peticion.putQuery('empresas', 'update', form);
   }
 
   deleteCompany(form: number): Observable<any> {
-    return this.peticion.getQuery(this.tipo, 'vacante', form);
+    return this.peticion.getQuery('empresas', 'vacante', form);
   }
 
 }

@@ -13,20 +13,21 @@ export class PeticionesService {
 
   //  ---------- VARIABLES ---------- //
   private baseUrl: string = environment.baseUrl;
+  email: string;
 
 
-
-  constructor(private http: HttpClient, private authService: AuthService) {
-
+  constructor(private http: HttpClient,
+              private authService: AuthService) {
+      this.email = this.authService.usuario.email;
   }
 
   //  ---------- QUERY ---------- //
   postQuery(tipo: string, accion: string, body: any): Observable<any> {
 
     // Creación y asignación de valores de los headers
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'x-token': localStorage.getItem('token'),
-      'email': this.authService.usuario.email
+      'email': this.email
     });
 
     // Variable para la assignation de la URL completo
@@ -44,16 +45,16 @@ export class PeticionesService {
 
   getQuery(tipo: string, accion: string, id?: number): Observable<any> {
     // Creación y asignación de valores de los headers
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'x-token': localStorage.getItem('token'),
-      'email': this.authService.usuario.email
+      'email': this.email
     });
 
     // Variable para la assignation de la URL completo
     const url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
 
     // Petition http con la URL completa agregando los headers
-    return this.http.get<AuthResponseI>(url, { headers },)
+    return this.http.get<AuthResponseI>(url, { headers })
       .pipe(
         map((response) => {
           console.log(response);
@@ -63,6 +64,7 @@ export class PeticionesService {
   }
 
   putQuery(tipo: string, accion: string, body: any, id?: number): Observable<any> {
+
     let url = '';
     if (!id) {
       // Variable para la assignation de la URL completo
@@ -72,9 +74,9 @@ export class PeticionesService {
       url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
     }
     // Creación y asignación de valores de los headers
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'x-token': localStorage.getItem('token'),
-      'email': this.authService.usuario.email
+      'email': this.email
     });
 
     // Petition http con la URL completa agregando los headers
@@ -90,16 +92,16 @@ export class PeticionesService {
   deleteQuery(tipo: string, accion: string, id?: number): Observable<any> {
 
     // Creación y asignación de valores de los headers
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'x-token': localStorage.getItem('token'),
-      'email': this.authService.usuario.email
+      'email': this.email
     });
 
     // Variable para la assignation de la URL completo
     const url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
 
     // Petition http con la URL completa agregando los headers
-    return this.http.delete<AuthResponseI>(url, { headers },)
+    return this.http.delete<AuthResponseI>(url, { headers })
       .pipe(
         map((response) => {
           console.log(response);

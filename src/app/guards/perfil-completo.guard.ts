@@ -13,7 +13,7 @@ export class PerfilCompletoGuard implements CanActivate {
     validatedPerfil(): void {
         /* Mensaje de completar perfil */
         Swal.fire({
-            icon: 'question',
+            icon: 'info',
             title: 'Perfil incompleto',
             text: 'Para poder ingresar debes completar tu perfil',
         });
@@ -27,8 +27,8 @@ export class PerfilCompletoGuard implements CanActivate {
         return this.authService.validarPerfil()
             .pipe(
                 tap((valid) => {
-                    console.log(valid);
                     if (!valid) {
+                        this.validatedPerfil();
                         return false;
                     }
                     return true;
