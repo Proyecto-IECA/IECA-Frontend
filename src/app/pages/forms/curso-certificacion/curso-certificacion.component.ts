@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { UsuarioService } from '../../../services/usuario.service';
 import { CursoCertificacionI } from '../../../models/cursos_certificaciones';
@@ -10,6 +10,8 @@ import { CursoCertificacionI } from '../../../models/cursos_certificaciones';
 export class CursoCertificacionComponent implements OnInit {
 
   public formSubmitted = true;
+  @Input() cursoCertificacion: CursoCertificacionI;
+  @Input() tipo: string;
 
   public certificadoForm = this.formBuilder.group(
     {
@@ -23,6 +25,9 @@ export class CursoCertificacionComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    if (this.tipo == 'update') {
+      this.loadData(this.cursoCertificacion);
+    }
   }
   campoNoValido(campo: string): boolean {
     if(this.certificadoForm.get(campo).invalid && this.formSubmitted){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
@@ -39,6 +39,8 @@ export const MY_FORMATS = {
 export class ExperienciaLaboralComponent implements OnInit {
 
   public formSubmitted = true;
+  @Input() experienciaLaboral: ExperienciaLaboralI;
+  @Input() tipo: string;
 
   public laboralForm = this.formBuilder.group(
     {
@@ -46,12 +48,13 @@ export class ExperienciaLaboralComponent implements OnInit {
       empresa: ['', Validators.required],
       actividades: ['', Validators.required],
       fecha_entrada: ['', Validators.required],
-      fecha_salida: ['']
+      fecha_salida: [''],
+      trabajando: []
     }
   )
 
-  date = new FormControl(moment([2000, 0]));
-  date2 = new FormControl(moment([2000, 0]));
+  date = new FormControl();
+  date2 = new FormControl();
   
 
   chosenYearHandler(normalizedYear: Moment, tipo: number) {
@@ -83,7 +86,9 @@ export class ExperienciaLaboralComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
-    
+    if (this.tipo == 'update') {
+      this.loadData(this.experienciaLaboral);
+    }
   }
 
   campoNoValido(campo: string): boolean {
@@ -96,6 +101,12 @@ export class ExperienciaLaboralComponent implements OnInit {
 
   loadData( expLaboral: ExperienciaLaboralI) {
     this.laboralForm.reset(expLaboral);
+    let fecha_entrada = moment(expLaboral.fecha_entrada, 'MM/YYYY'); 
+    this.date = new FormControl(fecha_entrada);
+    let fecha_salida = moment(expLaboral.fecha_salida, 'MM/YYYY'); 
+    this.date2 = new FormControl(fecha_salida);
+    // let d = moment(this.date2.value);
+    // console.log(d.format('YYYY/MM'))    
   }
 
 }

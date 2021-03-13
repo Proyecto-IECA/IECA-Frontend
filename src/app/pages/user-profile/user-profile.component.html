@@ -99,7 +99,7 @@
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <!-- ===== Formulario para agregar una experiencia laboral ===== -->
-                                <app-experiencia-laboral-form></app-experiencia-laboral-form>
+                                <app-experiencia-laboral-form [tipo]="'add'"></app-experiencia-laboral-form>
                             </mat-expansion-panel>
 
                             <div *ngFor="let expL of experienciasLaborales">
@@ -114,7 +114,7 @@
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para editar experiencia laboral ===== -->
-                                    <app-experiencia-laboral-form></app-experiencia-laboral-form>
+                                    <app-experiencia-laboral-form [tipo]="'update'" [experienciaLaboral]="expL"></app-experiencia-laboral-form>
                                 </mat-expansion-panel>
                             </div>
                         </mat-accordion>
@@ -180,7 +180,7 @@
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <!-- ===== Formulario para agregar una experiencia academica ===== -->
-                                <app-experiencia-academica-form></app-experiencia-academica-form>
+                                <app-experiencia-academica-form [tipo]="'add'"></app-experiencia-academica-form>
                             </mat-expansion-panel>
 
                             <div *ngFor="let expA of experienciasAcademicas">
@@ -195,7 +195,7 @@
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para editar experiencia academica ===== -->
-                                    <app-experiencia-academica-form></app-experiencia-academica-form>
+                                    <app-experiencia-academica-form [tipo]="'update'" [experienciaAcademica]="expA"></app-experiencia-academica-form>
                                 </mat-expansion-panel>
                             </div>
 
@@ -263,7 +263,7 @@
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <!-- ===== Formulario para agregar un curso o certificacion ===== -->
-                                <app-curso-certificacion-form></app-curso-certificacion-form>
+                                <app-curso-certificacion-form [tipo]="'add'"></app-curso-certificacion-form>
                             </mat-expansion-panel>
 
                             <div *ngFor="let curC of cursosCertificaciones">
@@ -278,7 +278,7 @@
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar un curso o certificacion ===== -->
-                                    <app-curso-certificacion-form></app-curso-certificacion-form>
+                                    <app-curso-certificacion-form [tipo]="'update'" [cursoCertificacion]="curC"></app-curso-certificacion-form>
                                 </mat-expansion-panel>
                             </div>
                         </mat-accordion>
