@@ -52,30 +52,30 @@
 
             <!-- ===== Segundo Renglón ===== -->
             <div class="row align-items-center">
-                <!-- ===== Columna de Habilidades y Valores ===== -->
+                <!-- ===== Columna de Habilidades ===== -->
                 <div class="col-md-4">
-                    <!-- ===== Card de Habilidades ===== -->
+                    <!-- ===== Card de Perfiles ===== -->
                     <div class="card">
-                        <!-- ===== Encabezado de Card ===== -->
-                        <div class="card-header card-header-success">
+                        <!-- ===== Encabezado de card ===== -->
+                        <div class="card-header card-header-info">
                             <h4 class="card-title">
-                                Habilidades
+                                Perfiles
                             </h4>
                             <p class="card-catergory">
                                 Completa tu perfil
                             </p>
                         </div>
-                        <!-- ===== Contenido del card (habilidades) ===== -->
+                        <!-- ===== Cuerpo del card ===== -->
                         <div class="card-body">
-                            <!-- ===== Chips de habilidades ===== -->
+                            <!-- ===== Chips de perfiles ===== -->
                             <mat-form-field class="example-chip-list">
-                                <mat-label>Habilidades favoritas</mat-label>
-                                <mat-chip-list #chipList aria-label="habilidad selection">
-                                    <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="removeHab(habilidad)">
-                                        {{habilidad.name}}
+                                <mat-label>Perfiles favoritos</mat-label>
+                                <mat-chip-list #chipList aria-label="valor selection">
+                                    <mat-chip *ngFor="let valor of valores" [selectable]="selectable" [removable]="removable" (removed)="removeVal(valor)">
+                                        {{valor.name}}
                                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                     </mat-chip>
-                                    <input placeholder="Nueva Habilidad" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                                    <input placeholder="Nuevo Valor" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
                                 </mat-chip-list>
                             </mat-form-field>
                         </div>
@@ -132,31 +132,32 @@
             <div class="row align-items-center">
                 <!-- ===== Columna de Idiomas ===== -->
                 <div class="col-md-4">
+                    <!-- ===== Card de Habilidades ===== -->
                     <div class="card">
                         <!-- ===== Encabezado de Card ===== -->
-                        <div class="card-header card-header-rose">
+                        <div class="card-header card-header-success">
                             <h4 class="card-title">
-                                Idiomas
+                                Habilidades
                             </h4>
                             <p class="card-catergory">
                                 Completa tu perfil
                             </p>
                         </div>
+                        <!-- ===== Contenido del card (habilidades) ===== -->
                         <div class="card-body">
-                            <!-- ===== Chips de idiomas ===== -->
+                            <!-- ===== Chips de habilidades ===== -->
                             <mat-form-field class="example-chip-list">
-                                <mat-label>Idiomas favoritos</mat-label>
-                                <mat-chip-list #chipList aria-label="idioma selection">
-                                    <mat-chip *ngFor="let idioma of idiomas" [selectable]="selectable" [removable]="removable" (removed)="removeIdi(idioma)">
-                                        {{idioma.name}}
+                                <mat-label>Habilidades favoritas</mat-label>
+                                <mat-chip-list #chipList aria-label="habilidad selection">
+                                    <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="removeHab(habilidad)">
+                                        {{habilidad.name}}
                                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                     </mat-chip>
-                                    <input placeholder="Nuevo Idioma" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                                    <input placeholder="Nueva Habilidad" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
                                 </mat-chip-list>
                             </mat-form-field>
                         </div>
                     </div>
-
 
                 </div>
                 <!-- ===== Columna de Experiencia Academica ===== -->
@@ -214,28 +215,26 @@
             <div class="row align-items-center">
                 <!-- ==== btn Descargar CV ====-->
                 <div class="col-md-4">
-                    <!-- ===== Card de Valores ===== -->
                     <div class="card">
-                        <!-- ===== Encabezado de card ===== -->
-                        <div class="card-header card-header-info">
+                        <!-- ===== Encabezado de Card ===== -->
+                        <div class="card-header card-header-rose">
                             <h4 class="card-title">
-                                Valores
+                                Idiomas
                             </h4>
                             <p class="card-catergory">
                                 Completa tu perfil
                             </p>
                         </div>
-                        <!-- ===== Cuerpo del card ===== -->
                         <div class="card-body">
-                            <!-- ===== Chips de valores ===== -->
+                            <!-- ===== Chips de idiomas ===== -->
                             <mat-form-field class="example-chip-list">
-                                <mat-label>Valores favoritos</mat-label>
-                                <mat-chip-list #chipList aria-label="valor selection">
-                                    <mat-chip *ngFor="let valor of valores" [selectable]="selectable" [removable]="removable" (removed)="removeVal(valor)">
-                                        {{valor.name}}
+                                <mat-label>Idiomas favoritos</mat-label>
+                                <mat-chip-list #chipList aria-label="idioma selection">
+                                    <mat-chip *ngFor="let idioma of idiomas" [selectable]="selectable" [removable]="removable" (removed)="removeIdi(idioma)">
+                                        {{idioma.name}}
                                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                     </mat-chip>
-                                    <input placeholder="Nuevo Valor" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                                    <input placeholder="Nuevo Idioma" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
                                 </mat-chip-list>
                             </mat-form-field>
                         </div>
@@ -292,15 +291,46 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center align-items-center">
-                <div class="col-md-6 text-center">
-                    <img src="../../../assets/img/log.svg" class="img-fluid" alt="..." width="50%">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <!-- ===== Card de Valores ===== -->
+                    <div class="card">
+                        <!-- ===== Encabezado de card ===== -->
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">
+                                Valores
+                            </h4>
+                            <p class="card-catergory">
+                                Completa tu perfil
+                            </p>
+                        </div>
+                        <!-- ===== Cuerpo del card ===== -->
+                        <div class="card-body">
+                            <!-- ===== Chips de valores ===== -->
+                            <mat-form-field class="example-chip-list">
+                                <mat-label>Valores favoritos</mat-label>
+                                <mat-chip-list #chipList aria-label="valor selection">
+                                    <mat-chip *ngFor="let valor of valores" [selectable]="selectable" [removable]="removable" (removed)="removeVal(valor)">
+                                        {{valor.name}}
+                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                    </mat-chip>
+                                    <input placeholder="Nuevo Valor" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                                </mat-chip-list>
+                            </mat-form-field>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 text-center">
-                    <button class="btn btn-warning" type="button">Descargar CV</button>
+
+                <div class="col-md-8">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-12 text-center">
+                            <img src="../../../assets/img/log.svg" class="img-fluid" alt="..." width="50%">
+                        </div>
+                        <button class="btn btn-warning m-t" type="button">Descargar CV</button>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
