@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -55,7 +56,8 @@ import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacanc
         MatIconModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatProgressSpinnerModule
     ],
     declarations: [
         DashboardComponent,
