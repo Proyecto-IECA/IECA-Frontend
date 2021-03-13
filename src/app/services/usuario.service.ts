@@ -39,7 +39,7 @@ export class UsuarioService {
   }
 
   updateUsuario(form: UsuarioI): Observable<AuthResponseI> {
-    return this.peticion.putQuery(this.tipo, 'usuario', form);
+    return this.peticion.putQuery(this.tipo, 'update', form);
   }
 
   //  ---------- EXPERIENCIA LABORAL CRUD ---------- //
