@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../services/usuario.service';
 import { UsuarioI } from '../../../models/usuario';
 import Swal from 'sweetalert2';
+import { AuthResponseI } from '../../../models/auth-response';
 
 interface Sexo{
   value: string;
@@ -19,7 +20,6 @@ export class UserComponent implements OnInit {
   public selected;
   @Input() usuario: UsuarioI;
   public formSubmitted = false;
-  loading = false;
 
   public userForm = this.formBuilder.group(
     {
@@ -64,8 +64,14 @@ export class UserComponent implements OnInit {
   updateUser( ) {
     this.formSubmitted = true;
     if(this.userForm.valid){
-      console.log('Hola');
-      
+      this.usuarioService.updateUsuario(this.userForm.value).subscribe((resp: AuthResponseI) => {
+        if(resp.status) {
+          this.doneMassage(resp.message);
+          this.userForm.reset(resp.data);
+        } else {
+          this.errorPeticion(resp.message);
+        }
+      }, (error) => this.errorServer(error));
     } else {
       this.errorMassage();
     }
@@ -91,11 +97,21 @@ export class UserComponent implements OnInit {
     });
   }
 
-  doneMassage(): void {
+  doneMassage(message: string): void {
     Swal.fire({
       icon: 'success',
-      title: 'Vacante generada',
-      text: 'Éxito en la busqueda del nuevo integrante',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  errorPeticion(error: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error,
       showConfirmButton: false,
       timer: 2700
     });
