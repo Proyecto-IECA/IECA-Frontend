@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
@@ -37,6 +37,8 @@ export const MY_FORMATS = {
 export class ExperienciaAcademicaComponent implements OnInit {
 
   public formSubmitted = true;
+  @Input() experienciaAcademica: ExperienciaAcademicaI;
+  @Input() tipo: string;
   
   public academicaForm = this.formBuilder.group(
     {
@@ -47,8 +49,8 @@ export class ExperienciaAcademicaComponent implements OnInit {
       carrera: ['']
     }
   )
-  date = new FormControl(moment([2000, 0]));
-  date2 = new FormControl(moment([2000, 0]));
+  date = new FormControl();
+  date2 = new FormControl();
   
   chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>, tipo: number) {
     if (tipo == 1) {
@@ -67,6 +69,9 @@ export class ExperienciaAcademicaComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService ) { }
 
   ngOnInit(): void {
+    if (this.tipo == 'update') {
+      this.loadData(this.experienciaAcademica);
+    }
   }
   campoNoValido(campo: string): boolean {
     if(this.academicaForm.get(campo).invalid && this.formSubmitted){
@@ -78,5 +83,10 @@ export class ExperienciaAcademicaComponent implements OnInit {
 
   loadData( expAcademica: ExperienciaAcademicaI) {
     this.academicaForm.reset(expAcademica);
+    let anio_entrada = moment(expAcademica.anio_entrada, 'YYYY');
+    this.date = new FormControl(moment(anio_entrada));
+    let anio_salida = moment(expAcademica.anio_salida, 'YYYY');
+    this.date2 = new FormControl(moment(anio_salida));
+
   }
 }
