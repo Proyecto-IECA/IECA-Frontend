@@ -89,7 +89,7 @@ export class PeticionesService {
       );
   }
 
-  deleteQuery(tipo: string, accion: string, id?: number): Observable<any> {
+  deleteQuery(tipo: string, accion: string, id_p?: any,  id?: number): Observable<any> {
 
     // Creación y asignación de valores de los headers
     const headers = new HttpHeaders({
@@ -98,7 +98,7 @@ export class PeticionesService {
     });
 
     // Variable para la assignation de la URL completo
-    const url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
+    const url = `${this.baseUrl}/${tipo}/${accion}/${id_p}/${id}`;
 
     // Petition http con la URL completa agregando los headers
     return this.http.delete<AuthResponseI>(url, { headers })

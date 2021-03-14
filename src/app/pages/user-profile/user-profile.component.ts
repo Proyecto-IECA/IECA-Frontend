@@ -125,5 +125,9 @@ export class UserProfileComponent implements OnInit {
     this.experienciasAcademicas = this.usuario.experiencias_academicas;
     this.cursosCertificaciones = this.usuario.cursos_certificaciones;
   }
+
+  recibirDataHijo(id: number) {
+    console.log(id);
+  }
   
 }
