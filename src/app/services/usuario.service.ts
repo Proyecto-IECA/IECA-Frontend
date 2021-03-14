@@ -7,6 +7,15 @@ import { UsuarioI } from '../models/usuario';
 import { ExperienciaLaboralI } from '../models/experiencia_laboral';
 import { ExperienciaAcademicaI } from '../models/experiencia_academica';
 import { CursoCertificacionI } from '../models/cursos_certificaciones';
+import { PerfilesPostulantesI } from '../models/perfiles_postulantes';
+import { PerfilPostulanteI } from '../models/perfil_postulante';
+import { HabilidadPostulanteI } from '../models/habilidades_postulante';
+import { HabilidadesPostulantesI } from '../models/habilidades_postulantes';
+import { ValorPostulanteI } from '../models/valor_postulante';
+import { ValoresPostulantesI } from 'app/models/valores_postulantes';
+import { IdiomaPostulanteI } from '../models/idioma_postulante';
+import { IdiomasPostulantesI } from '../models/idiomas_postulantes';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -95,5 +104,85 @@ export class UsuarioService {
   deleteCurso(id: number): Observable<AuthResponseI> {
     return this.peticion.deleteQuery(this.tipo, 'curso', id);
   }
+
+  // ------------------- PERFILES CRUD ---------------- //
+
+  readPerfiles(): Observable<AuthResponseI> {
+    return this.peticion.getQuery('perfiles');
+  }
+
+  readPerfilesPostulante(): Observable<AuthResponseI> {
+    let id = this.usuario.id_postulante;
+    return this.peticion.getQuery('perfiles', 'perfiles-postulante', id)
+  }
+
+  createPerfiles(perfiles: PerfilPostulanteI[]): Observable<AuthResponseI> {
+
+    let perfilesPostulante: PerfilesPostulantesI = new PerfilesPostulantesI;
+    perfilesPostulante.id_postulante = this.usuario.id_postulante;
+    perfilesPostulante.perfiles = perfiles;
+
+    return this.peticion.postQuery('perfiles', 'add', perfilesPostulante);
+  }
+
+  // ------------------- HABILIDADES CRUD ---------------- //
+
+  readHabilidades(): Observable<AuthResponseI> {
+    return this.peticion.getQuery('habilidades');
+  }
+
+  readHabilidadesPostulante(): Observable<AuthResponseI> {
+    let id = this.usuario.id_postulante;
+    return this.peticion.getQuery('habilidades', 'habilidades-postulante', id);
+  }
+
+  createHabilidades(habilidades: HabilidadPostulanteI[]): Observable<AuthResponseI> {
+
+    let habilidadesPostulante: HabilidadesPostulantesI = new HabilidadesPostulantesI;
+    habilidadesPostulante.id_postulante = this.usuario.id_postulante;
+    habilidadesPostulante.habilidades = habilidades;
+
+    return this.peticion.postQuery('habilidades', 'add', habilidadesPostulante);
+  }
+
+  // ------------------- VALORES CRUD ---------------- //
+
+  readValores(): Observable<AuthResponseI> {
+    return this.peticion.getQuery('valores');
+  }
+
+  readValoresPostulante(): Observable<AuthResponseI> {
+    let id = this.usuario.id_postulante;
+    return this.peticion.getQuery('valores', 'valores-postulante', id);
+  }
+
+  createValores(valores: ValorPostulanteI[]): Observable<AuthResponseI> {
+
+    let valoresPostulante: ValoresPostulantesI = new ValoresPostulantesI;
+    valoresPostulante.id_postulante = this.usuario.id_postulante;
+    valoresPostulante.valores = valores;
+
+    return this.peticion.postQuery('valores', 'add', valoresPostulante);
+  }
+
+    // ------------------- IDIOMAS CRUD ---------------- //
+
+    readIdiomas(): Observable<AuthResponseI> {
+      return this.peticion.getQuery('idiomas');
+    }
+  
+    readIdiomasPostulante(): Observable<AuthResponseI> {
+      let id = this.usuario.id_postulante;
+      return this.peticion.getQuery('idiomas', 'idiomas-postulante', id);
+    }
+  
+    createIdiomas(idiomas: IdiomaPostulanteI[]): Observable<AuthResponseI> {
+  
+      let idiomasPostulante: IdiomasPostulantesI = new IdiomasPostulantesI;
+      idiomasPostulante.id_postulante = this.usuario.id_postulante;
+      idiomasPostulante.idiomas = idiomas;
+  
+      return this.peticion.postQuery('idiomas', 'add', idiomasPostulante);
+    }
 
 }

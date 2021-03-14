@@ -43,15 +43,20 @@ export class PeticionesService {
       );
   }
 
-  getQuery(tipo: string, accion: string, id?: number): Observable<any> {
+  getQuery(tipo: string, accion?: string, id?: number): Observable<any> {
     // Creación y asignación de valores de los headers
     const headers = new HttpHeaders({
       'x-token': localStorage.getItem('token'),
       'email': this.email
     });
-
-    // Variable para la assignation de la URL completo
-    const url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
+    let url = '';
+    if(!accion) {
+      // Variable para la assignation de la URL completo
+      url = `${this.baseUrl}/${tipo}`;
+    } else {
+      // Variable para la assignation de la URL completo
+      url = `${this.baseUrl}/${tipo}/${accion}/${id}`;
+    }
 
     // Petition http con la URL completa agregando los headers
     return this.http.get<AuthResponseI>(url, { headers })
