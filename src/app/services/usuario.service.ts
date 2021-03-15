@@ -54,7 +54,8 @@ export class UsuarioService {
   //  ---------- EXPERIENCIA LABORAL CRUD ---------- //
 
   createExpLaboral(form: ExperienciaLaboralI): Observable<AuthResponseI> {
-    return this.peticion.postQuery(this.tipo, 'expLaboral', form);
+    form.id_postulante = this.usuario.id_postulante;
+    return this.peticion.postQuery('experiencias-laborales', 'add', form);
   }
 
   readExpLaboral(id: number): Observable<AuthResponseI> {
@@ -62,17 +63,19 @@ export class UsuarioService {
   }
 
   updateExpLaboral(form: ExperienciaLaboralI, id: number): Observable<AuthResponseI> {
-    return this.peticion.putQuery(this.tipo, 'expLaboral', form, id);
+    form.id_postulante = this.usuario.id_postulante;
+    return this.peticion.putQuery('experiencias-laborales', 'update', form, id);
   }
 
   deleteExpLaboral(id: number): Observable<AuthResponseI> {
-    return this.peticion.deleteQuery(this.tipo, 'expLaboral', id);
+    return this.peticion.deleteQuery('experiencias-laborales', 'delete', this.usuario.id_postulante, id);
   }
 
   //  ---------- EXPERIENCIA ACADÉMICA CRUD ---------- //
 
   createExpAcademica(form: ExperienciaAcademicaI): Observable<AuthResponseI> {
-    return this.peticion.postQuery(this.tipo, 'expAcademica', form);
+    form.id_postulante = this.usuario.id_postulante;
+    return this.peticion.postQuery('experiencias-academicas', 'add', form);
   }
 
   readExpAcademica(id: number): Observable<AuthResponseI> {
@@ -80,17 +83,19 @@ export class UsuarioService {
   }
 
   updateExpAcademica(form: ExperienciaAcademicaI, id: number): Observable<AuthResponseI> {
-    return this.peticion.putQuery(this.tipo, 'expAcademica', form, id);
+    form.id_postulante = this.usuario.id_postulante;
+    return this.peticion.putQuery('experiencias-academicas', 'update', form, id);
   }
 
   deleteExpAcademica(id: number): Observable<AuthResponseI> {
-    return this.peticion.deleteQuery(this.tipo, 'expAcademica', id);
+    return this.peticion.deleteQuery('experiencias-academicas', 'delete', this.usuario.id_postulante, id);
   }
 
   //  ---------- CURSO Y/O CERTIFICACION CRUD ---------- //
 
   createCurso(form: CursoCertificacionI): Observable<AuthResponseI> {
-    return this.peticion.postQuery(this.tipo, 'curso', form);
+    form.id_postulante = this.usuario.id_postulante;
+    return this.peticion.postQuery('cursos-certificaciones', 'add', form);
   }
 
   readCurso(id: number): Observable<AuthResponseI> {
@@ -98,11 +103,12 @@ export class UsuarioService {
   }
 
   updateCurso(form: CursoCertificacionI, id: number): Observable<AuthResponseI> {
-    return this.peticion.putQuery(this.tipo, 'curso', form);
+    form.id_postulante = this.usuario.id_postulante;
+    return this.peticion.putQuery('cursos-certificaciones', 'update', form, id);
   }
 
   deleteCurso(id: number): Observable<AuthResponseI> {
-    return this.peticion.deleteQuery(this.tipo, 'curso', id);
+    return this.peticion.deleteQuery('cursos-certificaciones', 'delete', this.usuario.id_postulante, id);
   }
 
   // ------------------- PERFILES CRUD ---------------- //

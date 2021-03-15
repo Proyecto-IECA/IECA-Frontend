@@ -1,4 +1,4 @@
-<form [formGroup]="academicaForm">
+<form [formGroup]="academicaForm" (ngSubmit)="actionForm()">
     <!-- ===== Renglón  -->
     <div class="row">
         <!-- ===== Columna de Nivel ===== -->
@@ -30,39 +30,50 @@
         <div class="col-md-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Año de Ingreso</mat-label>
-                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="anio_entrada" required>
+                <input matInput [matDatepicker]="dp" [formControl]="date" required>
                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event, dp, 1)" panelClass="example-month-picker">
                 </mat-datepicker>
-                <mat-error *ngIf="campoNoValido('anio_entrada')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <div class="col-md-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Año de Egreso</mat-label>
-                <input matInput [matDatepicker]="dp2" [formControl]="date2" formControlName="anio_salida">
+                <input matInput [matDatepicker]="dp2" [formControl]="date2">
                 <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
                 <mat-datepicker #dp2 startView="multi-year" (yearSelected)="chosenYearHandler($event, dp2, 2)" panelClass="example-month-picker">
                 </mat-datepicker>
-                <mat-error *ngIf="campoNoValido('anio_salida')">Este campo no acepta letras *</mat-error>
             </mat-form-field>
         </div>
         <!-- ===== Columna de Empleo estutus ===== -->
         <div class="col-md-4 text-center">
-            <mat-slide-toggle>
+            <mat-slide-toggle formControlName="estudiando">
                 ¿Estudio actual?
             </mat-slide-toggle>
         </div>
     </div>
+
     <!-- Renglón justificado al final -->
-    <div class="row justify-content-end">
+    <div *ngIf="tipo=='add'" class="row justify-content-end">
         <!-- ===== btn icon cancelar ===== -->
-        <button class="btn btn-danger btn-sm btn-just-icon m-r">
-        <i class="material-icons">close</i>
-    </button>
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r">
+            <i class="material-icons">close</i>
+        </button>
         <!-- ===== btn icon aceptar ===== -->
-        <button type="button" class="btn btn-primary btn-sm btn-just-icon m-r">
-        <i class="material-icons">done</i>
-    </button>
+        <button type="submit" class="btn btn-primary btn-sm btn-just-icon m-r">
+            <i class="material-icons">done</i>
+        </button>
+    </div>
+
+    <!-- Renglón justificado al final -->
+    <div *ngIf="tipo=='update'" class="row justify-content-end">
+        <!-- ===== btn icon cancelar ===== -->
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="deleteExpAcademica()">
+            <i class="material-icons">delete</i>
+        </button>
+        <!-- ===== btn icon aceptar ===== -->
+        <button type="submit" class="btn btn-primary btn-sm btn-just-icon m-r">
+            <i class="material-icons">edit</i>
+        </button>
     </div>
 </form>

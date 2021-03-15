@@ -324,6 +324,4 @@ export class UserProfileComponent implements OnInit {
     }
     return true;
   }
-
-  
 }
