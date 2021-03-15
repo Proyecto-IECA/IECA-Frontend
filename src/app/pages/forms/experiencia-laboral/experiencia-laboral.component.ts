@@ -45,6 +45,7 @@ export class ExperienciaLaboralComponent implements OnInit {
   public formSubmitted = false;
   @Input() experienciaLaboral: ExperienciaLaboralI;
   @Input() tipo: string;
+  activedFecha_salida = false;
 
   public laboralForm = this.formBuilder.group(
     {
@@ -106,6 +107,9 @@ export class ExperienciaLaboralComponent implements OnInit {
   }
 
   loadData( expLaboral: ExperienciaLaboralI) {
+    if (expLaboral.trabajando) {
+      this.activedFecha_salida = true;
+    }
     this.laboralForm.reset(expLaboral);
     let fecha_entrada = moment(expLaboral.fecha_entrada, 'MM/YYYY'); 
     this.date = new FormControl(fecha_entrada);
@@ -172,12 +176,19 @@ export class ExperienciaLaboralComponent implements OnInit {
 
 
   loadFechasForm() {
-    let date = moment(this.date.value);
-    let f_entrada = date.format('MM/YYYY');
-    this.laboralForm.get('fecha_entrada').setValue(f_entrada);
-    let date2 = moment(this.date2.value);
-    let f_salida = date2.format('MM/YYYY');
-    this.laboralForm.get('fecha_salida').setValue(f_salida);
+    if (!this.activedFecha_salida) {
+      let date = moment(this.date.value);
+      let f_entrada = date.format('MM/YYYY');
+      this.laboralForm.get('fecha_entrada').setValue(f_entrada);
+      let date2 = moment(this.date2.value);
+      let f_salida = date2.format('MM/YYYY');
+      this.laboralForm.get('fecha_salida').setValue(f_salida);
+    } else {
+      let date = moment(this.date.value);
+      let f_entrada = date.format('MM/YYYY');
+      this.laboralForm.get('fecha_entrada').setValue(f_entrada);
+    }
+    
   }
 
 
@@ -220,6 +231,14 @@ export class ExperienciaLaboralComponent implements OnInit {
       showConfirmButton: false,
       timer: 2700
     });
+  }
+
+  ischecked() {
+    if (this.laboralForm.get('trabajando').value) {
+      this.activedFecha_salida = false;
+    } else {
+      this.activedFecha_salida = true;
+    }
   }
 
 }

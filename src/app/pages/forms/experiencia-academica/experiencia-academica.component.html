@@ -37,7 +37,7 @@
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="example-full-width">
+            <mat-form-field *ngIf="!activedAnio_salida" class="example-full-width">
                 <mat-label>Año de Egreso</mat-label>
                 <input matInput [matDatepicker]="dp2" [formControl]="date2">
                 <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
@@ -47,7 +47,7 @@
         </div>
         <!-- ===== Columna de Empleo estutus ===== -->
         <div class="col-md-4 text-center">
-            <mat-slide-toggle formControlName="estudiando">
+            <mat-slide-toggle formControlName="estudiando" (click)="ischecked()">
                 ¿Estudio actual?
             </mat-slide-toggle>
         </div>

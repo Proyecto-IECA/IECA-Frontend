@@ -42,6 +42,8 @@ export class ExperienciaAcademicaComponent implements OnInit {
   public formSubmitted = false;
   @Input() experienciaAcademica: ExperienciaAcademicaI;
   @Input() tipo: string;
+  activedAnio_salida = false;
+
   
   public academicaForm = this.formBuilder.group(
     {
@@ -86,6 +88,9 @@ export class ExperienciaAcademicaComponent implements OnInit {
   }
 
   loadData( expAcademica: ExperienciaAcademicaI) {
+    if (expAcademica.estudiando) {
+      this.activedAnio_salida = true;
+    }
     this.academicaForm.reset(expAcademica);
     let anio_entrada = moment(expAcademica.anio_entrada, 'YYYY');
     this.date = new FormControl(moment(anio_entrada));
@@ -148,12 +153,18 @@ export class ExperienciaAcademicaComponent implements OnInit {
   }
 
   loadFechasForm() {
-    let date = moment(this.date.value);
-    let anio_entrada = date.format('YYYY');
-    this.academicaForm.get('anio_entrada').setValue(anio_entrada);
-    let date2 = moment(this.date2.value);
-    let anio_salida = date2.format('YYYY');
-    this.academicaForm.get('anio_salida').setValue(anio_salida);
+    if (!this.activedAnio_salida) {
+      let date = moment(this.date.value);
+      let anio_entrada = date.format('YYYY');
+      this.academicaForm.get('anio_entrada').setValue(anio_entrada);
+      let date2 = moment(this.date2.value);
+      let anio_salida = date2.format('YYYY');
+      this.academicaForm.get('anio_salida').setValue(anio_salida);
+    } else {
+      let date = moment(this.date.value);
+      let anio_entrada = date.format('YYYY');
+      this.academicaForm.get('anio_entrada').setValue(anio_entrada);
+    }
   }
 
   //  ---------- MENSAJES ---------- //
@@ -196,4 +207,13 @@ export class ExperienciaAcademicaComponent implements OnInit {
       timer: 2700
     });
   }
+
+  ischecked() {
+    if (this.academicaForm.get('estudiando').value) {
+      this.activedAnio_salida = false;
+    } else {
+      this.activedAnio_salida = true;
+    }
+  }
+
 }

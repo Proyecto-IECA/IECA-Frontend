@@ -40,7 +40,7 @@
         </div>
         <!-- ===== Columna de Fecha Salida ===== -->
         <div class="col-md-4">
-            <mat-form-field class="example-full-width m-t">
+            <mat-form-field *ngIf="!activedFecha_salida" class="example-full-width m-t">
                 <mat-label>Fecha de Salida</mat-label>
                 <input matInput [matDatepicker]="dp2" [formControl]="date2">
                 <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
@@ -51,7 +51,7 @@
         </div>
         <!-- ===== Columna de Empleo estutus ===== -->
         <div class="col-md-4 text-center">
-            <mat-slide-toggle formControlName="trabajando">
+            <mat-slide-toggle formControlName="trabajando" (click)="ischecked()">
                 ¿Empleo actual?
             </mat-slide-toggle>
         </div>
