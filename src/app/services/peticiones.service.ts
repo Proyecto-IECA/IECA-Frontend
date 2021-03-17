@@ -50,7 +50,7 @@ export class PeticionesService {
       'email': this.email
     });
     let url = '';
-    if(!accion) {
+    if (!accion) {
       // Variable para la assignation de la URL completo
       url = `${this.baseUrl}/${tipo}`;
     } else {

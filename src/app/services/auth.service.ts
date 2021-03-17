@@ -52,11 +52,24 @@ export class AuthService {
     //  ---------- QUERY ---------- //
     private postQuery(tipo: string, accion: string, body: UsuarioI | EmpresaI | { email: string }): Observable<AuthResponseI> {
 
+        let token: string;
+
+        if (!localStorage.getItem('token')) {
+            token = '';
+        } else {
+            token = localStorage.getItem('token');
+        }
+
+        // Creación y asignación de valores de los headers
+        const headers = new HttpHeaders({
+            'x-token': token
+        });
+
         // Variable para la assignation de la URL completo
         const url = `${this.baseUrl}/${tipo}/${accion}`;
 
         // Petition http con la URL completa agregando los headers
-        return this.http.post<AuthResponseI>(url, body, { headers: { 'x-token': localStorage.getItem('token') } })
+        return this.http.post<AuthResponseI>(url, body, { headers })
             .pipe(
                 map(response => {
                     console.log(response);
