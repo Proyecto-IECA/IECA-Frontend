@@ -73,3 +73,9 @@
 .example-month-picker .mat-calendar-arrow {
     display: none;
 }
+
+.mat-expansion-panel-header {
+    height: auto !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}

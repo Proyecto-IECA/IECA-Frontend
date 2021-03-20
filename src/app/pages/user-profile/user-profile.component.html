@@ -113,7 +113,7 @@
                                 </mat-expansion-panel>
 
                                 <div *ngFor="let expL of experienciasLaborales">
-                                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
                                                 {{expL.puesto}}
@@ -200,7 +200,7 @@
                                 </mat-expansion-panel>
 
                                 <div *ngFor="let expA of experienciasAcademicas">
-                                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
                                                 {{expA.nivel}}
@@ -286,7 +286,7 @@
                                 </mat-expansion-panel>
 
                                 <div *ngFor="let curC of cursosCertificaciones">
-                                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
                                                 {{curC.nombre}}
