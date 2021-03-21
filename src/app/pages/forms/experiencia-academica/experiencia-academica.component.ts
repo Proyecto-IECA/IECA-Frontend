@@ -60,11 +60,17 @@ export class ExperienciaAcademicaComponent implements OnInit {
   
   chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>, tipo: number) {
     if (tipo == 1) {
+      if (!this.date.value) {
+        this.date = new FormControl(moment([2000]));
+      } 
       const ctrlValue = this.date.value;
       ctrlValue.year(normalizedYear.year());
       this.date.setValue(ctrlValue);
       datepicker.close();
     } else {
+      if (!this.date2.value) {
+        this.date2 = new FormControl(moment([2000]));
+      } 
       const ctrlValue2 = this.date2.value;
       ctrlValue2.year(normalizedYear.year());
       this.date2.setValue(ctrlValue2);

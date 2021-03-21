@@ -63,11 +63,18 @@ export class ExperienciaLaboralComponent implements OnInit {
   
 
   chosenYearHandler(normalizedYear: Moment, tipo: number) {
+
     if (tipo == 1) {
+      if (!this.date.value) {
+        this.date = new FormControl(moment([2000, 0]));
+      } 
       const ctrlValue = this.date.value;
       ctrlValue.year(normalizedYear.year());
       this.date.setValue(ctrlValue);
     } else {
+      if (!this.date2.value) {
+        this.date2 = new FormControl(moment([2000, 0]));
+      } 
       const ctrlValue2 = this.date2.value;
       ctrlValue2.year(normalizedYear.year());
       this.date2.setValue(ctrlValue2);
@@ -128,8 +135,10 @@ export class ExperienciaLaboralComponent implements OnInit {
   }
 
   addExpLaboral(){
-    this.formSubmitted = true;
+
     this.loadFechasForm();
+    this.formSubmitted = true;
+
     if(this.laboralForm.valid){
       this.usuarioService.createExpLaboral(this.laboralForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status){
