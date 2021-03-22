@@ -186,7 +186,15 @@
                             <!-- Ubicación -->
                             <div class="input-field">
                                 <i class="material-icons">room</i>
-                                <input type="text" placeholder="Dirección" formControlName="ubicacion" />
+                                <input ngx-google-places-autocomplete
+                                       #placesRef="ngx-places"
+                                       (onAddressChange)="handleAddressChange($event)"
+                                       id="autocomplete"
+                                       type="text"
+                                       placeholder="Dirección"
+                                       formControlName="ubicacion" />
+                                <!--<input id="autocomplete" type="text" placeholder="Dirección" formControlName="ubicacion" />-->
+                                <!--<input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>-->
                             </div>
                             <small *ngIf="controlNoValid(registerEmpresaForm,'ubicacion')" class="form-text text-danger">
                 * Debe contener al menos 5 letras
@@ -233,6 +241,15 @@
                         </div>
                         <br>
                     </div>
+
+
+
+
+
+
+
+
+
                     <!-- Mostrar botones -->
                     <div *ngIf="type == 'e'">
                         <!-- Next Form -->

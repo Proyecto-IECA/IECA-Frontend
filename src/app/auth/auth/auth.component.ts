@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
@@ -10,6 +10,8 @@ import { EmpresaI } from '../../models/empresa';
 import { UsuarioI } from '../../models/usuario';
 import { EmpresaService } from '../../services/empresa.service';
 import { UsuarioService } from '../../services/usuario.service';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
 
 
 @Component({
@@ -32,6 +34,8 @@ export class AuthComponent implements OnInit {
   registerUsuarioForm: FormGroup;
   registerEmpresaForm: FormGroup;
 
+  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
+
   constructor(
     private formB: FormBuilder,
     private validators: ValidatorsService,
@@ -46,6 +50,7 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
     //  ---------- VALIDADORES ---------- //
   /* Validar los control name */
@@ -340,5 +345,10 @@ export class AuthComponent implements OnInit {
     });
   }
 
+  // Autocompletar la ubicación
+  public handleAddressChange(address: Address) {
+    // Do some stuff
+    console.log(address);
+  }
 
 }
