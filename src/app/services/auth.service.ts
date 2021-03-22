@@ -32,6 +32,7 @@ export class AuthService {
         if (localStorage.getItem('email')) {
             this._usuario = JSON.parse(localStorage.getItem('data'));
             this.email = localStorage.getItem('email');
+            return;
         }
         localStorage.setItem('tipo', '');
         localStorage.setItem('data', '');
@@ -42,11 +43,7 @@ export class AuthService {
                 private router: Router) {
         this.email = '';
         this.refreshToken = '';
-        // this.getEmail();
-        localStorage.setItem('tipo', '');
-        if (localStorage.getItem('data')) {
-            this._usuario = JSON.parse(localStorage.getItem('data'));
-        }
+        this.getEmail();
     }
 
     //  ---------- QUERY ---------- //
@@ -78,7 +75,6 @@ export class AuthService {
                         this.email = response.data.email;
                         this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
-                        localStorage.setItem('data', JSON.stringify(response.data));
                     }
                     return response;
                 })
