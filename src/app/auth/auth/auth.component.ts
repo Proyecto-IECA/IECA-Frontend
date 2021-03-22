@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit {
   registerUsuarioForm: FormGroup;
   registerEmpresaForm: FormGroup;
 
-  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
+  @ViewChild('placesRef') placesRef: GooglePlaceDirective; // autocompletar dirección
 
   constructor(
     private formB: FormBuilder,
@@ -191,10 +191,10 @@ export class AuthComponent implements OnInit {
   /* Formulario REGISTRO para EMPRESA */
   registerEmpresaCreateForm(): void {
     this.registerEmpresaForm = this.formB.group({
-        nombre: [, [Validators.required, Validators.minLength(3)]],
+        nombre: [, [Validators.required, Validators.minLength(2)]],
         administrador: [, [Validators.required, Validators.minLength(3)]],
         giro: [, Validators.required],
-        ubicacion: [, [Validators.required, Validators.minLength(5)]],
+        ubicacion: [, [Validators.required, Validators.minLength(2)]],
         email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
         pass: [, [Validators.required, Validators.minLength(6)]],
         password: [, [Validators.required]],
@@ -215,7 +215,7 @@ export class AuthComponent implements OnInit {
     /* Validar formulario */
     if (this.formularioNoValido(loginForm)) {
       /* Mensaje de error en Sweetalert2 */
-      this.errorMassage();
+      return this.errorMassage();
     }
 
     /* Asigna los valores del formualrio en una variable llamada data */
@@ -228,16 +228,16 @@ export class AuthComponent implements OnInit {
         postulante => {
           if (!postulante.status) {
             /* Mensaje de error en Sweetalert2 */
-            this.errorMassageLogin();
-            return;
+            return this.errorMassageLogin();
           }
-          /* If rememberMe TRUE or False */
+
+          /* If rememberMe TRUE or FALSE */
           if (loginForm.value.rememberMe) {
             localStorage.setItem('email', data.email);
           }
+
           loginForm.reset();
-          this.router.navigateByUrl('/dashboard');
-          return;
+          return this.router.navigateByUrl('/dashboard');
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
@@ -251,8 +251,7 @@ export class AuthComponent implements OnInit {
         empresa => {
           if (!empresa.status) {
             /* Mensaje de error en Sweetalert2 */
-            this.errorMassageLogin();
-            return;
+            return this.errorMassageLogin();
           }
           /* If rememberMe TRUE or False */
           if (loginForm.value.rememberMe) {
@@ -260,8 +259,7 @@ export class AuthComponent implements OnInit {
           }
 
           loginForm.reset();
-          this.router.navigateByUrl('/dashboard');
-          return;
+          return this.router.navigateByUrl('/dashboard');
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
@@ -272,14 +270,15 @@ export class AuthComponent implements OnInit {
 
   // Registrarse
   registro(form: FormGroup): void {
+    // console.log(form);
+
     /* Asigna los valores del formualrio en una variable llamada data */
     const data = form.value;
 
     /* Validar formulario */
     if (this.formularioNoValido(data)) {
       /* Mensaje de error en Sweetalert2 */
-      this.errorMassage();
-      return;
+      return this.errorMassage();
     }
 
     /* Dirigir el tipo de servicio a solicitar */
@@ -289,12 +288,10 @@ export class AuthComponent implements OnInit {
         (postulante) => {
           if (!postulante.status) {
             /* Mensaje de error en Sweetalert2 */
-            this.errorMassage();
-            return;
+            return this.errorMassage();
           }
           form.reset(); // Limpiar fomrulario
-          this.emailEnviado(); // Mendaje de ok
-          return;
+          return this.emailEnviado(); // Mendaje de ok
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
@@ -305,22 +302,21 @@ export class AuthComponent implements OnInit {
     /* Dirigir el tipo de servicio a solicitar */
     if (this.type === 'e') {
       // Servicio de REGISTRO para EMPRESA
-      this.empresaSvc.createCompany(data).subscribe(
+      this.authService.registroEmpresa(data).subscribe(
         empresa => {
           if (!empresa.status) {
             /* Mensaje de error en Sweetalert2 */
-            this.errorMassage();
-            return;
+            return this.errorMassage();
           }
           form.reset(); // Limpiar fomrulario
-          this.emailEnviado(); // Mendaje de ok
-          return;
+          return this.emailEnviado(); // Mendaje de ok
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer(error);
         });
     }
+
   }
 
   // Recuperar contraseña
@@ -345,10 +341,21 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  // Autocompletar la ubicación
+  // Autocompletar la dirección en la ubicación
   public handleAddressChange(address: Address) {
     // Do some stuff
-    console.log(address);
+    // console.log(address);
+
+    // Asignar el valor de google al formulario de registerEmpresaForm
+    this.registerEmpresaForm.reset({
+      nombre: this.registerEmpresaForm.value.nombre,
+      administrador: this.registerEmpresaForm.value.administrador,
+      giro: this.registerEmpresaForm.value.giro,
+      ubicacion: `${address.name}, ${address.formatted_address}`,
+      email: this.registerEmpresaForm.value.email,
+      pass: this.registerEmpresaForm.value.pass,
+      password: this.registerEmpresaForm.value.password,
+    });
   }
 
 }

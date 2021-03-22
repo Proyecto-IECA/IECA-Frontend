@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       .pipe(
         tap((valid) => {
           if (!valid) {
-            this.router.navigateByUrl('/validarEmail');
+            return this.router.navigateByUrl('/validarEmail');
           }
           return true;
         })

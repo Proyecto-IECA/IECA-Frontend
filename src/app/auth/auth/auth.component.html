@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- Si selecciona USUARIO -->
-                <form autocomplete="off" (ngSubmit)="registro(registerUsuarioForm)" [formGroup]="registerUsuarioForm">
+                <form (ngSubmit)="registro(registerUsuarioForm)" [formGroup]="registerUsuarioForm">
                     <!-- Mostrar formulario -->
                     <div *ngIf="type == 'u'">
                         <div *ngIf="part">
@@ -146,15 +146,13 @@
                     <div *ngIf="type == 'u'">
                         <!-- Next Form -->
                         <button *ngIf="part" (click)="part = !part" class="btn btn-primary" type="button">
-              Siguiente &nbsp;
-              <i class="material-icons">keyboard_arrow_right</i>
-            </button>
+                          Siguiente &nbsp; <i class="material-icons">keyboard_arrow_right</i>
+                        </button>
                         <!-- Previous Form and Button submit -->
                         <div *ngIf="!part">
                             <button (click)="part = !part" class="btn btn-primary" type="button">
-                                <i class="material-icons">keyboard_arrow_left</i>
-                                Regresar
-              </button> &nbsp;
+                                <i class="material-icons">keyboard_arrow_left</i> Regresar
+                            </button> &nbsp;
                             <button type="submit" [disabled]="registerUsuarioForm.invalid" class="btn btn-primary">Registrar</button>
                         </div>
                     </div>
@@ -171,25 +169,24 @@
                                 <input type="text" placeholder="Nombre de la Empresa" formControlName="nombre" />
                             </div>
                             <small *ngIf="controlNoValid(registerEmpresaForm,'nombre')" class="form-text text-danger">
-                * Debe contener al menos 3 letras
-                <br>
-              </small>
+                                * Debe contener al menos 2 letras
+                                <br>
+                            </small>
                             <!-- Nombre del administrador -->
                             <div class="input-field">
                                 <i class="material-icons">person</i>
                                 <input type="text" placeholder="Nombre del Administrador" formControlName="administrador" />
                             </div>
                             <small *ngIf="controlNoValid(registerEmpresaForm,'administrador')" class="form-text text-danger">
-                * Debe contener al menos 3 letras
-                <br>
-              </small>
+                                * Debe contener al menos 3 letras
+                                <br>
+                            </small>
                             <!-- Ubicación -->
                             <div class="input-field">
                                 <i class="material-icons">room</i>
                                 <input ngx-google-places-autocomplete
                                        #placesRef="ngx-places"
                                        (onAddressChange)="handleAddressChange($event)"
-                                       id="autocomplete"
                                        type="text"
                                        placeholder="Dirección"
                                        formControlName="ubicacion" />
@@ -197,9 +194,9 @@
                                 <!--<input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>-->
                             </div>
                             <small *ngIf="controlNoValid(registerEmpresaForm,'ubicacion')" class="form-text text-danger">
-                * Debe contener al menos 5 letras
-                <br>
-              </small>
+                                * Campo obligatorio
+                                <br>
+                            </small>
                             <!-- Giro de la empresa -->
                             <div class="input-field">
                                 <i class="material-icons">work</i>
@@ -242,29 +239,21 @@
                         <br>
                     </div>
 
-
-
-
-
-
-
-
-
                     <!-- Mostrar botones -->
                     <div *ngIf="type == 'e'">
                         <!-- Next Form -->
                         <button *ngIf="part" (click)="part = !part" class="btn btn-work" type="button">
-              Siguiente &nbsp;
-              <i class="fas fa-angle-right"></i>
-            </button>
+                          Siguiente &nbsp; <i class="material-icons">keyboard_arrow_right</i>
+                        </button>
                         <!-- Previous Form and Button submit -->
                         <div *ngIf="!part">
                             <button (click)="part = !part" class="btn btn-work" type="button">
-                <i class="fas fa-angle-left"></i> Regresar
-              </button> &nbsp;
-                            <button type="submit" [disabled]="registerEmpresaForm.invalid" class="btn btn-work">Registrar</button>
+                                <i class="material-icons">keyboard_arrow_left</i> Regresar
+                            </button> &nbsp;
+                            <button type="submit" class="btn btn-work">Registrar</button>
                         </div>
                     </div>
+
                 </form>
 
                 <app-social-media *ngIf="type==''"></app-social-media>

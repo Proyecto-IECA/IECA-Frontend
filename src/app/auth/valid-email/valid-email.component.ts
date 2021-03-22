@@ -122,11 +122,9 @@ export class ValidEmailComponent implements OnInit {
         response => {
           if (!response.status) {
             /* Mensaje de error en Sweetalert2 */
-            this.errorMassage();
-            return;
+            return this.errorMassage();
           }
-          this.emailEnviado();
-          // email enviado
+          return this.emailEnviado(); // email enviado
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */

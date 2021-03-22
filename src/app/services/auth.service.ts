@@ -109,6 +109,7 @@ export class AuthService {
                         this.email = response.data.email;
                         this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
+                        localStorage.setItem('data', JSON.stringify(response.data));
                     }
                     return response;
                 })
@@ -253,7 +254,6 @@ export class AuthService {
     }
 
     registroUsuario(form: UsuarioI): Observable<AuthResponseI> {
-        console.log(form);
         return this.postQuery('auth-postulantes', 'register', form);
     }
 
@@ -269,6 +269,10 @@ export class AuthService {
     loginEmpresa(form: EmpresaI): Observable<AuthResponseI> {
         localStorage.setItem('tipo', '2');
         return this.postQuery('auth-empresas', 'login', form);
+    }
+
+    registroEmpresa(form: EmpresaI): Observable<AuthResponseI> {
+        return this.postQuery('auth-empresas', 'register', form);
     }
 
     validarEmailEmpresa(token: string): Observable<AuthResponseI> {
