@@ -58,8 +58,8 @@ export class EmpresaService {
     return this.peticion.postQuery('auth-postulantes', 'register', form);
   }
 
-  readCompany(form: any): Observable<any> {
-    return this.peticion.getQuery('empresas', 'vacante', form);
+  readCompany(id: number): Observable<any> {
+    return this.peticion.getQuery('empresas', 'perfil-completo', id);
   }
 
   updateCompany(form: any): Observable<any> {

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { EmpresaService } from '../../services/empresa.service';
 import { EmpresaI } from '../../models/empresa';
+import { AuthResponseI } from '../../models/auth-response';
 
 @Component({
   selector: 'app-company-profile',
@@ -75,9 +76,9 @@ export class CompanyProfileComponent implements OnInit {
   //  ---------- FORMULARIO ---------- //
   companyCreateForm(): void {
     this.companyForm = this.formB.group({
-      nombre: [, [Validators.required, Validators.minLength(5)]],
-      administrador: [Validators.required, Validators.minLength(5)],
-      ubicacion: [Validators.required, Validators.minLength(5)],
+      nombre: [, [Validators.required, Validators.minLength(2)]],
+      administrador: [, [Validators.required, Validators.minLength(3)]],
+      ubicacion: [, [Validators.required, Validators.minLength(5)]],
       giro: [, [Validators.required, Validators.minLength(3)]],
       pagina_web: [, Validators.required],
       telefono: [, [Validators.required, Validators.maxLength(10)]],
@@ -88,10 +89,15 @@ export class CompanyProfileComponent implements OnInit {
   /* Cargar datos al template */
   loadData(): void {
     // Cargar datos del Card de perfil
-    this.company = this.empresaSvc.company;
-
-    // Cargar datos al formulario
-    this.companyForm.reset(this.empresaSvc.company);
+    // this.company = this.empresaSvc.company;
+    this.empresaSvc.readCompany(this.empresaSvc.company.id_empresa).subscribe(
+        (value: AuthResponseI) =>
+            // Cargar datos al formulario
+            this.companyForm.reset(value.data),
+        error =>
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          this.errorServer(error)
+        );
   }
 
   /* Actualizar Datos de la Empresa */
@@ -100,7 +106,7 @@ export class CompanyProfileComponent implements OnInit {
     // Validar formulario
     if (this.formularioNoValido()) {
       // Mensaje de error de validación
-      this.errorMassage();
+      return this.errorMassage();
     }
 
     // Extraemos los valores del formulario
@@ -111,13 +117,15 @@ export class CompanyProfileComponent implements OnInit {
         response => {
           if (!response.status) {
             // Mensaje de error de respuesta
-            this.errorMassage();
+            return this.errorMassage();
           }
 
           // Mensaje de cambios guardados
-          this.doneMassage();
+          return this.doneMassage();
         },
-        error => this.errorServer(error)
+        error =>
+            /* Mensaje de error si el servidor no recibe las peticiones */
+            this.errorServer(error)
     )
 
   }
