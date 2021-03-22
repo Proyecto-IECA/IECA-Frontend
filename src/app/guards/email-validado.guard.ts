@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad {
+export class EmailValidadoGuard implements CanActivate {
 
 
   constructor(private authService: AuthService,
@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> | boolean {
-    console.log('Guardian canActivate');
+    console.log('Guardian Email-Validado');
     // return this.authService.validarToken()
     return this.authService.validarEmailValidado()
       .pipe(
@@ -23,22 +23,6 @@ export class AuthGuard implements CanActivate, CanLoad {
           if (!valid) {
             return this.router.navigateByUrl('/validarEmail');
           }
-          return true;
-        })
-      );
-  }
-
-  canLoad(): Observable<boolean> | boolean {
-    console.log('Guardian canLoad');
-    // return this.authService.validarEmailValidado()
-    return this.authService.validarToken()
-      .pipe(
-        tap((valid) => {
-          if (!valid) {
-            // this.router.navigateByUrl('/validarEmail');
-            this.router.navigateByUrl('/auth');
-          }
-          return true;
         })
       );
   }

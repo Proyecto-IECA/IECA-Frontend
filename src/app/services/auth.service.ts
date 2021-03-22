@@ -81,17 +81,29 @@ export class AuthService {
             );
     }
 
-    private getQuery(tipo: string, accion: string, token?: string): Observable<AuthResponseI> {
+    private getQuery(tipo: string, accion: string, token?: string, rToken?: string): Observable<AuthResponseI> {
+
+        // Variable de los headers
+        let headers: HttpHeaders;
 
         // Si recibimos el token de parametro lo asignamos a nuestro token
         if (token) {
             localStorage.setItem('token', token);
         }
 
-        const headers = new HttpHeaders({
+        // Asignación de valores de los headers
+        headers = new HttpHeaders({
             'x-token': localStorage.getItem('token'),
             email: this.email
         });
+
+        // Asignación de valores de los headers si resibimos un rToken
+        if (rToken) {
+            headers = new HttpHeaders({
+                'x-token': localStorage.getItem('token'),
+                'r-token': localStorage.getItem('renew_token'),
+            });
+        }
 
         // Variable para la assignation de la URL completo
         const url = `${this.baseUrl}/${tipo}/${accion}`;
@@ -149,7 +161,12 @@ export class AuthService {
                         }
                         localStorage.set('token', data.token);
                         return true;
-                    }));
+                    }),
+                    catchError( error => {
+                        console.log(error);
+                        return this.renovarToken();
+                    })
+                );
         }
         if (tipo === '2') {
             return this.getQuery('auth-empresas', 'renew-token')
@@ -160,7 +177,44 @@ export class AuthService {
                         }
                         localStorage.set('token', data.token);
                         return true;
-                    }));
+                    }),
+                    catchError( error => {
+                        console.log(error);
+                        return this.renovarToken();
+                    })
+                    );
+        }
+
+        this.router.navigateByUrl('/auth');
+    }
+
+    renovarToken(): Observable<boolean> {
+        const tipo = localStorage.getItem('tipo');
+        if (tipo === '1') {
+            return this.getQuery('auth-postulantes', 'renew-refreshtoken')
+                .pipe(
+                    map((data: AuthResponseI) => {
+                        if (!data.status) {
+                            return false;
+                        }
+                        localStorage.set('token', data.token);
+                        return true;
+                    }),
+                    catchError( error => of(false))
+                );
+        }
+        if (tipo === '2') {
+            return this.getQuery('auth-empresas', 'renew-refreshtoken')
+                .pipe(
+                    map((data: AuthResponseI) => {
+                        if (!data.status) {
+                            return false;
+                        }
+                        localStorage.set('token', data.token);
+                        return true;
+                    }),
+                    catchError( error => of(false))
+                    );
         }
 
         this.router.navigateByUrl('/auth');
@@ -168,6 +222,7 @@ export class AuthService {
 
     validarEmailValidado(): Observable<boolean> {
         const tipo = localStorage.getItem('tipo');
+        const renewToken = localStorage.getItem('renew_token');
         if (tipo === '1') {
             return this.getQuery('auth-postulantes', 'renew-token')
                 .pipe(
@@ -176,17 +231,27 @@ export class AuthService {
                             return true;
                         }
                         return false;
-                    }));
+                    }),
+                    catchError( error => {
+                        console.log(error);
+                        return this.renovarToken();
+                    })
+                    );
         }
         if (tipo === '2') {
             return this.getQuery('auth-empresas', 'renew-token')
                 .pipe(
                     map((response: AuthResponseI) => {
-                        if (response.data.email_validado) {
+                        if (response.status && response.data.email_validado) {
                             return true;
                         }
                         return false;
-                    }));
+                    }),
+                    catchError( error => {
+                        console.log(error);
+                        return this.renovarToken();
+                    })
+                    );
         }
 
         this.router.navigateByUrl('/auth');

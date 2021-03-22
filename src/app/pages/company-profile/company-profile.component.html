@@ -9,16 +9,21 @@
                     <!-- Foto de Perfil -->
                     <div class="card-avatar">
                         <a href="javascript:void(0)">
-                            <img class="img" src="./assets/img/faces/marc.jpg" />
+                            <img class="img" src="{{ company.foto_empresa }}"/>
                         </a> <!-- Hacer click para ver la foto en grande -->
                     </div>
                     <!-- Cuerpo del card -->
                     <div class="card-body">
-                        <h6 class="card-category text-gray">Nombre Empresa</h6>
                         <h4 class="card-title">Página Web</h4>
+                        <h6 class="card-category text-gray">Nombre Empresa</h6>
                         <p class="card-description">Teléfono</p>
-                        <h5 class="text-muted">Calificación:</h5>
-                        <button class="btn btn-rose">Subir foto</button>
+                        <h5 class="text-muted">Calificación</h5>
+                        <mat-form-field>
+                            <ngx-mat-file-input placeholder="Subir foto"></ngx-mat-file-input>
+                            <i class="material-icons" matSuffix>upload_file</i>
+                        </mat-form-field>
+                        <input type="file" class="btn btn-rose" (change)="updateImg($event)" value="Subir foto">
+                        <!-- <button class="btn btn-rose" (click)="updateImg()">Subir foto</button> -->
                     </div>
                 </div>
             </div>

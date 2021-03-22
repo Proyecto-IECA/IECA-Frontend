@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { EmpresaService } from '../../services/empresa.service';
 import { EmpresaI } from '../../models/empresa';
 import { AuthResponseI } from '../../models/auth-response';
+import { FileUploadService } from '../../services/file-upload.service';
 
 @Component({
   selector: 'app-company-profile',
@@ -15,14 +16,17 @@ export class CompanyProfileComponent implements OnInit {
   //  ---------- VARIABLES ---------- //
   companyForm: FormGroup;
   company: EmpresaI;
+  imgUpdate: File;
 
   constructor(private formB: FormBuilder,
-              private empresaSvc: EmpresaService) {
+              private empresaSvc: EmpresaService,
+              private updateFile: FileUploadService) {
+    this.company = this.empresaSvc.company;
+    this.loadData();
     this.companyCreateForm();
   }
 
   ngOnInit(): void {
-    this.loadData();
   }
 
   //  ---------- VALIDADORES ---------- //
@@ -91,9 +95,19 @@ export class CompanyProfileComponent implements OnInit {
     // Cargar datos del Card de perfil
     // this.company = this.empresaSvc.company;
     this.empresaSvc.readCompany(this.empresaSvc.company.id_empresa).subscribe(
-        (value: AuthResponseI) =>
-            // Cargar datos al formulario
-            this.companyForm.reset(value.data),
+        (value: AuthResponseI) => {
+
+          // Cargar datos a la objeto company
+          this.company = value.data;
+
+          // Si no existe una foto, asignar una por default
+          if (!value.data.foto_empresa) {
+            this.company.foto_empresa = './assets/img/faces/marc.jpg';
+          }
+
+          // Cargar datos al formulario
+          this.companyForm.reset(value.data);
+        },
         error =>
           /* Mensaje de error si el servidor no recibe las peticiones */
           this.errorServer(error)
@@ -130,4 +144,6 @@ export class CompanyProfileComponent implements OnInit {
 
   }
 
+  updateImg($event: Event): void {
+  }
 }
