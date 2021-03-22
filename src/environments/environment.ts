@@ -6,5 +6,7 @@
 export const environment = {
   production: false,
   // URL del BackEnd
-  baseUrl: 'http://localhost:3000/api'
+  baseUrl: 'http://localhost:3000/api',
+  // Google Places Autocomplete
+  claveAPI: 'AIzaSyBPfgwzF5SimI6ITmBN0P6fFOJOy9yHPRo'
 };
