@@ -105,7 +105,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Experiencia Laboral
-                                            <mat-icon>add</mat-icon>
+                                            <mat-icon class="text-warning">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar una experiencia laboral ===== -->
@@ -120,7 +120,7 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{expL.empresa}}
-                                                <mat-icon>done</mat-icon>
+                                                <mat-icon *ngIf="expL.trabajando" class="text-warning">done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para editar experiencia laboral ===== -->
@@ -192,7 +192,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Experiencia
-                                            <mat-icon>add</mat-icon>
+                                            <mat-icon class="text-primary">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar una experiencia academica ===== -->
@@ -207,7 +207,7 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{expA.institucion}}
-                                                <mat-icon>done</mat-icon>
+                                                <mat-icon *ngIf="expA.estudiando" class="text-primary">done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para editar experiencia academica ===== -->
@@ -278,7 +278,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Nuevo curso o certificacion
-                                            <mat-icon>add</mat-icon>
+                                            <mat-icon class="text-success">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar un curso o certificacion ===== -->
@@ -293,7 +293,6 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 <!-- {{curC.constancia}} -->
-                                                <mat-icon>done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para agregar un curso o certificacion ===== -->
