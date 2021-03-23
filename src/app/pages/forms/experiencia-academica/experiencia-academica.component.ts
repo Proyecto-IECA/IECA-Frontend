@@ -49,31 +49,31 @@ export class ExperienciaAcademicaComponent implements OnInit {
     {
       nivel: ['', Validators.required],
       institucion: ['', Validators.required],
-      anio_entrada: ['', Validators.required],
-      anio_salida: [''],
+      anio_entrada: [moment([2000]), Validators.required],
+      anio_salida: [moment([2000])],
       carrera: [''],
       estudiando: [false]
     }
   )
-  date = new FormControl(moment([2000]));
+ /*  date = new FormControl(moment([2000]));
   date2 = new FormControl(moment([2000]));
-  
+   */
   chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>, tipo: number) {
     if (tipo == 1) {
-      if (!this.date.value) {
-        this.date = new FormControl(moment([2000]));
+      if (!this.academicaForm.get('anio_entrada').value) {
+        this.academicaForm.get('anio_entrada').setValue(moment([2000]));
       } 
-      const ctrlValue = this.date.value;
+      const ctrlValue = this.academicaForm.get('anio_entrada').value;
       ctrlValue.year(normalizedYear.year());
-      this.date.setValue(ctrlValue);
+      this.academicaForm.get('anio_entrada').setValue(ctrlValue);
       datepicker.close();
     } else {
-      if (!this.date2.value) {
-        this.date2 = new FormControl(moment([2000]));
+      if (!this.academicaForm.get('anio_salida').value) {
+        this.academicaForm.get('anio_salida').setValue(moment([2000]));
       } 
-      const ctrlValue2 = this.date2.value;
+      const ctrlValue2 = this.academicaForm.get('anio_salida').value;
       ctrlValue2.year(normalizedYear.year());
-      this.date2.setValue(ctrlValue2);
+      this.academicaForm.get('anio_salida').setValue(ctrlValue2);
       datepicker.close();
     }
   }
@@ -93,21 +93,43 @@ export class ExperienciaAcademicaComponent implements OnInit {
     }
   }
 
+  anioEntradaValido(){
+    if(!this.formSubmitted) return false;
+
+    let anio_entrada = this.academicaForm.get('anio_entrada').value;
+    let anio = moment(anio_entrada);
+
+    if(anio.isValid()) return false;
+    
+    return true;
+  }
+
+  anioSalidaValido(){
+    if(!this.formSubmitted && this.activedAnio_salida) return  false;
+
+    let anio_salida = this.academicaForm.get('anio_salida').value;
+    let anio = moment(anio_salida);
+
+    if(anio.isValid()) return false;
+
+    return true;
+  }
+
   loadData( expAcademica: ExperienciaAcademicaI) {
     if (expAcademica.estudiando) {
       this.activedAnio_salida = true;
     }
     this.academicaForm.reset(expAcademica);
     let anio_entrada = moment(expAcademica.anio_entrada, 'YYYY');
-    this.date = new FormControl(moment(anio_entrada));
+    this.academicaForm.get('anio_entrada').setValue(anio_entrada); 
     let anio_salida = moment(expAcademica.anio_salida, 'YYYY');
-    this.date2 = new FormControl(moment(anio_salida));
+    this.academicaForm.get('anio_salida').setValue(anio_salida);
+    
 
   }
 
   addExpAcademica(){
     this.formSubmitted = true;
-    this.loadFechasForm();
     if(this.academicaForm.valid) {
       this.usuarioService.createExpAcademica(this.academicaForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status){
@@ -124,7 +146,6 @@ export class ExperienciaAcademicaComponent implements OnInit {
 
   updateExpAcademica(){
     this.formSubmitted = true;
-    this.loadFechasForm();
     if(this.academicaForm.valid){
       this.usuarioService.updateExpAcademica(this.academicaForm.value, this.experienciaAcademica.id_experiencia_academica).subscribe((resp: AuthResponseI) => {
         if(resp.status) {
@@ -158,7 +179,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
     }
   }
 
-  loadFechasForm() {
+  /* loadFechasForm() {
     if (!this.activedAnio_salida) {
       let date = moment(this.date.value);
       let anio_entrada = date.format('YYYY');
@@ -171,7 +192,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
       let anio_entrada = date.format('YYYY');
       this.academicaForm.get('anio_entrada').setValue(anio_entrada);
     }
-  }
+  } */
 
   //  ---------- MENSAJES ---------- //
   errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
