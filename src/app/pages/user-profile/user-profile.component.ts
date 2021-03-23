@@ -38,9 +38,7 @@ export class UserProfileComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  perfiles: PerfilPostulanteI[];
-  perfilesAux: PerfilPostulanteI[];
-  guardarPerfil = false;
+ 
 
   habilidades: HabilidadPostulanteI[];
   habilidadAux: HabilidadPostulanteI[];
@@ -54,28 +52,7 @@ export class UserProfileComponent implements OnInit {
   idiomasAux: IdiomaPostulanteI[];
   guardarIdioma = false;
 
-  addPer(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-     // Add our fruit
-    if ((value || '').trim()) {
-      this.perfiles.push({ 
-        id_postulante: this.usuario.id_postulante, 
-        descripcion: value.trim()
-      });
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-    
-    if (!this.compararArregos(this.perfiles, this.perfilesAux)) {
-      this.guardarPerfil = true;
-    } else {
-      this.guardarPerfil = false;
-    }
-  }
+  
   
   addHab(event: MatChipInputEvent): void {
     const input = event.input;
@@ -146,19 +123,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  removePer(perfiles: PerfilPostulanteI): void {
-    const index = this.perfiles.indexOf(perfiles);
-
-    if (index >= 0) {
-      this.perfiles.splice(index, 1);
-    }
-
-    if (!this.compararArregos(this.perfiles, this.perfilesAux)) {
-      this.guardarPerfil = true;
-    } else {
-      this.guardarPerfil = false;
-    }
-  }
+ 
 
   removeHab(habilidad: HabilidadPostulanteI): void {
     const index = this.habilidades.indexOf(habilidad);
@@ -214,11 +179,7 @@ export class UserProfileComponent implements OnInit {
       }
     });
 
-    this.usuarioService.readPerfilesPostulante().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
-        this.perfilesAux = resp.data;
-      }
-    });
+    
 
     this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
       if(resp.status) {
@@ -252,26 +213,13 @@ export class UserProfileComponent implements OnInit {
     this.experienciasLaborales = this.usuario.experiencias_laborales;
     this.experienciasAcademicas = this.usuario.experiencias_academicas;
     this.cursosCertificaciones = this.usuario.cursos_certificaciones;
-    this.perfiles = this.usuario.perfiles_postulante;
+    /* this.perfiles = this.usuario.perfiles_postulante; */
     this.habilidades = this.usuario.habilidades_postulante;
     this.valores = this.usuario.valores_postulante;
     this.idiomas = this.usuario.idiomas_postulante;
   }
 
-  guardarPerfiles() {
-    this.usuarioService.createPerfiles(this.perfiles).subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.usuarioService.readPerfilesPostulante().subscribe((resp: AuthResponseI) => {
-          if(resp.status) {
-            this.perfilesAux = resp.data;
-          }
-        });
-        
-        this.guardarPerfil = false;
-      }
-    })
-  }
-
+  
   guardarHabilidades() {
     this.usuarioService.createHabilidades(this.habilidades).subscribe((resp: AuthResponseI) => {
       if (resp.status) {

@@ -34,7 +34,7 @@ import { ExperienciaAcademicaComponent } from 'app/pages/forms/experiencia-acade
 import { CursoCertificacionComponent } from 'app/pages/forms/curso-certificacion/curso-certificacion.component';
 import { CompanyProfileComponent } from '../../pages/company-profile/company-profile.component';
 import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacancy.component';
-
+import { PerfilesComponent } from "../../pages/chips/perfiles/perfiles.component";
 
 
 
@@ -73,7 +73,8 @@ import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacanc
         ExperienciaAcademicaComponent,
         CursoCertificacionComponent,
         CompanyProfileComponent,
-        CreateVacancyComponent
+        CreateVacancyComponent,
+        PerfilesComponent
     ]
 })
 
