@@ -49,7 +49,7 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     AuthComponent,
     ForgetPasswordComponent,
     SocialMediaComponent,
-    ValidEmailComponent,
+    ValidEmailComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

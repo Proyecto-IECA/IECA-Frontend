@@ -13,10 +13,13 @@
                 <div class="col-md-4">
                     <!-- ===== Foto de Perfil ====== -->
                     <div class="card card-profile">
-                        <div class="card-avatar">
-                            <a href="javascript:void(0)">
-                                <img class="img" src="./assets/img/faces/marc.jpg" />
-                            </a>
+                        <div class="card-avatar" *ngIf="!foto_perfil">
+                            <p (click)="inputFotoPerfil.click()">Cambiar</p>
+                            <img class="img" src="./assets/img/faces/marc.jpg" (click)="inputFotoPerfil.click()" />
+                        </div>
+                        <div class="card-avatar" *ngIf="foto_perfil">
+                            <p (click)="inputFotoPerfil.click()">Cambiar</p>
+                            <img class="img" [src]="foto_perfil" (click)="inputFotoPerfil.click()" />
                         </div>
                         <!-- Cuerpo del card -->
                         <div class="card-body">
@@ -25,7 +28,8 @@
                             <p class="card-description">
                                 {{telefono_celular}}
                             </p>
-                            <button class="btn btn-rose">Cargar foto</button>
+                            <input type="file" hidden #inputFotoPerfil (change)="capturarImage($event)">
+                            <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
                         </div>
                     </div>
 
@@ -52,39 +56,9 @@
 
             <!-- ===== Segundo Renglón ===== -->
             <div class="row align-items-center">
-                <!-- ===== Columna de Habilidades ===== -->
+                <!-- ===== Columna de Perfiles ===== -->
                 <div class="col-md-4">
-                    <!-- ===== Card de Perfiles ===== -->
-                    <div class="card">
-                        <!-- ===== Encabezado de card ===== -->
-                        <div class="card-header card-header-info">
-                            <h4 class="card-title">
-                                Perfiles
-                            </h4>
-                            <p class="card-catergory">
-                                Completa tu perfil
-                            </p>
-                        </div>
-                        <!-- ===== Cuerpo del card ===== -->
-                        <div class="card-body">
-                            <!-- ===== Chips de perfiles ===== -->
-                            <mat-form-field class="example-chip-list">
-                                <mat-label>Perfiles favoritos</mat-label>
-                                <mat-chip-list #chipListP aria-label="valor selection">
-                                    <mat-chip *ngFor="let perfil of perfiles" [selectable]="selectable" [removable]="removable" (removed)="removePer(perfil)">
-                                        {{perfil.descripcion}}
-                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                    </mat-chip>
-                                    <input placeholder="Nuevo Perfil" [matChipInputFor]="chipListP" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addPer($event)">
-                                </mat-chip-list>
-                            </mat-form-field>
-                            <div *ngIf="guardarPerfil" class="row justify-content-end">
-                                <button type="button" class="btn btn-info btn-sm btn-just-icon m-r" (click)="guardarPerfiles()">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <app-perfiles [usuario]="usuario"></app-perfiles>
                 </div>
                 <!-- ===== Columna de Experiencia Laboral ===== -->
                 <div class="col-md-8">
@@ -98,20 +72,19 @@
                         <!-- ===== Cuerpo del card ===== -->
                         <div class="card-body">
                             <mat-accordion class="example-headers-align" multi>
-                                <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel hideToggle [expanded]="panelAddOpenState" (opened)="panelAddOpenState = true" (closed)="panelAddOpenState = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             Nueva
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Experiencia Laboral
-                                            <mat-icon>add</mat-icon>
+                                            <mat-icon class="text-warning">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar una experiencia laboral ===== -->
                                     <app-experiencia-laboral-form [tipo]="'add'"></app-experiencia-laboral-form>
                                 </mat-expansion-panel>
-
                                 <div *ngFor="let expL of experienciasLaborales">
                                     <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
@@ -120,7 +93,7 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{expL.empresa}}
-                                                <mat-icon>done</mat-icon>
+                                                <mat-icon *ngIf="expL.trabajando" class="text-warning">done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para editar experiencia laboral ===== -->
@@ -135,40 +108,9 @@
 
             <!-- ===== Tercer Renglón ===== -->
             <div class="row align-items-center">
-                <!-- ===== Columna de Idiomas ===== -->
+                <!-- ===== Columna de Habilidades ===== -->
                 <div class="col-md-4">
-                    <!-- ===== Card de Habilidades ===== -->
-                    <div class="card">
-                        <!-- ===== Encabezado de Card ===== -->
-                        <div class="card-header card-header-success">
-                            <h4 class="card-title">
-                                Habilidades
-                            </h4>
-                            <p class="card-catergory">
-                                Completa tu perfil
-                            </p>
-                        </div>
-                        <!-- ===== Contenido del card (habilidades) ===== -->
-                        <div class="card-body">
-                            <!-- ===== Chips de habilidades ===== -->
-                            <mat-form-field class="example-chip-list">
-                                <mat-label>Habilidades favoritas</mat-label>
-                                <mat-chip-list #chipListH aria-label="habilidad selection">
-                                    <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="removeHab(habilidad)">
-                                        {{habilidad.descripcion}}
-                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                    </mat-chip>
-                                    <input placeholder="Nueva Habilidad" [matChipInputFor]="chipListH" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addHab($event)">
-                                </mat-chip-list>
-                            </mat-form-field>
-                            <div *ngIf="guardarHabilidad" class="row justify-content-end">
-                                <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarHabilidades()">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
+                    <app-habilidades [usuario]="usuario"></app-habilidades>
                 </div>
                 <!-- ===== Columna de Experiencia Academica ===== -->
                 <div class="col-md-8">
@@ -192,7 +134,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Experiencia
-                                            <mat-icon>add</mat-icon>
+                                            <mat-icon class="text-primary">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar una experiencia academica ===== -->
@@ -207,7 +149,7 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{expA.institucion}}
-                                                <mat-icon>done</mat-icon>
+                                                <mat-icon *ngIf="expA.estudiando" class="text-primary">done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para editar experiencia academica ===== -->
@@ -223,37 +165,9 @@
 
             <!-- ===== Cuarto Renglón ===== -->
             <div class="row align-items-center">
-                <!-- ==== btn Descargar CV ====-->
+                <!-- ==== Columna de Idiomas ====-->
                 <div class="col-md-4">
-                    <div class="card">
-                        <!-- ===== Encabezado de Card ===== -->
-                        <div class="card-header card-header-rose">
-                            <h4 class="card-title">
-                                Idiomas
-                            </h4>
-                            <p class="card-catergory">
-                                Completa tu perfil
-                            </p>
-                        </div>
-                        <div class="card-body">
-                            <!-- ===== Chips de idiomas ===== -->
-                            <mat-form-field class="example-chip-list">
-                                <mat-label>Idiomas favoritos</mat-label>
-                                <mat-chip-list #chipListI aria-label="idioma selection">
-                                    <mat-chip *ngFor="let idioma of idiomas" [selectable]="selectable" [removable]="removable" (removed)="removeIdi(idioma)">
-                                        {{idioma.descripcion}}
-                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                    </mat-chip>
-                                    <input placeholder="Nuevo Idioma" [matChipInputFor]="chipListI" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addIdi($event)">
-                                </mat-chip-list>
-                            </mat-form-field>
-                            <div *ngIf="guardarIdioma" class="row justify-content-end">
-                                <button type="button" class="btn btn-rose btn-sm btn-just-icon m-r" (click)="guardarIdiomas()">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <app-idiomas [usuario]="usuario"></app-idiomas>
                 </div>
 
                 <!-- ===== Cursos y/o Certificados =====-->
@@ -278,7 +192,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Nuevo curso o certificacion
-                                            <mat-icon>add</mat-icon>
+                                            <mat-icon class="text-success">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar un curso o certificacion ===== -->
@@ -293,7 +207,6 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 <!-- {{curC.constancia}} -->
-                                                <mat-icon>done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para agregar un curso o certificacion ===== -->
@@ -307,40 +220,12 @@
             </div>
 
             <div class="row align-items-center">
+                <!-- Columna de Valores -->
                 <div class="col-md-4">
-                    <!-- ===== Card de Valores ===== -->
-                    <div class="card">
-                        <!-- ===== Encabezado de card ===== -->
-                        <div class="card-header card-header-info">
-                            <h4 class="card-title">
-                                Valores
-                            </h4>
-                            <p class="card-catergory">
-                                Completa tu perfil
-                            </p>
-                        </div>
-                        <!-- ===== Cuerpo del card ===== -->
-                        <div class="card-body">
-                            <!-- ===== Chips de valores ===== -->
-                            <mat-form-field class="example-chip-list">
-                                <mat-label>Valores favoritos</mat-label>
-                                <mat-chip-list #chipListV aria-label="valor selection">
-                                    <mat-chip *ngFor="let valor of valores" [selectable]="selectable" [removable]="removable" (removed)="removeVal(valor)">
-                                        {{valor.descripcion}}
-                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                    </mat-chip>
-                                    <input placeholder="Nuevo Valor" [matChipInputFor]="chipListV" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addVal($event)">
-                                </mat-chip-list>
-                            </mat-form-field>
-                            <div *ngIf="guardarValor" class="row justify-content-end">
-                                <button type="button" class="btn btn-info btn-sm btn-just-icon m-r" (click)="guardarValores()">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <app-valores [usuario]="usuario"></app-valores>
                 </div>
 
+                <!-- Columna descargar Curriculum Vitae -->
                 <div class="col-md-8">
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-12 text-center">

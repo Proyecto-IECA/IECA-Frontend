@@ -34,8 +34,10 @@ import { ExperienciaAcademicaComponent } from 'app/pages/forms/experiencia-acade
 import { CursoCertificacionComponent } from 'app/pages/forms/curso-certificacion/curso-certificacion.component';
 import { CompanyProfileComponent } from '../../pages/company-profile/company-profile.component';
 import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacancy.component';
-
-
+import { PerfilesComponent } from "../../pages/chips/perfiles/perfiles.component";
+import { HabilidadesComponent } from "../../pages/chips/habilidades/habilidades.component";
+import { ValoresComponent } from '../../pages/chips/valores/valores.component';
+import { IdiomasComponent } from '../../pages/chips/idiomas/idiomas.component';
 
 
 @NgModule({
@@ -73,7 +75,11 @@ import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacanc
         ExperienciaAcademicaComponent,
         CursoCertificacionComponent,
         CompanyProfileComponent,
-        CreateVacancyComponent
+        CreateVacancyComponent,
+        PerfilesComponent,
+        HabilidadesComponent,
+        ValoresComponent,
+        IdiomasComponent
     ]
 })
 

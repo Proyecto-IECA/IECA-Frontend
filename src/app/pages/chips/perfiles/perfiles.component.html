@@ -1,0 +1,31 @@
+<!-- ===== Card de Perfiles ===== -->
+<div class="card">
+    <!-- ===== Encabezado de card ===== -->
+    <div class="card-header card-header-info">
+        <h4 class="card-title">
+            Perfiles
+        </h4>
+        <p class="card-catergory">
+            Completa tu perfil
+        </p>
+    </div>
+    <!-- ===== Cuerpo del card ===== -->
+    <div class="card-body">
+        <!-- ===== Chips de perfiles ===== -->
+        <mat-form-field class="example-chip-list">
+            <mat-label>Perfiles favoritos</mat-label>
+            <mat-chip-list #chipListP aria-label="valor selection">
+                <mat-chip *ngFor="let perfil of perfiles" [selectable]="selectable" [removable]="removable" (removed)="removePer(perfil)">
+                    {{perfil.descripcion}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Nuevo Perfil" [matChipInputFor]="chipListP" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addPer($event)">
+            </mat-chip-list>
+        </mat-form-field>
+        <div *ngIf="guardarPerfil" class="row justify-content-end">
+            <button type="button" class="btn btn-info btn-sm btn-just-icon m-r" (click)="guardarPerfiles()">
+                <i class="material-icons">done</i>
+            </button>
+        </div>
+    </div>
+</div>

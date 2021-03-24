@@ -25,7 +25,6 @@ export class UsuarioService {
   private tipo = 'postulantes';
   private _usuario: UsuarioI;
 
-
   constructor(private authService: AuthService,
     private peticion: PeticionesService) {
 
@@ -49,6 +48,10 @@ export class UsuarioService {
 
   updateUsuario(form: UsuarioI): Observable<AuthResponseI> {
     return this.peticion.putQuery(this.tipo, 'update', form);
+  }
+
+  updateFoto(form: any): Observable<AuthResponseI> {
+    return this.peticion.putQuery(this.tipo, 'update-foto', form);
   }
 
   //  ---------- EXPERIENCIA LABORAL CRUD ---------- //
