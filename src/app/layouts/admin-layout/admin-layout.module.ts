@@ -36,6 +36,7 @@ import { CompanyProfileComponent } from '../../pages/company-profile/company-pro
 import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacancy.component';
 import { PerfilesComponent } from "../../pages/chips/perfiles/perfiles.component";
 import { HabilidadesComponent } from "../../pages/chips/habilidades/habilidades.component";
+import { ValoresComponent } from '../../pages/chips/valores/valores.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { HabilidadesComponent } from "../../pages/chips/habilidades/habilidades.
         CompanyProfileComponent,
         CreateVacancyComponent,
         PerfilesComponent,
-        HabilidadesComponent
+        HabilidadesComponent,
+        ValoresComponent
     ]
 })
 

@@ -52,7 +52,7 @@
 
             <!-- ===== Segundo Renglón ===== -->
             <div class="row align-items-center">
-                <!-- ===== Columna de Habilidades ===== -->
+                <!-- ===== Columna de Perfiles ===== -->
                 <div class="col-md-4">
                     <app-perfiles [usuario]="usuario"></app-perfiles>
                 </div>
@@ -162,7 +162,7 @@
 
             <!-- ===== Cuarto Renglón ===== -->
             <div class="row align-items-center">
-                <!-- ==== btn Descargar CV ====-->
+                <!-- ==== Columna de Idiomas ====-->
                 <div class="col-md-4">
                     <div class="card">
                         <!-- ===== Encabezado de Card ===== -->
@@ -247,39 +247,10 @@
             <div class="row align-items-center">
                 <!-- Columna de Valores -->
                 <div class="col-md-4">
-                    <!-- ===== Card de Valores ===== -->
-                    <div class="card">
-                        <!-- ===== Encabezado de card ===== -->
-                        <div class="card-header card-header-info">
-                            <h4 class="card-title">
-                                Valores
-                            </h4>
-                            <p class="card-catergory">
-                                Completa tu perfil
-                            </p>
-                        </div>
-                        <!-- ===== Cuerpo del card ===== -->
-                        <div class="card-body">
-                            <!-- ===== Chips de valores ===== -->
-                            <mat-form-field class="example-chip-list">
-                                <mat-label>Valores favoritos</mat-label>
-                                <mat-chip-list #chipListV aria-label="valor selection">
-                                    <mat-chip *ngFor="let valor of valores" [selectable]="selectable" [removable]="removable" (removed)="removeVal(valor)">
-                                        {{valor.descripcion}}
-                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                    </mat-chip>
-                                    <input placeholder="Nuevo Valor" [matChipInputFor]="chipListV" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addVal($event)">
-                                </mat-chip-list>
-                            </mat-form-field>
-                            <div *ngIf="guardarValor" class="row justify-content-end">
-                                <button type="button" class="btn btn-info btn-sm btn-just-icon m-r" (click)="guardarValores()">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <app-valores [usuario]="usuario"></app-valores>
                 </div>
 
+                <!-- Columna descargar Curriculum Vitae -->
                 <div class="col-md-8">
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-12 text-center">

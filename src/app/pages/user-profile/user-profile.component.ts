@@ -38,36 +38,13 @@ export class UserProfileComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-   valores: ValorPostulanteI[]= [];
-  valoresAux: ValorPostulanteI[];
-  guardarValor = false;
+   
 
   idiomas: IdiomaPostulanteI[];
   idiomasAux: IdiomaPostulanteI[];
   guardarIdioma = false;
 
-  addVal(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-     // Add our fruit
-     if ((value || '').trim()) {
-      this.valores.push({
-        id_postulante: this.usuario.id_postulante,
-        descripcion: value.trim()
-      });
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-
-    if (!this.compararArregos(this.valores, this.valoresAux)) {
-      this.guardarValor = true;
-    } else {
-      this.guardarValor = false;
-    }
-  }
+  
 
   addIdi(event: MatChipInputEvent): void {
     const input = event.input;
@@ -96,20 +73,7 @@ export class UserProfileComponent implements OnInit {
 
   
 
-  removeVal(valor: ValorPostulanteI): void {
-    const index = this.valores.indexOf(valor);
-
-    if (index >= 0) {
-      this.valores.splice(index,1);
-    }
-
-    if (!this.compararArregos(this.valores, this.valoresAux)) {
-      this.guardarValor = true;
-    } else {
-      this.guardarValor = false;
-    }
-
-  }
+  
 
   removeIdi(idioma: IdiomaPostulanteI): void {
     const index = this.idiomas.indexOf(idioma);
@@ -140,11 +104,7 @@ export class UserProfileComponent implements OnInit {
 
     
 
-    this.usuarioService.readValoresPostulante().subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.valoresAux = resp.data;
-      }
-    });
+    
 
     this.usuarioService.readIdiomasPostulante().subscribe((resp: AuthResponseI) => {
       if(resp.status) {
@@ -158,7 +118,7 @@ export class UserProfileComponent implements OnInit {
     //   console.log(resp.message);
     // })
   }
-
+ 
   loadData() {
     this.nombreCompleto = this.usuario.nombre + ' ' + this.usuario.apellido_paterno + ' ' + this.usuario.apellido_materno;
     this.email = this.usuario.email;
@@ -168,26 +128,14 @@ export class UserProfileComponent implements OnInit {
     this.cursosCertificaciones = this.usuario.cursos_certificaciones;
     /* this.perfiles = this.usuario.perfiles_postulante; */
     /* this.habilidades = this.usuario.habilidades_postulante; */
-    this.valores = this.usuario.valores_postulante;
+    /* this.valores = this.usuario.valores_postulante; */
     this.idiomas = this.usuario.idiomas_postulante;
   }
 
   
   
 
-  guardarValores() {
-    this.usuarioService.createValores(this.valores).subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.usuarioService.readValoresPostulante().subscribe((resp: AuthResponseI) => {
-          if (resp.status) {
-            this.valoresAux = resp.data;
-          }
-        });
-
-        this.guardarValor = false;
-      }
-    })
-  }
+  
 
   guardarIdiomas() {
     this.usuarioService.createIdiomas(this.idiomas).subscribe((resp: AuthResponseI) => {
