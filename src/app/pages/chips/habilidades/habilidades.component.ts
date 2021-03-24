@@ -5,6 +5,9 @@ import { HabilidadPostulanteI } from 'app/models/habilidades_postulante';
 import { UsuarioService } from '../../../services/usuario.service';
 import { UsuarioI } from '../../../models/usuario';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { HabilidadI } from '../../../models/habilidad';
 
 @Component({
   selector: 'app-habilidades',
@@ -16,13 +19,37 @@ export class HabilidadesComponent implements OnInit {
   @Input() usuario: UsuarioI;
   habilidades: HabilidadPostulanteI[];
   habilidadAux: HabilidadPostulanteI[];
-  guardarHabilidad = false;
+  
+  habilidadControl = new FormControl();
+  filterHabilidades: Observable<HabilidadI[]>;
+  listaHabilidades: HabilidadI[];
 
   selectable = true;
   removable = true;
   addOnBlur = true;
+  guardarHabilidad = false;
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  constructor(private usuarioService: UsuarioService) { }
+
+  ngOnInit(): void {
+    this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
+      if(resp.status) {
+        this.habilidadAux = resp.data;
+      }
+    });
+
+    this.usuarioService.readHabilidades().subscribe((resp: AuthResponseI) => {
+      if(resp.status) {
+        this.listaHabilidades = resp.data;
+        console.log(this.listaHabilidades);
+      }
+    })
+
+    this.habilidades = this.usuario.habilidades_postulante;
+  }
+
 
   addHab(event: MatChipInputEvent): void {
     const input = event.input;
@@ -45,6 +72,8 @@ export class HabilidadesComponent implements OnInit {
     } else {
       this.guardarHabilidad = false;
     }
+
+    this.habilidadControl.setValue(null);
   }
 
   removeHab(habilidad: HabilidadPostulanteI): void {
@@ -59,18 +88,6 @@ export class HabilidadesComponent implements OnInit {
     } else {
       this.guardarHabilidad = false;
     }
-  }
-
-  constructor(private usuarioService: UsuarioService) { }
-
-  ngOnInit(): void {
-    this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
-        this.habilidadAux = resp.data;
-      }
-    });
-
-    this.habilidades = this.usuario.habilidades_postulante;
   }
 
   guardarHabilidades() {

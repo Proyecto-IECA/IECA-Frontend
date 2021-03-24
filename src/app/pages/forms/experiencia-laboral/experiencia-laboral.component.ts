@@ -52,8 +52,8 @@ export class ExperienciaLaboralComponent implements OnInit {
       puesto: ['', Validators.required],
       empresa: ['', Validators.required],
       actividades: ['', Validators.required],
-      fecha_entrada: [moment([2000, 0]), Validators.required],
-      fecha_salida: [moment([2000, 0])],
+      fecha_entrada: ['', Validators.required],
+      fecha_salida: [''],
       trabajando: [false]
     }
   );
@@ -171,7 +171,8 @@ export class ExperienciaLaboralComponent implements OnInit {
           this.formSubmitted = false;
           this.laboralForm.reset();
           formDirective.resetForm();
-          this._userProC.panelAddOpenState = false;
+          this.laboralForm.get('trabajando').setValue(false);
+          this._userProC.panelExpL = false;
           this.doneMassage(resp.message);
         } else {
           this.errorPeticion(resp.message);
@@ -186,7 +187,8 @@ export class ExperienciaLaboralComponent implements OnInit {
     this.formSubmitted = false;
     this.laboralForm.reset();
     formDirective.resetForm();
-    this._userProC.panelAddOpenState = false;
+    this.laboralForm.get('trabajando').setValue(false);
+    this._userProC.panelExpL = false;
   }
 
   updateExpLaboral(){

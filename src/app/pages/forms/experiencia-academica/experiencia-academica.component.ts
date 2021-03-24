@@ -1,5 +1,5 @@
 import { Component, Host, Input, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { Form, FormControl, FormGroupDirective } from '@angular/forms';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
 import { FormBuilder, Validators } from "@angular/forms";
@@ -49,8 +49,8 @@ export class ExperienciaAcademicaComponent implements OnInit {
     {
       nivel: ['', Validators.required],
       institucion: ['', Validators.required],
-      anio_entrada: [moment([2000]), Validators.required],
-      anio_salida: [moment([2000])],
+      anio_entrada: ['', Validators.required],
+      anio_salida: [''],
       carrera: [''],
       estudiando: [false]
     }
@@ -123,17 +123,29 @@ export class ExperienciaAcademicaComponent implements OnInit {
     let anio_entrada = moment(expAcademica.anio_entrada, 'YYYY');
     this.academicaForm.get('anio_entrada').setValue(anio_entrada); 
     let anio_salida = moment(expAcademica.anio_salida, 'YYYY');
-    this.academicaForm.get('anio_salida').setValue(anio_salida);
-    
+    this.academicaForm.get('anio_salida').setValue(anio_salida); 
 
   }
 
-  addExpAcademica(){
+  actionForm(formDirective: FormGroupDirective){
+    if(this.tipo=='add'){
+      this.addExpAcademica(formDirective);
+    } else {
+      this.updateExpAcademica();
+    }
+  }
+
+  addExpAcademica(formDirective: FormGroupDirective){
     this.formSubmitted = true;
     if(this.academicaForm.valid) {
       this.usuarioService.createExpAcademica(this.academicaForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status){
           this._userProC.experienciasAcademicas = resp.data;
+          this.formSubmitted = false;
+          this.academicaForm.reset();
+          formDirective.resetForm();
+          this.academicaForm.get('estudiando').setValue(false);
+          this._userProC.panelExpA = false;
           this.doneMassage(resp.message);
         } else {
           this.errorPeticion(resp.message);
@@ -142,6 +154,14 @@ export class ExperienciaAcademicaComponent implements OnInit {
     } else {
       this.errorMassage();
     }
+  }
+
+  cancelarAdd(formDirective: FormGroupDirective) {
+    this.formSubmitted = false;
+    this.academicaForm.reset();
+    formDirective.resetForm();
+    this.academicaForm.get('estudiando').setValue(false);
+    this._userProC.panelExpA = false;
   }
 
   updateExpAcademica(){
@@ -169,14 +189,6 @@ export class ExperienciaAcademicaComponent implements OnInit {
         this.errorMassage();
       }
     }) 
-  }
-
-  actionForm(){
-    if(this.tipo=='add'){
-      this.addExpAcademica();
-    } else {
-      this.updateExpAcademica();
-    }
   }
 
   /* loadFechasForm() {

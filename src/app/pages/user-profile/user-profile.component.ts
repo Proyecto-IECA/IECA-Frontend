@@ -32,7 +32,9 @@ export class UserProfileComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   panelOpenState = false;
-  panelAddOpenState = false;
+  panelExpL = false;
+  panelExpA = false;
+  panelCurC = false;
 
   nombreCompleto = '';
   email = '';
@@ -54,6 +56,7 @@ export class UserProfileComponent implements OnInit {
     this.usuarioService.readUsuario().subscribe((resp: AuthResponseI ) => {
       if(resp.status) {
         this.usuario = resp.data;
+        this.foto_perfil = this.usuario.foto_perfil;
         this.loadData();
       }
     });
