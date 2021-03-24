@@ -37,6 +37,7 @@ export class AuthService {
         localStorage.setItem('tipo', '');
         localStorage.setItem('data', '');
         localStorage.setItem('token', '');
+        localStorage.setItem('renew_token', '');
     }
 
     constructor(private http: HttpClient,
@@ -72,6 +73,7 @@ export class AuthService {
                     console.log(response);
                     if (response.data) {
                         localStorage.setItem('token', response.token);
+                        localStorage.setItem('renew_token', response.refreshToken);
                         this.email = response.data.email;
                         this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
@@ -81,7 +83,7 @@ export class AuthService {
             );
     }
 
-    private getQuery(tipo: string, accion: string, token?: string, rToken?: string): Observable<AuthResponseI> {
+    private getQuery(tipo: string, accion: string, token?: string ): Observable<AuthResponseI> {
 
         // Variable de los headers
         let headers: HttpHeaders;
@@ -98,7 +100,7 @@ export class AuthService {
         });
 
         // Asignación de valores de los headers si resibimos un rToken
-        if (rToken) {
+        if (accion === 'renew-refreshtoken') {
             headers = new HttpHeaders({
                 'x-token': localStorage.getItem('token'),
                 'r-token': localStorage.getItem('renew_token'),
