@@ -18,7 +18,7 @@ import { IdiomaPostulanteI } from '../../models/idioma_postulante';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-
+ 
 
   usuario: UsuarioI;
   experienciasLaborales: ExperienciaLaboralI[];
@@ -38,44 +38,13 @@ export class UserProfileComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
- 
-
-  habilidades: HabilidadPostulanteI[];
-  habilidadAux: HabilidadPostulanteI[];
-  guardarHabilidad = false;
-
-  valores: ValorPostulanteI[]= [];
+   valores: ValorPostulanteI[]= [];
   valoresAux: ValorPostulanteI[];
   guardarValor = false;
 
   idiomas: IdiomaPostulanteI[];
   idiomasAux: IdiomaPostulanteI[];
   guardarIdioma = false;
-
-  
-  
-  addHab(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-     // Add our fruit
-     if ((value || '').trim()) {
-      this.habilidades.push({
-        id_postulante: this.usuario.id_postulante,
-        descripcion: value.trim()
-      });
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-
-    if (!this.compararArregos(this.habilidades, this.habilidadAux)) {
-      this.guardarHabilidad = true;
-    } else {
-      this.guardarHabilidad = false;
-    }
-  }
 
   addVal(event: MatChipInputEvent): void {
     const input = event.input;
@@ -125,19 +94,7 @@ export class UserProfileComponent implements OnInit {
 
  
 
-  removeHab(habilidad: HabilidadPostulanteI): void {
-    const index = this.habilidades.indexOf(habilidad);
-
-    if (index >= 0) {
-      this.habilidades.splice(index, 1);
-    }
-
-    if (!this.compararArregos(this.habilidades, this.habilidadAux)) {
-      this.guardarHabilidad = true;
-    } else {
-      this.guardarHabilidad = false;
-    }
-  }
+  
 
   removeVal(valor: ValorPostulanteI): void {
     const index = this.valores.indexOf(valor);
@@ -181,11 +138,7 @@ export class UserProfileComponent implements OnInit {
 
     
 
-    this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
-        this.habilidadAux = resp.data;
-      }
-    });
+    
 
     this.usuarioService.readValoresPostulante().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
@@ -214,25 +167,13 @@ export class UserProfileComponent implements OnInit {
     this.experienciasAcademicas = this.usuario.experiencias_academicas;
     this.cursosCertificaciones = this.usuario.cursos_certificaciones;
     /* this.perfiles = this.usuario.perfiles_postulante; */
-    this.habilidades = this.usuario.habilidades_postulante;
+    /* this.habilidades = this.usuario.habilidades_postulante; */
     this.valores = this.usuario.valores_postulante;
     this.idiomas = this.usuario.idiomas_postulante;
   }
 
   
-  guardarHabilidades() {
-    this.usuarioService.createHabilidades(this.habilidades).subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
-          if(resp.status) {
-            this.habilidadAux = resp.data;
-          }
-        });
-
-        this.guardarHabilidad = false;
-      }
-    })
-  }
+  
 
   guardarValores() {
     this.usuarioService.createValores(this.valores).subscribe((resp: AuthResponseI) => {

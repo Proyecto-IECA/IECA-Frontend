@@ -1,0 +1,31 @@
+<!-- ===== Card de Habilidades ===== -->
+<div class="card">
+    <!-- ===== Encabezado de Card ===== -->
+    <div class="card-header card-header-success">
+        <h4 class="card-title">
+            Habilidades
+        </h4>
+        <p class="card-catergory">
+            Completa tu perfil
+        </p>
+    </div>
+    <!-- ===== Contenido del card (habilidades) ===== -->
+    <div class="card-body">
+        <!-- ===== Chips de habilidades ===== -->
+        <mat-form-field class="example-chip-list">
+            <mat-label>Habilidades favoritas</mat-label>
+            <mat-chip-list #chipListH aria-label="habilidad selection">
+                <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="removeHab(habilidad)">
+                    {{habilidad.descripcion}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Nueva Habilidad" [matChipInputFor]="chipListH" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addHab($event)">
+            </mat-chip-list>
+        </mat-form-field>
+        <div *ngIf="guardarHabilidad" class="row justify-content-end">
+            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarHabilidades()">
+                <i class="material-icons">done</i>
+            </button>
+        </div>
+    </div>
+</div>

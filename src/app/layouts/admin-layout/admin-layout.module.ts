@@ -35,7 +35,7 @@ import { CursoCertificacionComponent } from 'app/pages/forms/curso-certificacion
 import { CompanyProfileComponent } from '../../pages/company-profile/company-profile.component';
 import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacancy.component';
 import { PerfilesComponent } from "../../pages/chips/perfiles/perfiles.component";
-
+import { HabilidadesComponent } from "../../pages/chips/habilidades/habilidades.component";
 
 
 @NgModule({
@@ -74,7 +74,8 @@ import { PerfilesComponent } from "../../pages/chips/perfiles/perfiles.component
         CursoCertificacionComponent,
         CompanyProfileComponent,
         CreateVacancyComponent,
-        PerfilesComponent
+        PerfilesComponent,
+        HabilidadesComponent
     ]
 })
 
