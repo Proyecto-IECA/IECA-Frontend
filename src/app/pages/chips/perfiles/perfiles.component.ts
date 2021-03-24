@@ -6,7 +6,6 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { UsuarioI } from '../../../models/usuario';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
-
 import { Observable } from 'rxjs';
 import { PerfilI } from '../../../models/perfil';;
 import { map, startWith } from 'rxjs/operators';
@@ -22,22 +21,45 @@ export class PerfilesComponent implements OnInit {
   @Input() usuario: UsuarioI;
   perfiles: PerfilPostulanteI[];
   perfilesAux: PerfilPostulanteI[];
-  guardarPerfil = false;
 
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
+  guardarPerfil = false;
 
   perfilCtrl = new FormControl();
   filteredPerfil: Observable<PerfilI[]>;
-  ListaPerfil: PerfilI[];
+  ListaPerfiles: PerfilI[];
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   
   @ViewChild('perfilInput') perfilInput: ElementRef<HTMLInputElement>;
-
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
+
+  constructor(private usuarioService: UsuarioService) { 
+    
+  }
+
+  ngOnInit(): void {
+    this.usuarioService.readPerfilesPostulante().subscribe((resp: AuthResponseI) => {
+      if(resp.status) {
+        this.perfilesAux = resp.data;
+      }
+    });
+
+    this.usuarioService.readPerfiles().subscribe((resp: AuthResponseI) => {
+      if(resp.status){
+        this.ListaPerfiles = resp.data;
+        this.filteredPerfil = this.perfilCtrl.valueChanges.pipe(
+          startWith(null),
+          map((perfil: string | PerfilI | null) => perfil ?
+          this._filter(perfil) : this.ListaPerfiles.slice()));
+      }
+    })
+
+    this.perfiles = this.usuario.perfiles_postulante;
+  }
 
   addPer(event: MatChipInputEvent): void {
     const input = event.input;
@@ -77,7 +99,8 @@ export class PerfilesComponent implements OnInit {
     }
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void{
+  
+  selectedPer(event: MatAutocompleteSelectedEvent): void{
     this.perfiles.push({ 
       id_postulante: this.usuario.id_postulante, 
       descripcion: event.option.viewValue
@@ -85,24 +108,25 @@ export class PerfilesComponent implements OnInit {
     this.perfilInput.nativeElement.value = '';
     this.perfilCtrl.setValue(null);
 
-  }
-  constructor(private usuarioService: UsuarioService) { 
-    this.filteredPerfil = this.perfilCtrl.valueChanges.pipe(
-      startWith(null),
-      map((perfil: PerfilI | null) => perfil ?
-      this._filter(perfil.descripcion) : this.ListaPerfil.slice()));
-  }
+    if (!this.compararArregos(this.perfiles, this.perfilesAux)) {
+      this.guardarPerfil = true;
+    } else {
+      this.guardarPerfil = false;
+    }
 
-  ngOnInit(): void {
-    this.usuarioService.readPerfilesPostulante().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
-        this.perfilesAux = resp.data;
-      }
-    });
-
-    this.perfiles = this.usuario.perfiles_postulante;
   }
 
+  _filter(perfil: string | PerfilI): PerfilI[] {
+    let perfilDescripcion = '';
+    if(typeof(perfil) == 'string') {
+      perfilDescripcion = perfil.toLowerCase();
+    } else {
+      perfilDescripcion = perfil.descripcion.toLowerCase();
+    }
+    return this.ListaPerfiles.filter(perfil => 
+      perfil.descripcion.toLowerCase().indexOf(perfilDescripcion) === 0);
+  }
+  
   guardarPerfiles() {
     this.usuarioService.createPerfiles(this.perfiles).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
@@ -127,10 +151,5 @@ export class PerfilesComponent implements OnInit {
     return true;
   }
 
-  _filter(perfil: string): PerfilI[] {
-    const filterValue = perfil.toLowerCase();
-
-    return this.ListaPerfil.filter(perfil => 
-      perfil.descripcion.toLowerCase().indexOf(filterValue) ===0);
-  }
+  
 }
