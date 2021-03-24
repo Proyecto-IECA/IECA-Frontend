@@ -1,5 +1,5 @@
 import { Component, Host, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroupDirective } from '@angular/forms';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
 
@@ -99,8 +99,10 @@ export class ExperienciaLaboralComponent implements OnInit {
     }
   }
 
-  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService, 
-    @Host() private _userProC: UserProfileComponent
+  constructor(
+      private formBuilder: FormBuilder, 
+      private usuarioService: UsuarioService, 
+      @Host() private _userProC: UserProfileComponent
     ) {}
 
   ngOnInit(): void {
@@ -152,22 +154,24 @@ export class ExperienciaLaboralComponent implements OnInit {
     // console.log(d.format('YYYY/MM'))    
   }
 
-  actionForm() {
+  actionForm(formDirective: FormGroupDirective) {
     if(this.tipo == 'add') {
-      this.addExpLaboral();
+      this.addExpLaboral(formDirective);
     } else {
       this.updateExpLaboral();
     }
   }
 
-  addExpLaboral(){
-    
+  addExpLaboral(formDirective: FormGroupDirective){
     this.formSubmitted = true;
     if(this.laboralForm.valid){
       this.usuarioService.createExpLaboral(this.laboralForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status){
           this._userProC.experienciasLaborales = resp.data;
-          this.laboralForm.reset()
+          this.formSubmitted = false;
+          this.laboralForm.reset();
+          formDirective.resetForm();
+          this._userProC.panelAddOpenState = false;
           this.doneMassage(resp.message);
         } else {
           this.errorPeticion(resp.message);
@@ -176,6 +180,13 @@ export class ExperienciaLaboralComponent implements OnInit {
     } else {
       this.errorMassage();
     }
+  }
+
+  cancelarAdd(formDirective: FormGroupDirective) {
+    this.formSubmitted = false;
+    this.laboralForm.reset();
+    formDirective.resetForm();
+    this._userProC.panelAddOpenState = false;
   }
 
   updateExpLaboral(){

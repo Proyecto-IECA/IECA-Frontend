@@ -13,10 +13,13 @@
                 <div class="col-md-4">
                     <!-- ===== Foto de Perfil ====== -->
                     <div class="card card-profile">
-                        <div class="card-avatar">
-                            <a href="javascript:void(0)">
-                                <img class="img" src="./assets/img/faces/marc.jpg" />
-                            </a>
+                        <div class="card-avatar" *ngIf="!foto_perfil">
+                            <p (click)="inputFotoPerfil.click()">Cambiar</p>
+                            <img class="img" src="./assets/img/faces/marc.jpg" (click)="inputFotoPerfil.click()" />
+                        </div>
+                        <div class="card-avatar" *ngIf="foto_perfil">
+                            <p (click)="inputFotoPerfil.click()">Cambiar</p>
+                            <img class="img" [src]="foto_perfil" (click)="inputFotoPerfil.click()" />
                         </div>
                         <!-- Cuerpo del card -->
                         <div class="card-body">
@@ -25,7 +28,8 @@
                             <p class="card-description">
                                 {{telefono_celular}}
                             </p>
-                            <button class="btn btn-rose">Cargar foto</button>
+                            <input type="file" hidden #inputFotoPerfil (change)="capturarImage($event)">
+                            <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
                         </div>
                     </div>
 
@@ -98,7 +102,7 @@
                         <!-- ===== Cuerpo del card ===== -->
                         <div class="card-body">
                             <mat-accordion class="example-headers-align" multi>
-                                <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel hideToggle [expanded]="panelAddOpenState" (opened)="panelAddOpenState = true" (closed)="panelAddOpenState = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             Nueva
@@ -111,7 +115,6 @@
                                     <!-- ===== Formulario para agregar una experiencia laboral ===== -->
                                     <app-experiencia-laboral-form [tipo]="'add'"></app-experiencia-laboral-form>
                                 </mat-expansion-panel>
-
                                 <div *ngFor="let expL of experienciasLaborales">
                                     <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
