@@ -1,0 +1,30 @@
+<!-- Card de Idiomas -->
+<div class="card">
+    <!-- ===== Encabezado de Card ===== -->
+    <div class="card-header card-header-rose">
+        <h4 class="card-title">
+            Idiomas
+        </h4>
+        <p class="card-catergory">
+            Completa tu perfil
+        </p>
+    </div>
+    <div class="card-body">
+        <!-- ===== Chips de idiomas ===== -->
+        <mat-form-field class="example-chip-list">
+            <mat-label>Idiomas favoritos</mat-label>
+            <mat-chip-list #chipListI aria-label="idioma selection">
+                <mat-chip *ngFor="let idioma of idiomas" [selectable]="selectable" [removable]="removable" (removed)="removeIdi(idioma)">
+                    {{idioma.descripcion}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Nuevo Idioma" [matChipInputFor]="chipListI" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addIdi($event)">
+            </mat-chip-list>
+        </mat-form-field>
+        <div *ngIf="guardarIdioma" class="row justify-content-end">
+            <button type="button" class="btn btn-rose btn-sm btn-just-icon m-r" (click)="guardarIdiomas()">
+                <i class="material-icons">done</i>
+            </button>
+        </div>
+    </div>
+</div>

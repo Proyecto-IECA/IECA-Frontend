@@ -38,57 +38,6 @@ export class UserProfileComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-   
-
-  idiomas: IdiomaPostulanteI[];
-  idiomasAux: IdiomaPostulanteI[];
-  guardarIdioma = false;
-
-  
-
-  addIdi(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-     // Add our fruit
-     if ((value || '').trim()) {
-      this.idiomas.push({
-        id_postulante: this.usuario.id_postulante,
-        descripcion: value.trim()
-      });
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-
-    if (!this.compararArregos(this.idiomas, this.idiomasAux)) {
-      this.guardarIdioma = true;
-    } else {
-      this.guardarIdioma = false;
-    }
-  }
-
- 
-
-  
-
-  
-
-  removeIdi(idioma: IdiomaPostulanteI): void {
-    const index = this.idiomas.indexOf(idioma);
-
-    if (index >= 0) {
-      this.idiomas.splice(index,1);
-    }
-
-    if (!this.compararArregos(this.idiomas, this.idiomasAux)) {
-      this.guardarIdioma = true;
-    } else {
-      this.guardarIdioma = false;
-    }
-  }
-  
   constructor(private usuarioService: UsuarioService) {
    }
 
@@ -100,17 +49,6 @@ export class UserProfileComponent implements OnInit {
       }
     });
 
-    
-
-    
-
-    
-
-    this.usuarioService.readIdiomasPostulante().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
-        this.idiomasAux = resp.data;
-      }
-    });
     // this.usuarioService.readPerfiles().subscribe((resp: AuthResponseI) => {
     //   if(resp.status) {
     //     this.perfiles = resp.data;
@@ -129,28 +67,8 @@ export class UserProfileComponent implements OnInit {
     /* this.perfiles = this.usuario.perfiles_postulante; */
     /* this.habilidades = this.usuario.habilidades_postulante; */
     /* this.valores = this.usuario.valores_postulante; */
-    this.idiomas = this.usuario.idiomas_postulante;
+    /* this.idiomas = this.usuario.idiomas_postulante; */
   }
-
-  
-  
-
-  
-
-  guardarIdiomas() {
-    this.usuarioService.createIdiomas(this.idiomas).subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.usuarioService.readIdiomasPostulante().subscribe((resp: AuthResponseI) => {
-          if(resp.status) {
-            this.idiomasAux = resp.data;
-          }
-        });
-
-        this.guardarIdioma = false;
-      }
-    })
-  }
-
 
   compararArregos(arreglo: any[], arreglo2: any[]) {
     if (arreglo.length != arreglo2.length) return false;

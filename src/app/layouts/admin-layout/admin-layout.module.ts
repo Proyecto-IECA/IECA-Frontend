@@ -37,6 +37,7 @@ import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacanc
 import { PerfilesComponent } from "../../pages/chips/perfiles/perfiles.component";
 import { HabilidadesComponent } from "../../pages/chips/habilidades/habilidades.component";
 import { ValoresComponent } from '../../pages/chips/valores/valores.component';
+import { IdiomasComponent } from '../../pages/chips/idiomas/idiomas.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { ValoresComponent } from '../../pages/chips/valores/valores.component';
         CreateVacancyComponent,
         PerfilesComponent,
         HabilidadesComponent,
-        ValoresComponent
+        ValoresComponent,
+        IdiomasComponent
     ]
 })
 
