@@ -1,10 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AuthResponseI } from 'app/models/auth-response';
 import { PerfilPostulanteI } from 'app/models/perfil_postulante';
 import { UsuarioService } from '../../../services/usuario.service';
 import { UsuarioI } from '../../../models/usuario';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { FormControl } from '@angular/forms';
+
+import { Observable } from 'rxjs';
+import { PerfilI } from '../../../models/perfil';;
+import { map, startWith } from 'rxjs/operators';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-perfiles',
@@ -18,12 +24,21 @@ export class PerfilesComponent implements OnInit {
   perfilesAux: PerfilPostulanteI[];
   guardarPerfil = false;
 
+  visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
 
+  perfilCtrl = new FormControl();
+  filteredPerfil: Observable<PerfilI[]>;
+  ListaPerfil: PerfilI[];
+
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   
+  @ViewChild('perfilInput') perfilInput: ElementRef<HTMLInputElement>;
+
+  @ViewChild('auto') MatAutocomplete: MatAutocomplete;
+
   addPer(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
@@ -45,6 +60,8 @@ export class PerfilesComponent implements OnInit {
     } else {
       this.guardarPerfil = false;
     }
+
+    this.perfilCtrl.setValue(null);
   }
   removePer(perfiles: PerfilPostulanteI): void {
     const index = this.perfiles.indexOf(perfiles);
@@ -59,7 +76,22 @@ export class PerfilesComponent implements OnInit {
       this.guardarPerfil = false;
     }
   }
-  constructor(private usuarioService: UsuarioService) { }
+
+  selected(event: MatAutocompleteSelectedEvent): void{
+    this.perfiles.push({ 
+      id_postulante: this.usuario.id_postulante, 
+      descripcion: event.option.viewValue
+    });
+    this.perfilInput.nativeElement.value = '';
+    this.perfilCtrl.setValue(null);
+
+  }
+  constructor(private usuarioService: UsuarioService) { 
+    this.filteredPerfil = this.perfilCtrl.valueChanges.pipe(
+      startWith(null),
+      map((perfil: PerfilI | null) => perfil ?
+      this._filter(perfil.descripcion) : this.ListaPerfil.slice()));
+  }
 
   ngOnInit(): void {
     this.usuarioService.readPerfilesPostulante().subscribe((resp: AuthResponseI) => {
@@ -93,5 +125,12 @@ export class PerfilesComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  _filter(perfil: string): PerfilI[] {
+    const filterValue = perfil.toLowerCase();
+
+    return this.ListaPerfil.filter(perfil => 
+      perfil.descripcion.toLowerCase().indexOf(filterValue) ===0);
   }
 }

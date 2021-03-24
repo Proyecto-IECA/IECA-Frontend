@@ -16,7 +16,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -59,7 +59,8 @@ import { IdiomasComponent } from '../../pages/chips/idiomas/idiomas.component';
         MatDatepickerModule,
         MatMomentDateModule,
         MatExpansionModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatAutocompleteModule
     ],
     declarations: [
         DashboardComponent,
