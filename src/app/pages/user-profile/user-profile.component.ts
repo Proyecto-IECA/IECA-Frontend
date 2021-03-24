@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatChipInputEvent } from "@angular/material/chips";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { UsuarioService } from '../../services/usuario.service';
@@ -7,10 +7,7 @@ import { UsuarioI } from 'app/models/usuario';
 import { ExperienciaLaboralI } from '../../models/experiencia_laboral';
 import { ExperienciaAcademicaI } from 'app/models/experiencia_academica';
 import { CursoCertificacionI } from '../../models/cursos_certificaciones';
-import { PerfilPostulanteI } from 'app/models/perfil_postulante';
-import { HabilidadPostulanteI } from '../../models/habilidades_postulante';
-import { ValorPostulanteI } from '../../models/valor_postulante';
-import { IdiomaPostulanteI } from '../../models/idioma_postulante';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,7 +15,12 @@ import { IdiomaPostulanteI } from '../../models/idioma_postulante';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
- 
+
+  public imageForm = this.formBuilder.group(
+    {
+      foto_perfil: ['']
+    }
+  )
 
   usuario: UsuarioI;
   experienciasLaborales: ExperienciaLaboralI[];
@@ -30,15 +32,22 @@ export class UserProfileComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   panelOpenState = false;
+  panelAddOpenState = false;
 
   nombreCompleto = '';
   email = '';
   telefono_celular = '';
+  files: any = [];
+  foto_perfil = '';
+  changeFoto = false;
 
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private usuarioService: UsuarioService) {
+  constructor(
+    private usuarioService: UsuarioService,
+    private formBuilder: FormBuilder
+    ) {
    }
 
   ngOnInit() {
@@ -49,12 +58,6 @@ export class UserProfileComponent implements OnInit {
       }
     });
 
-    // this.usuarioService.readPerfiles().subscribe((resp: AuthResponseI) => {
-    //   if(resp.status) {
-    //     this.perfiles = resp.data;
-    //   }
-    //   console.log(resp.message);
-    // })
   }
  
   loadData() {
@@ -78,5 +81,50 @@ export class UserProfileComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  capturarImage(event) {
+    const imageCapturada = event.target.files[0];
+    this.extraerBase64(imageCapturada).then((image: any) => {
+      this.foto_perfil = image.base;
+      this.changeFoto = true;
+    });
+  }
+
+  extraerBase64 = async($event: any) => new Promise((resolve, reject) => {
+    try {
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        });
+      };
+    } catch (error) {
+      return null;
+    }
+  })
+
+  guardarFoto() {
+    try {
+      this.imageForm.get('foto_perfil').setValue(this.foto_perfil);
+      console.log(this.imageForm.value);
+      this.usuarioService.updateFoto(this.imageForm.value).subscribe((resp: AuthResponseI) => {
+        if(resp.status) {
+          console.log("Foto guardada correctamente");
+          this.changeFoto = false;
+        }
+        console.log(resp);
+      })
+
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 }
