@@ -28,7 +28,7 @@
                             <p class="card-description">
                                 {{telefono_celular}}
                             </p>
-                            <input type="file" hidden #inputFotoPerfil (change)="capturarImage($event)">
+                            <input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil (change)="capturarImage($event)">
                             <p *ngIf="extensionValid" class="text-danger">Formatos validos '.png' '.jpg' '.jpeg'</p>
                             <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 8 MB</p>
                             <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
