@@ -7,24 +7,31 @@
             <div class="col-md-4">
                 <div class="card card-profile">
                     <!-- Foto de Perfil -->
-                    <div class="card-avatar">
-                        <a href="javascript:void(0)">
-                            <img class="img" src="{{ company.foto_empresa }}"/>
-                        </a> <!-- Hacer click para ver la foto en grande -->
+                    <div class="card-avatar" title="Archivos compatibles: JPEG, JPG y PNG">
+                        <p (click)="inputImg.click()">Cambiar</p>
+                        <img class="img" [src]="company.foto_empresa" (click)="inputImg.click()"/>
+                         <!-- Hacer click para ver la foto en grande -->
                     </div>
+                    <br/>
+                    <small class="form-text text-gray">Archivos compatibles: JPEG, JPG y PNG</small>
+                    <small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo es INCOMPATIBLE</small>
                     <!-- Cuerpo del card -->
-                    <div class="card-body">
+                    <form class="card-body" (submit)="saveImg()" [formGroup]="imgForm">
                         <h4 class="card-title">Página Web</h4>
                         <h6 class="card-category text-gray">Nombre Empresa</h6>
                         <p class="card-description">Teléfono</p>
                         <h5 class="text-muted">Calificación</h5>
-                        <mat-form-field>
-                            <ngx-mat-file-input placeholder="Subir foto"></ngx-mat-file-input>
+
+                        <input type="file" hidden #inputImg formControlName="foto_empresa" (change)="updateImg($event)" accept="image/*">
+
+                        <!--<mat-form-field>
+                            <ngx-mat-file-input (change)="updateImg($event)" formControlName="foto_empresa" accept="image/*"></ngx-mat-file-input>
                             <i class="material-icons" matSuffix>upload_file</i>
-                        </mat-form-field>
-                        <input type="file" class="btn btn-rose" (change)="updateImg($event)" value="Subir foto">
-                        <!-- <button class="btn btn-rose" (click)="updateImg()">Subir foto</button> -->
-                    </div>
+                        </mat-form-field>-->
+
+                        <button *ngIf="imgForm.dirty" type="submit" class="btn btn-rose" [disabled]="imgForm.invalid">Actualizar foto</button>
+                        <!--<small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo INCOMPATIBLE</small>-->
+                    </form>
                 </div>
             </div>
 
@@ -100,13 +107,22 @@
                                 </div>
                             </div>
 
-                            <!-- Renglón justificado al final -->
-                            <div class="row justify-content-end">
-                                <!-- btn icon aceptar -->
-                                <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r">
-                                    <i class="material-icons">done</i>
-                                </button>
+                            <div class="row">
+                                <!-- Renglón justificado al final -->
+                                <div class="col-md-6">
+                                    <!-- btn icon aceptar -->
+                                    <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r justify-content-end">
+                                        <i class="material-icons">done</i>
+                                    </button>
+                                </div>
+
+                                <!-- Renglón justificado al inicio -->
+                                <div class="col-md-6">
+                                    <!-- Switcher icon -->
+                                    <mat-slide-toggle class="justify-content-start">Más sucursales</mat-slide-toggle>
+                                </div>
                             </div>
+
                             <div class="clearfix"></div>
                         </form>
 

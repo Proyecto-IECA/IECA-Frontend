@@ -161,7 +161,6 @@ export class AuthService {
                         if (!data.status) {
                             return false;
                         }
-                        localStorage.set('token', data.token);
                         return true;
                     }),
                     catchError( error => {
@@ -177,7 +176,6 @@ export class AuthService {
                         if (!data.status) {
                             return false;
                         }
-                        localStorage.set('token', data.token);
                         return true;
                     }),
                     catchError( error => {
@@ -287,6 +285,7 @@ export class AuthService {
     //  ---------- MÉTODOS GENERALES ---------- //
     logout(): void {
         localStorage.clear();
+        this.router.navigateByUrl('/auth');
     }
 
     verificarEmail(email: string): Observable<AuthResponseI> {

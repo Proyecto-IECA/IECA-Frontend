@@ -153,7 +153,7 @@
                             <button (click)="part = !part" class="btn btn-primary" type="button">
                                 <i class="material-icons">keyboard_arrow_left</i> Regresar
                             </button> &nbsp;
-                            <button type="submit" [disabled]="registerUsuarioForm.invalid" class="btn btn-primary">Registrar</button>
+                            <button type="submit" [disabled]="registerUsuarioForm.pristine && registerUsuarioForm.touched" class="btn btn-primary">Registrar</button>
                         </div>
                     </div>
                 </form>

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { PeticionesService } from './peticiones.service';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthResponseI } from '../models/auth-response';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
@@ -18,11 +18,22 @@ export class FileUploadService {
 
 
   constructor(private http: HttpClient,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private peticion: PeticionesService) {
     this.email = this.authService.usuario.email;
   }
 
+  actualizarFoto(archivo: File): Observable<AuthResponseI> {
+    const tipo = localStorage.getItem('tipo');
+    if (tipo === '1') {
+      return this.peticion.putQuery('postulantes', 'update-foto', archivo);
+    }
+    if (tipo === '2') {
+      return this.peticion.putQuery('empresas', 'update-foto', archivo);
+    }
+  }
 
+/*
   async actualizarFoto(archivo: File, id: number) {
 
     try {
@@ -49,5 +60,25 @@ export class FileUploadService {
     }
 
   }
+*/
+
+  extraerBase64 = async($event: any) => new Promise((resolve, reject) => {
+    try {
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        });
+      };
+    } catch (error) {
+      return null;
+    }
+  });
 
 }

@@ -6,6 +6,7 @@ import { EmpresaI } from '../../models/empresa';
 import { AuthResponseI } from '../../models/auth-response';
 import { FileUploadService } from '../../services/file-upload.service';
 
+
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
@@ -14,16 +15,23 @@ import { FileUploadService } from '../../services/file-upload.service';
 export class CompanyProfileComponent implements OnInit {
 
   //  ---------- VARIABLES ---------- //
-  companyForm: FormGroup;
   company: EmpresaI;
   imgUpdate: File;
+
+  companyForm: FormGroup;
+  imgForm: FormGroup;
+
 
   constructor(private formB: FormBuilder,
               private empresaSvc: EmpresaService,
               private updateFile: FileUploadService) {
+    /* Variables */
     this.company = this.empresaSvc.company;
+
+    /* Métodos */
     this.loadData();
     this.companyCreateForm();
+    this.imgCreateForm();
   }
 
   ngOnInit(): void {
@@ -31,8 +39,12 @@ export class CompanyProfileComponent implements OnInit {
 
   //  ---------- VALIDADORES ---------- //
   /* Validar los control name */
-  controlNoValid(controlName: string): boolean {
-    return this.companyForm.controls[controlName].errors
+  controlNoValid(controlName: string, imgForm: boolean = false): boolean | Validators {
+    return (imgForm)
+
+        ? this.imgForm.controls[controlName].hasError('noCompatible')
+
+        : this.companyForm.controls[controlName].errors
         && this.companyForm.controls[controlName].touched;
   }
 
@@ -47,14 +59,14 @@ export class CompanyProfileComponent implements OnInit {
 
 
   //  ---------- MENSAJES ---------- //
-  errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+  errorServer(): void {
+    // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: 'error',
       title: 'Petición NO procesada',
       text: `Vuelve a intentar de nuevo...
       Si el error persiste ponerse en contacto con soporte técnico`,
     });
-    console.log(error);
   }
 
   errorMassage(): void {
@@ -89,6 +101,12 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
+  imgCreateForm(): void {
+    this.imgForm = this.formB.group({
+      foto_empresa: [],
+    });
+  }
+
   //  ---------- MÉTODOS ---------- //
   /* Cargar datos al template */
   loadData(): void {
@@ -100,17 +118,19 @@ export class CompanyProfileComponent implements OnInit {
           // Cargar datos a la objeto company
           this.company = value.data;
 
+          // Cargar datos al formulario
+          this.companyForm.reset(value.data);
+
           // Si no existe una foto, asignar una por default
           if (!value.data.foto_empresa) {
             this.company.foto_empresa = './assets/img/faces/marc.jpg';
           }
-
-          // Cargar datos al formulario
-          this.companyForm.reset(value.data);
-        },
-        error =>
+},
+        error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
-          this.errorServer(error)
+          console.log(error);
+          this.errorServer();
+        }
         );
   }
 
@@ -137,13 +157,89 @@ export class CompanyProfileComponent implements OnInit {
           // Mensaje de cambios guardados
           return this.doneMassage();
         },
-        error =>
-            /* Mensaje de error si el servidor no recibe las peticiones */
-            this.errorServer(error)
-    )
+        error => {
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          console.log(error);
+          this.errorServer();
+        }
+    );
 
   }
 
-  updateImg($event: Event): void {
+  /* Mostrar Imagen cargada */
+  updateImg($event: Event | any): void {
+
+    // Evaluia si el $event está vacío
+    if (!$event.target.files[0]) {
+      return this.imgForm.reset();
+    }
+
+    // foltramos la variable $event para solo tomar lo importante
+    const imageCapturada = $event.target.files[0];
+    // console.log(imageCapturada.type);
+
+    // Verificamos que el archivo cargado sea una imagen
+    switch (imageCapturada.type) {
+      case 'image/png':
+        console.log('Archivo PNG');
+        this.imgForm.get('foto_empresa').setErrors(null);
+        this.showImg(imageCapturada);
+        break;
+
+      case 'image/jpeg':
+        console.log('Archivo JPEG');
+        this.imgForm.get('foto_empresa').setErrors(null);
+        this.showImg(imageCapturada);
+        break;
+
+      case 'image/jpg':
+        console.log('Archivo JPG');
+        this.imgForm.get('foto_empresa').setErrors(null);
+        this.showImg(imageCapturada);
+        break;
+
+      default:
+        console.log(`El archivo es de tipo: ${imageCapturada.type}.`);
+        console.log(this.imgForm);
+        return this.imgForm.get('foto_empresa').setErrors({ noCompatible: true });
+    }
+
   }
+
+  /* Mostrar la imagen cargada */
+  showImg(imageCapturada: Event): void {
+    this.updateFile.extraerBase64(imageCapturada).then(
+        (image: any) => {
+          console.log(image);
+          this.company.foto_empresa = image.base;
+          this.imgForm.value.foto_empresa = image.base;
+          // console.log(this.imgForm);
+        },
+        error => {
+          /* Mensaje de error si el servidor no recibe las peticiones */
+          console.log(error);
+          this.errorServer();
+        }
+    );
+  }
+
+  /* Actualizar Imagen en la Base de Datos */
+  saveImg(): void {
+    console.log(this.company.foto_empresa);
+    try {
+      // this.imgForm.get('foto_empresa').setValue(this.company.foto_empresa);
+      console.log(this.imgForm.value);
+      this.updateFile.actualizarFoto(this.imgForm.value).subscribe((resp: AuthResponseI) => {
+        if (!resp.status) {
+          return this.errorMassage();
+        }
+        console.log('Foto guardada correctamente');
+      });
+    } catch (error)  {
+      /* Mensaje de error si el servidor no recibe las peticiones */
+      console.log(error);
+      return this.errorServer();
+    }
+  }
+
 }
