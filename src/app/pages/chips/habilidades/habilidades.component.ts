@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { HabilidadI } from '../../../models/habilidad';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { startWith, map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-habilidades',
@@ -124,13 +125,20 @@ export class HabilidadesComponent implements OnInit {
       if (resp.status) {
         this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
           if(resp.status) {
+            this.doneMassage(resp.message);
             this.habilidadAux = resp.data;
+          } else {
+            this.errorPeticion(resp.message);
           }
-        });
+        }, (error) => this.errorServer(error));
         this.guardarHabilidad = false;
+      } else {
+        this.errorMassage();
       }
     })
   }
+
+
 
   compararArregos(arreglo: any[], arreglo2: any[]) {
     if (arreglo.length != arreglo2.length) return false;
@@ -140,5 +148,46 @@ export class HabilidadesComponent implements OnInit {
       }
     }
     return true;
+  }
+
+   //  ---------- MENSAJES ---------- //
+   errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+    Swal.fire({
+      icon: 'error',
+      title: 'Petición NO procesada',
+      text: `Vuelve a intentar de nuevo...
+      Si el error persiste ponerse en contacto con soporte técnico`,
+    });
+    console.log(error);
+  }
+
+  errorMassage(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Revisa el formulario',
+      text: 'Revisa que el formulario esté correctamente llenado',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  errorPeticion(error: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error,
+      showConfirmButton: false,
+      timer: 2700
+    });
   }
 }
