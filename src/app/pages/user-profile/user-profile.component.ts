@@ -70,10 +70,6 @@ export class UserProfileComponent implements OnInit {
     this.experienciasLaborales = this.usuario.experiencias_laborales;
     this.experienciasAcademicas = this.usuario.experiencias_academicas;
     this.cursosCertificaciones = this.usuario.cursos_certificaciones;
-    /* this.perfiles = this.usuario.perfiles_postulante; */
-    /* this.habilidades = this.usuario.habilidades_postulante; */
-    /* this.valores = this.usuario.valores_postulante; */
-    /* this.idiomas = this.usuario.idiomas_postulante; */
   }
 
   compararArregos(arreglo: any[], arreglo2: any[]) {
