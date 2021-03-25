@@ -8,6 +8,8 @@ import { ExperienciaLaboralI } from '../../models/experiencia_laboral';
 import { ExperienciaAcademicaI } from 'app/models/experiencia_academica';
 import { CursoCertificacionI } from '../../models/cursos_certificaciones';
 import { FormBuilder } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -27,21 +29,18 @@ export class UserProfileComponent implements OnInit {
   experienciasAcademicas: ExperienciaAcademicaI[];
   cursosCertificaciones: CursoCertificacionI[];
   
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
   panelOpenState = false;
   panelExpL = false;
   panelExpA = false;
   panelCurC = false;
+  changeFoto = false;
+  extensionValid = false;
+  tamnioValid = false;
 
   nombreCompleto = '';
   email = '';
   telefono_celular = '';
-  files: any = [];
   foto_perfil = '';
-  changeFoto = false;
 
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -82,12 +81,15 @@ export class UserProfileComponent implements OnInit {
     return true;
   }
 
-  capturarImage(event) {
+  capturarImage(event) { 
     const imageCapturada = event.target.files[0];
-    this.extraerBase64(imageCapturada).then((image: any) => {
-      this.foto_perfil = image.base;
-      this.changeFoto = true;
-    });
+    if(this.validarFile(imageCapturada)){
+      this.extraerBase64(imageCapturada).then((image: any) => {
+        this.foto_perfil = image.base;
+        this.changeFoto = true;
+      });
+    }
+
   }
 
   extraerBase64 = async($event: any) => new Promise((resolve, reject) => {
@@ -115,15 +117,70 @@ export class UserProfileComponent implements OnInit {
       console.log(this.imageForm.value);
       this.usuarioService.updateFoto(this.imageForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status) {
-          console.log("Foto guardada correctamente");
+          this.doneMassage(resp.message);
           this.changeFoto = false;
+        } else {
+          this.errorPeticion(resp.message);
         }
-        console.log(resp);
-      })
+      }, (error) => this.errorServer(error));
 
     } catch (error) {
       console.log(error);
       return null;
     }
   }
+
+  validarFile(event) {
+    this.changeFoto = false;
+    const extensionesPermitidas = ['.png', '.jpg', '.jpeg'];
+    const tamanio = 2;
+    const rutaArchivo = event.name;
+    const ultimoPunto = event.name.lastIndexOf('.');
+    const extension = rutaArchivo.slice(ultimoPunto, rutaArchivo.length);
+    if(extensionesPermitidas.indexOf(extension) == -1) {
+      this.extensionValid = true;
+      return false;
+    }
+
+    if((event.size / 1048576) > tamanio) {
+      this.tamnioValid = true;
+      return false;
+    }
+    
+    this.extensionValid = false;
+    this.tamnioValid = false;
+    return true;
+
+  }
+
+    //  ---------- MENSAJES ---------- //
+    errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+      Swal.fire({
+        icon: 'error',
+        title: 'Petición NO procesada',
+        text: `Vuelve a intentar de nuevo...
+        Si el error persiste ponerse en contacto con soporte técnico`,
+      });
+      console.log(error);
+    }
+  
+    doneMassage(message: string): void {
+      Swal.fire({
+        icon: 'success',
+        title: 'Cambios Actualizados',
+        text: message,
+        showConfirmButton: false,
+        timer: 2700
+      });
+    }
+  
+    errorPeticion(error: string): void {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error,
+        showConfirmButton: false,
+        timer: 2700
+      });
+    }
 }
