@@ -17,21 +17,17 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./habilidades.component.css']
 })
 export class HabilidadesComponent implements OnInit {
-
   @Input() usuario: UsuarioI;
-  habilidades: HabilidadPostulanteI[];
-  habilidadAux: HabilidadPostulanteI[];
-  
-  habilidadControl = new FormControl();
-  filteredHabilidad: Observable<HabilidadI[]>;
-  listaHabilidades: HabilidadI[];
 
   selectable = true;
   removable = true;
-  addOnBlur = true;
   guardarHabilidad = false;
-
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  habilidades: HabilidadPostulanteI[];
+  habilidadAux: HabilidadPostulanteI[];
+  habilidadControl = new FormControl();
+  filteredHabilidad: Observable<HabilidadI[]>;
+  listaHabilidades: HabilidadI[];
+  separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @ViewChild('habilidadInput') habilidadInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -63,25 +59,24 @@ export class HabilidadesComponent implements OnInit {
     const input = event.input;
     const value = event.value;
 
-     // Add our fruit
-     if ((value || '').trim()) {
+    if ((value || '').trim()) {
       this.habilidades.push({
         id_postulante: this.usuario.id_postulante,
         descripcion: value.trim()
       });
     }
-    // Reset the input value
+
     if (input) {
       input.value = '';
     }
+
+    this.habilidadControl.setValue(null);
 
     if (!this.compararArregos(this.habilidades, this.habilidadAux)) {
       this.guardarHabilidad = true;
     } else {
       this.guardarHabilidad = false;
     }
-
-    this.habilidadControl.setValue(null);
   }
 
   removeHab(habilidad: HabilidadPostulanteI): void {
@@ -105,6 +100,7 @@ export class HabilidadesComponent implements OnInit {
     });
     this.habilidadInput.nativeElement.value = '';
     this.habilidadControl.setValue(null);
+
     if (!this.compararArregos(this.habilidades, this.habilidadAux)) {
       this.guardarHabilidad = true;
     } else {
@@ -131,7 +127,6 @@ export class HabilidadesComponent implements OnInit {
             this.habilidadAux = resp.data;
           }
         });
-
         this.guardarHabilidad = false;
       }
     })
@@ -146,5 +141,4 @@ export class HabilidadesComponent implements OnInit {
     }
     return true;
   }
-
 }
