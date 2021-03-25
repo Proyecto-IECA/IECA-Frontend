@@ -19,9 +19,9 @@
                     {{perfil.descripcion}}
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input placeholder="Nuevo Perfil" #perfilInput [formControl]="perfilCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListP" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addPer($event)">
+                <input placeholder="Nuevo Perfil" #perfilInput [formControl]="perfilCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListP" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addPer($event)">
             </mat-chip-list>
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedPer($event)">
                 <mat-option *ngFor="let perfil of filteredPerfil | async" [value]="perfil">
                     {{perfil.descripcion}}
                 </mat-option>
