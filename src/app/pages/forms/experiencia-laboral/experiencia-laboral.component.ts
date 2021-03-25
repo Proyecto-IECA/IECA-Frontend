@@ -162,6 +162,8 @@ export class ExperienciaLaboralComponent implements OnInit {
     }
   }
 
+  
+
   addExpLaboral(formDirective: FormGroupDirective){
     this.formSubmitted = true;
     if(this.laboralForm.valid){
@@ -188,6 +190,7 @@ export class ExperienciaLaboralComponent implements OnInit {
     this.laboralForm.reset();
     formDirective.resetForm();
     this.laboralForm.get('trabajando').setValue(false);
+    this.activedFecha_salida = false;
     this._userProC.panelExpL = false;
   }
 
@@ -217,22 +220,14 @@ export class ExperienciaLaboralComponent implements OnInit {
       }
     }, (error) => this.errorServer(error));    
   } 
-
-
-  // loadFechasForm() {
-  //   if (!this.activedFecha_salida) {
-  //     let date = moment(this.date.value);
-  //     let f_entrada = date.format('MM/YYYY');
-  //     this.laboralForm.get('fecha_entrada').setValue(f_entrada);
-  //     let date2 = moment(this.date2.value);
-  //     let f_salida = date2.format('MM/YYYY');
-  //     this.laboralForm.get('fecha_salida').setValue(f_salida);
-  //   } else {
-  //     let date = moment(this.date.value);
-  //     let f_entrada = date.format('MM/YYYY');
-  //     this.laboralForm.get('fecha_entrada').setValue(f_entrada);
-  //   } 
-  // }
+  
+  ischecked() {
+    if (this.laboralForm.get('trabajando').value) {
+      this.activedFecha_salida = false;
+    } else {
+      this.activedFecha_salida = true;
+    }
+  }
 
    //  ---------- MENSAJES ---------- //
    errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
@@ -274,13 +269,4 @@ export class ExperienciaLaboralComponent implements OnInit {
       timer: 2700
     });
   }
-
-  ischecked() {
-    if (this.laboralForm.get('trabajando').value) {
-      this.activedFecha_salida = false;
-    } else {
-      this.activedFecha_salida = true;
-    }
-  }
-
 }
