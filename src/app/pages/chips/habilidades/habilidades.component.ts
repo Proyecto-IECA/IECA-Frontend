@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AuthResponseI } from 'app/models/auth-response';
 import { HabilidadPostulanteI } from 'app/models/habilidades_postulante';
@@ -8,6 +8,8 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HabilidadI } from '../../../models/habilidad';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-habilidades',
@@ -21,7 +23,7 @@ export class HabilidadesComponent implements OnInit {
   habilidadAux: HabilidadPostulanteI[];
   
   habilidadControl = new FormControl();
-  filterHabilidades: Observable<HabilidadI[]>;
+  filteredHabilidad: Observable<HabilidadI[]>;
   listaHabilidades: HabilidadI[];
 
   selectable = true;
@@ -31,7 +33,10 @@ export class HabilidadesComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private usuarioService: UsuarioService) { }
+  @ViewChild('habilidadInput') habilidadInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+
+  constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
     this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
@@ -43,7 +48,10 @@ export class HabilidadesComponent implements OnInit {
     this.usuarioService.readHabilidades().subscribe((resp: AuthResponseI) => {
       if(resp.status) {
         this.listaHabilidades = resp.data;
-        console.log(this.listaHabilidades);
+        this.filteredHabilidad = this.habilidadControl.valueChanges.pipe(
+          startWith(null),
+          map((habilidad: string | null ) => habilidad ? this._filter(habilidad): this.listaHabilidades.slice())
+        );
       }
     })
 
@@ -88,6 +96,31 @@ export class HabilidadesComponent implements OnInit {
     } else {
       this.guardarHabilidad = false;
     }
+  }
+
+  selectedHab(event: MatAutocompleteSelectedEvent): void {
+    this.habilidades.push({
+      id_postulante: this.usuario.id_postulante,
+      descripcion: event.option.viewValue
+    });
+    this.habilidadInput.nativeElement.value = '';
+    this.habilidadControl.setValue(null);
+    if (!this.compararArregos(this.habilidades, this.habilidadAux)) {
+      this.guardarHabilidad = true;
+    } else {
+      this.guardarHabilidad = false;
+    }
+  }
+
+  _filter(habilidad: string | HabilidadI): HabilidadI[] {
+    let habilidadDescripcion = '';
+    if(typeof(habilidad) == 'string') {
+      habilidadDescripcion = habilidad.toLowerCase();
+    } else {
+      habilidadDescripcion = habilidad.descripcion.toLowerCase();
+    }
+
+    return this.listaHabilidades.filter(habilidad => habilidad.descripcion.toLowerCase().indexOf(habilidadDescripcion) === 0);
   }
 
   guardarHabilidades() {
