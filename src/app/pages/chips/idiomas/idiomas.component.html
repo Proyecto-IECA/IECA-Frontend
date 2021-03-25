@@ -18,7 +18,7 @@
                     {{idioma.descripcion}}
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input placeholder="Nuevo Idioma" #idiomaInput [formControl]="idiomaCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListI" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addIdi($event)">
+                <input placeholder="Nuevo Idioma" #idiomaInput [formControl]="idiomaCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListI" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addIdi($event)">
             </mat-chip-list>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedIdi($event)">
                 <mat-option *ngFor="let idioma of filteredIdioma | async" [value]="idioma">

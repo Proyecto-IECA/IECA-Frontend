@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { IdiomaI } from '../../../models/idioma';
 import { map, startWith } from 'rxjs/operators';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -20,20 +21,15 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material
 export class IdiomasComponent implements OnInit {
 
   @Input() usuario: UsuarioI;
-  idiomas: IdiomaPostulanteI[];
-  idiomasAux: IdiomaPostulanteI[];
-
-  visible = true;
   selectable = true;
   removable = true;
-  addOnBlur = true;
   guardarIdioma = false;
-  
+  idiomas: IdiomaPostulanteI[];
+  idiomasAux: IdiomaPostulanteI[];
   idiomaCtrl = new FormControl();
   filteredIdioma: Observable<IdiomaI[]>;
   ListaIdiomas: IdiomaI[];
-
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @ViewChild('idiomaInput') idiomaInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
@@ -125,16 +121,22 @@ export class IdiomasComponent implements OnInit {
     return this.ListaIdiomas.filter(idioma => 
       idioma.descripcion.toLowerCase().indexOf(idiomaDescripcion) === 0);
   }
+
   guardarIdiomas() {
     this.usuarioService.createIdiomas(this.idiomas).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.usuarioService.readIdiomasPostulante().subscribe((resp: AuthResponseI) => {
           if(resp.status) {
+            this.doneMassage(resp.message);
             this.idiomasAux = resp.data;
+          } else {
+            this.errorPeticion(resp.message);
           }
-        });
+        }, (error) => this.errorServer(error));
 
         this.guardarIdioma = false;
+      } else {
+        this.errorMassage();
       }
     })
   }
@@ -147,5 +149,46 @@ export class IdiomasComponent implements OnInit {
       }
     }
     return true;
+  }
+
+   //  ---------- MENSAJES ---------- //
+   errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+    Swal.fire({
+      icon: 'error',
+      title: 'Petición NO procesada',
+      text: `Vuelve a intentar de nuevo...
+      Si el error persiste ponerse en contacto con soporte técnico`,
+    });
+    console.log(error);
+  }
+
+  errorMassage(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Revisa el formulario',
+      text: 'Revisa que el formulario esté correctamente llenado',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  errorPeticion(error: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error,
+      showConfirmButton: false,
+      timer: 2700
+    });
   }
 }

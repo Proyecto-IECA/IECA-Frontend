@@ -19,7 +19,7 @@
                     {{valor.descripcion}}
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input placeholder="Nuevo Valor" #valorInput [formControl]="valorCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListV" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addVal($event)">
+                <input placeholder="Nuevo Valor" #valorInput [formControl]="valorCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListV" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addVal($event)">
             </mat-chip-list>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedVal($event)">
                 <mat-option *ngFor="let valor of filteredValor | async" [value]="valor">

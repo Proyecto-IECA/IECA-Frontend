@@ -10,7 +10,8 @@ import { Observable } from 'rxjs';
 import { PerfilI } from '../../../models/perfil';;
 import { map, startWith } from 'rxjs/operators';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-
+import Swal from 'sweetalert2';
+ 
 @Component({
   selector: 'app-perfiles',
   templateUrl: './perfiles.component.html',
@@ -19,21 +20,16 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material
 export class PerfilesComponent implements OnInit {
 
   @Input() usuario: UsuarioI;
-  perfiles: PerfilPostulanteI[];
-  perfilesAux: PerfilPostulanteI[];
-
-  visible = true;
   selectable = true;
   removable = true;
-  addOnBlur = true;
   guardarPerfil = false;
-
+  perfiles: PerfilPostulanteI[];
+  perfilesAux: PerfilPostulanteI[];
   perfilCtrl = new FormControl();
   filteredPerfil: Observable<PerfilI[]>;
   ListaPerfiles: PerfilI[];
-
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+ 
   @ViewChild('perfilInput') perfilInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
 
@@ -64,15 +60,14 @@ export class PerfilesComponent implements OnInit {
   addPer(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
-     // Add our fruit
+    
     if ((value || '').trim()) {
       this.perfiles.push({ 
         id_postulante: this.usuario.id_postulante, 
         descripcion: value.trim()
       });
     }
-    // Reset the input value
+
     if (input) {
       input.value = '';
     }
@@ -85,6 +80,7 @@ export class PerfilesComponent implements OnInit {
 
     this.perfilCtrl.setValue(null);
   }
+
   removePer(perfiles: PerfilPostulanteI): void {
     const index = this.perfiles.indexOf(perfiles);
 
@@ -98,7 +94,6 @@ export class PerfilesComponent implements OnInit {
       this.guardarPerfil = false;
     }
   }
-
   
   selectedPer(event: MatAutocompleteSelectedEvent): void{
     this.perfiles.push({ 
@@ -113,7 +108,6 @@ export class PerfilesComponent implements OnInit {
     } else {
       this.guardarPerfil = false;
     }
-
   }
 
   _filter(perfil: string | PerfilI): PerfilI[] {
@@ -132,11 +126,15 @@ export class PerfilesComponent implements OnInit {
       if (resp.status) {
         this.usuarioService.readPerfilesPostulante().subscribe((resp: AuthResponseI) => {
           if(resp.status) {
+            this.doneMassage(resp.message);
             this.perfilesAux = resp.data;
+          } else {
+            this.errorPeticion(resp.message);
           }
-        });
-        
+        }, (error) => this.errorServer(error));
         this.guardarPerfil = false;
+      } else {
+        this.errorMassage();
       }
     })
   }
@@ -151,5 +149,45 @@ export class PerfilesComponent implements OnInit {
     return true;
   }
 
+   //  ---------- MENSAJES ---------- //
+   errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+    Swal.fire({
+      icon: 'error',
+      title: 'Petición NO procesada',
+      text: `Vuelve a intentar de nuevo...
+      Si el error persiste ponerse en contacto con soporte técnico`,
+    });
+    console.log(error);
+  }
+
+  errorMassage(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Revisa el formulario',
+      text: 'Revisa que el formulario esté correctamente llenado',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  errorPeticion(error: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
   
 }

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { ValorI } from 'app/models/valor';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, startWith } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-valores',
@@ -19,20 +20,15 @@ import { map, startWith } from 'rxjs/operators';
 export class ValoresComponent implements OnInit {
 
   @Input() usuario: UsuarioI 
-  valores: ValorPostulanteI[];
-  valoresAux: ValorPostulanteI[];
-
-  visible = true;
   selectable = true;
   removable = true;
-  addOnBlur = true;
   guardarValor = false;
-  
+  valores: ValorPostulanteI[];
+  valoresAux: ValorPostulanteI[];
   valorCtrl = new FormControl();
   filteredValor: Observable<ValorI[]>
   ListaValores: ValorI[];
-
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @ViewChild('valorInput') valorInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
@@ -129,11 +125,15 @@ export class ValoresComponent implements OnInit {
       if (resp.status) {
         this.usuarioService.readValoresPostulante().subscribe((resp: AuthResponseI) => {
           if (resp.status) {
+            this.doneMassage(resp.message);
             this.valoresAux = resp.data;
+          } else {
+            this.errorPeticion(resp.message);
           }
         });
-
         this.guardarValor = false;
+      } else {
+        this.errorMassage();
       }
     })
   }
@@ -146,6 +146,47 @@ export class ValoresComponent implements OnInit {
       }
     }
     return true;
+  }
+
+   //  ---------- MENSAJES ---------- //
+   errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+    Swal.fire({
+      icon: 'error',
+      title: 'Petición NO procesada',
+      text: `Vuelve a intentar de nuevo...
+      Si el error persiste ponerse en contacto con soporte técnico`,
+    });
+    console.log(error);
+  }
+
+  errorMassage(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Revisa el formulario',
+      text: 'Revisa que el formulario esté correctamente llenado',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  errorPeticion(error: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error,
+      showConfirmButton: false,
+      timer: 2700
+    });
   }
 
 }
