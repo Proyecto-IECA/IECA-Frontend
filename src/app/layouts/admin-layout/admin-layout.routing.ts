@@ -11,6 +11,7 @@ import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacancy.component';
 import { CompanyProfileComponent } from '../../pages/company-profile/company-profile.component';
 import { PerfilCompletoGuard } from '../../guards/perfil-completo.guard';
+import { TokenValidoGuard } from '../../guards/token-valido.guard';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -57,13 +58,13 @@ export const AdminLayoutRoutes: Routes = [
     // }
 
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'vacante',        component: CreateVacancyComponent,    canActivate: [PerfilCompletoGuard] },
-    { path: 'company-profile', component: CompanyProfileComponent}
+    { path: 'user-profile',   component: UserProfileComponent,      canActivate: [TokenValidoGuard] },
+    { path: 'table-list',     component: TableListComponent,        canActivate: [TokenValidoGuard] },
+    { path: 'typography',     component: TypographyComponent,       canActivate: [TokenValidoGuard] },
+    { path: 'icons',          component: IconsComponent,            canActivate: [TokenValidoGuard] },
+    { path: 'maps',           component: MapsComponent,             canActivate: [TokenValidoGuard] },
+    { path: 'notifications',  component: NotificationsComponent,    canActivate: [TokenValidoGuard] },
+    { path: 'upgrade',        component: UpgradeComponent,          canActivate: [TokenValidoGuard] },
+    { path: 'company-profile', component: CompanyProfileComponent,  canActivate: [TokenValidoGuard] },
+    { path: 'vacante',        component: CreateVacancyComponent,    canActivate: [TokenValidoGuard, PerfilCompletoGuard] }
 ];

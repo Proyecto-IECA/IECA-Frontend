@@ -18,15 +18,14 @@ import { AppComponent } from './app.component';
 // import { MapsComponent } from './pages/maps/maps.component';
 // import { NotificationsComponent } from './pages/notifications/notifications.component';
 // import { UpgradeComponent } from './pages/upgrade/upgrade.component';
-import {
-  AgmCoreModule
-} from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthComponent } from './auth/auth/auth.component';
 import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
 import { SocialMediaComponent } from './auth/social-media/social-media.component';
 import { MatInputModule } from '@angular/material/input';
 import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 
 @NgModule({
@@ -38,6 +37,7 @@ import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
         SharedModule,
         RouterModule,
         AppRoutingModule,
+        GooglePlaceModule,
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
         }),

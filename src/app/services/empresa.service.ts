@@ -54,19 +54,19 @@ export class EmpresaService {
   }
 
   //  ---------- COMPANY CRUD ---------- //
-  createCompany(form: any): Observable<any> {
+  createCompany(form: any): Observable<AuthResponseI> {
     return this.peticion.postQuery('auth-postulantes', 'register', form);
   }
 
-  readCompany(form: any): Observable<any> {
-    return this.peticion.getQuery('empresas', 'vacante', form);
+  readCompany(id: number): Observable<AuthResponseI> {
+    return this.peticion.getQuery('empresas', 'perfil-completo', id);
   }
 
-  updateCompany(form: any): Observable<any> {
+  updateCompany(form: any): Observable<AuthResponseI> {
     return this.peticion.putQuery('empresas', 'update', form);
   }
 
-  deleteCompany(form: number): Observable<any> {
+  deleteCompany(form: number): Observable<AuthResponseI> {
     return this.peticion.getQuery('empresas', 'vacante', form);
   }
 
