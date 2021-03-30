@@ -47,6 +47,10 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  
+
+
     //  ---------- VALIDADORES ---------- //
   /* Validar los control name */
   controlNoValid(form: FormGroup, controlName: string): boolean {
