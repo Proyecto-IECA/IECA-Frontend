@@ -17,6 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 
 
@@ -43,6 +44,7 @@ import { PerfilesComponent } from "../../pages/chips/perfiles/perfiles.component
 import { HabilidadesComponent } from "../../pages/chips/habilidades/habilidades.component";
 import { ValoresComponent } from '../../pages/chips/valores/valores.component';
 import { IdiomasComponent } from '../../pages/chips/idiomas/idiomas.component';
+import { VacanciesComponent } from '../../pages/vacancies/vacancies.component';
 
 
 @NgModule({
@@ -64,7 +66,8 @@ import { IdiomasComponent } from '../../pages/chips/idiomas/idiomas.component';
         MatRippleModule,
         MatSelectModule,
         MatSlideToggleModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatPaginatorModule
     ],
     declarations: [
         DashboardComponent,
@@ -84,7 +87,8 @@ import { IdiomasComponent } from '../../pages/chips/idiomas/idiomas.component';
         PerfilesComponent,
         HabilidadesComponent,
         ValoresComponent,
-        IdiomasComponent
+        IdiomasComponent,
+        VacanciesComponent
     ]
 })
 
