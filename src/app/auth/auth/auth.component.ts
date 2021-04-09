@@ -21,11 +21,6 @@ import { Address } from 'ngx-google-places-autocomplete/objects/address';
 })
 export class AuthComponent implements OnInit {
 
-   //  ---------- OBJETOS ---------- //
-  /*usuario: UsuarioI;
-  empresa: EmpresaI;*/
-  data: UsuarioI | EmpresaI;
-
   //  ---------- VARIABLES ---------- //
   register = false; // (Siempre en falso) Cambia la vista entre el login y el register
   part = true; // True - Muestra la 1ra parte del formulario. False - Muestra la 2da parte del formulario

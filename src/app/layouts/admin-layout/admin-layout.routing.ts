@@ -66,5 +66,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent,    canActivate: [TokenValidoGuard] },
     { path: 'upgrade',        component: UpgradeComponent,          canActivate: [TokenValidoGuard] },
     { path: 'company-profile', component: CompanyProfileComponent,  canActivate: [TokenValidoGuard] },
-    { path: 'vacante',        component: CreateVacancyComponent,    canActivate: [TokenValidoGuard, PerfilCompletoGuard] }
+    { path: 'vacante',        component: CreateVacancyComponent,    canActivate: [TokenValidoGuard, PerfilCompletoGuard] },
 ];
