@@ -49,25 +49,14 @@ export class UserComponent implements OnInit {
     this.userForm.reset(this.usuario)
   }
 
-  campoNoValido(campo: string): boolean {
-    if (this.userForm.get(campo).invalid && this.formSubmitted){
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  loadData( usuario: UsuarioI ) {
-    this.userForm.reset(usuario);
-  }
-
-  updateUser( ) {
+  updateUser() {
     this.formSubmitted = true;
     if(this.userForm.valid){
       this.usuarioService.updateUsuario(this.userForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status) {
           this.doneMassage(resp.message);
           this.userForm.reset(resp.data);
+          this.formSubmitted = false;
         } else {
           this.errorPeticion(resp.message);
         }
@@ -76,6 +65,20 @@ export class UserComponent implements OnInit {
       this.errorMassage();
     }
   }
+
+  resetForm() {
+    this.userForm.reset(this.usuario);
+    this.formSubmitted = false;
+  }
+
+  campoNoValido(campo: string): boolean {
+    if (this.userForm.get(campo).invalid && this.formSubmitted){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   //  ---------- MENSAJES ---------- //
   errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({

@@ -12,6 +12,7 @@ import { CreateVacancyComponent } from '../../pages/create-vacancy/create-vacanc
 import { CompanyProfileComponent } from '../../pages/company-profile/company-profile.component';
 import { PerfilCompletoGuard } from '../../guards/perfil-completo.guard';
 import { TokenValidoGuard } from '../../guards/token-valido.guard';
+import { VacanciesComponent } from '../../pages/vacancies/vacancies.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -67,4 +68,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent,          canActivate: [TokenValidoGuard] },
     { path: 'company-profile', component: CompanyProfileComponent,  canActivate: [TokenValidoGuard] },
     { path: 'vacante',        component: CreateVacancyComponent,    canActivate: [TokenValidoGuard, PerfilCompletoGuard] },
+    { path: 'vacancies', component: VacanciesComponent}
+
 ];

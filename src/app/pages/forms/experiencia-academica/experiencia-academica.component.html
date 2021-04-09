@@ -1,4 +1,4 @@
-<form [formGroup]="academicaForm" (ngSubmit)="actionForm()">
+<form [formGroup]="academicaForm" (ngSubmit)="actionForm(formDirective)" #formDirective="ngForm">
     <!-- ===== Renglón  -->
     <div class="row">
         <!-- ===== Columna de Nivel ===== -->
@@ -58,7 +58,7 @@
     <!-- Renglón justificado al final -->
     <div *ngIf="tipo=='add'" class="row justify-content-end">
         <!-- ===== btn icon cancelar ===== -->
-        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r">
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="cancelarAdd(formDirective)">
             <i class="material-icons">close</i>
         </button>
         <!-- ===== btn icon aceptar ===== -->

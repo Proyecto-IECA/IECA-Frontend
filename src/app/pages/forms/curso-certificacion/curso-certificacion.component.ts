@@ -1,5 +1,5 @@
 import { Component, Host, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { UsuarioService } from '../../../services/usuario.service';
 import { CursoCertificacionI } from '../../../models/cursos_certificaciones';
 import { AuthResponseI } from '../../../models/auth-response';
@@ -39,12 +39,24 @@ export class CursoCertificacionComponent implements OnInit {
     }
   }
 
-  addCursoCert(){
+  actionForm(formDirective: FormGroupDirective){
+    if(this.tipo == 'add'){
+      this.addCursoCert(formDirective);
+    } else {
+      this.updateCursoCert();
+    }
+  }
+
+  addCursoCert(formDirective: FormGroupDirective){
     this.formSubmitted = true;
     if(this.certificadoForm.valid) {
       this.usuarioService.createCurso(this.certificadoForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status) {
           this._userProC.cursosCertificaciones = resp.data;
+          this.formSubmitted = false;
+          this.certificadoForm.reset();
+          formDirective.resetForm();
+          this._userProC.panelCurC = false;
           this.doneMassage(resp.message);
         } else {
           this.errorPeticion(resp.message);
@@ -53,6 +65,13 @@ export class CursoCertificacionComponent implements OnInit {
     } else {
       this.errorMassage();
     }
+  }
+
+  cancelarAdd(formDirective: FormGroupDirective) {
+    this.formSubmitted = false;
+    this.certificadoForm.reset();
+    formDirective.resetForm();
+    this._userProC.panelCurC = false;
   }
 
   updateCursoCert(){
@@ -82,13 +101,6 @@ export class CursoCertificacionComponent implements OnInit {
     }, (error) => this.errorServer(error));
   }
 
-  actionForm(){
-    if(this.tipo == 'add'){
-      this.addCursoCert();
-    } else {
-      this.updateCursoCert();
-    }
-  }
   loadData(cursoCertificacion: CursoCertificacionI) {
     this.certificadoForm.reset(cursoCertificacion);
   }

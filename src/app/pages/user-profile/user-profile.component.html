@@ -28,7 +28,9 @@
                             <p class="card-description">
                                 {{telefono_celular}}
                             </p>
-                            <input type="file" hidden #inputFotoPerfil (change)="capturarImage($event)">
+                            <input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil (change)="capturarImage($event)">
+                            <p *ngIf="extensionValid" class="text-danger">Formatos validos '.png' '.jpg' '.jpeg'</p>
+                            <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 8 MB</p>
                             <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
                         </div>
                     </div>
@@ -72,7 +74,7 @@
                         <!-- ===== Cuerpo del card ===== -->
                         <div class="card-body">
                             <mat-accordion class="example-headers-align" multi>
-                                <mat-expansion-panel hideToggle [expanded]="panelAddOpenState" (opened)="panelAddOpenState = true" (closed)="panelAddOpenState = false">
+                                <mat-expansion-panel hideToggle [expanded]="panelExpL" (opened)="panelExpL = true" (closed)="panelExpL = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             Nueva
@@ -127,7 +129,7 @@
                         <div class="card-body">
 
                             <mat-accordion class="example-headers-align" multi>
-                                <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel hideToggle [expanded]="panelExpA" (opened)="panelExpA = true" (closed)="panelExpA = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             Nueva
@@ -185,7 +187,7 @@
                         <div class="card-body">
 
                             <mat-accordion class="example-headers-align" multi>
-                                <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel hideToggle [expanded]="panelCurC" (opened)="panelCurC = true" (closed)="panelCurC = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             Agregar
