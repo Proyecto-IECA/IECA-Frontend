@@ -194,4 +194,13 @@ export class UsuarioService {
       return this.peticion.postQuery('idiomas', 'add', idiomasPostulante);
     }
 
+    // ------------------- VACANTES CRUD ---------------- //
+
+    readVacante(id?: number): Observable<AuthResponseI> {
+      return this.peticion.getQuery('vacantes', '', id);
+    }
+
+    readVacantePag(pagina?: number, limite?: number): Observable<AuthResponseI> {
+      return this.peticion.getQuery2('vacantes', '', pagina, limite);
+    }
 }

@@ -18,8 +18,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatPaginatorModule } from "@angular/material/paginator";
-
-
+import { MatCarouselModule } from "@ngmodule/material-carousel";
 
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -45,6 +44,7 @@ import { HabilidadesComponent } from "../../pages/chips/habilidades/habilidades.
 import { ValoresComponent } from '../../pages/chips/valores/valores.component';
 import { IdiomasComponent } from '../../pages/chips/idiomas/idiomas.component';
 import { VacanciesComponent } from '../../pages/vacancies/vacancies.component';
+import { SucursalesComponent } from '../../pages/forms/sucursales/sucursales.component';
 
 
 @NgModule({
@@ -67,7 +67,8 @@ import { VacanciesComponent } from '../../pages/vacancies/vacancies.component';
         MatSelectModule,
         MatSlideToggleModule,
         MatTooltipModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatCarouselModule
     ],
     declarations: [
         DashboardComponent,
@@ -88,7 +89,8 @@ import { VacanciesComponent } from '../../pages/vacancies/vacancies.component';
         HabilidadesComponent,
         ValoresComponent,
         IdiomasComponent,
-        VacanciesComponent
+        VacanciesComponent,
+        SucursalesComponent
     ]
 })
 

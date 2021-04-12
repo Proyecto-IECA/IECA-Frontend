@@ -68,6 +68,30 @@ export class PeticionesService {
       );
   }
 
+  getQuery2(tipo: string, accion?: string, pagina?: number, limite?: number ): Observable<any> {
+    // Creación y asignación de valores de los headers
+    const headers = new HttpHeaders({
+      'x-token': localStorage.getItem('token'),
+      'email': this.email
+    });
+    let url = '';
+    if (!accion) {
+      // Variable para la assignation de la URL completo
+      url = `${this.baseUrl}/${tipo}`;
+    } else {
+      // Variable para la assignation de la URL completo
+      url = `${this.baseUrl}/${tipo}/${accion}/${pagina}/${limite}`;
+    }
+
+    // Petition http con la URL completa agregando los headers
+    return this.http.get<AuthResponseI>(url, { headers})
+    .pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  } 
+
   putQuery(tipo: string, accion: string, body: any, id?: number): Observable<any> {
 
     let url = '';

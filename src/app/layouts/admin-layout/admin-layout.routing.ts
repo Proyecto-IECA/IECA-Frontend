@@ -59,14 +59,14 @@ export const AdminLayoutRoutes: Routes = [
     // }
 
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent,      canActivate: [TokenValidoGuard] },
+    { path: 'user-profile',   component: UserProfileComponent,      /* canActivate: [TokenValidoGuard]  */},
     { path: 'table-list',     component: TableListComponent,        canActivate: [TokenValidoGuard] },
     { path: 'typography',     component: TypographyComponent,       canActivate: [TokenValidoGuard] },
     { path: 'icons',          component: IconsComponent,            canActivate: [TokenValidoGuard] },
     { path: 'maps',           component: MapsComponent,             canActivate: [TokenValidoGuard] },
     { path: 'notifications',  component: NotificationsComponent,    canActivate: [TokenValidoGuard] },
     { path: 'upgrade',        component: UpgradeComponent,          canActivate: [TokenValidoGuard] },
-    { path: 'company-profile', component: CompanyProfileComponent,  canActivate: [TokenValidoGuard] },
+    { path: 'company-profile', component: CompanyProfileComponent, /*  canActivate: [TokenValidoGuard] */ },
     { path: 'vacante',        component: CreateVacancyComponent,    canActivate: [TokenValidoGuard, PerfilCompletoGuard] },
     { path: 'vacancies', component: VacanciesComponent}
 ];

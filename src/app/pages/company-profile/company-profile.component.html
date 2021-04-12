@@ -1,134 +1,241 @@
 <div class="main-content">
     <!-- Content here -->
     <div class="container-fluid">
+        <!-- === Primer Renglón === -->
+        <div class="row justify-content-md-center">
+            <!-- ==== Encabezado de la página-->
+            <div class="col-md-auto">
+                <h1>
+                    Nombre de la Empresa
+                </h1>
+            </div>
+        </div>
+        <!-- === Segundo Renglón === -->
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <h2>
+                    Giro de la Empresa
+                </h2>
+            </div>
+        </div>
+        <!-- === Tercer Renglón === -->
         <div class="row">
-
-            <!-- ===== Card de Perfil ===== -->
+            <!-- ==== Renglón de Foto de Perfil ====  -->
             <div class="col-md-4">
                 <div class="card card-profile">
                     <!-- Foto de Perfil -->
-                    <div class="card-avatar" title="Archivos compatibles: JPEG, JPG y PNG">
-                        <p (click)="inputImg.click()">Cambiar</p>
-                        <img class="img" [src]="company.foto_empresa" (click)="inputImg.click()"/>
-                         <!-- Hacer click para ver la foto en grande -->
-                    </div>
-                    <br/>
-                    <small class="form-text text-gray">Archivos compatibles: JPEG, JPG y PNG</small>
+
+                    <!-- <p (click)="inputImg.click()">Cambiar</p> -->
+                    <img [src]="company.foto_empresa" class="img-fluid" alt="Responsive image" (click)="inputImg.click()">
+                    <!-- Hacer click para ver la foto en grande -->
+
                     <small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo es INCOMPATIBLE</small>
+                    <small class="form-text text-gray">Archivos compatibles: JPEG, JPG y PNG</small>
                     <!-- Cuerpo del card -->
+                    <span class="material-icons" (click)="inputImg.click()">add_a_photo</span>
                     <form class="card-body" (submit)="saveImg()" [formGroup]="imgForm">
-                        <h4 class="card-title">Página Web</h4>
-                        <h6 class="card-category text-gray">Nombre Empresa</h6>
-                        <p class="card-description">Teléfono</p>
-                        <h5 class="text-muted">Calificación</h5>
 
                         <input type="file" hidden #inputImg formControlName="foto_empresa" (change)="updateImg($event)" accept="image/*">
 
                         <!--<mat-form-field>
-                            <ngx-mat-file-input (change)="updateImg($event)" formControlName="foto_empresa" accept="image/*"></ngx-mat-file-input>
-                            <i class="material-icons" matSuffix>upload_file</i>
-                        </mat-form-field>-->
+                    <ngx-mat-file-input (change)="updateImg($event)" formControlName="foto_empresa" accept="image/*"></ngx-mat-file-input>
+                    <i class="material-icons" matSuffix>upload_file</i>
+                </mat-form-field>-->
 
                         <button *ngIf="imgForm.dirty" type="submit" class="btn btn-rose" [disabled]="imgForm.invalid">Actualizar foto</button>
                         <!--<small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo INCOMPATIBLE</small>-->
                     </form>
                 </div>
             </div>
-
-            <!-- ===== Card Editar Perfil ===== -->
             <div class="col-md-8">
-                <div class="card">
-                    <!-- Encabezado de Card -->
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">Editar Perfil</h4>
-                        <p class="card-category">Actualiza tu perfil</p>
+                <div class="row justify-content-md-center">
+                    <!-- Vacantes -->
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-warning card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">business</i>
+                                </div>
+                                <p class="card-category">Sucursales</p>
+                                <h3 class="card-title">$34,245</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i> Last 24 Hours
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Cuerpo del card -->
-                    <div class="card-body">
-
-                        <!-- Formulario de Datos Empresa -->
-                        <form (ngSubmit)="updateCompany()" [formGroup]="companyForm">
-                            <!-- Mensaje de Campos Obligatorios -->
-                            <small class="text-danger">Campos obligatorios *</small>
-                            <!-- Nombre de la empresa y administrador -->
-                            <div class="row">
-                                <!-- Nombre de la empresa -->
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nombre de la Empresa" type="text" formControlName="nombre" required>
-                                    </mat-form-field>
-                                    <small *ngIf="controlNoValid('nombre')" class="form-text text-danger">* Este campo es obligatorio</small>
+                    <!-- Sucursales -->
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-rose card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">work</i>
                                 </div>
-
-                                <!-- Nombre del administrador -->
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nombre del(a) Administrador(a)" type="text" formControlName="administrador" required>
-                                    </mat-form-field>
-                                    <small *ngIf="controlNoValid('administrador')" class="form-text text-danger">* Este campo es obligatorio</small>
+                                <p class="card-category">Vacantes</p>
+                                <h3 class="card-title">$34,245</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i> Last 24 Hours
                                 </div>
                             </div>
-
-                            <!-- Ubicación y Giro -->
-                            <div class="row">
-                                <!-- Ubicación -->
-                                <div class="col-md-7">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Ubicación" type="text" formControlName="ubicacion" required>
-                                    </mat-form-field>
-                                    <small *ngIf="controlNoValid('ubicacion')" class="form-text text-danger">* Este campo es obligatorio</small>
-                                </div>
-
-                                <!-- Giro -->
-                                <div class="col-md-5">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Giro" type="tel" formControlName="giro" required>
-                                    </mat-form-field>
-                                    <small *ngIf="controlNoValid('giro')" class="form-text text-danger">* Este campo es obligatorio</small>
-                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Editar perfil de la empresa -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <!-- Encabezado de Card -->
+                            <div class="card-header card-header-success">
+                                <h4 class=" card-title ">Editar Perfil</h4>
+                                <p class="card-category ">Actualiza tu perfil</p>
                             </div>
+                            <!-- Cuerpo del card -->
+                            <div class="card-body ">
 
-                            <!-- Teléfono, Página Web -->
-                            <div class="row">
-                                <!-- Página Web -->
-                                <div class="col-md-7">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Página web" type="url" formControlName="pagina_web" required>
-                                    </mat-form-field>
-                                    <small *ngIf="controlNoValid('pagina_web')" class="form-text text-danger">* Este campo es obligatorio</small>
-                                </div>
+                                <!-- Formulario de Datos Empresa -->
+                                <form (ngSubmit)="updateCompany() " [formGroup]="companyForm ">
+                                    <!-- Mensaje de Campos Obligatorios -->
+                                    <small class="text-danger ">Campos obligatorios *</small>
+                                    <!-- Nombre de la empresa y administrador -->
+                                    <div class="row ">
+                                        <!-- Nombre de la empresa -->
+                                        <div class="col-md-6 ">
+                                            <mat-form-field class="example-full-width ">
+                                                <input matInput placeholder="Nombre de la Empresa " type="text " formControlName="nombre " required>
+                                            </mat-form-field>
+                                            <small *ngIf="controlNoValid( 'nombre') " class="form-text text-danger ">* Este campo es obligatorio</small>
+                                        </div>
 
-                                <!-- Teléfono -->
-                                <div class="col-md-5">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Teléfono" type="tel" pattern="\d*" maxlength="10" formControlName="telefono" required>
-                                    </mat-form-field>
-                                    <small *ngIf="controlNoValid('telefono')" class="form-text text-danger">* En este campo no se aceptan letras</small>
-                                </div>
+                                        <!-- Nombre del administrador -->
+                                        <div class="col-md-6 ">
+                                            <mat-form-field class="example-full-width ">
+                                                <input matInput placeholder="Nombre del(a) Administrador(a) " type="text " formControlName="administrador " required>
+                                            </mat-form-field>
+                                            <small *ngIf="controlNoValid( 'administrador') " class="form-text text-danger ">* Este campo es obligatorio</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Ubicación y Giro -->
+                                    <div class="row ">
+                                        <!-- Ubicación -->
+                                        <div class="col-md-6 ">
+                                            <mat-form-field class="example-full-width ">
+                                                <input matInput placeholder="Ubicación " type="text " formControlName="ubicacion " required>
+                                            </mat-form-field>
+                                            <small *ngIf="controlNoValid( 'ubicacion') " class="form-text text-danger ">* Este campo es obligatorio</small>
+                                        </div>
+
+                                        <!-- Giro -->
+                                        <div class="col-md-6 ">
+                                            <mat-form-field class="example-full-width ">
+                                                <input matInput placeholder="Giro " type="tel " formControlName="giro " required>
+                                            </mat-form-field>
+                                            <small *ngIf="controlNoValid( 'giro') " class="form-text text-danger ">* Este campo es obligatorio</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Teléfono, Página Web -->
+                                    <div class="row ">
+                                        <!-- Página Web -->
+                                        <div class="col-md-6 ">
+                                            <mat-form-field class="example-full-width ">
+                                                <input matInput placeholder="Página web " type="url " formControlName="pagina_web " required>
+                                            </mat-form-field>
+                                            <small *ngIf="controlNoValid( 'pagina_web') " class="form-text text-danger ">* Este campo es obligatorio</small>
+                                        </div>
+
+                                        <!-- Teléfono -->
+                                        <div class="col-md-6 ">
+                                            <mat-form-field class="example-full-width ">
+                                                <input matInput placeholder="Teléfono " type="tel " pattern="\d* " maxlength="10 " formControlName="telefono " required>
+                                            </mat-form-field>
+                                            <small *ngIf="controlNoValid( 'telefono') " class="form-text text-danger ">* En este campo no se aceptan letras</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="row ">
+                                        <!-- Renglón justificado al inicio -->
+                                        <div class="col-md-6 ">
+                                            <!-- Switcher icon -->
+                                            <mat-slide-toggle class="justify-content-start ">Más sucursales</mat-slide-toggle>
+                                        </div>
+
+                                        <!-- Renglón justificado al final -->
+                                        <div class="col-md-6 ">
+                                            <div class="row justify-content-end ">
+                                                <button type="button " class="btn btn-success btn-sm btn-just-icon m-r ">
+                                                    <i class="material-icons ">done</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix "></div>
+                                </form>
+
                             </div>
-
-                            <div class="row">
-                                <!-- Renglón justificado al final -->
-                                <div class="col-md-6">
-                                    <!-- btn icon aceptar -->
-                                    <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r justify-content-end">
-                                        <i class="material-icons">done</i>
-                                    </button>
-                                </div>
-
-                                <!-- Renglón justificado al inicio -->
-                                <div class="col-md-6">
-                                    <!-- Switcher icon -->
-                                    <mat-slide-toggle class="justify-content-start">Más sucursales</mat-slide-toggle>
-                                </div>
-                            </div>
-
-                            <div class="clearfix"></div>
-                        </form>
-
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <!-- ===== Encabezado de Card ===== -->
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">
+                            Vacante
+                        </h4>
+                        <p class="card-catergory">
+                            Completa tu perfil
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <mat-accordion class="example-headers-align" multi>
+                            <mat-expansion-panel hideToggle [expanded]="panelExpA" (opened)="panelExpA = true" (closed)="panelExpA = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Nueva
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Sucursal
+                                        <mat-icon class="text-primary justify-content-md-end">add</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!-- ===== Formulario para agregar una sucursal ===== -->
+                                <app-sucursales></app-sucursales>
+                            </mat-expansion-panel>
+                            <!-- 
+                <div *ngFor="let expA of experienciasAcademicas">
+                    <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{expA.nivel}}
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                {{expA.institucion}}
+                                <mat-icon *ngIf="expA.estudiando" class="text-primary">done</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        ===== Formulario para editar experiencia academica 
+                        <app-experiencia-academica-form [tipo]="'update'" [experienciaAcademica]="expA"></app-experiencia-academica-form>
+                    </mat-expansion-panel>
+                </div> -->
+
+                        </mat-accordion>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="../../../assets/img/bussiness.svg" alt="..." class="img-thumbnail">
+            </div>
+        </div>
+
     </div>
 </div>

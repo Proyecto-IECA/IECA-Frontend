@@ -20,7 +20,7 @@ export class CompanyProfileComponent implements OnInit {
 
   companyForm: FormGroup;
   imgForm: FormGroup;
-
+  panelExpA = false;
 
   constructor(private formB: FormBuilder,
               private empresaSvc: EmpresaService,

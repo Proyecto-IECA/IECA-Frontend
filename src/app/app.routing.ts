@@ -35,7 +35,7 @@ const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
-    canActivate: [TokenValidoGuard, EmailValidadoGuard],
+    /* canActivate: [TokenValidoGuard, EmailValidadoGuard], */
     children: [{
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'

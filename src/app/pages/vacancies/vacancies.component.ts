@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VacanciesComponent implements OnInit {
 
+  slides = [{image: '1'}, {image: '2'}, {image: '3'}]
+
   constructor() { }
 
   ngOnInit(): void {
