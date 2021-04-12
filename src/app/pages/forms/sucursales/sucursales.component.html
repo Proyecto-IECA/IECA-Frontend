@@ -1,13 +1,15 @@
-<form>
+<form [formGroup]="sucursalForm" (ngSubmit)="actionForm()">
     <div class="row">
         <div class="col-md-6">
             <mat-form-field>
-                <input matInput placeholder="Nombre de la Sucursal" type="text" formControlName="etiqueta">
+                <input matInput placeholder="Nombre de la Sucursal" type="text" formControlName="etiqueta" required>
+                <mat-error *ngIf="campoNoValido('etiqueta')">Este campo es obligatorio</mat-error>
             </mat-form-field>
         </div>
         <div class="col-md-6">
             <mat-form-field>
-                <input matInput placeholder="Dirección" type="text" formControlName="direccion">
+                <input matInput placeholder="Dirección" type="text" formControlName="direccion" required>
+                <mat-error *ngIf="campoNoValido('direccion')">Este campo es obligatorio</mat-error>
             </mat-form-field>
         </div>
 
@@ -18,9 +20,9 @@
                 <i class="material-icons">close</i>
             </button>
         <!-- ===== btn icon aceptar ===== -->
-        <button type="submit" class="btn btn-warning btn-sm btn-just-icon m-r">
+        <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r">
                 <i class="material-icons">done</i>
-            </button>
+        </button>
     </div>
 
 </form>
