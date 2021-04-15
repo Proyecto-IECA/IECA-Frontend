@@ -1,57 +1,43 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthComponent } from './auth/auth/auth.component';
-import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
-import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
+import { PagesComponent } from './pages/pages.component';
+import { AuthComponent } from './auth/auth.component';
 import { EmailValidadoGuard } from './guards/email-validado.guard'
 import { TokenValidoGuard } from './guards/token-valido.guard';
+import { ComponentsRoutingModule } from './components/components-routing.module';
+import { PagesRoutingModule } from './pages/pages.routing';
 
 const routes: Routes = [
-  {
-    path: 'auth',
+  { path: 'auth',
     component: AuthComponent
   },
   {
-    path: 'validarEmail',
-    component: ValidEmailComponent
-  },
-  {
-    path: 'validarEmail/:tipo/:token',
-    component: ValidEmailComponent
-  },
-  {
-    path: 'forgetPassword/:tipo/:token',
-    component: ForgetPasswordComponent
-  },
-  {
     path: '',
-    redirectTo: 'dashboard',
     pathMatch: 'full',
+    redirectTo: 'dashboard',
   },
-  {
+  /*{
     path: '',
-    component: AdminLayoutComponent,
+    component: PagesComponent,
     canActivate: [TokenValidoGuard, EmailValidadoGuard],
     children: [{
       path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      loadChildren: './pages/pages.module#PagesModule'
     }]
-  }
+  }*/
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    BrowserModule,
+    RouterModule.forRoot(routes, { useHash: true }),
+    PagesRoutingModule,
+    ComponentsRoutingModule,
+    /*BrowserModule,
     RouterModule.forRoot(routes, {
        useHash: true
-    })
+    })*/
   ],
-  exports: [
-  ],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

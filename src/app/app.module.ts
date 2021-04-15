@@ -19,38 +19,36 @@ import { AppComponent } from './app.component';
 // import { NotificationsComponent } from './pages/notifications/notifications.component';
 // import { UpgradeComponent } from './pages/upgrade/upgrade.component';
 import { AgmCoreModule } from '@agm/core';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthComponent } from './auth/auth/auth.component';
-import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
+import { PagesComponent } from './pages/pages.component';
+import { AuthComponent } from './auth/auth.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { SocialMediaComponent } from './auth/social-media/social-media.component';
 import { MatInputModule } from '@angular/material/input';
-import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
+import { ValidEmailComponent } from './components/valid-email/valid-email.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AuthModule } from './auth/auth.module';
+import { ComponentsModule } from './components/components.module';
+import { PagesModule } from './pages/pages.module';
 
 
 @NgModule({
+    declarations: [
+        AppComponent,
+        PagesComponent,
+    ],
     imports: [
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        SharedModule,
         RouterModule,
+        MatInputModule,
+        SharedModule,
         AppRoutingModule,
-        GooglePlaceModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-        }),
-        MatInputModule
+        AuthModule,
+        PagesModule,
+        ComponentsModule,
     ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent,
-    AuthComponent,
-    ForgetPasswordComponent,
-    SocialMediaComponent,
-    ValidEmailComponent
-  ],
   providers: [],
   bootstrap: [AppComponent]
 })
