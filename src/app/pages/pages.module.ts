@@ -1,25 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { MatButtonModule } from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatPaginatorModule } from '@angular/material/paginator';
-
-
 
 
 import { PagesRoutingModule } from './pages.routing';
@@ -33,7 +14,6 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { UpgradeComponent } from './upgrade/upgrade.component';
 
 
-
 import { UserComponent } from 'app/pages/forms/user/user.component';
 import { ExperienciaLaboralComponent } from './forms/experiencia-laboral/experiencia-laboral.component';
 import { ExperienciaAcademicaComponent } from 'app/pages/forms/experiencia-academica/experiencia-academica.component';
@@ -45,6 +25,7 @@ import { HabilidadesComponent } from './chips/habilidades/habilidades.component'
 import { ValoresComponent } from './chips/valores/valores.component';
 import { IdiomasComponent } from './chips/idiomas/idiomas.component';
 import { VacanciesComponent } from './vacancies/vacancies.component';
+import { MaterialModule } from '../material.module';
 
 
 @NgModule({
@@ -71,24 +52,10 @@ import { VacanciesComponent } from './vacancies/vacancies.component';
     ],
     imports: [
         CommonModule,
-        PagesRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        MatMomentDateModule,
-        MaterialFileInputModule,
-        MatAutocompleteModule,
-        MatButtonModule,
-        MatChipsModule,
-        MatDatepickerModule,
-        MatExpansionModule,
-        MatIconModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatRippleModule,
-        MatSelectModule,
-        MatSlideToggleModule,
-        MatTooltipModule,
-        MatPaginatorModule
+        PagesRoutingModule,
+        MaterialModule,
     ]
 })
 
