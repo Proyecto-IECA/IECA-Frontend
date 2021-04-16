@@ -176,6 +176,8 @@ export class CompanyProfileComponent implements OnInit {
 
     // foltramos la variable $event para solo tomar lo importante
     const imageCapturada = $event.target.files[0];
+    // this.imgForm.value.foto_empresa = $event.target.files[0].name;
+    this.imgUpdate = $event.target.files[0];
     // console.log(imageCapturada.type);
 
     // Verificamos que el archivo cargado sea una imagen
@@ -183,19 +185,19 @@ export class CompanyProfileComponent implements OnInit {
       case 'image/png':
         console.log('Archivo PNG');
         this.imgForm.get('foto_empresa').setErrors(null);
-        this.showImg(imageCapturada);
+        this.showImg();
         break;
 
       case 'image/jpeg':
         console.log('Archivo JPEG');
         this.imgForm.get('foto_empresa').setErrors(null);
-        this.showImg(imageCapturada);
+        this.showImg();
         break;
 
       case 'image/jpg':
         console.log('Archivo JPG');
         this.imgForm.get('foto_empresa').setErrors(null);
-        this.showImg(imageCapturada);
+        this.showImg();
         break;
 
       default:
@@ -207,8 +209,9 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   /* Mostrar la imagen cargada */
-  showImg(imageCapturada: Event): void {
-    this.updateFile.extraerBase64(imageCapturada).then(
+  showImg(): void {
+
+    /*this.updateFile.extraerBase64(imageCapturada).then(
         (image: any) => {
           console.log(image);
           this.company.foto_empresa = image.base;
@@ -216,16 +219,22 @@ export class CompanyProfileComponent implements OnInit {
           // console.log(this.imgForm);
         },
         error => {
-          /* Mensaje de error si el servidor no recibe las peticiones */
+          /!* Mensaje de error si el servidor no recibe las peticiones *!/
           console.log(error);
           this.errorServer();
         }
-    );
+    );*/
   }
 
   /* Actualizar Imagen en la Base de Datos */
   saveImg(): void {
-    console.log(this.company.foto_empresa);
+
+    this.updateFile.actualizarFoto(this.imgUpdate)
+        /*.then( img => {
+          console.log(img);
+        })*/;
+
+    /*console.log(this.company.foto_empresa);
     try {
       // this.imgForm.get('foto_empresa').setValue(this.company.foto_empresa);
       console.log(this.imgForm.value);
@@ -236,10 +245,10 @@ export class CompanyProfileComponent implements OnInit {
         console.log('Foto guardada correctamente');
       });
     } catch (error)  {
-      /* Mensaje de error si el servidor no recibe las peticiones */
+      /!* Mensaje de error si el servidor no recibe las peticiones *!/
       console.log(error);
       return this.errorServer();
-    }
+    }*/
   }
 
 }

@@ -6,6 +6,8 @@ import { AuthResponseI } from '../models/auth-response';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
+import { UsuarioI } from '../models/usuario';
+import { EmpresaI } from '../models/empresa';
 
 @Injectable({
   providedIn: 'root'
@@ -23,19 +25,37 @@ export class FileUploadService {
     this.email = this.authService.usuario.email;
   }
 
-  actualizarFoto(archivo: File): Observable<AuthResponseI> {
+  async actualizarFoto(archivo: File) /*: Promise<Observable<AuthResponseI>>*/ {
+    console.log(archivo);
+    const body = {
+        foto_empresa: archivo.name
+    };
+
+    // Obtenemos el tipo
     const tipo = localStorage.getItem('tipo');
-    if (tipo === '1') {
-      return this.peticion.putQuery('postulantes', 'update-foto', archivo);
+    switch (tipo) {
+      case '1':
+          this.peticion.putQuery('usuarios', 'update-foto', body)
+              .subscribe(
+              (resp: AuthResponseI) => {
+                console.log(resp);
+              });
+          break;
+
+      case '2':
+          this.peticion.putQuery('empresas', 'update-foto', body)
+              .subscribe(
+                  (resp: AuthResponseI) => {
+                    console.log(resp);
+                  });
+          break;
+
+      default:
+        console.log('Error al encontrar un tipo');
+        this.authService.validarToken();
     }
-    if (tipo === '2') {
-      return this.peticion.putQuery('empresas', 'update-foto', archivo);
-    }
-  }
 
 /*
-  async actualizarFoto(archivo: File, id: number) {
-
     try {
 
       // Creación y asignación de valores de los headers
@@ -47,20 +67,38 @@ export class FileUploadService {
       // Variable para la assignation de la URL completo
       const url = `${this.baseUrl}/empresas/update-foto`;
 
+      // La imagen se carga como formData
       const formData = new FormData();
       formData.append('foto_empresa', archivo);
 
-      const resp = await fetch(url, { method: 'PUT',  headers , body: formData});
+      const resp = await fetch(url, {
+        method: 'PUT',
+        headers,
+        body: formData
+      });
       console.log(resp);
+
+      const data = await resp.json();
+      console.log(data);
 
       // return this.peticion.putQuery('empresas', 'update-foto', archivo, id);
     } catch (error) {
       console.log(error);
       return null;
     }
+*/
 
   }
-*/
+
+  /*actualizarFoto(archivo: File): Observable<AuthResponseI> {
+    const tipo = localStorage.getItem('tipo');
+    if (tipo === '1') {
+      return this.peticion.putQuery('postulantes', 'update-foto', archivo);
+    }
+    if (tipo === '2') {
+      return this.peticion.putQuery('empresas', 'update-foto', archivo);
+    }
+  }
 
   extraerBase64 = async($event: any) => new Promise((resolve, reject) => {
     try {
@@ -79,6 +117,6 @@ export class FileUploadService {
     } catch (error) {
       return null;
     }
-  });
+  });*/
 
 }

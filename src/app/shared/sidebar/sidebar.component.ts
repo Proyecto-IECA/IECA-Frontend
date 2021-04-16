@@ -81,7 +81,7 @@ if (tipo === '2') {
     ];
 }*/
 
-    @Component({
+@Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css']
