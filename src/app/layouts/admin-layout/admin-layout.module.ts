@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
+import { MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatCarouselModule } from "@ngmodule/material-carousel";
+import {MatTableModule} from '@angular/material/table';
 
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -45,6 +46,7 @@ import { ValoresComponent } from '../../pages/chips/valores/valores.component';
 import { IdiomasComponent } from '../../pages/chips/idiomas/idiomas.component';
 import { VacanciesComponent } from '../../pages/vacancies/vacancies.component';
 import { SucursalesComponent } from '../../pages/forms/sucursales/sucursales.component';
+import { MatHeaderRowDef, MatRowDef } from '@angular/material/table';
 
 
 @NgModule({
@@ -68,7 +70,8 @@ import { SucursalesComponent } from '../../pages/forms/sucursales/sucursales.com
         MatSlideToggleModule,
         MatTooltipModule,
         MatPaginatorModule,
-        MatCarouselModule
+        MatCarouselModule,
+        MatTableModule
     ],
     declarations: [
         DashboardComponent,
@@ -90,7 +93,9 @@ import { SucursalesComponent } from '../../pages/forms/sucursales/sucursales.com
         ValoresComponent,
         IdiomasComponent,
         VacanciesComponent,
-        SucursalesComponent
+        SucursalesComponent,
+        MatHeaderRowDef,
+        MatRowDef
     ]
 })
 

@@ -1,0 +1,12 @@
+table {
+    width: 100%;
+}
+
+button {
+    margin: 16px 8px;
+}
+
+.mt-3 {
+    margin-left: 3px;
+    margin-top: -0.50rem;
+}
