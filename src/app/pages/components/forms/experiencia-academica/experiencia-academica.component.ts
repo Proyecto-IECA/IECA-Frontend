@@ -9,10 +9,10 @@ import * as _moment from 'moment';
 import * as _rollupMoment from 'moment';
 
 import {Moment} from 'moment';
-import { UsuarioService } from '../../../services/usuario.service';
-import { ExperienciaAcademicaI } from '../../../models/experiencia_academica';
+import { UsuarioService } from '../../../../services/usuario.service';
+import { ExperienciaAcademicaI } from '../../../../models/experiencia_academica';
 import Swal from 'sweetalert2';
-import { AuthResponseI } from '../../../models/auth-response';
+import { AuthResponseI } from '../../../../models/auth-response';
 import { UserProfileComponent } from 'app/pages/user-profile/user-profile.component';
 
 const moment = _rollupMoment || _moment;

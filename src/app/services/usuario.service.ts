@@ -42,7 +42,8 @@ export class UsuarioService {
   //  ---------- USUARIO CRUD ---------- //
 
   readUsuario(): Observable<AuthResponseI> {
-    let id = this.usuario.id_postulante;
+    const id = this.usuario.id_postulante;
+    console.log(id);
     return this.peticion.getQuery(this.tipo, 'perfil-completo', id);
   }
 

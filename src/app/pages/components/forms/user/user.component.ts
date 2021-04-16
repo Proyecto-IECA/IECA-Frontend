@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UsuarioService } from '../../../services/usuario.service';
-import { UsuarioI } from '../../../models/usuario';
+import { UsuarioService } from '../../../../services/usuario.service';
+import { UsuarioI } from '../../../../models/usuario';
 import Swal from 'sweetalert2';
-import { AuthResponseI } from '../../../models/auth-response';
+import { AuthResponseI } from '../../../../models/auth-response';
 
 interface Sexo{
   value: string;

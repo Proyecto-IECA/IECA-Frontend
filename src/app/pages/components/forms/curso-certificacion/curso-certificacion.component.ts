@@ -1,8 +1,8 @@
 import { Component, Host, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
-import { UsuarioService } from '../../../services/usuario.service';
-import { CursoCertificacionI } from '../../../models/cursos_certificaciones';
-import { AuthResponseI } from '../../../models/auth-response';
+import { UsuarioService } from '../../../../services/usuario.service';
+import { CursoCertificacionI } from '../../../../models/cursos_certificaciones';
+import { AuthResponseI } from '../../../../models/auth-response';
 import Swal from 'sweetalert2';
 import { UserProfileComponent } from 'app/pages/user-profile/user-profile.component';
 @Component({

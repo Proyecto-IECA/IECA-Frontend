@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatChipInputEvent } from "@angular/material/chips";
+import { MatChipInputEvent } from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { UsuarioService } from '../../services/usuario.service';
 import { AuthResponseI } from 'app/models/auth-response';
@@ -28,7 +28,7 @@ export class UserProfileComponent implements OnInit {
   experienciasLaborales: ExperienciaLaboralI[];
   experienciasAcademicas: ExperienciaAcademicaI[];
   cursosCertificaciones: CursoCertificacionI[];
-  
+
   panelOpenState = false;
   panelExpL = false;
   panelExpA = false;
@@ -53,7 +53,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.usuarioService.readUsuario().subscribe((resp: AuthResponseI ) => {
-      if(resp.status) {
+      if (resp.status) {
         this.usuario = resp.data;
         this.foto_perfil = this.usuario.foto_perfil;
         this.loadData();
@@ -61,7 +61,7 @@ export class UserProfileComponent implements OnInit {
     });
 
   }
- 
+
   loadData() {
     this.nombreCompleto = this.usuario.nombre + ' ' + this.usuario.apellido_paterno + ' ' + this.usuario.apellido_materno;
     this.email = this.usuario.email;
@@ -72,18 +72,18 @@ export class UserProfileComponent implements OnInit {
   }
 
   compararArregos(arreglo: any[], arreglo2: any[]) {
-    if (arreglo.length != arreglo2.length) return false;
+    if (arreglo.length !== arreglo2.length) { return false; }
     for (let i = 0; i < arreglo.length; i++) {
-      if (arreglo[i].descripcion != arreglo2[i].descripcion) {
+      if (arreglo[i].descripcion !== arreglo2[i].descripcion) {
         return false;
       }
     }
     return true;
   }
 
-  capturarImage(event) { 
+  capturarImage(event) {
     const imageCapturada = event.target.files[0];
-    if(this.validarFile(imageCapturada)){
+    if (this.validarFile(imageCapturada)) {
       this.extraerBase64(imageCapturada).then((image: any) => {
         this.foto_perfil = image.base;
         this.changeFoto = true;
@@ -116,7 +116,7 @@ export class UserProfileComponent implements OnInit {
       this.imageForm.get('foto_perfil').setValue(this.foto_perfil);
       console.log(this.imageForm.value);
       this.usuarioService.updateFoto(this.imageForm.value).subscribe((resp: AuthResponseI) => {
-        if(resp.status) {
+        if (resp.status) {
           this.doneMassage(resp.message);
           this.changeFoto = false;
         } else {
@@ -137,16 +137,16 @@ export class UserProfileComponent implements OnInit {
     const rutaArchivo = event.name;
     const ultimoPunto = event.name.lastIndexOf('.');
     const extension = rutaArchivo.slice(ultimoPunto, rutaArchivo.length);
-    if(extensionesPermitidas.indexOf(extension) == -1) {
+    if (extensionesPermitidas.indexOf(extension) === -1) {
       this.extensionValid = true;
       return false;
     }
 
-    if((event.size / 1048576) > tamanio) {
+    if ((event.size / 1048576) > tamanio) {
       this.tamnioValid = true;
       return false;
     }
-    
+
     this.extensionValid = false;
     this.tamnioValid = false;
     return true;
@@ -163,7 +163,7 @@ export class UserProfileComponent implements OnInit {
       });
       console.log(error);
     }
-  
+
     doneMassage(message: string): void {
       Swal.fire({
         icon: 'success',
@@ -173,7 +173,7 @@ export class UserProfileComponent implements OnInit {
         timer: 2700
       });
     }
-  
+
     errorPeticion(error: string): void {
       Swal.fire({
         icon: 'error',

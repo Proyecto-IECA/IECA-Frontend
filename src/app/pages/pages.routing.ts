@@ -7,7 +7,7 @@ import { TypographyComponent } from './components/typography/typography.componen
 import { IconsComponent } from './components/icons/icons.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
+import { UpgradeComponent } from './components/upgrade/upgrade.component';
 import { CreateVacancyComponent } from './create-vacancy/create-vacancy.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { PerfilCompletoGuard } from '../guards/perfil-completo.guard';
