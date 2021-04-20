@@ -63,7 +63,7 @@ export class PerfilesComponent implements OnInit {
     
     if ((value || '').trim()) {
       this.perfiles.push({ 
-        id_postulante: this.usuario.id_postulante, 
+        id_postulante: this.usuario.id_usuario, 
         descripcion: value.trim()
       });
     }
@@ -97,7 +97,7 @@ export class PerfilesComponent implements OnInit {
   
   selectedPer(event: MatAutocompleteSelectedEvent): void{
     this.perfiles.push({ 
-      id_postulante: this.usuario.id_postulante, 
+      id_postulante: this.usuario.id_usuario, 
       descripcion: event.option.viewValue
     });
     this.perfilInput.nativeElement.value = '';

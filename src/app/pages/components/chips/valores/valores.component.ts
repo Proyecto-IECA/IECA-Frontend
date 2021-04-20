@@ -62,7 +62,7 @@ export class ValoresComponent implements OnInit {
      // Add our fruit
      if ((value || '').trim()) {
       this.valores.push({
-        id_postulante: this.usuario.id_postulante,
+        id_postulante: this.usuario.id_usuario,
         descripcion: value.trim()
       });
     }
@@ -95,7 +95,7 @@ export class ValoresComponent implements OnInit {
 
   selectedVal(event: MatAutocompleteSelectedEvent): void{
     this.valores.push({ 
-      id_postulante: this.usuario.id_postulante, 
+      id_postulante: this.usuario.id_usuario, 
       descripcion: event.option.viewValue
     });
     this.valorInput.nativeElement.value = '';

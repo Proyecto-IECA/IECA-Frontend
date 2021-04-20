@@ -65,7 +65,7 @@ export class UserProfileComponent implements OnInit {
   loadData() {
     this.nombreCompleto = this.usuario.nombre + ' ' + this.usuario.apellido_paterno + ' ' + this.usuario.apellido_materno;
     this.email = this.usuario.email;
-    this.telefono_celular = this.usuario.telefono_celular;
+    this.telefono_celular = this.usuario.telefono;
     this.experienciasLaborales = this.usuario.experiencias_laborales;
     this.experienciasAcademicas = this.usuario.experiencias_academicas;
     this.cursosCertificaciones = this.usuario.cursos_certificaciones;

@@ -42,7 +42,7 @@ export class UsuarioService {
   //  ---------- USUARIO CRUD ---------- //
 
   readUsuario(): Observable<AuthResponseI> {
-    const id = this.usuario.id_postulante;
+    const id = this.usuario.id_usuario;
     console.log(id);
     return this.peticion.getQuery(this.tipo, 'perfil-completo', id);
   }
@@ -58,7 +58,7 @@ export class UsuarioService {
   //  ---------- EXPERIENCIA LABORAL CRUD ---------- //
 
   createExpLaboral(form: ExperienciaLaboralI): Observable<AuthResponseI> {
-    form.id_postulante = this.usuario.id_postulante;
+    form.id_usuario_fk = this.usuario.id_usuario;
     return this.peticion.postQuery('experiencias-laborales', 'add', form);
   }
 
@@ -67,18 +67,18 @@ export class UsuarioService {
   }
 
   updateExpLaboral(form: ExperienciaLaboralI, id: number): Observable<AuthResponseI> {
-    form.id_postulante = this.usuario.id_postulante;
+    form.id_usuario_fk = this.usuario.id_usuario;
     return this.peticion.putQuery('experiencias-laborales', 'update', form, id);
   }
 
   deleteExpLaboral(id: number): Observable<AuthResponseI> {
-    return this.peticion.deleteQuery('experiencias-laborales', 'delete', this.usuario.id_postulante, id);
+    return this.peticion.deleteQuery('experiencias-laborales', 'delete', this.usuario.id_usuario, id);
   }
 
   //  ---------- EXPERIENCIA ACADÉMICA CRUD ---------- //
 
   createExpAcademica(form: ExperienciaAcademicaI): Observable<AuthResponseI> {
-    form.id_postulante = this.usuario.id_postulante;
+    form.id_usuario_fk = this.usuario.id_usuario;
     return this.peticion.postQuery('experiencias-academicas', 'add', form);
   }
 
@@ -87,18 +87,18 @@ export class UsuarioService {
   }
 
   updateExpAcademica(form: ExperienciaAcademicaI, id: number): Observable<AuthResponseI> {
-    form.id_postulante = this.usuario.id_postulante;
+    form.id_usuario_fk = this.usuario.id_usuario;
     return this.peticion.putQuery('experiencias-academicas', 'update', form, id);
   }
 
   deleteExpAcademica(id: number): Observable<AuthResponseI> {
-    return this.peticion.deleteQuery('experiencias-academicas', 'delete', this.usuario.id_postulante, id);
+    return this.peticion.deleteQuery('experiencias-academicas', 'delete', this.usuario.id_usuario, id);
   }
 
   //  ---------- CURSO Y/O CERTIFICACION CRUD ---------- //
 
   createCurso(form: CursoCertificacionI): Observable<AuthResponseI> {
-    form.id_postulante = this.usuario.id_postulante;
+    form.id_usuario_fk = this.usuario.id_usuario;
     return this.peticion.postQuery('cursos-certificaciones', 'add', form);
   }
 
@@ -107,12 +107,12 @@ export class UsuarioService {
   }
 
   updateCurso(form: CursoCertificacionI, id: number): Observable<AuthResponseI> {
-    form.id_postulante = this.usuario.id_postulante;
+    form.id_usuario_fk = this.usuario.id_usuario;
     return this.peticion.putQuery('cursos-certificaciones', 'update', form, id);
   }
 
   deleteCurso(id: number): Observable<AuthResponseI> {
-    return this.peticion.deleteQuery('cursos-certificaciones', 'delete', this.usuario.id_postulante, id);
+    return this.peticion.deleteQuery('cursos-certificaciones', 'delete', this.usuario.id_usuario, id);
   }
 
   // ------------------- PERFILES CRUD ---------------- //
@@ -122,14 +122,14 @@ export class UsuarioService {
   }
 
   readPerfilesPostulante(): Observable<AuthResponseI> {
-    let id = this.usuario.id_postulante;
+    let id = this.usuario.id_usuario;
     return this.peticion.getQuery('perfiles', 'perfiles-postulante', id)
   }
 
   createPerfiles(perfiles: PerfilPostulanteI[]): Observable<AuthResponseI> {
 
     let perfilesPostulante: PerfilesPostulantesI = new PerfilesPostulantesI;
-    perfilesPostulante.id_postulante = this.usuario.id_postulante;
+    perfilesPostulante.id_usuario_fk = this.usuario.id_usuario;
     perfilesPostulante.perfiles = perfiles;
 
     return this.peticion.postQuery('perfiles', 'add', perfilesPostulante);
@@ -142,14 +142,14 @@ export class UsuarioService {
   }
 
   readHabilidadesPostulante(): Observable<AuthResponseI> {
-    let id = this.usuario.id_postulante;
+    let id = this.usuario.id_usuario;
     return this.peticion.getQuery('habilidades', 'habilidades-postulante', id);
   }
 
   createHabilidades(habilidades: HabilidadPostulanteI[]): Observable<AuthResponseI> {
 
     let habilidadesPostulante: HabilidadesPostulantesI = new HabilidadesPostulantesI;
-    habilidadesPostulante.id_postulante = this.usuario.id_postulante;
+    habilidadesPostulante.id_usuario_fk = this.usuario.id_usuario;
     habilidadesPostulante.habilidades = habilidades;
 
     return this.peticion.postQuery('habilidades', 'add', habilidadesPostulante);
@@ -162,14 +162,14 @@ export class UsuarioService {
   }
 
   readValoresPostulante(): Observable<AuthResponseI> {
-    let id = this.usuario.id_postulante;
+    let id = this.usuario.id_usuario;
     return this.peticion.getQuery('valores', 'valores-postulante', id);
   }
 
   createValores(valores: ValorPostulanteI[]): Observable<AuthResponseI> {
 
     let valoresPostulante: ValoresPostulantesI = new ValoresPostulantesI;
-    valoresPostulante.id_postulante = this.usuario.id_postulante;
+    valoresPostulante.id_usuario_fk = this.usuario.id_usuario;
     valoresPostulante.valores = valores;
 
     return this.peticion.postQuery('valores', 'add', valoresPostulante);
@@ -182,14 +182,14 @@ export class UsuarioService {
     }
   
     readIdiomasPostulante(): Observable<AuthResponseI> {
-      let id = this.usuario.id_postulante;
+      let id = this.usuario.id_usuario;
       return this.peticion.getQuery('idiomas', 'idiomas-postulante', id);
     }
   
     createIdiomas(idiomas: IdiomaPostulanteI[]): Observable<AuthResponseI> {
   
       let idiomasPostulante: IdiomasPostulantesI = new IdiomasPostulantesI;
-      idiomasPostulante.id_postulante = this.usuario.id_postulante;
+      idiomasPostulante.id_usuario_fk = this.usuario.id_usuario;
       idiomasPostulante.idiomas = idiomas;
   
       return this.peticion.postQuery('idiomas', 'add', idiomasPostulante);

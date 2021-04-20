@@ -7,30 +7,37 @@ import { PerfilPostulanteI } from './perfil_postulante';
 import { ValorPostulanteI } from './valor_postulante';
 
 export class UsuarioI {
-  id_postulante?: number;
+  id_usuario?: number;
   nombre?: string;
+  telefono?: string;
+  email: string;
+  pass?: string;
+  email_validado?: boolean;
+  sups_notificacion?: string;
+  tipo_usuario?: string;
+  foto_perfil?: string;
+  calificacion?: number;
   apellido_paterno?: string;
   apellido_materno?: string;
   fecha_nacimiento?: Date;
   sexo?: string;
-  telefono_casa?: string;
-  telefono_celular?: string;
+  administrador?: string;
+  ubicacion?: string;
+  giro?: string;
+  cv?: string;
   pais?: string;
   codigo_postal?: string;
   ciudad?: string;
   domicilio?: string;
-  foto_perfil?: string;
-  cv?: string;
-  calificacion?: number;
-  email: string;
-  email_validado?: boolean;
-  pass: string;
-  suscripcion_notificacion?: string;
+  telefono_casa?: string;
+  pagina_web?: string;
+  numero_sucursales?: number;
   cursos_certificaciones?: CursoCertificacionI[];
   experiencias_academicas?: ExperienciaAcademicaI[];
   experiencias_laborales?: ExperienciaLaboralI[];
   habilidades_postulante?: HabilidadPostulanteI[];
   idiomas_postulante?: IdiomaPostulanteI[];
   perfiles_postulante?: PerfilPostulanteI[];
-  valores_postulante?: ValorPostulanteI[]; /*Preguntar como temina*/
+  valores_postulante?: ValorPostulanteI[]; 
+  /*Preguntar como temina*/
 }

@@ -11,6 +11,8 @@ import { ValidatorsService } from '../../services/validators.service';
 import { AuthService } from '../../services/auth.service';
 import { EmpresaService } from '../../services/empresa.service';
 import { UsuarioService } from '../../services/usuario.service';
+import { AuthUserService } from '../../services/auth-user.service';
+import { AuthResponseI } from 'app/models/auth-response';
 
 
 @Component({
@@ -34,7 +36,8 @@ export class RegisterComponent implements OnInit {
       private authService: AuthService,
       private empresaSvc: EmpresaService,
       private usuarioSvc: UsuarioService,
-      private router: Router
+      private router: Router,
+      private authUserService: AuthUserService
   ) {
     this.registerUsuarioCreateForm();
     this.registerEmpresaCreateForm();
@@ -143,42 +146,18 @@ export class RegisterComponent implements OnInit {
       return this.errorMassage();
     }
 
-    /* Dirigir el tipo de servicio a solicitar */
-    if (this.type === 'u') {
-      /* Servicio de REGISTRO para USUARIO */
-      this.authService.registroUsuario(data).subscribe(
-          (postulante) => {
-            if (!postulante.status) {
-              /* Mensaje de error en Sweetalert2 */
-              return this.errorMassage();
-            }
-            form.reset(); // Limpiar fomrulario
-            return this.emailEnviado(); // Mendaje de ok
-          },
-          error => {
-            /* Mensaje de error si el servidor no recibe las peticiones */
-            this.errorServer(error);
-          });
-    }
-
-    /* Dirigir el tipo de servicio a solicitar */
-    if (this.type === 'e') {
-      // Servicio de REGISTRO para EMPRESA
-      this.authService.registroEmpresa(data).subscribe(
-          empresa => {
-            if (!empresa.status) {
-              /* Mensaje de error en Sweetalert2 */
-              return this.errorMassage();
-            }
-            form.reset(); // Limpiar fomrulario
-            return this.emailEnviado(); // Mendaje de ok
-          },
-          error => {
-            /* Mensaje de error si el servidor no recibe las peticiones */
-            this.errorServer(error);
-          });
-    }
-
+    this.authUserService.register(data).subscribe(
+      (resp: AuthResponseI) => {
+        if(!resp.status) {
+          return this.errorMassage();
+        }
+        form.reset();
+        return this.emailEnviado();
+      },
+      ((error) => {
+        this.errorServer(error);
+      })
+    )
   }
 
   // Autocompletar la dirección en la ubicación

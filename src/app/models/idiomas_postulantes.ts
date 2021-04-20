@@ -1,6 +1,6 @@
 import { IdiomaPostulanteI } from './idioma_postulante';
 
 export class IdiomasPostulantesI {
-    id_postulante?: number;
+    id_usuario_fk?: number;
     idiomas?: IdiomaPostulanteI[];
 }

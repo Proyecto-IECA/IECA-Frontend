@@ -22,7 +22,7 @@ export class EmpresaService {
       this._company = JSON.parse(localStorage.getItem('data'));
     }
 
-    this._company = this.authService.usuario;
+   /*  this._company = this.authService.usuario; */
 
   }
 

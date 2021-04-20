@@ -8,6 +8,8 @@ import { ValidatorsService } from '../../services/validators.service';
 import { AuthService } from '../../services/auth.service';
 import { EmpresaService } from '../../services/empresa.service';
 import { UsuarioService } from '../../services/usuario.service';
+import { AuthUserService } from '../../services/auth-user.service';
+import { AuthResponseI } from '../../models/auth-response';
 
 
 
@@ -30,7 +32,8 @@ export class LoginComponent implements OnInit {
       private authService: AuthService,
       private empresaSvc: EmpresaService,
       private usuarioSvc: UsuarioService,
-      private router: Router
+      private router: Router,
+      private authUserService: AuthUserService
   ) {
     this.loginCreateForm();
   }
@@ -115,11 +118,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  errorMassageLogin(): void {
+  errorMassageLogin(message): void {
     Swal.fire({
       icon: 'error',
       title: 'Datos incorrectos',
-      text: 'Correo electrónico y/o contraseña incorrecto',
+      text: message,
       showCancelButton: true,
       confirmButtonText: '¿Olvidaste la contraseña?',
       cancelButtonText: 'Intentarlo de nuevo',
@@ -156,59 +159,29 @@ export class LoginComponent implements OnInit {
   // Ingresar
   login(loginForm: FormGroup): void {
     /* Validar formulario */
-    if (this.formularioNoValido(loginForm)) {
-      /* Mensaje de error en Sweetalert2 */
+    /* if (this.formularioNoValido(loginForm)) {
+      Mensaje de error en Sweetalert2
       return this.errorMassage();
-    }
+    } */
 
     /* Asigna los valores del formualrio en una variable llamada data */
     const data = loginForm.value;
 
-    /* Dirigir el tipo de servicio a solicitar */
-    if (loginForm.value.type === 'u') {
-      /* Servicio de LOGIN para USUARIO */
-      this.authService.loginUsuario(data).subscribe(
-          postulante => {
-            if (!postulante.status) {
-              /* Mensaje de error en Sweetalert2 */
-              return this.errorMassageLogin();
-            }
-
-            /* If rememberMe TRUE or FALSE */
-            if (loginForm.value.rememberMe) {
-              localStorage.setItem('email', data.email);
-            }
-
-            loginForm.reset();
-            return this.router.navigateByUrl('/dashboard');
-          },
-          error => {
-            /* Mensaje de error si el servidor no recibe las peticiones */
-            this.errorServer(error);
-          });
-    }
-
-    if (loginForm.value.type === 'e') {
-      /* Servicio de LOGIN para EMPRESA */
-      this.authService.loginEmpresa(data).subscribe(
-          empresa => {
-            if (!empresa.status) {
-              /* Mensaje de error en Sweetalert2 */
-              return this.errorMassageLogin();
-            }
-            /* If rememberMe TRUE or False */
-            if (loginForm.value.rememberMe) {
-              localStorage.setItem('email', data.email);
-            }
-
-            loginForm.reset();
-            return this.router.navigateByUrl('/dashboard');
-          },
-          error => {
-            /* Mensaje de error si el servidor no recibe las peticiones */
-            this.errorServer(error);
-          });
-    }
+    this.authUserService.login(data).subscribe(
+      (resp: AuthResponseI) => {
+        console.log(resp);
+        if(!resp.status) {
+          return this.errorMassageLogin(resp.data);
+        }
+        if (loginForm.value.rememberMe) {
+          localStorage.setItem('email', data.email);
+        }
+        loginForm.reset();
+        return this.router.navigateByUrl('/dashboard');
+      }, ((error) => {
+        this.errorServer(error);
+      })
+    )
   }
 
   // Recuperar contraseña

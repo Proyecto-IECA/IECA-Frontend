@@ -6,5 +6,5 @@ export class ExperienciaAcademicaI {
     anio_entrada?: string;
     anio_salida?: string;
     estudiando?: boolean;
-    id_postulante?: number;
+    id_usuario_fk?: number;
 }

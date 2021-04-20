@@ -62,7 +62,7 @@ export class HabilidadesComponent implements OnInit {
 
     if ((value || '').trim()) {
       this.habilidades.push({
-        id_postulante: this.usuario.id_postulante,
+        id_postulante: this.usuario.id_usuario,
         descripcion: value.trim()
       });
     }
@@ -96,7 +96,7 @@ export class HabilidadesComponent implements OnInit {
 
   selectedHab(event: MatAutocompleteSelectedEvent): void {
     this.habilidades.push({
-      id_postulante: this.usuario.id_postulante,
+      id_postulante: this.usuario.id_usuario,
       descripcion: event.option.viewValue
     });
     this.habilidadInput.nativeElement.value = '';
