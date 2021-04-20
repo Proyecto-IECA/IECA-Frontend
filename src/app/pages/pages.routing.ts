@@ -63,7 +63,7 @@ export const routes: Routes = [
     {
         path: '',
         component: PagesComponent,
-        canActivate: [TokenValidoGuard],
+       /*  canActivate: [TokenValidoGuard], */
         children: [
             { path: 'dashboard',        component: DashboardComponent },
             { path: 'user-profile',     component: UserProfileComponent },
@@ -74,7 +74,7 @@ export const routes: Routes = [
             { path: 'notifications',    component: NotificationsComponent },
             { path: 'upgrade',          component: UpgradeComponent },
             { path: 'company-profile',  component: CompanyProfileComponent },
-            { path: 'vacante',          component: CreateVacancyComponent,    canActivate: [PerfilCompletoGuard] },
+            { path: 'vacante',          component: CreateVacancyComponent,   /*  canActivate: [PerfilCompletoGuard] */ },
             { path: 'vacancies',        component: VacanciesComponent }
         ]
     },

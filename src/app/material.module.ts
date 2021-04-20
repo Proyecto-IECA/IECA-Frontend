@@ -16,6 +16,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from "@angular/material/table";
 
 
 
@@ -36,7 +37,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MaterialFileInputModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
-    MatPaginatorModule,
+    MatPaginatorModule
   ],
   exports: [
     MatButtonModule,
@@ -54,6 +55,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatAutocompleteModule,
     MatPaginatorModule,
+    MatTableModule
   ],
   declarations: []
 })

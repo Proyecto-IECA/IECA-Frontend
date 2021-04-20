@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule  } from "@angular/forms";
 import { MaterialModule } from '../../material.module';
 
 import { HabilidadesComponent } from './chips/habilidades/habilidades.component';
@@ -18,7 +19,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { TableListComponent } from './table-list/table-list.component';
 import { TypographyComponent } from './typography/typography.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
-
 
 
 
@@ -59,6 +59,8 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ComponentsPagesModule { }
