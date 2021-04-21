@@ -12,7 +12,7 @@
     </div>
 
     <!-- Si selecciona USUARIO -->
-    <form *ngIf="type == 'u'" (ngSubmit)="registro(registerUsuarioForm)" [formGroup]="registerUsuarioForm">
+    <form *ngIf="type == 'Postulante'" (ngSubmit)="registro(registerUsuarioForm)" [formGroup]="registerUsuarioForm">
         <!-- Mostrar formulario -->
         <div *ngIf="part">
             <!-- Nombre -->
@@ -93,7 +93,7 @@
         </div>
 
         <!-- Mostrar botones -->
-        <div *ngIf="type == 'u'">
+        <div *ngIf="type == 'Postulante'">
             <!-- Next Form -->
             <button *ngIf="part" (click)="part = !part" class="btn btn-primary" type="button">
 				Siguiente &nbsp; <i class="material-icons">keyboard_arrow_right</i>
@@ -112,7 +112,7 @@
     <!-- Si selecciona EMPRESA -->
     <form (ngSubmit)="registro(registerEmpresaForm)" [formGroup]="registerEmpresaForm">
         <!-- Mostrar formulario -->
-        <div *ngIf="type == 'e'">
+        <div *ngIf="type == 'Empresa'">
             <div *ngIf="part">
                 <!-- Nombre de la empresa -->
                 <div class="input-field">
@@ -186,7 +186,7 @@
         </div>
 
         <!-- Mostrar botones -->
-        <div *ngIf="type == 'e'">
+        <div *ngIf="type == 'Empresa'">
             <!-- Next Form -->
             <button *ngIf="part" (click)="part = !part" class="btn btn-work" type="button">
 				Siguiente &nbsp; <i class="material-icons">keyboard_arrow_right</i>

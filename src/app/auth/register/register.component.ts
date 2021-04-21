@@ -11,7 +11,7 @@ import { ValidatorsService } from '../../services/validators.service';
 import { AuthService } from '../../services/auth.service';
 import { EmpresaService } from '../../services/empresa.service';
 import { UsuarioService } from '../../services/usuario.service';
-import { AuthUserService } from '../../services/auth-user.service';
+import { AuthUserService } from '../auth-user.service';
 import { AuthResponseI } from 'app/models/auth-response';
 
 

@@ -7,6 +7,7 @@ import { PerfilPostulanteI } from './perfil_postulante';
 import { ValorPostulanteI } from './valor_postulante';
 
 export class UsuarioI {
+  //Atributos generales entre Empresa y Postulante
   id_usuario?: number;
   nombre?: string;
   telefono?: string;
@@ -17,21 +18,27 @@ export class UsuarioI {
   tipo_usuario?: string;
   foto_perfil?: string;
   calificacion?: number;
+
+  //Atributos de Usuario
   apellido_paterno?: string;
   apellido_materno?: string;
   fecha_nacimiento?: Date;
-  sexo?: string;
-  administrador?: string;
-  ubicacion?: string;
-  giro?: string;
   cv?: string;
   pais?: string;
   codigo_postal?: string;
   ciudad?: string;
   domicilio?: string;
   telefono_casa?: string;
+  sexo?: string;
+
+  //Atributos de Empresa
+  administrador?: string;
+  ubicacion?: string;
+  giro?: string;
   pagina_web?: string;
   numero_sucursales?: number;
+
+  //Por Eliminar
   cursos_certificaciones?: CursoCertificacionI[];
   experiencias_academicas?: ExperienciaAcademicaI[];
   experiencias_laborales?: ExperienciaLaboralI[];
