@@ -8,9 +8,6 @@ import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 
 import { ValidatorsService } from '../../services/validators.service';
-import { AuthService } from '../../services/auth.service';
-import { EmpresaService } from '../../services/empresa.service';
-import { UsuarioService } from '../../services/usuario.service';
 import { AuthUserService } from '../auth-user.service';
 import { AuthResponseI } from 'app/models/auth-response';
 
@@ -33,9 +30,9 @@ export class RegisterComponent implements OnInit {
   constructor(
       private formB: FormBuilder,
       private validators: ValidatorsService,
-      private authService: AuthService,
+      /*private authService: AuthService,
       private empresaSvc: EmpresaService,
-      private usuarioSvc: UsuarioService,
+      private usuarioSvc: UsuarioService,*/
       private router: Router,
       private authUserService: AuthUserService
   ) {
@@ -148,7 +145,7 @@ export class RegisterComponent implements OnInit {
 
     this.authUserService.register(data).subscribe(
       (resp: AuthResponseI) => {
-        if(!resp.status) {
+        if (!resp.status) {
           return this.errorMassage();
         }
         form.reset();

@@ -18,8 +18,7 @@ import { environment } from '../../environments/environment';
 export class AuthService {
     //  ---------- VARIABLES ---------- //
     private baseUrl: string = environment.baseUrl;
-    // tslint:disable-next-line:variable-name
-    private _usuario!: UsuarioI | EmpresaI;
+    private _usuario: UsuarioI | EmpresaI;
 
     private email: string;
     private refreshToken: string;
@@ -29,6 +28,7 @@ export class AuthService {
     }
 
     getEmail(): void {
+        console.log(localStorage.getItem('email'));
         if (localStorage.getItem('email')) {
             this._usuario = JSON.parse(localStorage.getItem('data'));
             this.email = localStorage.getItem('email');
@@ -37,14 +37,14 @@ export class AuthService {
         localStorage.setItem('tipo', '');
         localStorage.setItem('data', '');
         localStorage.setItem('token', '');
-        localStorage.setItem('renew_token', '');
+        // localStorage.setItem('renew_token', '');
     }
 
     constructor(private http: HttpClient,
                 private router: Router) {
         this.email = '';
         this.refreshToken = '';
-        this.getEmail();
+        // this.getEmail();
     }
 
     //  ---------- QUERY ---------- //
@@ -73,9 +73,9 @@ export class AuthService {
                     console.log(response);
                     if (response.data) {
                         localStorage.setItem('token', response.token);
-                        localStorage.setItem('renew_token', response.refreshToken);
+                        // localStorage.setItem('renew_token', response.refreshToken);
                         this.email = response.data.email;
-                        this.refreshToken = response.refreshToken;
+                        // this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
                     }
                     return response;
@@ -158,10 +158,7 @@ export class AuthService {
             return this.getQuery('auth-postulantes', 'renew-token')
                 .pipe(
                     map((data: AuthResponseI) => {
-                        if (!data.status) {
-                            return false;
-                        }
-                        return true;
+                        return data.status;
                     }),
                     catchError( error => {
                         console.log(error);
@@ -173,10 +170,7 @@ export class AuthService {
             return this.getQuery('auth-empresas', 'renew-token')
                 .pipe(
                     map((data: AuthResponseI) => {
-                        if (!data.status) {
-                            return false;
-                        }
-                        return true;
+                        return data.status;
                     }),
                     catchError( error => {
                         console.log(error);

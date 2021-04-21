@@ -12,13 +12,13 @@ const baseUrl = environment.baseUrl + '/usuarios';
 })
 export class AuthUserService {
 
-  constructor(private http: HttpClient) { 
-
+  constructor(private http: HttpClient) {
   }
 
   login(formData: UsuarioI) {
     return this.http.post(`${baseUrl}/login`, formData).pipe(
       tap((resp: AuthResponseI) => {
+        console.log(resp);
         localStorage.setItem('data', resp.data);
         localStorage.setItem('token', resp.token);
       })
