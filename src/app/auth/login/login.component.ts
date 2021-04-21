@@ -60,11 +60,14 @@ export class LoginComponent implements OnInit {
 
   /* Validar Email para recuperar la contraseña */
   validateEmail(email: string): void {
-    this.authService.verificarEmail(email).subscribe(value => {
-          console.log(value);
-          Swal.close();
+    console.log(email);
+    
+    this.authUserService.sendEmail("forgetPassword", email).subscribe((resp: AuthResponseI) => {
+      console.log(resp);
+         
+      Swal.close();
           /* Si la respuesta es correcta */
-          if (!value.status) {
+          if (!resp.status) {
             /* Mensaje de error, preguntar si quiere intentarlo de nuevo */
             Swal.fire({
               title: 'No encotramos tu correo electrónico',

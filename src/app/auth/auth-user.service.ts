@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { UsuarioI } from '../models/usuario';
-import { Observable } from 'rxjs';
 import { AuthResponseI } from '../models/auth-response';
 import { tap } from 'rxjs/operators';
 
@@ -28,5 +27,13 @@ export class AuthUserService {
 
   register(formData: UsuarioI) {
     return this.http.post(`${baseUrl}`, formData);
+  }
+
+  sendEmail(ruta, email) {
+    const data = {
+      email: email,
+      ruta: ruta
+    }
+    return this.http.post(`${baseUrl}/send-email`, data);
   }
 }
