@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { ValidatorsService } from 'app/services/validators.service';
 import Swal from 'sweetalert2';
-import { ComponentsService } from '../../services/components.service';
 import { AuthResponseI } from '../../models/auth-response';
+import { ComponentsService } from '../components.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { AuthResponseI } from '../../models/auth-response';
 export class ForgetPasswordComponent implements OnInit {
   
   //  ---------- VARIABLES ---------- //
-  tipo: number;
+  id: number;
   token: string;
   passForm: FormGroup;
 
@@ -28,13 +28,14 @@ export class ForgetPasswordComponent implements OnInit {
     private router: Router,
     private componentService: ComponentsService
   ) { 
-    this.tipo = 0;
+    this.id = 0;
     this.token = null;
     this.passCreateForm();
     this.params();
   }
 
   ngOnInit(): void {
+    this.params();
   }
 
 
@@ -94,9 +95,9 @@ export class ForgetPasswordComponent implements OnInit {
   //  ---------- RECUPERAR PARAMATROS ---------- //
   params(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.tipo = Number(params.tipo);
+      this.id = Number(params.id);
       this.token = params.token;
-      console.log('Tipo: ', this.tipo);
+      console.log('id: ', this.id);
       console.log(this.token);
     });
   }
@@ -129,7 +130,7 @@ export class ForgetPasswordComponent implements OnInit {
       return;
     }
 
-    this.componentService.forgotPass(data).subscribe(
+    this.componentService.forgotPass(this.id, data).subscribe(
       (resp: AuthResponseI) => {
         if(!resp.status) {
           return this.errorMassage(resp.data);
