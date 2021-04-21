@@ -29,5 +29,4 @@ export class AuthUserService {
   register(formData: UsuarioI) {
     return this.http.post(`${baseUrl}`, formData);
   }
-
 }

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { ValidatorsService } from 'app/services/validators.service';
 import Swal from 'sweetalert2';
+import { ComponentsService } from '../../services/components.service';
+import { AuthResponseI } from '../../models/auth-response';
 
 
 @Component({
@@ -23,7 +25,8 @@ export class ForgetPasswordComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private validators: ValidatorsService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private componentService: ComponentsService
   ) { 
     this.tipo = 0;
     this.token = null;
@@ -126,50 +129,19 @@ export class ForgetPasswordComponent implements OnInit {
       return;
     }
 
-    console.log('Tipo: ', this.tipo);
-    // Distribuye el flujo para saber si es Postulante o Empresa
-    if (this.tipo === 1) {
-      // Utilizar el servicio de Auth para recuperar contraseña
-      this.authService.renewPasswordUsuario(data, this.token).subscribe(
-        postulante => {
-          if (!postulante.status) {
-            /* Mensaje de error en Sweetalert2 */
-            this.errorMassage(postulante.message);
-            return;
-          }
-          this.passForm.reset();
+    this.componentService.forgotPass(data).subscribe(
+      (resp: AuthResponseI) => {
+        if(!resp.status) {
+          return this.errorMassage(resp.data);
+        } 
+        this.passForm.reset();
           this.passwordChange();
           /* Redireccionar al auth */
           this.router.navigateByUrl('/auth');
-        },
-        error => {
-          /* Mensaje de error si el servidor no recibe las peticiones */
-          this.errorServer(error);
-        }
-      );
-    }
-
-    // Distribuye el flujo para saber si es Postulante o Empresa
-    if (this.tipo === 2) {
-      // Utilizar el servicio de Auth para recuperar contraseña
-      this.authService.renewPasswordEmpresa(data, this.token).subscribe(
-        empresa => {
-          console.log(empresa);
-          if (!empresa.status) {
-            /* Mensaje de error en Sweetalert2 */
-            this.errorMassage(empresa.message);
-            return;
-          }
-          this.passForm.reset();
-          this.passwordChange();
-          /* Redireccionar al auth */
-          this.router.navigateByUrl('/auth');
-        },
-        error => {
-          /* Mensaje de error si el servidor no recibe las peticiones */
-          this.errorServer(error);
-        }
-      );
-    }
+      },
+      ((error) => {
+        this.errorServer(error);
+      } )
+    )
   }
 }
