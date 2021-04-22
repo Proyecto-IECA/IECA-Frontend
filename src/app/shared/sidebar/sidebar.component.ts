@@ -42,7 +42,6 @@ switch (tipo) {
         break;
 
     default:
-        localStorage.clear();
         console.log(`Tipo no encontrado`);
 }
 
@@ -86,7 +85,7 @@ if (tipo === '2') {
 export class SidebarComponent implements OnInit {
     menuItems: any[];
 
-    constructor(private authService: AuthService) {
+    constructor() {
     }
 
     ngOnInit() {

@@ -1,16 +1,17 @@
+<!--
 <div class="main-content">
-    <!-- Content here -->
+    &lt;!&ndash; Content here &ndash;&gt;
     <div class="container-fluid">
-        <!-- === Primer Renglón === -->
+        &lt;!&ndash; === Primer Renglón === &ndash;&gt;
         <div class="row justify-content-md-center">
-            <!-- ==== Encabezado de la página-->
+            &lt;!&ndash; ==== Encabezado de la página&ndash;&gt;
             <div class="col-md-auto">
                 <h1>
                     Nombre de la Empresa
                 </h1>
             </div>
         </div>
-        <!-- === Segundo Renglón === -->
+        &lt;!&ndash; === Segundo Renglón === &ndash;&gt;
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
                 <h2>
@@ -18,38 +19,38 @@
                 </h2>
             </div>
         </div>
-        <!-- === Tercer Renglón === -->
+        &lt;!&ndash; === Tercer Renglón === &ndash;&gt;
         <div class="row">
-            <!-- ==== Renglón de Foto de Perfil ====  -->
+            &lt;!&ndash; ==== Renglón de Foto de Perfil ====  &ndash;&gt;
             <div class="col-md-4">
                 <div class="card card-profile">
-                    <!-- Foto de Perfil -->
+                    &lt;!&ndash; Foto de Perfil &ndash;&gt;
 
-                    <!-- <p (click)="inputImg.click()">Cambiar</p> -->
+                    &lt;!&ndash; <p (click)="inputImg.click()">Cambiar</p> &ndash;&gt;
                     <img [src]="company.foto_empresa" class="img-fluid" alt="Responsive image" (click)="inputImg.click()">
-                    <!-- Hacer click para ver la foto en grande -->
+                    &lt;!&ndash; Hacer click para ver la foto en grande &ndash;&gt;
 
                     <small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo es INCOMPATIBLE</small>
                     <small class="form-text text-gray">Archivos compatibles: JPEG, JPG y PNG</small>
-                    <!-- Cuerpo del card -->
+                    &lt;!&ndash; Cuerpo del card &ndash;&gt;
                     <span class="material-icons" (click)="inputImg.click()">add_a_photo</span>
                     <form class="card-body" (submit)="saveImg()" [formGroup]="imgForm">
 
                         <input type="file" hidden #inputImg formControlName="foto_empresa" (change)="updateImg($event)" accept="image/*">
 
-                        <!--<mat-form-field>
+                        &lt;!&ndash;<mat-form-field>
                     <ngx-mat-file-input (change)="updateImg($event)" formControlName="foto_empresa" accept="image/*"></ngx-mat-file-input>
                     <i class="material-icons" matSuffix>upload_file</i>
-                </mat-form-field>-->
+                </mat-form-field>&ndash;&gt;
 
                         <button *ngIf="imgForm.dirty" type="submit" class="btn btn-rose" [disabled]="imgForm.invalid">Actualizar foto</button>
-                        <!--<small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo INCOMPATIBLE</small>-->
+                        &lt;!&ndash;<small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo INCOMPATIBLE</small>&ndash;&gt;
                     </form>
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="row justify-content-md-center">
-                    <!-- Vacantes -->
+                    &lt;!&ndash; Vacantes &ndash;&gt;
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-header card-header-warning card-header-icon">
@@ -66,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Sucursales -->
+                    &lt;!&ndash; Sucursales &ndash;&gt;
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-header card-header-rose card-header-icon">
@@ -85,24 +86,24 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!-- Editar perfil de la empresa -->
+                    &lt;!&ndash; Editar perfil de la empresa &ndash;&gt;
                     <div class="col-md-12">
                         <div class="card">
-                            <!-- Encabezado de Card -->
+                            &lt;!&ndash; Encabezado de Card &ndash;&gt;
                             <div class="card-header card-header-success">
                                 <h4 class=" card-title ">Editar Perfil</h4>
                                 <p class="card-category ">Actualiza tu perfil</p>
                             </div>
-                            <!-- Cuerpo del card -->
+                            &lt;!&ndash; Cuerpo del card &ndash;&gt;
                             <div class="card-body ">
 
-                                <!-- Formulario de Datos Empresa -->
+                                &lt;!&ndash; Formulario de Datos Empresa &ndash;&gt;
                                 <form (ngSubmit)="updateCompany() " [formGroup]="companyForm ">
-                                    <!-- Mensaje de Campos Obligatorios -->
+                                    &lt;!&ndash; Mensaje de Campos Obligatorios &ndash;&gt;
                                     <small class="text-danger ">Campos obligatorios *</small>
-                                    <!-- Nombre de la empresa y administrador -->
+                                    &lt;!&ndash; Nombre de la empresa y administrador &ndash;&gt;
                                     <div class="row ">
-                                        <!-- Nombre de la empresa -->
+                                        &lt;!&ndash; Nombre de la empresa &ndash;&gt;
                                         <div class="col-md-6 ">
                                             <mat-form-field class="example-full-width ">
                                                 <input matInput placeholder="Nombre de la Empresa " type="text " formControlName="nombre " required>
@@ -110,7 +111,7 @@
                                             <small *ngIf="controlNoValid( 'nombre') " class="form-text text-danger ">* Este campo es obligatorio</small>
                                         </div>
 
-                                        <!-- Nombre del administrador -->
+                                        &lt;!&ndash; Nombre del administrador &ndash;&gt;
                                         <div class="col-md-6 ">
                                             <mat-form-field class="example-full-width ">
                                                 <input matInput placeholder="Nombre del(a) Administrador(a) " type="text " formControlName="administrador " required>
@@ -119,9 +120,9 @@
                                         </div>
                                     </div>
 
-                                    <!-- Ubicación y Giro -->
+                                    &lt;!&ndash; Ubicación y Giro &ndash;&gt;
                                     <div class="row ">
-                                        <!-- Ubicación -->
+                                        &lt;!&ndash; Ubicación &ndash;&gt;
                                         <div class="col-md-6 ">
                                             <mat-form-field class="example-full-width ">
                                                 <input matInput placeholder="Ubicación " type="text " formControlName="ubicacion " required>
@@ -129,7 +130,7 @@
                                             <small *ngIf="controlNoValid( 'ubicacion') " class="form-text text-danger ">* Este campo es obligatorio</small>
                                         </div>
 
-                                        <!-- Giro -->
+                                        &lt;!&ndash; Giro &ndash;&gt;
                                         <div class="col-md-6 ">
                                             <mat-form-field class="example-full-width ">
                                                 <input matInput placeholder="Giro " type="tel " formControlName="giro " required>
@@ -138,9 +139,9 @@
                                         </div>
                                     </div>
 
-                                    <!-- Teléfono, Página Web -->
+                                    &lt;!&ndash; Teléfono, Página Web &ndash;&gt;
                                     <div class="row ">
-                                        <!-- Página Web -->
+                                        &lt;!&ndash; Página Web &ndash;&gt;
                                         <div class="col-md-6 ">
                                             <mat-form-field class="example-full-width ">
                                                 <input matInput placeholder="Página web " type="url " formControlName="pagina_web " required>
@@ -148,7 +149,7 @@
                                             <small *ngIf="controlNoValid( 'pagina_web') " class="form-text text-danger ">* Este campo es obligatorio</small>
                                         </div>
 
-                                        <!-- Teléfono -->
+                                        &lt;!&ndash; Teléfono &ndash;&gt;
                                         <div class="col-md-6 ">
                                             <mat-form-field class="example-full-width ">
                                                 <input matInput placeholder="Teléfono " type="tel " pattern="\d* " maxlength="10 " formControlName="telefono " required>
@@ -158,13 +159,13 @@
                                     </div>
 
                                     <div class="row ">
-                                        <!-- Renglón justificado al inicio -->
+                                        &lt;!&ndash; Renglón justificado al inicio &ndash;&gt;
                                         <div class="col-md-6 ">
-                                            <!-- Switcher icon -->
+                                            &lt;!&ndash; Switcher icon &ndash;&gt;
                                             <mat-slide-toggle class="justify-content-start ">Más sucursales</mat-slide-toggle>
                                         </div>
 
-                                        <!-- Renglón justificado al final -->
+                                        &lt;!&ndash; Renglón justificado al final &ndash;&gt;
                                         <div class="col-md-6 ">
                                             <div class="row justify-content-end ">
                                                 <button type="button " class="btn btn-success btn-sm btn-just-icon m-r ">
@@ -187,7 +188,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <!-- ===== Encabezado de Card ===== -->
+                    &lt;!&ndash; ===== Encabezado de Card ===== &ndash;&gt;
                     <div class="card-header card-header-info">
                         <h4 class="card-title">
                             Vacante
@@ -208,10 +209,10 @@
                                         <mat-icon class="text-primary justify-content-md-end">add</mat-icon>
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
-                                <!-- ===== Formulario para agregar una sucursal ===== -->
-                                <app-sucursales></app-sucursales>
+                                &lt;!&ndash; ===== Formulario para agregar una sucursal ===== &ndash;&gt;
+                                &lt;!&ndash;<app-sucursales></app-sucursales>&ndash;&gt;
                             </mat-expansion-panel>
-                            <!-- 
+                            &lt;!&ndash;
                 <div *ngFor="let expA of experienciasAcademicas">
                     <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
@@ -226,7 +227,7 @@
                         ===== Formulario para editar experiencia academica 
                         <app-experiencia-academica-form [tipo]="'update'" [experienciaAcademica]="expA"></app-experiencia-academica-form>
                     </mat-expansion-panel>
-                </div> -->
+                </div> &ndash;&gt;
 
                         </mat-accordion>
                     </div>
@@ -239,3 +240,5 @@
 
     </div>
 </div>
+
+-->

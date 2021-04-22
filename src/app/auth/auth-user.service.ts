@@ -12,8 +12,7 @@ const baseUrl = environment.baseUrl + '/usuarios';
 })
 export class AuthUserService {
 
-  constructor(private http: HttpClient) { 
-
+  constructor(private http: HttpClient) {
   }
 
   login(formData: UsuarioI) {

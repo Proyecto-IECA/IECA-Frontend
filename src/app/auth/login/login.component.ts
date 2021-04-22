@@ -5,9 +5,6 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 import { ValidatorsService } from '../../services/validators.service';
-import { AuthService } from '../../services/auth.service';
-import { EmpresaService } from '../../services/empresa.service';
-import { UsuarioService } from '../../services/usuario.service';
 import { AuthUserService } from '../auth-user.service';
 import { AuthResponseI } from '../../models/auth-response';
 
@@ -29,9 +26,6 @@ export class LoginComponent implements OnInit {
   constructor(
       private formB: FormBuilder,
       private validators: ValidatorsService,
-      private authService: AuthService,
-      private empresaSvc: EmpresaService,
-      private usuarioSvc: UsuarioService,
       private router: Router,
       private authUserService: AuthUserService
   ) {
@@ -61,10 +55,10 @@ export class LoginComponent implements OnInit {
   /* Validar Email para recuperar la contraseña */
   validateEmail(email: string): void {
     console.log(email);
-    
-    this.authUserService.sendEmail("forgetPassword", email).subscribe((resp: AuthResponseI) => {
+
+    this.authUserService.sendEmail('forgetPassword', email).subscribe((resp: AuthResponseI) => {
       console.log(resp);
-         
+
       Swal.close();
           /* Si la respuesta es correcta */
           if (!resp.status) {
@@ -90,19 +84,19 @@ export class LoginComponent implements OnInit {
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
-          this.errorServer(error);
+          console.log(error);
+          this.errorServer();
         });
   }
 
   //  ---------- MENSAJES ---------- //
-  errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+  errorServer(): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: 'error',
       title: 'Petición NO procesada',
       text: `Vuelve a intentar de nuevo...
       Si el error persiste ponerse en contacto con soporte técnico`,
     });
-    console.log(error);
   }
 
   errorMassage(): void {
@@ -153,7 +147,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formB.group({
       email: [localStorage.getItem('email') || '', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
       pass: [, [Validators.required, Validators.minLength(6)]],
-      type: [, Validators.required],
+      type: [localStorage.getItem('type') || null, Validators.required],
       rememberMe: false
     });
   }
@@ -170,19 +164,22 @@ export class LoginComponent implements OnInit {
     /* Asigna los valores del formualrio en una variable llamada data */
     const data = loginForm.value;
 
+    // Manda la data al service correspondiente
     this.authUserService.login(data).subscribe(
       (resp: AuthResponseI) => {
-        console.log(resp);
-        if(!resp.status) {
+        if (!resp.status) {
           return this.errorMassageLogin(resp.data);
         }
         if (loginForm.value.rememberMe) {
           localStorage.setItem('email', data.email);
+          localStorage.setItem('type', data.type);
         }
         loginForm.reset();
         return this.router.navigateByUrl('/dashboard');
       }, ((error) => {
-        this.errorServer(error);
+          /* Mensaje de error si el servidor no recibe la petición */
+          console.log(error);
+          this.errorServer();
       })
     )
   }
