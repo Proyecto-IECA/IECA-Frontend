@@ -12,12 +12,10 @@ declare interface RouteInfo {
 }
 
 export let ROUTES: RouteInfo[] = [];
-const tipo = localStorage.getItem('tipo');
-console.log(tipo);
+const tipo = localStorage.getItem('tipo_usuario');
 
 switch (tipo) {
-    case '1':
-        console.log('POSTULANTE');
+    case 'Postulante':
         ROUTES = [
             { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
             { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
@@ -30,8 +28,7 @@ switch (tipo) {
         ];
         break;
 
-    case '2':
-        console.log('EMPRESA');
+    case 'Empresa':
         ROUTES = [
             { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
             { path: '/company-profile', title: 'Company Profile', icon: 'person', class: '' },

@@ -19,7 +19,8 @@ export class AuthUserService {
   login(formData: UsuarioI) {
     return this.http.post(`${baseUrl}/login`, formData).pipe(
       tap((resp: AuthResponseI) => {
-        localStorage.setItem('data', resp.data);
+        localStorage.setItem('id_usuario', resp.data.id_usuario);
+        localStorage.setItem('tipo_usuario', resp.data.tipo_usuario);
         localStorage.setItem('token', resp.token);
       })
     );
