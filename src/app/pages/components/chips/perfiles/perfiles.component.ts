@@ -29,6 +29,7 @@ export class PerfilesComponent implements OnInit {
   filteredPerfil: Observable<PerfilI[]>;
   ListaPerfiles: PerfilI[];
   separatorKeysCodes: number[] = [ENTER, COMMA];
+  
  
   @ViewChild('perfilInput') perfilInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
@@ -43,6 +44,7 @@ export class PerfilesComponent implements OnInit {
     this.perfilesService.getPerfilesVacantes(this.id).subscribe(
       (resp: AuthResponseI) => {
         if (resp.status) {
+          console.log(resp);
           this.perfilesAux = resp.data;
         }
       }
@@ -102,11 +104,9 @@ export class PerfilesComponent implements OnInit {
   }
   
   selectedPer(event: MatAutocompleteSelectedEvent): void{
-    let perfil = new PerfilI;
-    perfil.descripcion = event.option.viewValue;
-    console.log("Select");
-    console.log(perfil);
-    this.perfiles.push(perfil);
+    this.perfiles.push({
+      descripcion: event.option.viewValue
+    });
     this.perfilInput.nativeElement.value = '';
     this.perfilCtrl.setValue(null);
 
@@ -128,25 +128,23 @@ export class PerfilesComponent implements OnInit {
       perfil.descripcion.toLowerCase().indexOf(perfilDescripcion) === 0);
   }
   
-  guardarPerfiles() {
-    this.usuarioService.createPerfiles(this.perfiles).subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.usuarioService.readPerfilesPostulante().subscribe((resp: AuthResponseI) => {
-          if(resp.status) {
-            this.doneMassage(resp.message);
-            this.perfilesAux = resp.data;
-          } else {
-            this.errorPeticion(resp.message);
-          }
-        }, (error) => this.errorServer(error));
-        this.guardarPerfil = false;
-      } else {
-        this.errorMassage();
-      }
-    })
+  guardarPerfiles()  {
+    this.perfilesService.addPerfilesVacante(this.id, this.perfiles).subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.guardarPerfil = false;
+          this.doneMassage("Exito al cargar los perfiles");
+          this.perfilesAux = resp.data;
+        } else {
+          this.errorPeticion(resp.data);
+        }
+      }, (err) => this.errorServer(err)
+    );
   }
 
   compararArregos(arreglo: any[], arreglo2: any[]) {
+    console.log(arreglo);
+    console.log(arreglo2);
     if (arreglo.length != arreglo2.length) return false;
     for (let i = 0; i < arreglo.length; i++) {
       if (arreglo[i].descripcion != arreglo2[i].descripcion) {

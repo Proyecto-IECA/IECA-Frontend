@@ -77,7 +77,12 @@
 
                             <!-- Sucursal -->
                             <div *ngIf="sucursales" class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-4 text-center m-t">
+                                    <mat-slide-toggle>
+                                        Sucursal
+                                    </mat-slide-toggle>
+                                </div>
+                                <div class="col-md-8">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Sucursal</mat-label>
                                         <mat-select>

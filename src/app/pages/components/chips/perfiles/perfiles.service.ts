@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { PerfilI } from '../../../../models/perfil';
 
 const baseUrl = environment.baseUrl + "/perfiles";
 
@@ -18,5 +19,13 @@ export class PerfilesService {
 
   getPerfiles() {
     return this.http.get(`${baseUrl}`);
+  }
+
+  addPerfilesVacante(id_vacante, perfiles: PerfilI[]) {
+    const formData = {
+      id_vacante: id_vacante,
+      perfiles: perfiles
+    };
+    return this.http.post(`${baseUrl}/vacante`, formData);
   }
 }
