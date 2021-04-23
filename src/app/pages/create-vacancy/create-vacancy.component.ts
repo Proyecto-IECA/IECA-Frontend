@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { EmpresaService } from '../../services/empresa.service';
+import { VacancyService } from './vacancy.service';
+import { SucursalesI } from '../../models/sucursales';
+import { AuthResponseI } from '../../models/auth-response';
+import { PerfilI } from '../../models/perfil';
 
 export interface PeriodicElement {
   name: string;
@@ -9,6 +13,12 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
+
+export interface Element {
+  value: string,
+  viewValue: string
+}
+
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
@@ -21,6 +31,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
+
+const NIVEL: Element[] = [
+  {value: "Practicante", viewValue: "Practicante"},
+  {value: "Ejecutivo", viewValue: "Ejecutivo"},
+  {value: "Supervisor", viewValue: "Supervisor"},
+];
+
+const MODALIDAD: Element[] = [
+  {value: "Tiempo completo", viewValue:"Tiempo completo"},
+  {value: "Medio tiempo", viewValue:"Medio tiempo"},
+  {value: "Temporal", viewValue: "Temporal"},
+  {value: "Home Office", viewValue: "Home Office"},
+]
+
+
+
 @Component({
   selector: 'app-create-vacancy',
   templateUrl: './create-vacancy.component.html',
@@ -31,22 +57,39 @@ export class CreateVacancyComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
-  
+  niveles = NIVEL;
+  modalidades = MODALIDAD;
+  sucursales: SucursalesI[]; 
+  perfiles: PerfilI[];
+  idVacante: number = 1;
+  type: string = "Vacante";
   //  ---------- VARIABLES ---------- //
   vacantForm: FormGroup;
 
-  constructor(private formB: FormBuilder,
-              private empresaSvc: EmpresaService) {
+  constructor(
+      private formB: FormBuilder,
+      private empresaSvc: EmpresaService,
+      private vacanteService: VacancyService
+  ) {
     this.vacantCreateForm();
-
-    console.log(this.empresaSvc.company);
   }
 
   ngOnInit(): void {
-    this.vacantForm.reset({
-      id_empresa: this.empresaSvc.company.id_empresa,
-      imagen: ''
-    });
+    this.vacanteService.getSucursales().subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.sucursales = resp.data;
+        }
+      }
+    )
+
+    this.vacanteService.getPerfilesVacantes(1).subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.perfiles = resp.data;
+        }
+      }
+    )
   }
 
   //  ---------- VALIDADORES ---------- //
@@ -130,6 +173,10 @@ export class CreateVacancyComponent implements OnInit {
         },
         error => this.errorServer(error)
     );
+  }
+
+  capturarImage(event) {
+    console.log(event);
   }
 
 }

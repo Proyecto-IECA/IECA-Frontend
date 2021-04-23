@@ -1,6 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="col-md-12">
                     <h1>Nombre de la Empresa</h1>
@@ -26,10 +26,41 @@
                                         <input matInput placeholder="Puesto" type="text" formControlName="puesto" required>
                                     </mat-form-field>
                                 </div>
+                                <!-- Nivel -->
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Nivel</mat-label>
+                                        <mat-select>
+                                            <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
+                                                {{nivel.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Sueldo Negociable -->
+                                <div class="col-md-4 text-center m-t">
+                                    <mat-slide-toggle>
+                                        Sueldo Negociable
+                                    </mat-slide-toggle>
+                                </div>
                                 <!-- Sueldo -->
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Sueldo" type="number" formControlName="sueldo" required>
+                                    </mat-form-field>
+                                </div>
+                                <!-- Modalidad -->
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Modalidad</mat-label>
+                                        <mat-select>
+                                            <mat-option *ngFor="let modalidad of modalidades" [value]="modalidad.value">
+                                                {{modalidad.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -44,16 +75,16 @@
                                 </div>
                             </div>
 
-                            <!-- Archivo -->
-                            <div class="row">
+                            <!-- Sucursal -->
+                            <div *ngIf="sucursales" class="row">
                                 <div class="col-md-12">
-                                    <mat-form-field>
-
-                                        <ngx-mat-file-input placeholder="Archivo adicional (opcional)" formControlName="imagen"></ngx-mat-file-input>
-
-                                        <i class="material-icons" matSuffix>upload_file</i>
-                                        <!--<i *ngIf="vacantForm.value.imagen !== null" class="material-icons" matSuffix (click)="vacantForm.controls['imagen'].reset()">highlight_off</i>
-										<small *ngIf="vacantForm.value.imagen === null" class="form-text">Los formatos que acepta son PDF, JPG y PNG</small>-->
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Sucursal</mat-label>
+                                        <mat-select>
+                                            <mat-option *ngFor="let sucursal of sucursales" [value]="sucursal.id_usuario_fk">
+                                                {{sucursal.nombre}}
+                                            </mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -81,7 +112,7 @@
                     <img src="../../../assets/img/log.svg" alt="" class="img-thumbnail">
                 </div>
                 <div class="col-md-12 m-t-2">
-                    <app-perfiles></app-perfiles>
+                    <app-perfiles [perfiles]="perfiles" [id]="idVacante" [type]="type"></app-perfiles>
                 </div>
             </div>
         </div>
@@ -94,51 +125,52 @@
                     </div>
                     <div class="card-body table-responsive">
 
-                    </div>
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-hover">
+                        <table mat-table [dataSource]="dataSource" class="table table-hover">
 
-                        <!--- Note that these columns can be defined in any order.
+                            <!--- Note that these columns can be defined in any order.
                               The actual rendered columns are set as a property on the row definition" -->
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef> No. </th>
-                            <td mat-cell *matCellDef="let element"> {{element.position}}
-                            </td>
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="position">
+                                <th mat-header-cell *matHeaderCellDef> No. </th>
+                                <td mat-cell *matCellDef="let element"> {{element.position}}
+                                </td>
 
-                        </ng-container>
+                            </ng-container>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef> Name </th>
-                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                        </ng-container>
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> Name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="weight">
-                            <th mat-header-cell *matHeaderCellDef> Weight </th>
-                            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-                        </ng-container>
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="weight">
+                                <th mat-header-cell *matHeaderCellDef> Weight </th>
+                                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                            </ng-container>
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="symbol">
-                            <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                            <td mat-cell *matCellDef="let element"> {{element.symbol}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="¿Eliminar vacante?">
-                            <tr>
-                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="symbol">
+                                <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                                <td mat-cell *matCellDef="let element"> {{element.symbol}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="¿Eliminar vacante?">
+                                <tr>
+                                    <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                    <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                     <i class="material-icons">close</i>
                                 </button>
-                            </tr>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </tr>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                    </table>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>

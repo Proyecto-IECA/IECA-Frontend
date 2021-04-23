@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AuthResponseI } from 'app/models/auth-response';
-import { PerfilPostulanteI } from 'app/models/perfil_postulante';
 import { UsuarioService } from '../../../../services/usuario.service';
-import { UsuarioI } from '../../../../models/usuario';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,6 +9,7 @@ import { PerfilI } from '../../../../models/perfil';;
 import { map, startWith } from 'rxjs/operators';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
+import { PerfilesService } from './perfiles.service';
  
 @Component({
   selector: 'app-perfiles',
@@ -19,12 +18,13 @@ import Swal from 'sweetalert2';
 })
 export class PerfilesComponent implements OnInit {
 
-  @Input() usuario: UsuarioI;
+  @Input() perfiles: PerfilI[];
+  @Input() id: number;
+  @Input() type: string;
   selectable = true;
   removable = true;
   guardarPerfil = false;
-  perfiles: PerfilPostulanteI[];
-  perfilesAux: PerfilPostulanteI[];
+  perfilesAux: PerfilI[];
   perfilCtrl = new FormControl();
   filteredPerfil: Observable<PerfilI[]>;
   ListaPerfiles: PerfilI[];
@@ -33,28 +33,34 @@ export class PerfilesComponent implements OnInit {
   @ViewChild('perfilInput') perfilInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
 
-  constructor(private usuarioService: UsuarioService) { 
-    
+  constructor(
+    private usuarioService: UsuarioService,
+    private perfilesService: PerfilesService
+    ) { 
   }
 
   ngOnInit(): void {
-    this.usuarioService.readPerfilesPostulante().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
-        this.perfilesAux = resp.data;
+    this.perfilesService.getPerfilesVacantes(this.id).subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.perfilesAux = resp.data;
+        }
       }
-    });
-
-    this.usuarioService.readPerfiles().subscribe((resp: AuthResponseI) => {
-      if(resp.status){
-        this.ListaPerfiles = resp.data;
-        this.filteredPerfil = this.perfilCtrl.valueChanges.pipe(
-          startWith(null),
-          map((perfil: string | PerfilI | null) => perfil ?
-          this._filter(perfil) : this.ListaPerfiles.slice()));
+    )
+  
+    this.perfilesService.getPerfiles().subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.ListaPerfiles = resp.data;
+          this.filteredPerfil = this.perfilCtrl.valueChanges.pipe(
+            startWith(null),
+            map((perfil: string | PerfilI | null) => perfil ?
+            this._filter(perfil) : this.ListaPerfiles.slice())
+          );
+        }
       }
-    })
+    )
 
-    this.perfiles = this.usuario.perfiles_postulante;
   }
 
   addPer(event: MatChipInputEvent): void {
@@ -62,8 +68,8 @@ export class PerfilesComponent implements OnInit {
     const value = event.value;
     
     if ((value || '').trim()) {
-      this.perfiles.push({ 
-        id_postulante: this.usuario.id_usuario, 
+      console.log("Add");
+      this.perfiles.push({
         descripcion: value.trim()
       });
     }
@@ -81,7 +87,7 @@ export class PerfilesComponent implements OnInit {
     this.perfilCtrl.setValue(null);
   }
 
-  removePer(perfiles: PerfilPostulanteI): void {
+  removePer(perfiles: PerfilI): void {
     const index = this.perfiles.indexOf(perfiles);
 
     if (index >= 0) {
@@ -96,10 +102,11 @@ export class PerfilesComponent implements OnInit {
   }
   
   selectedPer(event: MatAutocompleteSelectedEvent): void{
-    this.perfiles.push({ 
-      id_postulante: this.usuario.id_usuario, 
-      descripcion: event.option.viewValue
-    });
+    let perfil = new PerfilI;
+    perfil.descripcion = event.option.viewValue;
+    console.log("Select");
+    console.log(perfil);
+    this.perfiles.push(perfil);
     this.perfilInput.nativeElement.value = '';
     this.perfilCtrl.setValue(null);
 

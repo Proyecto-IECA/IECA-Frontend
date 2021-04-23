@@ -10,5 +10,5 @@ export class VacantesI {
     nivel: string;
     vistas: number;
     publicada: number;
-    id_empresa?: number;
+    id_usuario_fk?: number;
 }
