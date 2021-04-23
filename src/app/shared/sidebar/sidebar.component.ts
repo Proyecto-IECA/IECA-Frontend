@@ -1,6 +1,4 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { TokenValidoGuard } from '../../guards/token-valido.guard';
-import { AuthService } from '../../services/auth.service';
 
 declare const $: any;
 
@@ -12,38 +10,8 @@ declare interface RouteInfo {
 }
 
 export let ROUTES: RouteInfo[] = [];
-let tipo = localStorage.getItem('tipo_usuario');
 
-switch (tipo) {
-    case 'Postulante':
-        ROUTES = [
-            { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-            { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
-            { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
-            { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
-            { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
-            { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
-            { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' }
-            // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
-        ];
-        break;
 
-    case 'Empresa':
-        ROUTES = [
-            { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-            { path: '/company-profile', title: 'Company Profile', icon: 'person', class: '' },
-            { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
-            { path: '/vacante', title: 'Crear una Vacante', icon: 'assignment', class: '' },
-            { path: '/vacantes', title: 'Lista de Vacantes', icon: 'list', class: '' },
-            { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
-            { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
-            // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
-        ];
-        break;
-
-    default:
-        console.log(`Tipo no encontrado`);
-}
 
 /*// Sidebar del POSTULANTE
 if (tipo === '1') {
@@ -88,7 +56,7 @@ export class SidebarComponent implements OnInit {
     constructor() {
     }
     ngOnInit(): void {
-
+        this.cargarRoutes();
         this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
 
@@ -98,4 +66,39 @@ export class SidebarComponent implements OnInit {
         }
         return true;
     };
+
+    cargarRoutes() {
+        let tipo = localStorage.getItem('tipo_usuario');
+
+        switch (tipo) {
+            case 'Postulante':
+                ROUTES = [
+                    { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+                    { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
+                    { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
+                    { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
+                    { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
+                    { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
+                    { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' }
+                    // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
+                ];
+                break;
+        
+            case 'Empresa':
+                ROUTES = [
+                    { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+                    { path: '/company-profile', title: 'Company Profile', icon: 'person', class: '' },
+                    { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
+                    { path: '/vacante', title: 'Crear una Vacante', icon: 'assignment', class: '' },
+                    { path: '/vacantes', title: 'Lista de Vacantes', icon: 'list', class: '' },
+                    { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
+                    { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
+                    // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
+                ];
+                break;
+        
+            default:
+                console.log(`Tipo no encontrado`);
+        }
+    }
 }

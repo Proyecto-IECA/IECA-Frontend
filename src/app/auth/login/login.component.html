@@ -18,19 +18,6 @@
 		* Debe ser mayor o igual a 6 letras
 		<br>
 	</small>
-    <!-- Type -->
-    <div class="input-field">
-        <i class="material-icons">keyboard_arrow_down</i>
-        <select class="form-select" id="inputGroupSelect01" name="type" formControlName="type">
-			<option value="null" hidden selected> Quiero registrarme como..</option>
-			<option value="Postulante">Aspirante</option>
-			<option value="Empresa">Empresa</option>
-		</select>
-    </div>
-    <small *ngIf="controlNoValid(loginForm,'type')" class="form-text text-danger">
-		* Elegir una opción válida
-		<br>
-	</small>
     <!-- RememberMe -->
     <div class="checkbox checkbox-primary">
         <input type="checkbox" name="rememberMe" id="checkbox-signup" formControlName="rememberMe">
