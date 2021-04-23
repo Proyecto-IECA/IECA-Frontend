@@ -4,7 +4,7 @@
     <!-- Seleción de formulario -->
     <div class="input-field">
         <i class="material-icons">keyboard_arrow_down</i>
-        <select class="form-select" id="inputGroupSelect02" name="type" [(ngModel)]="type">
+        <select class="form-select" id="inputGroupSelect02" name="type" [(ngModel)]="type" (change)="changeTipo($event.target.value)">
 			<option value="">Soy un(a) ...</option>
 			<option value="Postulante">Aspirante</option>
 			<option value="Empresa">Empresa</option>

@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
   type = ''; // Dejarlo vacío ''
   registerUsuarioForm: FormGroup;
   registerEmpresaForm: FormGroup;
+  tipo_usuario: "Postulante";
 
   @ViewChild('placesRef') placesRef: GooglePlaceDirective; // autocompletar dirección
 
@@ -43,6 +44,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   //  ---------- VALIDADORES ---------- //
   /* Validar los control name */
   controlNoValid(form: FormGroup, controlName: string): boolean {
@@ -106,6 +108,7 @@ export class RegisterComponent implements OnInit {
           password: [, [Validators.required]],
           sexo: [, Validators.required],
           fecha_nacimiento: [, Validators.required],
+          tipo_usuario: [, Validators.required]
         },
         {
           validators: [this.validators.ValidarPassword('pass', 'password')],
@@ -122,12 +125,16 @@ export class RegisterComponent implements OnInit {
           email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
           pass: [, [Validators.required, Validators.minLength(6)]],
           password: [, [Validators.required]],
+          tipo_usuario: [, Validators.required]
         },
         {
           validators: [this.validators.ValidarPassword('pass', 'password')],
         });
   }
 
+  changeTipo(event) {
+    this.tipo_usuario = event;
+  }
 
   //  ---------- MÉTODOS ---------- //
   // Registrarse
@@ -135,6 +142,7 @@ export class RegisterComponent implements OnInit {
     // console.log(form);
 
     /* Asigna los valores del formualrio en una variable llamada data */
+    form.get("tipo_usuario").setValue(this.tipo_usuario);
     const data = form.value;
 
     /* Validar formulario */
@@ -142,7 +150,7 @@ export class RegisterComponent implements OnInit {
       /* Mensaje de error en Sweetalert2 */
       return this.errorMassage();
     }
-
+      
     this.authUserService.register(data).subscribe(
       (resp: AuthResponseI) => {
         if (!resp.status) {

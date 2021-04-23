@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { TokenValidoGuard } from '../../guards/token-valido.guard';
 import { AuthService } from '../../services/auth.service';
 
@@ -12,7 +12,7 @@ declare interface RouteInfo {
 }
 
 export let ROUTES: RouteInfo[] = [];
-const tipo = localStorage.getItem('tipo_usuario');
+let tipo = localStorage.getItem('tipo_usuario');
 
 switch (tipo) {
     case 'Postulante':
@@ -87,8 +87,8 @@ export class SidebarComponent implements OnInit {
 
     constructor() {
     }
+    ngOnInit(): void {
 
-    ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
 
