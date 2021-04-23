@@ -147,7 +147,6 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formB.group({
       email: [localStorage.getItem('email') || '', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
       pass: [, [Validators.required, Validators.minLength(6)]],
-      type: [localStorage.getItem('type') || null, Validators.required],
       rememberMe: false
     });
   }
