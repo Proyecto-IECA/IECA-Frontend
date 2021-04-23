@@ -9,6 +9,7 @@ import { ExperienciaAcademicaI } from 'app/models/experiencia_academica';
 import { CursoCertificacionI } from '../../models/cursos_certificaciones';
 import { FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { UserProfileService } from './user-profile.service';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class UserProfileComponent implements OnInit {
 
   nombreCompleto = '';
   email = '';
-  telefono_celular = '';
+  telefono = '';
   foto_perfil = '';
 
 
@@ -47,25 +48,29 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private userProfileService: UserProfileService
     ) {
    }
 
   ngOnInit() {
-    this.usuarioService.readUsuario().subscribe((resp: AuthResponseI ) => {
-      if (resp.status) {
-        this.usuario = resp.data;
-        this.foto_perfil = this.usuario.foto_perfil;
+    this.userProfileService.getUsuario().subscribe(
+      (resp: AuthResponseI) => {
+        if(resp.status) {
+          this.usuario = resp.data;
+          console.log(this.usuario);
+          
+          this.foto_perfil = this.usuario.foto_perfil;
         this.loadData();
+        }
       }
-    });
-
+    )
   }
 
   loadData() {
     this.nombreCompleto = this.usuario.nombre + ' ' + this.usuario.apellido_paterno + ' ' + this.usuario.apellido_materno;
     this.email = this.usuario.email;
-    this.telefono_celular = this.usuario.telefono;
+    this.telefono = this.usuario.telefono;
     this.experienciasLaborales = this.usuario.experiencias_laborales;
     this.experienciasAcademicas = this.usuario.experiencias_academicas;
     this.cursosCertificaciones = this.usuario.cursos_certificaciones;
@@ -112,17 +117,31 @@ export class UserProfileComponent implements OnInit {
   })
 
   guardarFoto() {
+    
     try {
       this.imageForm.get('foto_perfil').setValue(this.foto_perfil);
       console.log(this.imageForm.value);
-      this.usuarioService.updateFoto(this.imageForm.value).subscribe((resp: AuthResponseI) => {
+      this.userProfileService.updateFoto(this.imageForm.value).subscribe(
+        (resp: AuthResponseI) => {
+          if (resp.status) {
+            this.doneMassage(resp.message);
+            this.changeFoto = false;
+          } else {
+            this.errorPeticion(resp.message);
+          }
+        },
+        (error) => {
+          this.errorServer(error)
+        }
+      )
+      /* this.usuarioService.updateFoto(this.imageForm.value).subscribe((resp: AuthResponseI) => {
         if (resp.status) {
           this.doneMassage(resp.message);
           this.changeFoto = false;
         } else {
           this.errorPeticion(resp.message);
         }
-      }, (error) => this.errorServer(error));
+      }, (error) => this.errorServer(error)); */
 
     } catch (error) {
       console.log(error);
