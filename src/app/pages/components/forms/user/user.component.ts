@@ -4,11 +4,14 @@ import { UsuarioService } from '../../../../services/usuario.service';
 import { UsuarioI } from '../../../../models/usuario';
 import Swal from 'sweetalert2';
 import { AuthResponseI } from '../../../../models/auth-response';
+import * as moment from 'moment';
+
 
 interface Sexo{
   value: string;
   viewValue: string;
 }
+
 
 @Component({
   selector: 'app-user-form',
@@ -46,7 +49,7 @@ export class UserComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
-    this.userForm.reset(this.usuario)
+    this.userForm.reset(this.usuario);    
   }
 
   updateUser() {

@@ -58,7 +58,7 @@ export class UserProfileComponent implements OnInit {
       (resp: AuthResponseI) => {
         if(resp.status) {
           this.usuario = resp.data;
-          console.log(this.usuario);
+          console.log(resp.data);
           
           this.foto_perfil = this.usuario.foto_perfil;
         this.loadData();
@@ -71,9 +71,9 @@ export class UserProfileComponent implements OnInit {
     this.nombreCompleto = this.usuario.nombre + ' ' + this.usuario.apellido_paterno + ' ' + this.usuario.apellido_materno;
     this.email = this.usuario.email;
     this.telefono = this.usuario.telefono;
-    this.experienciasLaborales = this.usuario.experiencias_laborales;
-    this.experienciasAcademicas = this.usuario.experiencias_academicas;
-    this.cursosCertificaciones = this.usuario.cursos_certificaciones;
+    // this.experienciasLaborales = this.usuario.experiencias_laborales;
+    // this.experienciasAcademicas = this.usuario.experiencias_academicas;
+    // this.cursosCertificaciones = this.usuario.cursos_certificaciones;
   }
 
   compararArregos(arreglo: any[], arreglo2: any[]) {

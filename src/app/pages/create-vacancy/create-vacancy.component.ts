@@ -72,6 +72,11 @@ export class CreateVacancyComponent implements OnInit {
       private vacanteService: VacancyService
   ) {
     this.vacantCreateForm();
+    this.vacantForm.valueChanges.subscribe(data => {
+      console.log('Form changes', data);
+      
+    })
+
   }
 
   ngOnInit(): void {
@@ -149,7 +154,10 @@ export class CreateVacancyComponent implements OnInit {
       descripcion: [, Validators.required],
       imagen: [],
     });
+
   }
+
+  
 
   create(): void {
     // Si el formulario es invalido
