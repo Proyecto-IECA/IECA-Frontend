@@ -5,6 +5,7 @@ import { AuthResponseI } from '../../models/auth-response';
 import { UsuarioI } from '../../models/usuario';
 
 const baseUrl = environment.baseUrl;
+const id = localStorage.getItem('id_usuario');
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,6 @@ export class UserProfileService {
   constructor(private http: HttpClient) { }
 
   getUsuario() {
-    const id = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/usuarios/${id}`)
   }
 
@@ -23,7 +23,18 @@ export class UserProfileService {
   }
   
   getPerfilesUsuario() {
-    const id = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/perfiles/usuario/${id}`);
+  }
+
+  getHabilidadesUsuario() {
+    return this.http.get(`${baseUrl}/habilidades/${id}`);
+  }
+
+  getIdiomasUsuario() {
+    return this.http.get(`${baseUrl}/idiomas/${id}`);
+  }
+
+  getValoresUsuario() {
+    return this.http.get(`${baseUrl}/valores/${id}`);
   }
 }

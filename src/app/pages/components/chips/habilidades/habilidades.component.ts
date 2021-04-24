@@ -1,9 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AuthResponseI } from 'app/models/auth-response';
-import { HabilidadPostulanteI } from 'app/models/habilidades_postulante';
-import { UsuarioService } from '../../../../services/usuario.service';
-import { UsuarioI } from '../../../../models/usuario';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,6 +8,7 @@ import { HabilidadI } from '../../../../models/habilidad';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { startWith, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { HabilidadesService } from './habilidades.service';
 
 @Component({
   selector: 'app-habilidades',
@@ -18,13 +16,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./habilidades.component.css']
 })
 export class HabilidadesComponent implements OnInit {
-  @Input() usuario: UsuarioI;
+  
+  @Input() habilidades: HabilidadI[];
 
   selectable = true;
   removable = true;
   guardarHabilidad = false;
-  habilidades: HabilidadPostulanteI[];
-  habilidadAux: HabilidadPostulanteI[];
+  habilidadesAux: HabilidadI[];
   habilidadControl = new FormControl();
   filteredHabilidad: Observable<HabilidadI[]>;
   listaHabilidades: HabilidadI[];
@@ -33,28 +31,28 @@ export class HabilidadesComponent implements OnInit {
   @ViewChild('habilidadInput') habilidadInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private habilidadesService: HabilidadesService) {}
 
   ngOnInit(): void {
-    this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
-        this.habilidadAux = resp.data;
+    
+    this.habilidadesService.getHabilidadesUsuario().subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.habilidadesAux = resp.data;
       }
     });
 
-    this.usuarioService.readHabilidades().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
+    this.habilidadesService.getHabilidades().subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
         this.listaHabilidades = resp.data;
         this.filteredHabilidad = this.habilidadControl.valueChanges.pipe(
           startWith(null),
-          map((habilidad: string | null ) => habilidad ? this._filter(habilidad): this.listaHabilidades.slice())
+          map((habilidad: string | HabilidadI | null ) => habilidad ? 
+          this._filter(habilidad): this.listaHabilidades.slice())
         );
       }
-    })
+    });
 
-    this.habilidades = this.usuario.habilidades_postulante;
   }
-
 
   addHab(event: MatChipInputEvent): void {
     const input = event.input;
@@ -62,7 +60,6 @@ export class HabilidadesComponent implements OnInit {
 
     if ((value || '').trim()) {
       this.habilidades.push({
-        id_postulante: this.usuario.id_usuario,
         descripcion: value.trim()
       });
     }
@@ -73,21 +70,21 @@ export class HabilidadesComponent implements OnInit {
 
     this.habilidadControl.setValue(null);
 
-    if (!this.compararArregos(this.habilidades, this.habilidadAux)) {
+    if (!this.compararArregos(this.habilidades, this.habilidadesAux)) {
       this.guardarHabilidad = true;
     } else {
       this.guardarHabilidad = false;
     }
   }
 
-  removeHab(habilidad: HabilidadPostulanteI): void {
+  removeHab(habilidad: HabilidadI): void {
     const index = this.habilidades.indexOf(habilidad);
 
     if (index >= 0) {
       this.habilidades.splice(index, 1);
     }
 
-    if (!this.compararArregos(this.habilidades, this.habilidadAux)) {
+    if (!this.compararArregos(this.habilidades, this.habilidadesAux)) {
       this.guardarHabilidad = true;
     } else {
       this.guardarHabilidad = false;
@@ -96,13 +93,12 @@ export class HabilidadesComponent implements OnInit {
 
   selectedHab(event: MatAutocompleteSelectedEvent): void {
     this.habilidades.push({
-      id_postulante: this.usuario.id_usuario,
       descripcion: event.option.viewValue
     });
     this.habilidadInput.nativeElement.value = '';
     this.habilidadControl.setValue(null);
 
-    if (!this.compararArregos(this.habilidades, this.habilidadAux)) {
+    if (!this.compararArregos(this.habilidades, this.habilidadesAux)) {
       this.guardarHabilidad = true;
     } else {
       this.guardarHabilidad = false;
@@ -117,25 +113,24 @@ export class HabilidadesComponent implements OnInit {
       habilidadDescripcion = habilidad.descripcion.toLowerCase();
     }
 
-    return this.listaHabilidades.filter(habilidad => habilidad.descripcion.toLowerCase().indexOf(habilidadDescripcion) === 0);
+    return this.listaHabilidades.filter(habilidad => 
+      habilidad.descripcion.toLowerCase().indexOf(habilidadDescripcion) === 0
+    );
   }
 
   guardarHabilidades() {
-    this.usuarioService.createHabilidades(this.habilidades).subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.usuarioService.readHabilidadesPostulante().subscribe((resp: AuthResponseI) => {
-          if(resp.status) {
-            this.doneMassage(resp.message);
-            this.habilidadAux = resp.data;
-          } else {
-            this.errorPeticion(resp.message);
-          }
-        }, (error) => this.errorServer(error));
-        this.guardarHabilidad = false;
-      } else {
-        this.errorMassage();
-      }
-    })
+    this.guardarHabilidad = false;
+    this.habilidadesService.addHabilidades(this.habilidades).subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.doneMassage("Exito al cargar las habilidades");
+          this.habilidadesAux = resp.data;
+        } else {
+          this.guardarHabilidad = true;
+          this.errorPeticion(resp.data);
+        }
+      }, (err) => this.errorServer(err)
+    );
   }
 
 

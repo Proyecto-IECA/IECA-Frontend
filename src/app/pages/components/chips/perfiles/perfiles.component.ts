@@ -20,6 +20,7 @@ export class PerfilesComponent implements OnInit {
   @Input() perfiles: PerfilI[];
   @Input() id: number;
   @Input() type: string;
+
   selectable = true;
   removable = true;
   guardarPerfil = false;
@@ -33,17 +34,13 @@ export class PerfilesComponent implements OnInit {
   @ViewChild('perfilInput') perfilInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
 
-  constructor(
-    private perfilesService: PerfilesService
-    ) { 
-  }
+  constructor( private perfilesService: PerfilesService ) { }
 
   ngOnInit(): void {
     if (this.type === "Vacante") {
       this.perfilesService.getPerfilesVacantes(this.id).subscribe(
         (resp: AuthResponseI) => {
           if (resp.status) {
-            console.log(resp);
             this.perfilesAux = resp.data;
           }
         }
@@ -52,13 +49,11 @@ export class PerfilesComponent implements OnInit {
       this.perfilesService.getPerfilesUsuario(this.id).subscribe(
         (resp: AuthResponseI) => {
           if (resp.status) {
-            console.log(resp);
             this.perfilesAux = resp.data;
           }
         }
       )
     }
-    
   
     this.perfilesService.getPerfiles().subscribe(
       (resp: AuthResponseI) => {
@@ -80,7 +75,6 @@ export class PerfilesComponent implements OnInit {
     const value = event.value;
     
     if ((value || '').trim()) {
-      console.log("Add");
       this.perfiles.push({
         descripcion: value.trim()
       });
@@ -171,8 +165,6 @@ export class PerfilesComponent implements OnInit {
   }
 
   compararArregos(arreglo: any[], arreglo2: any[]) {
-    console.log(arreglo);
-    console.log(arreglo2);
     if (arreglo.length != arreglo2.length) return false;
     for (let i = 0; i < arreglo.length; i++) {
       if (arreglo[i].descripcion != arreglo2[i].descripcion) {
@@ -190,7 +182,6 @@ export class PerfilesComponent implements OnInit {
       text: `Vuelve a intentar de nuevo...
       Si el error persiste ponerse en contacto con soporte técnico`,
     });
-    console.log(error);
   }
 
   errorMassage(): void {
