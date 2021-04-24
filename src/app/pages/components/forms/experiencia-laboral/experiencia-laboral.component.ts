@@ -17,6 +17,7 @@ import { ExperienciaLaboralI } from '../../../../models/experiencia_laboral';
 import { AuthResponseI } from '../../../../models/auth-response';
 import Swal from 'sweetalert2';
 import { UserProfileComponent } from 'app/pages/user-profile/user-profile.component';
+import { ExperienciaLaboralService } from './experiencia-laboral.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -102,7 +103,8 @@ export class ExperienciaLaboralComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder, 
       private usuarioService: UsuarioService, 
-      @Host() private _userProC: UserProfileComponent
+      @Host() private _userProC: UserProfileComponent,
+      private expLabService: ExperienciaLaboralService
     ) {}
 
   ngOnInit(): void {
@@ -167,7 +169,21 @@ export class ExperienciaLaboralComponent implements OnInit {
   addExpLaboral(formDirective: FormGroupDirective){
     this.formSubmitted = true;
     if(this.laboralForm.valid){
-      this.usuarioService.createExpLaboral(this.laboralForm.value).subscribe((resp: AuthResponseI) => {
+      this.expLabService.addExpLaboral(this.laboralForm.value).subscribe(
+        (resp: AuthResponseI) => {
+          if (resp.status) {
+          this._userProC.experienciasLaborales = resp.data;
+          this.formSubmitted = false;
+          this.laboralForm.reset();
+          formDirective.resetForm();
+          this.laboralForm.get('trabajando').setValue(false);
+          this._userProC.panelExpL = false;
+          this.doneMassage(resp.message);
+          } else {
+            this.errorPeticion(resp.message);
+          }
+      }, (error) => this.errorServer(error)); 
+     /*  this.usuarioService.createExpLaboral(this.laboralForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status){
           this._userProC.experienciasLaborales = resp.data;
           this.formSubmitted = false;
@@ -179,7 +195,7 @@ export class ExperienciaLaboralComponent implements OnInit {
         } else {
           this.errorPeticion(resp.message);
         }
-      }, (error) => this.errorServer(error));
+      }, (error) => this.errorServer(error)); */
     } else {
       this.errorMassage();
     }

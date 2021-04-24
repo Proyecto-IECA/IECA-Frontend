@@ -26,4 +26,6 @@ export class UserProfileService {
     const id = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/perfiles/usuario/${id}`);
   }
+
+  
 }
