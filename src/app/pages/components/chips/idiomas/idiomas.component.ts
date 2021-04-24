@@ -1,9 +1,7 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AuthResponseI } from 'app/models/auth-response';
-import { IdiomaPostulanteI } from 'app/models/idioma_postulante';
 import { UsuarioService } from '../../../../services/usuario.service';
-import { UsuarioI } from '../../../../models/usuario';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,6 +9,7 @@ import { IdiomaI } from '../../../../models/idioma';
 import { map, startWith } from 'rxjs/operators';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
+import { IdiomasService } from './idiomas.service';
 
 
 @Component({
@@ -20,40 +19,40 @@ import Swal from 'sweetalert2';
 })
 export class IdiomasComponent implements OnInit {
 
-  @Input() usuario: UsuarioI;
+  @Input() idiomas: IdiomaI[];
+
   selectable = true;
   removable = true;
   guardarIdioma = false;
-  idiomas: IdiomaPostulanteI[];
-  idiomasAux: IdiomaPostulanteI[];
+  idiomasAux: IdiomaI[];
   idiomaCtrl = new FormControl();
   filteredIdioma: Observable<IdiomaI[]>;
-  ListaIdiomas: IdiomaI[];
+  listaIdiomas: IdiomaI[];
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @ViewChild('idiomaInput') idiomaInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private idiomasService: IdiomasService) { }
 
   ngOnInit(): void {
-    this.usuarioService.readIdiomasPostulante().subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
+
+    this.idiomasService.getIdiomasUsuario().subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
         this.idiomasAux = resp.data;
       }
     });
 
-    this.usuarioService.readIdiomas().subscribe((resp: AuthResponseI) => {
-      if(resp.status){
-        this.ListaIdiomas = resp.data;
+    this.idiomasService.getIdiomas().subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.listaIdiomas = resp.data;
         this.filteredIdioma = this.idiomaCtrl.valueChanges.pipe(
           startWith(null),
           map((idioma: string | IdiomaI | null) => idioma ?
-          this._filter(idioma) : this.ListaIdiomas.slice()));
-      } 
-    })
+          this._filter(idioma) : this.listaIdiomas.slice()));
+      }
+    });
 
-    this.idiomas = this.usuario.idiomas_postulante;
   }
 
   addIdi(event: MatChipInputEvent): void {
@@ -63,7 +62,6 @@ export class IdiomasComponent implements OnInit {
      // Add our fruit
      if ((value || '').trim()) {
       this.idiomas.push({
-        id_postulante: this.usuario.id_usuario,
         descripcion: value.trim()
       });
     }
@@ -81,7 +79,7 @@ export class IdiomasComponent implements OnInit {
     this.idiomaCtrl.setValue(null);
   }
 
-  removeIdi(idioma: IdiomaPostulanteI): void {
+  removeIdi(idioma: IdiomaI): void {
     const index = this.idiomas.indexOf(idioma);
 
     if (index >= 0) {
@@ -97,7 +95,6 @@ export class IdiomasComponent implements OnInit {
 
   selectedIdi(event: MatAutocompleteSelectedEvent) : void{
     this.idiomas.push({
-      id_postulante: this.usuario.id_usuario,
       descripcion: event.option.viewValue
     });
     this.idiomaInput.nativeElement.value = '';
@@ -118,27 +115,25 @@ export class IdiomasComponent implements OnInit {
     } else {
       idiomaDescripcion = idioma.descripcion.toLowerCase();
     }
-    return this.ListaIdiomas.filter(idioma => 
-      idioma.descripcion.toLowerCase().indexOf(idiomaDescripcion) === 0);
+    return this.listaIdiomas.filter(idioma => 
+      idioma.descripcion.toLowerCase().indexOf(idiomaDescripcion) === 0
+    );
   }
 
   guardarIdiomas() {
-    this.usuarioService.createIdiomas(this.idiomas).subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.usuarioService.readIdiomasPostulante().subscribe((resp: AuthResponseI) => {
-          if(resp.status) {
-            this.doneMassage(resp.message);
-            this.idiomasAux = resp.data;
-          } else {
-            this.errorPeticion(resp.message);
-          }
-        }, (error) => this.errorServer(error));
+    this.guardarIdioma = false;
 
-        this.guardarIdioma = false;
-      } else {
-        this.errorMassage();
-      }
-    })
+    this.idiomasService.addIdiomas(this.idiomas).subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.doneMassage("Exito al cargar los idiomas");
+          this.idiomasAux = resp.data;
+        } else {
+          this.guardarIdioma = true;
+          this.errorPeticion(resp.data);
+        }
+      }, (err) => this.errorServer(err)
+    );
   }
 
   compararArregos(arreglo: any[], arreglo2: any[]) {

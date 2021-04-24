@@ -2,15 +2,13 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AuthResponseI } from 'app/models/auth-response';
-import { ValorPostulanteI } from 'app/models/valor_postulante';
-import { UsuarioI } from '../../../../models/usuario';
-import { UsuarioService } from '../../../../services/usuario.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ValorI } from 'app/models/valor';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, startWith } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { ValoresService } from './valores.service';
 
 @Component({
   selector: 'app-valores',
@@ -19,40 +17,40 @@ import Swal from 'sweetalert2';
 })
 export class ValoresComponent implements OnInit {
 
-  @Input() usuario: UsuarioI 
+  @Input() valores: ValorI[];
+
   selectable = true;
   removable = true;
   guardarValor = false;
-  valores: ValorPostulanteI[];
-  valoresAux: ValorPostulanteI[];
+  valoresAux: ValorI[];
   valorCtrl = new FormControl();
   filteredValor: Observable<ValorI[]>
-  ListaValores: ValorI[];
+  listaValores: ValorI[];
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @ViewChild('valorInput') valorInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
   
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private valoresService: ValoresService) { }
 
   ngOnInit(): void {
-    this.usuarioService.readValoresPostulante().subscribe((resp: AuthResponseI) => {
+
+    this.valoresService.getValoresUsuario().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.valoresAux = resp.data;
       }
     });
 
-    this.usuarioService.readValores().subscribe((resp: AuthResponseI) => {
-      if(resp.status){
-        this.ListaValores = resp.data;
+    this.valoresService.getValores().subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.listaValores = resp.data;
         this.filteredValor = this.valorCtrl.valueChanges.pipe(
           startWith(null),
           map((valor: string | ValorI | null) => valor ?
-          this._filter(valor) : this.ListaValores.slice()));
+          this._filter(valor) : this.listaValores.slice()));
       }
-    })
+    });
 
-    this.valores = this.usuario.valores_postulante;
   }
 
   addVal(event: MatChipInputEvent): void {
@@ -62,7 +60,6 @@ export class ValoresComponent implements OnInit {
      // Add our fruit
      if ((value || '').trim()) {
       this.valores.push({
-        id_postulante: this.usuario.id_usuario,
         descripcion: value.trim()
       });
     }
@@ -78,7 +75,7 @@ export class ValoresComponent implements OnInit {
     }
   }
 
-  removeVal(valor: ValorPostulanteI): void {
+  removeVal(valor: ValorI): void {
     const index = this.valores.indexOf(valor);
 
     if (index >= 0) {
@@ -95,7 +92,6 @@ export class ValoresComponent implements OnInit {
 
   selectedVal(event: MatAutocompleteSelectedEvent): void{
     this.valores.push({ 
-      id_postulante: this.usuario.id_usuario, 
       descripcion: event.option.viewValue
     });
     this.valorInput.nativeElement.value = '';
@@ -116,26 +112,24 @@ export class ValoresComponent implements OnInit {
     } else {
       valorDescripcion = valor.descripcion.toLowerCase();
     }
-    return this.ListaValores.filter(valor => 
+    return this.listaValores.filter(valor => 
       valor.descripcion.toLowerCase().indexOf(valorDescripcion) === 0);
   }
 
   guardarValores() {
-    this.usuarioService.createValores(this.valores).subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.usuarioService.readValoresPostulante().subscribe((resp: AuthResponseI) => {
-          if (resp.status) {
-            this.doneMassage(resp.message);
-            this.valoresAux = resp.data;
-          } else {
-            this.errorPeticion(resp.message);
-          }
-        });
-        this.guardarValor = false;
-      } else {
-        this.errorMassage();
-      }
-    })
+    this.guardarValor = false;
+
+    this.valoresService.addValores(this.valores).subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.doneMassage("Exito al cargar los valores");
+          this.valoresAux = resp.data;
+        } else {
+          this.guardarValor = true;
+          this.errorPeticion(resp.data);
+        }
+      }, (err) => this.errorServer(err)
+    );
   }
 
   compararArregos(arreglo: any[], arreglo2: any[]) {

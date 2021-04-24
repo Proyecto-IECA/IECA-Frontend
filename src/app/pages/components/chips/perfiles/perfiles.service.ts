@@ -5,7 +5,6 @@ import { PerfilI } from '../../../../models/perfil';
 
 const baseUrl = environment.baseUrl + "/perfiles";
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -13,16 +12,16 @@ export class PerfilesService {
 
   constructor(private http: HttpClient) { }
 
+  getPerfiles() {
+    return this.http.get(`${baseUrl}`);
+  }
+
   getPerfilesVacantes(id_vacante) {
     return this.http.get(`${baseUrl}/vacante/${id_vacante}`);
   }
 
   getPerfilesUsuario(id_usuario) {
     return this.http.get(`${baseUrl}/usuario/${id_usuario}`);
-  }
-
-  getPerfiles() {
-    return this.http.get(`${baseUrl}`);
   }
 
   addPerfilesVacante(id_vacante, perfiles: PerfilI[]) {
