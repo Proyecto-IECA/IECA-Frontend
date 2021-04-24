@@ -10,6 +10,7 @@ import { CursoCertificacionI } from '../../models/cursos_certificaciones';
 import { FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UserProfileService } from './user-profile.service';
+import { PerfilI } from '../../models/perfil';
 
 
 @Component({
@@ -26,6 +27,9 @@ export class UserProfileComponent implements OnInit {
   )
 
   usuario: UsuarioI;
+  perfiles: PerfilI;
+  idUsuario: number;
+  type: string = "Postulante";
   experienciasLaborales: ExperienciaLaboralI[];
   experienciasAcademicas: ExperienciaAcademicaI[];
   cursosCertificaciones: CursoCertificacionI[];
@@ -58,10 +62,17 @@ export class UserProfileComponent implements OnInit {
       (resp: AuthResponseI) => {
         if(resp.status) {
           this.usuario = resp.data;
-          console.log(resp.data);
-          
+          this.idUsuario = this.usuario.id_usuario;          
           this.foto_perfil = this.usuario.foto_perfil;
         this.loadData();
+        }
+      }
+    )
+
+    this.userProfileService.getPerfilesUsuario().subscribe(
+      (resp: AuthResponseI) => {
+        if (resp.status) {
+          this.perfiles = resp.data;
         }
       }
     )

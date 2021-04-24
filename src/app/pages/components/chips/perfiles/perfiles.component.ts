@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AuthResponseI } from 'app/models/auth-response';
-import { UsuarioService } from '../../../../services/usuario.service';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -35,20 +34,31 @@ export class PerfilesComponent implements OnInit {
   @ViewChild('auto') MatAutocomplete: MatAutocomplete;
 
   constructor(
-    private usuarioService: UsuarioService,
     private perfilesService: PerfilesService
     ) { 
   }
 
   ngOnInit(): void {
-    this.perfilesService.getPerfilesVacantes(this.id).subscribe(
-      (resp: AuthResponseI) => {
-        if (resp.status) {
-          console.log(resp);
-          this.perfilesAux = resp.data;
+    if (this.type === "Vacante") {
+      this.perfilesService.getPerfilesVacantes(this.id).subscribe(
+        (resp: AuthResponseI) => {
+          if (resp.status) {
+            console.log(resp);
+            this.perfilesAux = resp.data;
+          }
         }
-      }
-    )
+      )
+    } else {
+      this.perfilesService.getPerfilesUsuario(this.id).subscribe(
+        (resp: AuthResponseI) => {
+          if (resp.status) {
+            console.log(resp);
+            this.perfilesAux = resp.data;
+          }
+        }
+      )
+    }
+    
   
     this.perfilesService.getPerfiles().subscribe(
       (resp: AuthResponseI) => {
@@ -129,17 +139,35 @@ export class PerfilesComponent implements OnInit {
   }
   
   guardarPerfiles()  {
-    this.perfilesService.addPerfilesVacante(this.id, this.perfiles).subscribe(
-      (resp: AuthResponseI) => {
-        if (resp.status) {
-          this.guardarPerfil = false;
-          this.doneMassage("Exito al cargar los perfiles");
-          this.perfilesAux = resp.data;
-        } else {
-          this.errorPeticion(resp.data);
-        }
-      }, (err) => this.errorServer(err)
-    );
+    this.guardarPerfil = false;
+    if (this.type === "Vacante") {
+      this.perfilesService.addPerfilesVacante(this.id, this.perfiles).subscribe(
+        (resp: AuthResponseI) => {
+          if (resp.status) {
+            this.doneMassage("Exito al cargar los perfiles");
+            this.perfilesAux = resp.data;
+          } else {
+            this.guardarPerfil = true;
+            this.errorPeticion(resp.data);
+          }
+        }, (err) => this.errorServer(err)
+      );
+    } else {
+      this.perfilesService.addPerfilesUsuario(this.id, this.perfiles).subscribe(
+        (resp: AuthResponseI) => {
+          if (resp.status) {
+            this.doneMassage("Exito al cargar los perfiles");
+            this.perfilesAux = resp.data;
+          } else {
+            this.guardarPerfil = true;
+            this.errorPeticion(resp.data);
+
+          }
+        }, (err) => this.errorServer(err)
+      );
+    }
+
+    
   }
 
   compararArregos(arreglo: any[], arreglo2: any[]) {

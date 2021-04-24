@@ -17,6 +17,10 @@ export class PerfilesService {
     return this.http.get(`${baseUrl}/vacante/${id_vacante}`);
   }
 
+  getPerfilesUsuario(id_usuario) {
+    return this.http.get(`${baseUrl}/usuario/${id_usuario}`);
+  }
+
   getPerfiles() {
     return this.http.get(`${baseUrl}`);
   }
@@ -27,5 +31,12 @@ export class PerfilesService {
       perfiles: perfiles
     };
     return this.http.post(`${baseUrl}/vacante`, formData);
+  }
+  addPerfilesUsuario(id_usuario, perfiles: PerfilI[]) {
+    const formData = {
+      id_usuario: id_usuario,
+      perfiles: perfiles
+    };
+    return this.http.post(`${baseUrl}/usuario`, formData);
   }
 }
