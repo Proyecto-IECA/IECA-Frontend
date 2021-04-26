@@ -178,24 +178,12 @@ export class ExperienciaLaboralComponent implements OnInit {
           formDirective.resetForm();
           this.laboralForm.get('trabajando').setValue(false);
           this._userProC.panelExpL = false;
-          this.doneMassage(resp.message);
+          this.doneMassage('Experiencia Laboral actualizada');
           } else {
-            this.errorPeticion(resp.message);
+            console.log(resp);
+            this.errorPeticion(resp.data);
           }
       }, (error) => this.errorServer(error)); 
-     /*  this.usuarioService.createExpLaboral(this.laboralForm.value).subscribe((resp: AuthResponseI) => {
-        if(resp.status){
-          this._userProC.experienciasLaborales = resp.data;
-          this.formSubmitted = false;
-          this.laboralForm.reset();
-          formDirective.resetForm();
-          this.laboralForm.get('trabajando').setValue(false);
-          this._userProC.panelExpL = false;
-          this.doneMassage(resp.message);
-        } else {
-          this.errorPeticion(resp.message);
-        }
-      }, (error) => this.errorServer(error)); */
     } else {
       this.errorMassage();
     }
@@ -213,28 +201,28 @@ export class ExperienciaLaboralComponent implements OnInit {
   updateExpLaboral(){
     this.formSubmitted = true;
     if(this.laboralForm.valid) {
-      this.usuarioService.updateExpLaboral(this.laboralForm.value, this.experienciaLaboral.id_experiencia_laboral).subscribe((resp: AuthResponseI) => {
+      this.expLabService.updateExpLaboral(this.experienciaLaboral.id_experiencia_laboral, this.laboralForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status) {
           this._userProC.experienciasLaborales = resp.data;
-          this.doneMassage(resp.message);
+          this.doneMassage('Experiencia Laboral actualizada');
         } else {
-          this.errorPeticion(resp.message);
+          this.errorPeticion(resp.data);
         }
-      }, (error) => this.errorServer(error));
+      }, (error) => this.errorServer(error))
     } else {
       this.errorMassage();
     }
   }
 
   deleteExpLaboral(){
-    this.usuarioService.deleteExpLaboral(this.experienciaLaboral.id_experiencia_laboral).subscribe((resp: AuthResponseI) => {
+    this.expLabService.deleteExpLaboral(this.experienciaLaboral.id_experiencia_laboral).subscribe((resp: AuthResponseI) => {
       if(resp.status) {
         this._userProC.experienciasLaborales = resp.data;
-        this.doneMassage(resp.message);
+        this.doneMassage('Experiencia Laboral eliminada');
       } else {
-        this.errorPeticion(resp.message);
+        this.errorPeticion(resp.data);
       }
-    }, (error) => this.errorServer(error));    
+    }, (error) => this.errorServer(error)); 
   } 
   
   ischecked() {

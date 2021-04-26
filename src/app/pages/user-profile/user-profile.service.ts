@@ -37,4 +37,8 @@ export class UserProfileService {
   getValoresUsuario() {
     return this.http.get(`${baseUrl}/valores/${id}`);
   }
+
+  getExpLaborales() {
+    return this.http.get(`${baseUrl}/experiencias-laborales/${id}`);
+  }
 }
