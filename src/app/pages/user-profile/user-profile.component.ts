@@ -94,6 +94,18 @@ export class UserProfileComponent implements OnInit {
       if(resp.status) {
         this.experienciasLaborales = resp.data;
       }
+    });
+
+    this.userProfileService.getExpAcademica().subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.experienciasAcademicas = resp.data;
+      }
+    });
+
+    this.userProfileService.getCursoCertificado().subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.cursosCertificaciones = resp.data;
+      }
     })
   }
 

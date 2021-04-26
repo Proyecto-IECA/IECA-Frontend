@@ -41,4 +41,12 @@ export class UserProfileService {
   getExpLaborales() {
     return this.http.get(`${baseUrl}/experiencias-laborales/${id}`);
   }
+
+  getExpAcademica() {
+    return this.http.get(`${baseUrl}/experiencias-academicas/${id}`)
+  }
+
+  getCursoCertificado() {
+    return this.http.get(`${baseUrl}/cursos-certificaciones/${id}`);
+  }
 }
