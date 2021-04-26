@@ -14,6 +14,7 @@ import { ExperienciaAcademicaI } from '../../../../models/experiencia_academica'
 import Swal from 'sweetalert2';
 import { AuthResponseI } from '../../../../models/auth-response';
 import { UserProfileComponent } from 'app/pages/user-profile/user-profile.component';
+import { ExperienciaAcademicaService } from './experiencia-academica.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -78,7 +79,12 @@ export class ExperienciaAcademicaComponent implements OnInit {
     }
   }
   
-  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService, @Host() private _userProC: UserProfileComponent) { }
+  constructor(private formBuilder: FormBuilder, 
+              private usuarioService: UsuarioService, 
+              @Host() private _userProC: UserProfileComponent,
+              private expAcademicaSerice: ExperienciaAcademicaService
+              )
+              { }
 
   ngOnInit(): void {
     if (this.tipo == 'update') {
@@ -138,8 +144,8 @@ export class ExperienciaAcademicaComponent implements OnInit {
   addExpAcademica(formDirective: FormGroupDirective){
     this.formSubmitted = true;
     if(this.academicaForm.valid) {
-      this.usuarioService.createExpAcademica(this.academicaForm.value).subscribe((resp: AuthResponseI) => {
-        if(resp.status){
+      this.expAcademicaSerice.addExpAcademica(this.academicaForm.value).subscribe((resp: AuthResponseI) => {
+        if (resp.status) {
           this._userProC.experienciasAcademicas = resp.data;
           this.formSubmitted = false;
           this.academicaForm.reset();
@@ -150,7 +156,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
         } else {
           this.errorPeticion(resp.message);
         }
-      }, (error) => this.errorServer(error))
+      }, (error) => this.errorServer(error));
     } else {
       this.errorMassage();
     }
@@ -167,8 +173,8 @@ export class ExperienciaAcademicaComponent implements OnInit {
   updateExpAcademica(){
     this.formSubmitted = true;
     if(this.academicaForm.valid){
-      this.usuarioService.updateExpAcademica(this.academicaForm.value, this.experienciaAcademica.id_experiencia_academica).subscribe((resp: AuthResponseI) => {
-        if(resp.status) {
+      this.expAcademicaSerice.updateExpAcademica(this.experienciaAcademica.id_experiencia_academica, this.academicaForm.value).subscribe((resp: AuthResponseI) => {
+        if (resp.status) {
           this._userProC.experienciasAcademicas = resp.data;
           this.doneMassage(resp.message);
         } else {
@@ -181,14 +187,14 @@ export class ExperienciaAcademicaComponent implements OnInit {
   }
 
   deleteExpAcademica(){
-    this.usuarioService.deleteExpAcademica(this.experienciaAcademica.id_experiencia_academica).subscribe((resp: AuthResponseI) => {
-      if(resp.status){
+    this.expAcademicaSerice.deleteExpAcademica(this.experienciaAcademica.id_experiencia_academica).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
         this._userProC.experienciasAcademicas = resp.data;
         this.doneMassage(resp.message);
       } else {
         this.errorMassage();
       }
-    }) 
+    });
   }
 
   /* loadFechasForm() {
