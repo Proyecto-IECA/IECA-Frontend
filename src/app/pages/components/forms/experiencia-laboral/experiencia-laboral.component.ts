@@ -17,6 +17,7 @@ import { ExperienciaLaboralI } from '../../../../models/experiencia_laboral';
 import { AuthResponseI } from '../../../../models/auth-response';
 import Swal from 'sweetalert2';
 import { UserProfileComponent } from 'app/pages/user-profile/user-profile.component';
+import { ExperienciaLaboralService } from './experiencia-laboral.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -102,7 +103,8 @@ export class ExperienciaLaboralComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder, 
       private usuarioService: UsuarioService, 
-      @Host() private _userProC: UserProfileComponent
+      @Host() private _userProC: UserProfileComponent,
+      private expLabService: ExperienciaLaboralService
     ) {}
 
   ngOnInit(): void {
@@ -167,19 +169,21 @@ export class ExperienciaLaboralComponent implements OnInit {
   addExpLaboral(formDirective: FormGroupDirective){
     this.formSubmitted = true;
     if(this.laboralForm.valid){
-      this.usuarioService.createExpLaboral(this.laboralForm.value).subscribe((resp: AuthResponseI) => {
-        if(resp.status){
+      this.expLabService.addExpLaboral(this.laboralForm.value).subscribe(
+        (resp: AuthResponseI) => {
+          if (resp.status) {
           this._userProC.experienciasLaborales = resp.data;
           this.formSubmitted = false;
           this.laboralForm.reset();
           formDirective.resetForm();
           this.laboralForm.get('trabajando').setValue(false);
           this._userProC.panelExpL = false;
-          this.doneMassage(resp.message);
-        } else {
-          this.errorPeticion(resp.message);
-        }
-      }, (error) => this.errorServer(error));
+          this.doneMassage('Experiencia Laboral actualizada');
+          } else {
+            console.log(resp);
+            this.errorPeticion(resp.data);
+          }
+      }, (error) => this.errorServer(error)); 
     } else {
       this.errorMassage();
     }
@@ -197,28 +201,28 @@ export class ExperienciaLaboralComponent implements OnInit {
   updateExpLaboral(){
     this.formSubmitted = true;
     if(this.laboralForm.valid) {
-      this.usuarioService.updateExpLaboral(this.laboralForm.value, this.experienciaLaboral.id_experiencia_laboral).subscribe((resp: AuthResponseI) => {
+      this.expLabService.updateExpLaboral(this.experienciaLaboral.id_experiencia_laboral, this.laboralForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status) {
           this._userProC.experienciasLaborales = resp.data;
-          this.doneMassage(resp.message);
+          this.doneMassage('Experiencia Laboral actualizada');
         } else {
-          this.errorPeticion(resp.message);
+          this.errorPeticion(resp.data);
         }
-      }, (error) => this.errorServer(error));
+      }, (error) => this.errorServer(error))
     } else {
       this.errorMassage();
     }
   }
 
   deleteExpLaboral(){
-    this.usuarioService.deleteExpLaboral(this.experienciaLaboral.id_experiencia_laboral).subscribe((resp: AuthResponseI) => {
+    this.expLabService.deleteExpLaboral(this.experienciaLaboral.id_experiencia_laboral).subscribe((resp: AuthResponseI) => {
       if(resp.status) {
         this._userProC.experienciasLaborales = resp.data;
-        this.doneMassage(resp.message);
+        this.doneMassage('Experiencia Laboral eliminada');
       } else {
-        this.errorPeticion(resp.message);
+        this.errorPeticion(resp.data);
       }
-    }, (error) => this.errorServer(error));    
+    }, (error) => this.errorServer(error)); 
   } 
   
   ischecked() {

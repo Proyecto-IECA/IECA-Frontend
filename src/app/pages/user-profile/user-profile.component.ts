@@ -92,6 +92,12 @@ export class UserProfileComponent implements OnInit {
         this.valores = resp.data;
       }
     });
+
+    this.userProfileService.getExpLaborales().subscribe((resp: AuthResponseI) => {
+      if(resp.status) {
+        this.experienciasLaborales = resp.data;
+      }
+    })
   }
 
   loadData() {
