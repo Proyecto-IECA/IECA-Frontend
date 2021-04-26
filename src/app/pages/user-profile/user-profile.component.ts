@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MatChipInputEvent } from "@angular/material/chips";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { UsuarioService } from "../../services/usuario.service";
 import { AuthResponseI } from "app/models/auth-response";
 import { UsuarioI } from "app/models/usuario";
 import { ExperienciaLaboralI } from "../../models/experiencia_laboral";
@@ -54,7 +52,6 @@ export class UserProfileComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
-    private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
     private userProfileService: UserProfileService
   ) {}

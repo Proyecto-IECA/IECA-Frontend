@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { UsuarioService } from "../../../../services/usuario.service";
 import { UsuarioI } from "../../../../models/usuario";
 import Swal from "sweetalert2";
 import { AuthResponseI } from "../../../../models/auth-response";
-import * as moment from "moment";
 import { UserService } from "./user.service";
 
 interface Sexo {
@@ -18,8 +16,8 @@ interface Sexo {
   styleUrls: ["./user.component.css"],
 })
 export class UserComponent implements OnInit {
-  public selected;
   @Input() usuario: UsuarioI;
+  public selected;
   public formSubmitted = false;
 
   public userForm = this.formBuilder.group({
@@ -44,7 +42,6 @@ export class UserComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService,
     private userService: UserService
   ) {}
 

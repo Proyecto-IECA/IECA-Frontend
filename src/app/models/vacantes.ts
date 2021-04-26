@@ -11,4 +11,5 @@ export class VacantesI {
     vistas: number;
     publicada: number;
     id_usuario_fk?: number;
+    id_sucursal_fk?: number;
 }

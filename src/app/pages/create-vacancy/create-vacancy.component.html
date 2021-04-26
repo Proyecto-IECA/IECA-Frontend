@@ -4,7 +4,16 @@
             <div class="col-md-8">
                 <div class="col-md-12">
                     <h1>Nombre de la Empresa</h1>
-                    <app-vacante [sucursales]="sucursales"></app-vacante>
+                    <div class="card m-t-3">
+                        <!-- Header -->
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">Vacante</h4>
+                            <p class="card-category">Crea una vacante para tu negocio</p>
+                        </div>
+                        <div class="card-body">
+                            <app-vacante [sucursales]="sucursales"></app-vacante>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">

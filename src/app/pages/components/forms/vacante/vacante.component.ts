@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { SucursalesI } from '../../../../models/sucursales';
+import { VacantesI } from '../../../../models/vacantes';
 
 export interface Element {
   value: string,
@@ -28,40 +29,38 @@ const MODALIDAD: Element[] = [
 })
 export class VacanteComponent implements OnInit {
 
-  niveles = NIVEL;
-  modalidades = MODALIDAD;
   @Input() sucursales: SucursalesI[];
-  vacantForm: FormGroup;
+  @Input() vacante: VacantesI;
+  public niveles = NIVEL;
+  public modalidades = MODALIDAD;
+  public negociable = false;
 
-  constructor(private formB: FormBuilder,
-    ) { }
+  public formSubmitted = false;
+  public vacanteForm = this.formBuilder.group({
+    puesto: ["", [Validators.required, Validators.minLength(5)]],
+    nivel: ["", Validators.required],
+    sueldo: ["", [Validators.required, Validators.min(1)]],
+    modalidad: ["", Validators.required],
+    descripcion: ["", Validators.required],
+    id_sucursal_fk: [""],
+    negociable: []
+  });
 
-  ngOnInit(): void {
-    this.vacanteCreateForm();
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+  ) { }
 
-    //  ---------- FORMULARIO ---------- //
-    vacanteCreateForm(): void {
-      this.vacantForm = this.formB.group({
-        puesto: [, [Validators.required, Validators.minLength(5)]],
-        nivel: [, [Validators.required]],
-        sueldo: [, [Validators.required, Validators.min(1)]],
-        modalidad: [,[Validators.required]],
-        descripcion: [, Validators.required],
-        id_sucursal_fk: []
-      });
-    }
+  ngOnInit(): void {}
 
   addVacante(): void {
-    // Si el formulario es invalido
-    if (this.formularioNoValido()) {
+    this.formSubmitted = true;
+    if (this.vacanteForm.valid) {
+
+    } else {
       this.errorMassage();
-      return;
     }
-
-    console.log(this.vacantForm.value);
-
-    // this.empresaSvc.createVacante(this.vacantForm.value).subscribe(
+    
+    // this.empresaSvc.createVacante(this.vacanteForm.value).subscribe(
     //     response => {
     //       if (!response.status) {
     //         this.errorMassage();
@@ -69,57 +68,59 @@ export class VacanteComponent implements OnInit {
     //       // Mensaje de ok
     //       this.doneMassage();
     //       // Limpiar el formulario
-    //       this.vacantForm.reset();
-    //       this.vacantForm.markAsUntouched();
+    //       this.vacanteForm.reset();
+    //       this.vacanteForm.markAsUntouched();
     //     },
     //     error => this.errorServer(error)
     // );
   }
 
+  isNegociable() {
+    if (this.vacanteForm.get("negociable").value) {
+      this.negociable = true;
+    } else {
+      this.negociable = false;
+    }
+  }
+
   //  ---------- VALIDADORES ---------- //
   /* Validar los control name */
-  controlNoValid(controlName: string): boolean {
-    return this.vacantForm.controls[controlName].errors
-        && this.vacantForm.controls[controlName].touched;
-  }
-
-  /* Validar formulario */
-  formularioNoValido(): boolean {
-    if (this.vacantForm.invalid) {
-      this.vacantForm.markAllAsTouched();
+  campoNoValido(campo: string): boolean {
+    if (this.vacanteForm.get(campo).invalid && this.formSubmitted) {
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
-    //  ---------- MENSAJES ---------- //
-    errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
-      Swal.fire({
-        icon: 'error',
-        title: 'Petición NO procesada',
-        text: `Vuelve a intentar de nuevo...
-        Si el error persiste ponerse en contacto con soporte técnico`,
-      });
-      console.log(error);
-    }
+  //  ---------- MENSAJES ---------- //
+  errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+    Swal.fire({
+      icon: 'error',
+      title: 'Petición NO procesada',
+      text: `Vuelve a intentar de nuevo...
+      Si el error persiste ponerse en contacto con soporte técnico`,
+    });
+    console.log(error);
+  }
   
-    errorMassage(): void {
-      Swal.fire({
-        icon: 'error',
-        title: 'Revisa el formulario',
-        text: 'Revisa que el formulario esté correctamente llenado',
-        showConfirmButton: false,
-        timer: 2700
-      });
-    }
-  
-    doneMassage(): void {
-      Swal.fire({
-        icon: 'success',
-        title: 'Vacante generada',
-        text: 'Éxito en la busqueda del nuevo integrante',
-        showConfirmButton: false,
-        timer: 2700
-      });
-    }
+  errorMassage(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Revisa el formulario',
+      text: 'Revisa que el formulario esté correctamente llenado',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  doneMassage(): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Vacante generada',
+      text: 'Éxito en la busqueda del nuevo integrante',
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
 }
