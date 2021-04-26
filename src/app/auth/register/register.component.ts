@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   type = ''; // Dejarlo vacío ''
   registerUsuarioForm: FormGroup;
   registerEmpresaForm: FormGroup;
-  tipo_usuario: "Postulante";
+  tipo_usuario: 'Postulante';
 
   @ViewChild('placesRef') placesRef: GooglePlaceDirective; // autocompletar dirección
 
@@ -142,7 +142,7 @@ export class RegisterComponent implements OnInit {
     // console.log(form);
 
     /* Asigna los valores del formualrio en una variable llamada data */
-    form.get("tipo_usuario").setValue(this.tipo_usuario);
+    form.get('tipo_usuario').setValue(this.tipo_usuario);
     const data = form.value;
 
     /* Validar formulario */
@@ -150,7 +150,7 @@ export class RegisterComponent implements OnInit {
       /* Mensaje de error en Sweetalert2 */
       return this.errorMassage();
     }
-      
+
     this.authUserService.register(data).subscribe(
       (resp: AuthResponseI) => {
         if (!resp.status) {

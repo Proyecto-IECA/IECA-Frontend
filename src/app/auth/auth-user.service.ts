@@ -4,6 +4,7 @@ import { environment } from 'environments/environment';
 import { UsuarioI } from '../models/usuario';
 import { AuthResponseI } from '../models/auth-response';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 const baseUrl = environment.baseUrl + '/usuarios';
 
@@ -12,7 +13,8 @@ const baseUrl = environment.baseUrl + '/usuarios';
 })
 export class AuthUserService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private router: Router) {
   }
 
   login(formData: UsuarioI) {
@@ -35,5 +37,10 @@ export class AuthUserService {
       ruta: ruta
     }
     return this.http.post(`${baseUrl}/send-email`, data);
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigateByUrl('/auth');
   }
 }

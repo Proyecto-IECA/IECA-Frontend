@@ -3,7 +3,7 @@ import { ExperienciaAcademicaI } from './experiencia_academica';
 import { ExperienciaLaboralI } from './experiencia_laboral';
 
 export class UsuarioI {
-  //Atributos generales entre Empresa y Postulante
+  // Atributos generales entre Empresa y Postulante
   id_usuario?: number;
   nombre?: string;
   telefono?: string;
@@ -15,7 +15,7 @@ export class UsuarioI {
   foto_perfil?: string;
   calificacion?: number;
 
-  //Atributos de Usuario
+  // Atributos de Usuario
   apellido_paterno?: string;
   apellido_materno?: string;
   fecha_nacimiento?: Date;
@@ -27,14 +27,14 @@ export class UsuarioI {
   telefono_casa?: string;
   sexo?: string;
 
-  //Atributos de Empresa
+  // Atributos de Empresa
   administrador?: string;
   ubicacion?: string;
   giro?: string;
   pagina_web?: string;
   numero_sucursales?: number;
 
-  //Por Eliminar
+  // Por Eliminar
   cursos_certificaciones?: CursoCertificacionI[];
   experiencias_academicas?: ExperienciaAcademicaI[];
   experiencias_laborales?: ExperienciaLaboralI[];

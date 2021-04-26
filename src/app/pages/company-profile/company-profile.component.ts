@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import Swal from 'sweetalert2';
+
 import { EmpresaService } from '../../services/empresa.service';
-import { EmpresaI } from '../../models/empresa';
+
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+
 import { AuthResponseI } from '../../models/auth-response';
-import { FileUploadService } from '../../services/file-upload.service';
+import { UsuarioI } from '../../models/usuario';
+
 
 
 @Component({
@@ -15,23 +21,22 @@ import { FileUploadService } from '../../services/file-upload.service';
 export class CompanyProfileComponent implements OnInit {
 
   //  ---------- VARIABLES ---------- //
-  company: EmpresaI;
+  company: UsuarioI;
   imgUpdate: File;
 
   companyForm: FormGroup;
-  imgForm: FormGroup;
   panelExpA = false;
+  haveBranches = true; // Dejarlo en false
+
+  @ViewChild('placesRef') placesRef: GooglePlaceDirective; // autocompletar dirección
 
   constructor(private formB: FormBuilder,
-              private empresaSvc: EmpresaService,
-              private updateFile: FileUploadService) {
+              private empresaSvc: EmpresaService) {
     /* Variables */
-    this.company = this.empresaSvc.company;
 
     /* Métodos */
     this.loadData();
     this.companyCreateForm();
-    this.imgCreateForm();
   }
 
   ngOnInit(): void {
@@ -39,12 +44,8 @@ export class CompanyProfileComponent implements OnInit {
 
   //  ---------- VALIDADORES ---------- //
   /* Validar los control name */
-  controlNoValid(controlName: string, imgForm: boolean = false): boolean | Validators {
-    return (imgForm)
-
-        ? this.imgForm.controls[controlName].hasError('noCompatible')
-
-        : this.companyForm.controls[controlName].errors
+  controlNoValid(controlName: string): boolean | Validators {
+    return this.companyForm.controls[controlName].errors
         && this.companyForm.controls[controlName].touched;
   }
 
@@ -69,21 +70,21 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  errorMassage(): void {
+  errorMassage(text: string): void {
     Swal.fire({
       icon: 'error',
-      title: 'Revisa el formulario',
-      text: 'Revisa que el formulario esté correctamente llenado',
+      title: 'Error',
+      text: text,
       showConfirmButton: false,
       timer: 2700
     });
   }
 
-  doneMassage(): void {
+  doneMassage(text: string): void {
     Swal.fire({
       position: 'top-end',
       icon: 'success',
-      title: 'Perfil actualizado',
+      title: text,
       showConfirmButton: false,
       timer: 1700
     });
@@ -101,37 +102,36 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  imgCreateForm(): void {
-    this.imgForm = this.formB.group({
-      foto_empresa: [],
-    });
-  }
-
   //  ---------- MÉTODOS ---------- //
   /* Cargar datos al template */
   loadData(): void {
-    // Cargar datos del Card de perfil
-    // this.company = this.empresaSvc.company;
-    this.empresaSvc.readCompany(this.empresaSvc.company.id_empresa).subscribe(
-        (value: AuthResponseI) => {
 
-          // Cargar datos a la objeto company
-          this.company = value.data;
+    this.empresaSvc.readCompany().subscribe(
+      (resp: AuthResponseI) => {
+        console.log(resp);
+        if (!resp.status) {
+          return this.errorMassage('Error al obtener los datos');
+        }
 
-          // Cargar datos al formulario
-          this.companyForm.reset(value.data);
+        // Cargar datos al objeto company
+        this.company = resp.data;
+        // this.empresaSvc._company = resp.data;
 
-          // Si no existe una foto, asignar una por default
-          if (!value.data.foto_empresa) {
-            this.company.foto_empresa = './assets/img/faces/marc.jpg';
-          }
-},
-        error => {
-          /* Mensaje de error si el servidor no recibe las peticiones */
+        // Cargar datos al formulario
+        this.companyForm.reset(resp.data);
+
+        // Si no existe una foto, asignar una por default
+        /*if (!resp.data.foto_empresa) {
+          this.company.foto_perfil = './assets/img/faces/marc.jpg';
+        }*/
+
+      },
+      error => {
+          /* ! Mensaje de error si el servidor no recibe las peticiones */
           console.log(error);
           this.errorServer();
-        }
-        );
+        });
+
   }
 
   /* Actualizar Datos de la Empresa */
@@ -140,22 +140,25 @@ export class CompanyProfileComponent implements OnInit {
     // Validar formulario
     if (this.formularioNoValido()) {
       // Mensaje de error de validación
-      return this.errorMassage();
+      return this.errorMassage('Para actualizar, completa el formulario');
     }
 
-    // Extraemos los valores del formulario
-    const data = this.companyForm.value;
-
+    console.log(this.companyForm.value);
     // Petición al services de actualizar la información de la empresa
-    this.empresaSvc.updateCompany(data).subscribe(
+    this.empresaSvc.updateCompany(this.companyForm.value).subscribe(
         response => {
+
+          // Verificar que se haya actualizado la BD con el status
           if (!response.status) {
             // Mensaje de error de respuesta
-            return this.errorMassage();
+            return this.errorMassage('No es posible actualizar los datos');
           }
 
+          // Recargar el formulario y actualizar variables
+          this.loadData();
+
           // Mensaje de cambios guardados
-          return this.doneMassage();
+          return this.doneMassage('Información actualizada');
         },
         error => {
           /* Mensaje de error si el servidor no recibe las peticiones */
@@ -166,9 +169,25 @@ export class CompanyProfileComponent implements OnInit {
 
   }
 
+  // Autocompletar la dirección en la ubicación
+  public handleAddressChange(address: Address) {
+    // Do some stuff
+    // console.log(address);
+
+    // Asignar el valor de google al formulario de registerEmpresaForm
+    this.companyForm.reset({
+      nombre: this.companyForm.value.nombre,
+      administrador: this.companyForm.value.administrador,
+      ubicacion: `${address.name}, ${address.formatted_address}`,
+      giro: this.companyForm.value.giro,
+      pagina_web: this.companyForm.value.pagina_web,
+      telefono: this.companyForm.value.telefono,
+    });
+  }
+
   /* Mostrar Imagen cargada */
   updateImg($event: Event | any): void {
-
+/*
     // Evaluia si el $event está vacío
     if (!$event.target.files[0]) {
       return this.imgForm.reset();
@@ -205,34 +224,16 @@ export class CompanyProfileComponent implements OnInit {
         console.log(this.imgForm);
         return this.imgForm.get('foto_empresa').setErrors({ noCompatible: true });
     }
-
-  }
-
-  /* Mostrar la imagen cargada */
-  showImg(): void {
-
-    /*this.updateFile.extraerBase64(imageCapturada).then(
-        (image: any) => {
-          console.log(image);
-          this.company.foto_empresa = image.base;
-          this.imgForm.value.foto_empresa = image.base;
-          // console.log(this.imgForm);
-        },
-        error => {
-          /!* Mensaje de error si el servidor no recibe las peticiones *!/
-          console.log(error);
-          this.errorServer();
-        }
-    );*/
+*/
   }
 
   /* Actualizar Imagen en la Base de Datos */
   saveImg(): void {
 
-    this.updateFile.actualizarFoto(this.imgUpdate)
-        /*.then( img => {
+    /*this.updateFile.actualizarFoto(this.imgUpdate)
+        .then( img => {
           console.log(img);
-        })*/;
+        });*/
 
     /*console.log(this.company.foto_empresa);
     try {
@@ -251,4 +252,7 @@ export class CompanyProfileComponent implements OnInit {
     }*/
   }
 
+  loadSucures() {
+    return console.log();
+  }
 }

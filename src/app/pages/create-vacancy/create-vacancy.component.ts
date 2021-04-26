@@ -33,16 +33,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 const NIVEL: Element[] = [
-  {value: "Practicante", viewValue: "Practicante"},
-  {value: "Ejecutivo", viewValue: "Ejecutivo"},
-  {value: "Supervisor", viewValue: "Supervisor"},
+  {value: 'Practicante', viewValue: 'Practicante'},
+  {value: 'Ejecutivo', viewValue: 'Ejecutivo'},
+  {value: 'Supervisor', viewValue: 'Supervisor'},
 ];
 
 const MODALIDAD: Element[] = [
-  {value: "Tiempo completo", viewValue:"Tiempo completo"},
-  {value: "Medio tiempo", viewValue:"Medio tiempo"},
-  {value: "Temporal", viewValue: "Temporal"},
-  {value: "Home Office", viewValue: "Home Office"},
+  {value: 'Tiempo completo', viewValue: 'Tiempo completo'},
+  {value: 'Medio tiempo', viewValue: 'Medio tiempo'},
+  {value: 'Temporal', viewValue: 'Temporal'},
+  {value: 'Home Office', viewValue: 'Home Office'},
 ]
 
 
@@ -59,10 +59,10 @@ export class CreateVacancyComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   niveles = NIVEL;
   modalidades = MODALIDAD;
-  sucursales: SucursalesI[]; 
+  sucursales: SucursalesI[];
   perfiles: PerfilI[];
-  idVacante: number = 1;
-  type: string = "Vacante";
+  idVacante = 1;
+  type = 'Vacante';
   //  ---------- VARIABLES ---------- //
   vacantForm: FormGroup;
 
@@ -74,7 +74,6 @@ export class CreateVacancyComponent implements OnInit {
     this.vacantCreateForm();
     this.vacantForm.valueChanges.subscribe(data => {
       console.log('Form changes', data);
-      
     })
 
   }
@@ -156,8 +155,6 @@ export class CreateVacancyComponent implements OnInit {
     });
 
   }
-
-  
 
   create(): void {
     // Si el formulario es invalido

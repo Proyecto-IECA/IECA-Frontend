@@ -6,7 +6,7 @@ import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 import * as $ from 'jquery';
-import { AuthService } from '../services/auth.service';
+import { AuthUserService } from '../auth/auth-user.service';
 
 @Component({
     selector: 'app-admin-layout',
@@ -19,7 +19,7 @@ export class PagesComponent implements OnInit {
     private yScrollStack: number[] = [];
 
     constructor(public location: Location,
-                public authService: AuthService,
+                public authService: AuthUserService,
                 private router: Router) {
     }
 
