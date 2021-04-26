@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { EmpresaService } from '../../services/empresa.service';
 import { VacancyService } from './vacancy.service';
 import { SucursalesI } from '../../models/sucursales';
 import { AuthResponseI } from '../../models/auth-response';
@@ -32,18 +30,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
 
-const NIVEL: Element[] = [
-  {value: 'Practicante', viewValue: 'Practicante'},
-  {value: 'Ejecutivo', viewValue: 'Ejecutivo'},
-  {value: 'Supervisor', viewValue: 'Supervisor'},
-];
-
-const MODALIDAD: Element[] = [
-  {value: 'Tiempo completo', viewValue: 'Tiempo completo'},
-  {value: 'Medio tiempo', viewValue: 'Medio tiempo'},
-  {value: 'Temporal', viewValue: 'Temporal'},
-  {value: 'Home Office', viewValue: 'Home Office'},
-]
 
 
 
@@ -57,25 +43,14 @@ export class CreateVacancyComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
-  niveles = NIVEL;
-  modalidades = MODALIDAD;
   sucursales: SucursalesI[];
   perfiles: PerfilI[];
   idVacante = 1;
   type = 'Vacante';
-  //  ---------- VARIABLES ---------- //
-  vacantForm: FormGroup;
 
   constructor(
-      private formB: FormBuilder,
-      private empresaSvc: EmpresaService,
       private vacanteService: VacancyService
   ) {
-    this.vacantCreateForm();
-    this.vacantForm.valueChanges.subscribe(data => {
-      console.log('Form changes', data);
-    })
-
   }
 
   ngOnInit(): void {
@@ -96,89 +71,7 @@ export class CreateVacancyComponent implements OnInit {
     )
   }
 
-  //  ---------- VALIDADORES ---------- //
-  /* Validar los control name */
-  controlNoValid(controlName: string): boolean {
-    return this.vacantForm.controls[controlName].errors
-        && this.vacantForm.controls[controlName].touched;
-  }
 
-  /* Validar formulario */
-  formularioNoValido(): boolean {
-    if (this.vacantForm.invalid) {
-      this.vacantForm.markAllAsTouched();
-      return true;
-    }
-    return false;
-  }
-
-
-  //  ---------- MENSAJES ---------- //
-  errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
-    Swal.fire({
-      icon: 'error',
-      title: 'Petición NO procesada',
-      text: `Vuelve a intentar de nuevo...
-      Si el error persiste ponerse en contacto con soporte técnico`,
-    });
-    console.log(error);
-  }
-
-  errorMassage(): void {
-    Swal.fire({
-      icon: 'error',
-      title: 'Revisa el formulario',
-      text: 'Revisa que el formulario esté correctamente llenado',
-      showConfirmButton: false,
-      timer: 2700
-    });
-  }
-
-  doneMassage(): void {
-    Swal.fire({
-      icon: 'success',
-      title: 'Vacante generada',
-      text: 'Éxito en la busqueda del nuevo integrante',
-      showConfirmButton: false,
-      timer: 2700
-    });
-  }
-
-  //  ---------- FORMULARIO ---------- //
-  vacantCreateForm(): void {
-    this.vacantForm = this.formB.group({
-      id_empresa: [],
-      puesto: [, [Validators.required, Validators.minLength(5)]],
-      sueldo: [, [Validators.required, Validators.min(1)]],
-      descripcion: [, Validators.required],
-      imagen: [],
-    });
-
-  }
-
-  create(): void {
-    // Si el formulario es invalido
-    if (this.formularioNoValido()) {
-      this.errorMassage();
-      return;
-    }
-
-    console.log(this.vacantForm.value);
-
-    this.empresaSvc.createVacante(this.vacantForm.value).subscribe(
-        response => {
-          if (!response.status) {
-            this.errorMassage();
-          }
-          // Mensaje de ok
-          this.doneMassage();
-          // Limpiar el formulario
-          this.vacantForm.reset();
-          this.vacantForm.markAsUntouched();
-        },
-        error => this.errorServer(error)
-    );
-  }
 
   capturarImage(event) {
     console.log(event);

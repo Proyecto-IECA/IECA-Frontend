@@ -13,6 +13,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatTableModule } from '@angular/material/table';
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatSlideToggleModule,
     MatTooltipModule,
     MatMomentDateModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    MatTableModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -46,7 +49,8 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatSlideToggleModule,
     MatTooltipModule,
     MatMomentDateModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    MatTableModule
   ],
   declarations: []
 })

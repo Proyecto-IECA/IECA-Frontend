@@ -14,6 +14,7 @@ import { ExperienciaAcademicaComponent } from './forms/experiencia-academica/exp
 import { ExperienciaLaboralComponent } from './forms/experiencia-laboral/experiencia-laboral.component';
 import { SucursalesComponent } from './forms/sucursales/sucursales.component'
 import { UserComponent } from './forms/user/user.component';
+import { VacanteComponent } from './forms/vacante/vacante.component';
 
 import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';
@@ -41,6 +42,7 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
     TableListComponent,
     TypographyComponent,
     UpgradeComponent,
+    VacanteComponent,
   ],
   exports: [
     HabilidadesComponent,
@@ -58,6 +60,7 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
     TableListComponent,
     TypographyComponent,
     UpgradeComponent,
+    VacanteComponent
   ],
   imports: [
     CommonModule,
