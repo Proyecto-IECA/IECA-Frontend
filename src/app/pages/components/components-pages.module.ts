@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule  } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { MaterialModule } from '../../material.module';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 import { HabilidadesComponent } from './chips/habilidades/habilidades.component';
 import { IdiomasComponent } from './chips/idiomas/idiomas.component';
@@ -11,6 +12,7 @@ import { ValoresComponent } from './chips/valores/valores.component';
 import { CursoCertificacionComponent } from './forms/curso-certificacion/curso-certificacion.component';
 import { ExperienciaAcademicaComponent } from './forms/experiencia-academica/experiencia-academica.component';
 import { ExperienciaLaboralComponent } from './forms/experiencia-laboral/experiencia-laboral.component';
+import { SucursalesComponent } from './forms/sucursales/sucursales.component'
 import { UserComponent } from './forms/user/user.component';
 
 import { IconsComponent } from './icons/icons.component';
@@ -19,7 +21,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { TableListComponent } from './table-list/table-list.component';
 import { TypographyComponent } from './typography/typography.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
-
 
 
 
@@ -32,6 +33,7 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
     CursoCertificacionComponent,
     ExperienciaAcademicaComponent,
     ExperienciaLaboralComponent,
+    SucursalesComponent,
     UserComponent,
     IconsComponent,
     MapsComponent,
@@ -48,6 +50,7 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
     CursoCertificacionComponent,
     ExperienciaAcademicaComponent,
     ExperienciaLaboralComponent,
+    SucursalesComponent,
     UserComponent,
     IconsComponent,
     MapsComponent,
@@ -58,9 +61,10 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
   ],
   imports: [
     CommonModule,
-    MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
+    GooglePlaceModule,
   ]
 })
 export class ComponentsPagesModule { }

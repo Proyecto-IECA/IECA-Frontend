@@ -1,28 +1,42 @@
-<form [formGroup]="sucursalForm" (ngSubmit)="actionForm()">
+<form [formGroup]="sucursalForm" (ngSubmit)="createBranches()">
+
     <div class="row">
-        <div class="col-md-6">
+
+        <!-- Nombre de la sucursal -->
+        <div class="col-md-4">
             <mat-form-field>
-                <input matInput placeholder="Nombre de la Sucursal" type="text" formControlName="etiqueta" required>
-                <mat-error *ngIf="campoNoValido('etiqueta')">Este campo es obligatorio</mat-error>
+                <input matInput placeholder="Nombre de la Sucursal" type="text" formControlName="nombre" required>
+                <mat-error *ngIf="campoNoValido('nombre')">Este campo es obligatorio</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-6">
+
+        <!-- Ubicación de la sucursal-->
+        <div class="col-md-8">
             <mat-form-field>
-                <input matInput placeholder="Dirección" type="text" formControlName="direccion" required>
-                <mat-error *ngIf="campoNoValido('direccion')">Este campo es obligatorio</mat-error>
+                <input ngx-google-places-autocomplete
+                       matInput
+                       #placesRef="ngx-places"
+                       (onAddressChange)="handleAddressChange($event)"
+                       type="text"
+                       placeholder="Dirección"
+                       formControlName="ubicacion"/>
+                <mat-error *ngIf="campoNoValido('ubicacion')">Este campo es obligatorio</mat-error>
             </mat-form-field>
         </div>
 
     </div>
     <div class="row justify-content-end">
+
         <!-- ===== btn icon cancelar ===== -->
         <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r">
-                <i class="material-icons">close</i>
-            </button>
+            <i class="material-icons">close</i>
+        </button>
+
         <!-- ===== btn icon aceptar ===== -->
         <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r">
-                <i class="material-icons">done</i>
+            <i class="material-icons">done</i>
         </button>
+
     </div>
 
 </form>

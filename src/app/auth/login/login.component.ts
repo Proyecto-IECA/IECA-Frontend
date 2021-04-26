@@ -169,10 +169,15 @@ export class LoginComponent implements OnInit {
         if (!resp.status) {
           return this.errorMassageLogin(resp.data);
         }
+
         if (loginForm.value.rememberMe) {
           localStorage.setItem('email', data.email);
           localStorage.setItem('type', data.type);
+        } else {
+          localStorage.removeItem('email');
+          localStorage.removeItem('type');
         }
+
         loginForm.reset();
         return this.router.navigateByUrl('/dashboard');
       }, ((error) => {

@@ -37,7 +37,7 @@ import { MatTableModule } from "@angular/material/table";
     MaterialFileInputModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +55,7 @@ import { MatTableModule } from "@angular/material/table";
     MatProgressSpinnerModule,
     MatAutocompleteModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
   ],
   declarations: []
 })

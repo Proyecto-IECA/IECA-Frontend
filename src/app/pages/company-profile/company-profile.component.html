@@ -1,57 +1,79 @@
-<!--
 <div class="main-content">
-    &lt;!&ndash; Content here &ndash;&gt;
-    <div class="container-fluid">
-        &lt;!&ndash; === Primer Renglón === &ndash;&gt;
+
+    <!-- Spinner -->
+    <div *ngIf="!company" class="row justify-content-center align-items-center vh-100">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <!-- Content here -->
+    <div *ngIf="company" class="container-fluid">
+
+        <!-- === Titulo === -->
         <div class="row justify-content-md-center">
-            &lt;!&ndash; ==== Encabezado de la página&ndash;&gt;
+            <!-- ==== Encabezado de la página-->
             <div class="col-md-auto">
-                <h1>
-                    Nombre de la Empresa
-                </h1>
+                <h1> Nombre de la Empresa </h1>
             </div>
         </div>
-        &lt;!&ndash; === Segundo Renglón === &ndash;&gt;
+        <!-- === Subtitulo === -->
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
-                <h2>
-                    Giro de la Empresa
-                </h2>
+                <h2> Giro de la Empresa </h2>
             </div>
         </div>
-        &lt;!&ndash; === Tercer Renglón === &ndash;&gt;
-        <div class="row">
-            &lt;!&ndash; ==== Renglón de Foto de Perfil ====  &ndash;&gt;
+
+        <!-- ===== Card de Perfil ===== -->
+        <div class="row align-items-center m-t-3">
+
+            <!-- ===== Foto de Perfil ====== -->
             <div class="col-md-4">
                 <div class="card card-profile">
-                    &lt;!&ndash; Foto de Perfil &ndash;&gt;
 
-                    &lt;!&ndash; <p (click)="inputImg.click()">Cambiar</p> &ndash;&gt;
-                    <img [src]="company.foto_empresa" class="img-fluid" alt="Responsive image" (click)="inputImg.click()">
-                    &lt;!&ndash; Hacer click para ver la foto en grande &ndash;&gt;
+                    <!-- Picture default -->
+                    <div class="card-avatar" *ngIf="!company.foto_perfil">
+                        <p (click)="inputFotoPerfil.click()">Cambiar</p>
+                        <img class="img" src="./assets/img/faces/marc.jpg" (click)="inputFotoPerfil.click()" />
+                    </div>
 
-                    <small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo es INCOMPATIBLE</small>
-                    <small class="form-text text-gray">Archivos compatibles: JPEG, JPG y PNG</small>
-                    &lt;!&ndash; Cuerpo del card &ndash;&gt;
-                    <span class="material-icons" (click)="inputImg.click()">add_a_photo</span>
-                    <form class="card-body" (submit)="saveImg()" [formGroup]="imgForm">
+                    <!-- Picture Perfil -->
+                    <div class="card-avatar" *ngIf="company.foto_perfil">
+                        <p (click)="inputFotoPerfil.click()">Cambiar</p>
+                        <img class="img" [src]="company.foto_perfil" (click)="inputFotoPerfil.click()" />
+                    </div>
 
-                        <input type="file" hidden #inputImg formControlName="foto_empresa" (change)="updateImg($event)" accept="image/*">
+                    <!-- Leyenda -->
+                    <br/>
+                    <small class="form-text text-gray">* Archivos compatibles: JPEG, JPG y PNG</small>
+                    <small *ngIf="company.foto_perfil" class="form-text text-danger">Archivo es INCOMPATIBLE</small>
 
-                        &lt;!&ndash;<mat-form-field>
-                    <ngx-mat-file-input (change)="updateImg($event)" formControlName="foto_empresa" accept="image/*"></ngx-mat-file-input>
-                    <i class="material-icons" matSuffix>upload_file</i>
-                </mat-form-field>&ndash;&gt;
+                    <!-- Cuerpo del card -->
+                    <div class="card-body">
+                        <h4 class="card-title">Página Web</h4>
+                        <h4 class="card-title">{{ company.pagina_web }}</h4>
 
-                        <button *ngIf="imgForm.dirty" type="submit" class="btn btn-rose" [disabled]="imgForm.invalid">Actualizar foto</button>
-                        &lt;!&ndash;<small *ngIf="controlNoValid('foto_empresa', true)" class="form-text text-danger">* Archivo INCOMPATIBLE</small>&ndash;&gt;
-                    </form>
+                        <h6 class="card-category text-gray">Nombre Empresa</h6>
+                        <h6 class="card-category text-gray">{{ company.nombre }}</h6>
+
+                        <p class="card-description">Teléfono</p>
+                        <p class="card-description">{{ company.telefono }}</p>
+
+                        <h5 class="text-muted">Calificación</h5>
+
+                        <!-- IMG Change -->
+                        <input type="file" hidden #inputFotoPerfil accept="image/*">
+                        <!--<input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil>-->
+
+                        <!-- Boton cambiar foto -->
+                        <button *ngIf="company.foto_perfil" type="submit" class="btn btn-rose" [disabled]="!company.foto_perfil">Actualizar foto</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8">
+
+            <!-- Mini Cars Información -->
+            <!--<div class="col-md-8">
                 <div class="row justify-content-md-center">
-                    &lt;!&ndash; Vacantes &ndash;&gt;
                     <div class="col-lg-6 col-md-6 col-sm-6">
+                        &lt;!&ndash; Vacantes &ndash;&gt;
                         <div class="card card-stats">
                             <div class="card-header card-header-warning card-header-icon">
                                 <div class="card-icon">
@@ -66,9 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    &lt;!&ndash; Sucursales &ndash;&gt;
-                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        &lt;!&ndash; Sucursales &ndash;&gt;
                         <div class="card card-stats">
                             <div class="card-header card-header-rose card-header-icon">
                                 <div class="card-icon">
@@ -85,110 +105,143 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    &lt;!&ndash; Editar perfil de la empresa &ndash;&gt;
-                    <div class="col-md-12">
-                        <div class="card">
-                            &lt;!&ndash; Encabezado de Card &ndash;&gt;
-                            <div class="card-header card-header-success">
-                                <h4 class=" card-title ">Editar Perfil</h4>
-                                <p class="card-category ">Actualiza tu perfil</p>
-                            </div>
-                            &lt;!&ndash; Cuerpo del card &ndash;&gt;
-                            <div class="card-body ">
+            </div>-->
 
-                                &lt;!&ndash; Formulario de Datos Empresa &ndash;&gt;
-                                <form (ngSubmit)="updateCompany() " [formGroup]="companyForm ">
-                                    &lt;!&ndash; Mensaje de Campos Obligatorios &ndash;&gt;
-                                    <small class="text-danger ">Campos obligatorios *</small>
-                                    &lt;!&ndash; Nombre de la empresa y administrador &ndash;&gt;
-                                    <div class="row ">
-                                        &lt;!&ndash; Nombre de la empresa &ndash;&gt;
-                                        <div class="col-md-6 ">
-                                            <mat-form-field class="example-full-width ">
-                                                <input matInput placeholder="Nombre de la Empresa " type="text " formControlName="nombre " required>
-                                            </mat-form-field>
-                                            <small *ngIf="controlNoValid( 'nombre') " class="form-text text-danger ">* Este campo es obligatorio</small>
-                                        </div>
-
-                                        &lt;!&ndash; Nombre del administrador &ndash;&gt;
-                                        <div class="col-md-6 ">
-                                            <mat-form-field class="example-full-width ">
-                                                <input matInput placeholder="Nombre del(a) Administrador(a) " type="text " formControlName="administrador " required>
-                                            </mat-form-field>
-                                            <small *ngIf="controlNoValid( 'administrador') " class="form-text text-danger ">* Este campo es obligatorio</small>
-                                        </div>
-                                    </div>
-
-                                    &lt;!&ndash; Ubicación y Giro &ndash;&gt;
-                                    <div class="row ">
-                                        &lt;!&ndash; Ubicación &ndash;&gt;
-                                        <div class="col-md-6 ">
-                                            <mat-form-field class="example-full-width ">
-                                                <input matInput placeholder="Ubicación " type="text " formControlName="ubicacion " required>
-                                            </mat-form-field>
-                                            <small *ngIf="controlNoValid( 'ubicacion') " class="form-text text-danger ">* Este campo es obligatorio</small>
-                                        </div>
-
-                                        &lt;!&ndash; Giro &ndash;&gt;
-                                        <div class="col-md-6 ">
-                                            <mat-form-field class="example-full-width ">
-                                                <input matInput placeholder="Giro " type="tel " formControlName="giro " required>
-                                            </mat-form-field>
-                                            <small *ngIf="controlNoValid( 'giro') " class="form-text text-danger ">* Este campo es obligatorio</small>
-                                        </div>
-                                    </div>
-
-                                    &lt;!&ndash; Teléfono, Página Web &ndash;&gt;
-                                    <div class="row ">
-                                        &lt;!&ndash; Página Web &ndash;&gt;
-                                        <div class="col-md-6 ">
-                                            <mat-form-field class="example-full-width ">
-                                                <input matInput placeholder="Página web " type="url " formControlName="pagina_web " required>
-                                            </mat-form-field>
-                                            <small *ngIf="controlNoValid( 'pagina_web') " class="form-text text-danger ">* Este campo es obligatorio</small>
-                                        </div>
-
-                                        &lt;!&ndash; Teléfono &ndash;&gt;
-                                        <div class="col-md-6 ">
-                                            <mat-form-field class="example-full-width ">
-                                                <input matInput placeholder="Teléfono " type="tel " pattern="\d* " maxlength="10 " formControlName="telefono " required>
-                                            </mat-form-field>
-                                            <small *ngIf="controlNoValid( 'telefono') " class="form-text text-danger ">* En este campo no se aceptan letras</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ">
-                                        &lt;!&ndash; Renglón justificado al inicio &ndash;&gt;
-                                        <div class="col-md-6 ">
-                                            &lt;!&ndash; Switcher icon &ndash;&gt;
-                                            <mat-slide-toggle class="justify-content-start ">Más sucursales</mat-slide-toggle>
-                                        </div>
-
-                                        &lt;!&ndash; Renglón justificado al final &ndash;&gt;
-                                        <div class="col-md-6 ">
-                                            <div class="row justify-content-end ">
-                                                <button type="button " class="btn btn-success btn-sm btn-just-icon m-r ">
-                                                    <i class="material-icons ">done</i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="clearfix "></div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
+            <!-- Card Editar Perfil -->
             <div class="col-md-8">
                 <div class="card">
-                    &lt;!&ndash; ===== Encabezado de Card ===== &ndash;&gt;
+
+                    <!-- Encabezado de Card -->
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Perfil</h4>
+                        <p class="card-category">Actualiza tu información</p>
+                    </div>
+
+                    <!-- Formulario -->
+                    <div class="card-body">
+                        <form (ngSubmit)="updateCompany()" [formGroup]="companyForm">
+
+                            <!-- Mensaje de Campos Obligatorios -->
+                            <small class="text-danger">Campos obligatorios *</small>
+
+                            <!-- Nombre de la empresa y administrador -->
+                            <div class="row">
+                                <!-- Nombre de la empresa -->
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nombre de la Empresa" type="text" formControlName="nombre" required>
+                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid( 'nombre')" class="form-text text-danger">* Este campo es obligatorio</small>
+                                </div>
+
+                                <!-- Nombre del administrador -->
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Nombre del(a) Administrador(a)" type="text" formControlName="administrador" required>
+                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid( 'administrador')" class="form-text text-danger">* Este campo es obligatorio</small>
+                                </div>
+                            </div>
+
+                            <!-- Ubicación y Giro -->
+                            <div class="row">
+                                <!-- Ubicación -->
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input ngx-google-places-autocomplete
+                                               matInput
+                                               #placesRef="ngx-places"
+                                               (onAddressChange)="handleAddressChange($event)"
+                                               type="text"
+                                               placeholder="Dirección"
+                                               formControlName="ubicacion"/>
+                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid( 'ubicacion')" class="form-text text-danger">* Este campo es obligatorio</small>
+                                </div>
+
+                                <!-- Giro -->
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Giro" type="tel" formControlName="giro" required>
+                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid( 'giro')" class="form-text text-danger">* Este campo es obligatorio</small>
+                                </div>
+                            </div>
+
+                            <!-- Teléfono, Página Web -->
+                            <div class="row">
+                                <!-- Página Web -->
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Página web" type="url" formControlName="pagina_web" required>
+                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid( 'pagina_web')" class="form-text text-danger">* Este campo es obligatorio</small>
+                                </div>
+
+                                <!-- Teléfono -->
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Teléfono" type="tel" pattern="\d*" maxlength="10" formControlName="telefono" required>
+                                    </mat-form-field>
+                                    <small *ngIf="controlNoValid( 'telefono')" class="form-text text-danger">* En este campo no se aceptan letras</small>
+                                </div>
+                            </div>
+
+                            <!-- Boton de Guardar y Sucursales -->
+                            <div class="row ">
+
+                                <!-- Renglón justificado al inicio -->
+                                <div class="col-md-6 ">
+                                    <!-- Switcher icon -->
+                                    <mat-slide-toggle id="sucuarsales"
+                                                      class="justify-content-start"
+                                                      (change)="haveBranches = $event.checked"
+                                                      [checked]="haveBranches"
+                                                      [disabled]="company.numero_sucursales > 0">
+                                        ¿Cuenta con más sucursales?
+                                    </mat-slide-toggle>
+                                </div>
+
+                                <!-- Renglón justificado al final -->
+                                <div class="col-md-6">
+                                    <div class="row justify-content-end">
+
+                                        <!-- Restaurar el formulario -->
+                                        <button type="button"
+                                                (click)="loadData()"
+                                                title="Restaurar"
+                                                class="btn btn-warning btn-sm btn-just-icon m-r">
+                                            <i class="material-icons">settings_backup_restore</i>
+                                        </button>
+
+                                        <!-- Guardar cambios -->
+                                        <button type="submit"
+                                                title="Guardar"
+                                                class="btn btn-info btn-sm btn-just-icon m-r">
+                                            <i class="material-icons">save</i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- sucursales -->
+        <div *ngIf="haveBranches" class="row">
+
+            <!-- Formulario -->
+            <div class="col-md-8">
+                <div class="card">
+                    <!-- ===== Encabezado de Card ===== -->
                     <div class="card-header card-header-info">
                         <h4 class="card-title">
                             Vacante
@@ -209,10 +262,10 @@
                                         <mat-icon class="text-primary justify-content-md-end">add</mat-icon>
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
-                                &lt;!&ndash; ===== Formulario para agregar una sucursal ===== &ndash;&gt;
-                                &lt;!&ndash;<app-sucursales></app-sucursales>&ndash;&gt;
+                                <!-- ===== Formulario para agregar una sucursal ===== -->
+                                <app-sucursales></app-sucursales>
                             </mat-expansion-panel>
-                            &lt;!&ndash;
+                            <!--
                 <div *ngFor="let expA of experienciasAcademicas">
                     <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
@@ -224,21 +277,23 @@
                                 <mat-icon *ngIf="expA.estudiando" class="text-primary">done</mat-icon>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
-                        ===== Formulario para editar experiencia academica 
+                        ===== Formulario para editar experiencia academica
                         <app-experiencia-academica-form [tipo]="'update'" [experienciaAcademica]="expA"></app-experiencia-academica-form>
                     </mat-expansion-panel>
-                </div> &ndash;&gt;
+                </div> -->
 
                         </mat-accordion>
                     </div>
                 </div>
             </div>
+
+            <!-- Imagen -->
             <div class="col-md-4">
                 <img src="../../../assets/img/bussiness.svg" alt="..." class="img-thumbnail">
             </div>
-        </div>
+	    </div>
+
 
     </div>
 </div>
 
--->

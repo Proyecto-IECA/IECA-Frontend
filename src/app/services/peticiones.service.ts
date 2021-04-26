@@ -90,7 +90,7 @@ export class PeticionesService {
         return response;
       })
     );
-  } 
+  }
 
   putQuery(tipo: string, accion: string, body: any, id?: number): Observable<any> {
 

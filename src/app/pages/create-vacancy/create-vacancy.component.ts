@@ -31,7 +31,7 @@ export class CreateVacancyComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
-  
+
   //  ---------- VARIABLES ---------- //
   vacantForm: FormGroup;
 
@@ -39,12 +39,12 @@ export class CreateVacancyComponent implements OnInit {
               private empresaSvc: EmpresaService) {
     this.vacantCreateForm();
 
-    console.log(this.empresaSvc.company);
+    console.log(this.empresaSvc.getCompany);
   }
 
   ngOnInit(): void {
     this.vacantForm.reset({
-      id_empresa: this.empresaSvc.company.id_empresa,
+      id_empresa: this.empresaSvc.getCompany.id_usuario,
       imagen: ''
     });
   }
