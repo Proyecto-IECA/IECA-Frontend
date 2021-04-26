@@ -82,8 +82,8 @@ export class CursoCertificacionComponent implements OnInit {
   updateCursoCert(){
     this.formSubmitted = true;
     if(this.certificadoForm.valid) {
-      this.usuarioService.updateCurso(this.certificadoForm.value, this.cursoCertificacion.id_curso_certificacion).subscribe((resp: AuthResponseI) => {
-        if(resp.status) {
+      this.cursoCertificacionService.updateCursoCertifi(this.cursoCertificacion.id_curso_certificacion, this.certificadoForm.value).subscribe((resp: AuthResponseI) => {
+        if (resp.status) {
           this._userProC.cursosCertificaciones = resp.data;
           this.doneMassage(resp.message);
         } else {
@@ -96,8 +96,8 @@ export class CursoCertificacionComponent implements OnInit {
   }
 
   deleteCursoCert(){
-    this.usuarioService.deleteCurso(this.cursoCertificacion.id_curso_certificacion).subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
+    this.cursoCertificacionService.deleteCursoCertifi(this.cursoCertificacion.id_curso_certificacion).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
         this._userProC.cursosCertificaciones = resp.data;
         this.doneMassage(resp.message);
       } else {

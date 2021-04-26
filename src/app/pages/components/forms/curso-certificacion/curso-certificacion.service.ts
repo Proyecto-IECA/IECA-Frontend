@@ -18,8 +18,12 @@ export class CursoCertificacionService {
     return this.http.post(`${baseUrl}`, formData);
   }
 
-  updateCursoCertifi (formData: CursoCertificacionService) {
-    
+  updateCursoCertifi (id, formData: CursoCertificacionService) {
+    return this.http.put(`${baseUrl}/${id}`, formData);
+  }
+
+  deleteCursoCertifi (id) {
+    return this.http.delete(`${baseUrl}/${id}`);
   }
 
 }
