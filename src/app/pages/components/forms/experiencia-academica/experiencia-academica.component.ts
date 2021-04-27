@@ -61,7 +61,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
    */
   chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>, tipo: number) {
     if (tipo == 1) {
-      if (!this.academicaForm.get('anio_entrada').value) {
+      if (!moment(this.academicaForm.get('anio_entrada').value).isValid()) {
         this.academicaForm.get('anio_entrada').setValue(moment([2000]));
       } 
       const ctrlValue = this.academicaForm.get('anio_entrada').value;
@@ -69,7 +69,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
       this.academicaForm.get('anio_entrada').setValue(ctrlValue);
       datepicker.close();
     } else {
-      if (!this.academicaForm.get('anio_salida').value) {
+      if (!moment(this.academicaForm.get('anio_salida').value).isValid()) {
         this.academicaForm.get('anio_salida').setValue(moment([2000]));
       } 
       const ctrlValue2 = this.academicaForm.get('anio_salida').value;
@@ -79,12 +79,11 @@ export class ExperienciaAcademicaComponent implements OnInit {
     }
   }
   
-  constructor(private formBuilder: FormBuilder, 
-              private usuarioService: UsuarioService, 
-              @Host() private _userProC: UserProfileComponent,
-              private expAcademicaSerice: ExperienciaAcademicaService
-              )
-              { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    @Host() private _userProC: UserProfileComponent,
+    private expAcademicaSerice: ExperienciaAcademicaService
+    ) { }
 
   ngOnInit(): void {
     if (this.tipo == 'update') {
@@ -145,8 +144,9 @@ export class ExperienciaAcademicaComponent implements OnInit {
     this.formSubmitted = true;
     if(this.academicaForm.valid) {
       this.expAcademicaSerice.addExpAcademica(this.academicaForm.value).subscribe((resp: AuthResponseI) => {
+        console.log(resp);
         if (resp.status) {
-          this._userProC.experienciasAcademicas = resp.data;
+          this._userProC.getExperienciasAcademicas();
           this.formSubmitted = false;
           this.academicaForm.reset();
           formDirective.resetForm();
@@ -175,7 +175,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
     if(this.academicaForm.valid){
       this.expAcademicaSerice.updateExpAcademica(this.experienciaAcademica.id_experiencia_academica, this.academicaForm.value).subscribe((resp: AuthResponseI) => {
         if (resp.status) {
-          this._userProC.experienciasAcademicas = resp.data;
+          this._userProC.getExperienciasAcademicas();
           this.doneMassage(resp.message);
         } else {
           this.errorPeticion(resp.message);
@@ -189,7 +189,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
   deleteExpAcademica(){
     this.expAcademicaSerice.deleteExpAcademica(this.experienciaAcademica.id_experiencia_academica).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this._userProC.experienciasAcademicas = resp.data;
+        this._userProC.getExperienciasAcademicas();
         this.doneMassage(resp.message);
       } else {
         this.errorMassage();

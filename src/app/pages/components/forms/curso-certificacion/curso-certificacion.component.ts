@@ -1,6 +1,5 @@
 import { Component, Host, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
-import { UsuarioService } from '../../../../services/usuario.service';
 import { CursoCertificacionI } from '../../../../models/cursos_certificaciones';
 import { AuthResponseI } from '../../../../models/auth-response';
 import Swal from 'sweetalert2';
@@ -26,8 +25,7 @@ export class CursoCertificacionComponent implements OnInit {
   )
 
   constructor(private formBuilder: FormBuilder, 
-    private usuarioService: UsuarioService, @Host() 
-    private _userProC: UserProfileComponent,
+    @Host() private _userProC: UserProfileComponent,
     private cursoCertificacionService: CursoCertificacionService
     ) { }
 
@@ -36,12 +34,17 @@ export class CursoCertificacionComponent implements OnInit {
       this.loadData(this.cursoCertificacion);
     }
   }
+
   campoNoValido(campo: string): boolean {
     if(this.certificadoForm.get(campo).invalid && this.formSubmitted){
       return true;
     } else {
       return false;
     }
+  }
+
+  loadData(cursoCertificacion: CursoCertificacionI) {
+    this.certificadoForm.reset(cursoCertificacion);
   }
 
   actionForm(formDirective: FormGroupDirective){
@@ -57,7 +60,7 @@ export class CursoCertificacionComponent implements OnInit {
     if(this.certificadoForm.valid) {
       this.cursoCertificacionService.addCursoCertifi(this.certificadoForm.value).subscribe((resp: AuthResponseI) => {
         if (resp.status) {
-          this._userProC.cursosCertificaciones = resp.data;
+          this._userProC.getCursosCertificaciones();
           this.formSubmitted = false;
           this.certificadoForm.reset();
           formDirective.resetForm();
@@ -84,7 +87,7 @@ export class CursoCertificacionComponent implements OnInit {
     if(this.certificadoForm.valid) {
       this.cursoCertificacionService.updateCursoCertifi(this.cursoCertificacion.id_curso_certificacion, this.certificadoForm.value).subscribe((resp: AuthResponseI) => {
         if (resp.status) {
-          this._userProC.cursosCertificaciones = resp.data;
+          this._userProC.getCursosCertificaciones();
           this.doneMassage(resp.message);
         } else {
           this.errorPeticion(resp.message);
@@ -98,16 +101,12 @@ export class CursoCertificacionComponent implements OnInit {
   deleteCursoCert(){
     this.cursoCertificacionService.deleteCursoCertifi(this.cursoCertificacion.id_curso_certificacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this._userProC.cursosCertificaciones = resp.data;
+        this._userProC.getCursosCertificaciones();
         this.doneMassage(resp.message);
       } else {
         this.errorPeticion(resp.message);
       }
     }, (error) => this.errorServer(error));
-  }
-
-  loadData(cursoCertificacion: CursoCertificacionI) {
-    this.certificadoForm.reset(cursoCertificacion);
   }
 
   //  ---------- MENSAJES ---------- //

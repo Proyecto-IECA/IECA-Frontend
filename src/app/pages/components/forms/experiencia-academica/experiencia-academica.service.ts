@@ -4,6 +4,7 @@ import { environment } from 'environments/environment';
 import { ExperienciaAcademicaI } from 'app/models/experiencia_academica';
 
 const baseUrl = environment.baseUrl + '/experiencias-academicas';
+const id  = parseInt(localStorage.getItem('id_usuario'));
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,8 @@ export class ExperienciaAcademicaService {
   constructor(private http: HttpClient) { }
 
   addExpAcademica (formData: ExperienciaAcademicaI) {
-    const id  = parseInt(localStorage.getItem('id_usuario'));
     formData.id_usuario_fk = id;
-    return this.http.post(`${baseUrl}/${id}`, formData);
+    return this.http.post(`${baseUrl}`, formData);
   }
 
   updateExpAcademica (id, formData: ExperienciaAcademicaService) {

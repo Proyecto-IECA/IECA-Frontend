@@ -1,5 +1,5 @@
 import { Component, Host, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective } from '@angular/forms';
+import { FormGroupDirective } from '@angular/forms';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
 
@@ -12,7 +12,6 @@ import {Moment} from 'moment';
 
 
 import { FormBuilder, Validators } from "@angular/forms";
-import { UsuarioService } from '../../../../services/usuario.service';
 import { ExperienciaLaboralI } from '../../../../models/experiencia_laboral';
 import { AuthResponseI } from '../../../../models/auth-response';
 import Swal from 'sweetalert2';
@@ -66,7 +65,7 @@ export class ExperienciaLaboralComponent implements OnInit {
   chosenYearHandler(normalizedYear: Moment, tipo: number) {
     if (tipo == 1) {
 
-      if (!this.laboralForm.get('fecha_entrada').value) {
+      if (!moment(this.laboralForm.get('fecha_entrada').value).isValid()) {
         this.laboralForm.get('fecha_entrada').setValue(moment([2000, 0]));
       } 
 
@@ -76,7 +75,7 @@ export class ExperienciaLaboralComponent implements OnInit {
 
     } else {
 
-      if (!this.laboralForm.get('fecha_salida').value) {
+      if (!moment(this.laboralForm.get('fecha_salida').value).isValid()) {
         this.laboralForm.get('fecha_salida').setValue(moment([2000, 0]));
       } 
 
@@ -102,7 +101,6 @@ export class ExperienciaLaboralComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder, 
-      private usuarioService: UsuarioService, 
       @Host() private _userProC: UserProfileComponent,
       private expLabService: ExperienciaLaboralService
     ) {}
@@ -148,9 +146,9 @@ export class ExperienciaLaboralComponent implements OnInit {
       this.activedFecha_salida = true;
     }
     this.laboralForm.reset(expLaboral);
-    let fecha_entrada = moment(expLaboral.fecha_entrada, 'MM/YYYY'); 
+    let fecha_entrada = moment(expLaboral.fecha_entrada, 'YYYY/MM'); 
     this.laboralForm.get('fecha_entrada').setValue(fecha_entrada);
-    let fecha_salida = moment(expLaboral.fecha_salida, 'MM/YYYY'); 
+    let fecha_salida = moment(expLaboral.fecha_salida, 'YYYY/MM'); 
     this.laboralForm.get('fecha_salida').setValue(fecha_salida);
     // let d = moment(this.date2.value);
     // console.log(d.format('YYYY/MM'))    
@@ -164,24 +162,22 @@ export class ExperienciaLaboralComponent implements OnInit {
     }
   }
 
-  
-
   addExpLaboral(formDirective: FormGroupDirective){
     this.formSubmitted = true;
     if(this.laboralForm.valid){
       this.expLabService.addExpLaboral(this.laboralForm.value).subscribe(
         (resp: AuthResponseI) => {
           if (resp.status) {
-          this._userProC.experienciasLaborales = resp.data;
-          this.formSubmitted = false;
-          this.laboralForm.reset();
-          formDirective.resetForm();
-          this.laboralForm.get('trabajando').setValue(false);
-          this._userProC.panelExpL = false;
-          this.doneMassage('Experiencia Laboral actualizada');
+            this._userProC.getExperienciasLaborales();
+            this.formSubmitted = false;
+            this.laboralForm.reset();
+            formDirective.resetForm();
+            this.laboralForm.get('trabajando').setValue(false);
+            this._userProC.panelExpL = false;
+            this.doneMassage('Experiencia Laboral actualizada');
           } else {
             console.log(resp);
-            this.errorPeticion(resp.data);
+            this.errorPeticion("Error al registrar la experiencia laboral");
           }
       }, (error) => this.errorServer(error)); 
     } else {
@@ -203,7 +199,7 @@ export class ExperienciaLaboralComponent implements OnInit {
     if(this.laboralForm.valid) {
       this.expLabService.updateExpLaboral(this.experienciaLaboral.id_experiencia_laboral, this.laboralForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status) {
-          this._userProC.experienciasLaborales = resp.data;
+          this._userProC.getExperienciasLaborales();
           this.doneMassage('Experiencia Laboral actualizada');
         } else {
           this.errorPeticion(resp.data);
@@ -217,13 +213,13 @@ export class ExperienciaLaboralComponent implements OnInit {
   deleteExpLaboral(){
     this.expLabService.deleteExpLaboral(this.experienciaLaboral.id_experiencia_laboral).subscribe((resp: AuthResponseI) => {
       if(resp.status) {
-        this._userProC.experienciasLaborales = resp.data;
+        this._userProC.getExperienciasLaborales();
         this.doneMassage('Experiencia Laboral eliminada');
       } else {
         this.errorPeticion(resp.data);
       }
     }, (error) => this.errorServer(error)); 
-  } 
+  }
   
   ischecked() {
     if (this.laboralForm.get('trabajando').value) {

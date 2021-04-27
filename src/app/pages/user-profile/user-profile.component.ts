@@ -90,23 +90,35 @@ export class UserProfileComponent implements OnInit {
       }
     });
 
+    this.getExperienciasLaborales();
+
+    this.getExperienciasAcademicas();
+
+    this.getCursosCertificaciones();
+  }
+
+  getExperienciasLaborales() {
     this.userProfileService.getExpLaborales().subscribe((resp: AuthResponseI) => {
       if(resp.status) {
         this.experienciasLaborales = resp.data;
       }
     });
+  }
 
+  getExperienciasAcademicas() {
     this.userProfileService.getExpAcademica().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.experienciasAcademicas = resp.data;
       }
     });
+  }
 
+  getCursosCertificaciones() {
     this.userProfileService.getCursoCertificado().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.cursosCertificaciones = resp.data;
       }
-    })
+    });
   }
 
   loadData() {
@@ -166,7 +178,6 @@ export class UserProfileComponent implements OnInit {
   guardarFoto() {
     try {
       this.imageForm.get("foto_perfil").setValue(this.foto_perfil);
-      console.log(this.imageForm.value);
       this.userProfileService.updateFoto(this.imageForm.value).subscribe(
         (resp: AuthResponseI) => {
           if (resp.status) {
