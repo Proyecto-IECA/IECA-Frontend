@@ -10,95 +10,17 @@
         </div>
         <!-- Cards de lista de vacantes disponibles -->
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4" *ngFor="let vacante of listaVacantes">
                 <div class="card-group">
                     <div class="card">
                         <img src="../../../assets/img/renew-pass.svg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Puesto</h5>
-                            <p class="card-text">Descripción de la publicación de vacante y también esta la opción de agregra el sueldo en este apartado.</p>
+                            <h5 class="card-title">{{vacante.puesto}}</h5>
+                            <p class="card-text">{{vacante.descripcion}}</p>
                             <button type="button" class="btn btn-primary btn-lg btn-block">Vizualizar</button>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Fecha de Publcación</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-group">
-                    <div class="card">
-                        <img src="../../../assets/img/renew-pass.svg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Puesto</h5>
-                            <p class="card-text">Descripción de la publicación de vacante y también esta la opción de agregra el sueldo en este apartado.</p>
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Vizualizar</button>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Fecha de Publcación</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-group">
-                    <div class="card">
-                        <img src="../../../assets/img/renew-pass.svg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Puesto</h5>
-                            <p class="card-text">Descripción de la publicación de vacante y también esta la opción de agregra el sueldo en este apartado.</p>
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Vizualizar</button>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Fecha de Publcación</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card-group">
-                    <div class="card">
-                        <img src="../../../assets/img/renew-pass.svg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Puesto</h5>
-                            <p class="card-text">Descripción de la publicación de vacante y también esta la opción de agregra el sueldo en este apartado.</p>
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Vizualizar</button>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Fecha de Publcación</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-group">
-                    <div class="card">
-                        <img src="../../../assets/img/renew-pass.svg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Puesto</h5>
-                            <p class="card-text">Descripción de la publicación de vacante y también esta la opción de agregra el sueldo en este apartado.</p>
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Vizualizar</button>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Fecha de Publcación</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-group">
-                    <div class="card">
-                        <img src="../../../assets/img/renew-pass.svg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Puesto</h5>
-                            <p class="card-text">Descripción de la publicación de vacante y también esta la opción de agregra el sueldo en este apartado.</p>
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Vizualizar</button>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Fecha de Publcación</small>
+                            <small class="text-muted">Fecha de pubicación: {{vacante.fecha_publicacion}}</small>
                         </div>
                     </div>
                 </div>
