@@ -241,46 +241,50 @@
             <!-- Formulario -->
             <div class="col-md-8">
                 <div class="card">
+
                     <!-- ===== Encabezado de Card ===== -->
                     <div class="card-header card-header-info">
-                        <h4 class="card-title">
-                            Vacante
-                        </h4>
+                        <h4 class="card-title"> Sucursales </h4>
                         <p class="card-catergory">
-                            Completa tu perfil
+                            Lista de sucursales
                         </p>
                     </div>
+
+                    <!-- ===== Cuerpo del Card ===== -->
                     <div class="card-body">
                         <mat-accordion class="example-headers-align" multi>
-                            <mat-expansion-panel hideToggle [expanded]="panelExpA" (opened)="panelExpA = true" (closed)="panelExpA = false">
+                            <mat-expansion-panel hideToggle [expanded]="panel" (opened)="panel = true" (closed)="panel = false">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
-                                        Nueva
+                                        Nombre
                                     </mat-panel-title>
                                     <mat-panel-description>
-                                        Sucursal
+                                        Ubicación
                                         <mat-icon class="text-primary justify-content-md-end">add</mat-icon>
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <!-- ===== Formulario para agregar una sucursal ===== -->
                                 <app-sucursales></app-sucursales>
+                        </mat-expansion-panel>
+
+                        <div *ngFor="let branch of branches">
+                            <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{branch.nombre}}
+                                    </mat-panel-title>
+                                    <mat-panel-description [hidden]="panelOpenState">
+                                        {{branch.ubicacion}}
+                                        <mat-icon *ngIf="branch.ubicacion" class="text-primary">done</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <app-sucursales [branch]="branch"
+                                                [update]="true"
+                                                [id_sucursal]="branch.id_sucursal"></app-sucursales>
+                                <!--(tipo)="prueba($event)"-->
                             </mat-expansion-panel>
-                            <!--
-                <div *ngFor="let expA of experienciasAcademicas">
-                    <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                {{expA.nivel}}
-                            </mat-panel-title>
-                            <mat-panel-description>
-                                {{expA.institucion}}
-                                <mat-icon *ngIf="expA.estudiando" class="text-primary">done</mat-icon>
-                            </mat-panel-description>
-                        </mat-expansion-panel-header>
-                        ===== Formulario para editar experiencia academica
-                        <app-experiencia-academica-form [tipo]="'update'" [experienciaAcademica]="expA"></app-experiencia-academica-form>
-                    </mat-expansion-panel>
-                </div> -->
+                        </div>
 
                         </mat-accordion>
                     </div>
