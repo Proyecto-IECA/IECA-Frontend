@@ -15,6 +15,7 @@ import { TokenValidoGuard } from '../guards/token-valido.guard';
 import { VacanciesComponent } from './vacancies/vacancies.component';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
+import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
 
 export const routes: Routes = [
     // {
@@ -75,7 +76,8 @@ export const routes: Routes = [
             { path: 'upgrade',          component: UpgradeComponent },
             { path: 'company-profile',  component: CompanyProfileComponent },
             { path: 'vacante',          component: CreateVacancyComponent,   /*  canActivate: [PerfilCompletoGuard] */ },
-            { path: 'vacancies',        component: VacanciesComponent }
+            { path: 'vacancies',        component: VacanciesComponent },
+            { path: 'postulate-vacancy', component: PostulateVacancyComponent}
         ]
     },
 

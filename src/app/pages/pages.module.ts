@@ -12,6 +12,7 @@ import { VacanciesComponent } from './vacancies/vacancies.component';
 import { MaterialModule } from '../material.module';
 import { ComponentsPagesModule } from './components/components-pages.module';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
         CompanyProfileComponent,
         CreateVacancyComponent,
         VacanciesComponent,
+        PostulateVacancyComponent,
     ],
     imports: [
         CommonModule,
