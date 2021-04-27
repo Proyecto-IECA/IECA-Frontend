@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { EmpresaService } from '../../services/empresa.service';
+import { EmpresaService } from '../company-profile/empresa.service';
 import { VacancyService } from './vacancy.service';
 import { SucursalesI } from '../../models/sucursales';
 import { AuthResponseI } from '../../models/auth-response';
