@@ -15,6 +15,8 @@ import { TokenValidoGuard } from '../guards/token-valido.guard';
 import { VacanciesComponent } from './vacancies/vacancies.component';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
+import { MyVacanciesComponent } from './my-vacancies/my-vacancies.component';
+import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.component';
 
 export const routes: Routes = [
     // {
@@ -74,8 +76,10 @@ export const routes: Routes = [
             { path: 'notifications',    component: NotificationsComponent },
             { path: 'upgrade',          component: UpgradeComponent },
             { path: 'company-profile',  component: CompanyProfileComponent },
-            { path: 'vacante',          component: CreateVacancyComponent,   /*  canActivate: [PerfilCompletoGuard] */ },
-            { path: 'vacancies',        component: VacanciesComponent }
+            { path: 'create-vacancie',  component: CreateVacancyComponent,   /*  canActivate: [PerfilCompletoGuard] */ },
+            { path: 'update-vacancie/:id',  component: UpdateVacancieComponent},
+            { path: 'vacancies',        component: VacanciesComponent },
+            { path: 'my-vacancies',     component: MyVacanciesComponent}
         ]
     },
 

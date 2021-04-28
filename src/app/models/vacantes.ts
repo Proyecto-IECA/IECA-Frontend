@@ -6,10 +6,10 @@ export class VacantesI {
     sueldo?: string;
     descripcion?: string;
     disponible?: boolean;
-    modalidad: string;
-    nivel: string;
-    vistas: number;
-    publicada: number;
+    modalidad?: string;
+    nivel?: string;
+    vistas?: number;
+    publicada?: number;
     id_usuario_fk?: number;
     id_sucursal_fk?: number;
 }
