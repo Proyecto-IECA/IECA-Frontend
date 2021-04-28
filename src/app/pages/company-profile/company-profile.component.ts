@@ -1,15 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import Swal from 'sweetalert2';
 
-import { EmpresaService } from '../../services/empresa.service';
+import { EmpresaService } from './empresa.service';
 
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 
 import { AuthResponseI } from '../../models/auth-response';
 import { UsuarioI } from '../../models/usuario';
+import { SucursalesI } from '../../models/sucursales';
+import { SucursalesService } from '../components/forms/sucursales/sucursales.service';
 
 
 
@@ -23,15 +25,18 @@ export class CompanyProfileComponent implements OnInit {
   //  ---------- VARIABLES ---------- //
   company: UsuarioI;
   imgUpdate: File;
-
+  branches: SucursalesI[];
   companyForm: FormGroup;
-  panelExpA = false;
+
+  panel = false; // false
   haveBranches = true; // Dejarlo en false
+  panelOpenState = false;
 
   @ViewChild('placesRef') placesRef: GooglePlaceDirective; // autocompletar dirección
 
   constructor(private formB: FormBuilder,
-              private empresaSvc: EmpresaService) {
+              private empresaSvc: EmpresaService,
+              private branchesSvc: SucursalesService) {
     /* Variables */
 
     /* Métodos */
@@ -90,6 +95,7 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
+
   //  ---------- FORMULARIO ---------- //
   companyCreateForm(): void {
     this.companyForm = this.formB.group({
@@ -102,13 +108,14 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
+
   //  ---------- MÉTODOS ---------- //
   /* Cargar datos al template */
   loadData(): void {
 
     this.empresaSvc.readCompany().subscribe(
       (resp: AuthResponseI) => {
-        console.log(resp);
+        // console.log(resp);
         if (!resp.status) {
           return this.errorMassage('Error al obtener los datos');
         }
@@ -125,6 +132,9 @@ export class CompanyProfileComponent implements OnInit {
           this.company.foto_perfil = './assets/img/faces/marc.jpg';
         }*/
 
+        // if (resp.data.numero_sucursales > 0) { this.loadBranches(); }
+        this.loadBranches(); // Borrar
+
       },
       error => {
           /* ! Mensaje de error si el servidor no recibe las peticiones */
@@ -132,6 +142,19 @@ export class CompanyProfileComponent implements OnInit {
           this.errorServer();
         });
 
+  }
+
+  /* Extraer las sucursales de la empresa */
+  loadBranches() {
+    this.panelOpenState = false;
+    this.branchesSvc.readBranches().subscribe(
+        (result: AuthResponseI) => this.branches = result.data,
+        error => {
+          /* ! Mensaje de error si el servidor no recibe las peticiones */
+          console.log(error);
+          this.errorServer();
+        }
+    );
   }
 
   /* Actualizar Datos de la Empresa */
@@ -178,7 +201,7 @@ export class CompanyProfileComponent implements OnInit {
     this.companyForm.reset({
       nombre: this.companyForm.value.nombre,
       administrador: this.companyForm.value.administrador,
-      ubicacion: `${address.name}, ${address.formatted_address}`,
+      ubicacion: address.formatted_address,
       giro: this.companyForm.value.giro,
       pagina_web: this.companyForm.value.pagina_web,
       telefono: this.companyForm.value.telefono,
@@ -252,7 +275,6 @@ export class CompanyProfileComponent implements OnInit {
     }*/
   }
 
-  loadSucures() {
-    return console.log();
-  }
+
+
 }

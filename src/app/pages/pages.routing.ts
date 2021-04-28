@@ -15,11 +15,10 @@ import { TokenValidoGuard } from '../guards/token-valido.guard';
 import { VacanciesComponent } from './vacancies/vacancies.component';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
-import { MyVacanciesComponent } from './my-vacancies/my-vacancies.component';
 import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.component';
-
+import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
+import { MyVacanciesComponent } from './my-vacancies/my-vacancies.component';
 export const routes: Routes = [
-    // {
     //   path: '',
     //   children: [ {
     //     path: 'dashboard',
@@ -79,7 +78,8 @@ export const routes: Routes = [
             { path: 'create-vacancie',  component: CreateVacancyComponent,   /*  canActivate: [PerfilCompletoGuard] */ },
             { path: 'update-vacancie/:id',  component: UpdateVacancieComponent},
             { path: 'vacancies',        component: VacanciesComponent },
-            { path: 'my-vacancies',     component: MyVacanciesComponent}
+            { path: 'my-vacancies',     component: MyVacanciesComponent},
+            { path: 'postulate-vacancy', component: PostulateVacancyComponent}
         ]
     },
 

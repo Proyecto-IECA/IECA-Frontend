@@ -4,12 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { VacantesI } from '../models/vacantes';
-import { AuthResponseI } from '../models/auth-response';
-import { UsuarioI } from '../models/usuario';
+import { VacantesI } from '../../models/vacantes';
+import { AuthResponseI } from '../../models/auth-response';
+import { UsuarioI } from '../../models/usuario';
 
-import { environment } from '../../environments/environment';
-import { SucursalesI } from '../models/sucursales';
+import { environment } from '../../../environments/environment';
+import { SucursalesI } from '../../models/sucursales';
 
 
 
@@ -80,24 +80,6 @@ export class EmpresaService {
 
   deleteCompany(form: number): Observable<AuthResponseI> {
     return;
-  }
-
-  //  ---------- SUCURSALES CRUD ---------- //
-  createBranches(form): Observable<any> {
-    const id_usuario_fk = localStorage.getItem('id_usuario');
-
-    // Agregamos 'id_usuario_fk' al cuerpo de la petición
-    const body = {
-      id_usuario_fk,
-      ...form
-    };
-
-    return this.http.post(`${environment.baseUrl}/sucursales`, body);
-  }
-
-  readBranches(id_sucursal?: number): Observable<any> {
-    const id = localStorage.getItem('id_usuario');
-    return this.http.get(`${environment.baseUrl}/sucursales/${id_sucursal}` || `${environment.baseUrl}/sucursales/${id}`);
   }
 
 }

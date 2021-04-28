@@ -14,6 +14,7 @@ import { MaterialModule } from '../material.module';
 import { ComponentsPagesModule } from './components/components-pages.module';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.component';
+import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.compo
         VacanciesComponent,
         MyVacanciesComponent,
         UpdateVacancieComponent,
+        PostulateVacancyComponent,
     ],
     imports: [
         CommonModule,
