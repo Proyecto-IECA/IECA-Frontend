@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { VacantesI } from '../../models/vacantes';
 import { PostulateVacancyService } from './postulate-vacancy.service';
 import { AuthResponseI } from '../../models/auth-response';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-postulate-vacancy',
@@ -30,8 +31,18 @@ export class PostulateVacancyComponent implements OnInit {
   postularme() {
     this.postulateVacancyService.addPostulante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if(resp.status) {
-        console.log(resp.data);
+        this.doneMassage('Exito al postularse');
       }
+    });
+  }
+
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
     });
   }
 
