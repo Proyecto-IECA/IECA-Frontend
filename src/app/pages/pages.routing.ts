@@ -79,7 +79,7 @@ export const routes: Routes = [
             { path: 'update-vacancie/:id',  component: UpdateVacancieComponent},
             { path: 'vacancies',        component: VacanciesComponent },
             { path: 'my-vacancies',     component: MyVacanciesComponent},
-            { path: 'postulate-vacancy', component: PostulateVacancyComponent}
+            { path: 'postulate-vacancy/:id', component: PostulateVacancyComponent}
         ]
     },
 

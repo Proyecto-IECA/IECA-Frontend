@@ -14,4 +14,13 @@ export class PostulateVacancyService {
   getVacante(idVacante) {
     return this.http.get(`${baseUrl}/vacantes/${idVacante}`);
   }
+
+  addPostulante(idVacante){
+    const idUsuario = localStorage.getItem('id_usuario');
+    const formData = {
+      id_usuario_fk: idUsuario,
+      id_vacante_fk: idVacante
+    }
+    return this.http.post(`${baseUrl}/postulaciones`, formData);
+  }
 }
