@@ -1,5 +1,5 @@
 <!-- Formulario -->
-<form autocomplete="off" (ngSubmit)="addVacante()" [formGroup]="vacanteForm">
+<form autocomplete="off" [formGroup]="vacanteForm" (ngSubmit)="updateVacante(1)">
     <!-- Datos del puesto -->
     <div class="row">
         <!-- Mensaje de Campos requeridos -->
@@ -30,19 +30,19 @@
     <div class="row">
         <!-- Sueldo Negociable -->
         <div class="col-md-4 m-t">
-            <mat-slide-toggle formControlName="negociable" (click)="isNegociable()">
+            <mat-slide-toggle formControlName="negociable" (toggleChange)="isNegociable()">
                 Sueldo Negociable
             </mat-slide-toggle>
         </div>
         <!-- Sueldo -->
         <div *ngIf="!negociable" class="col-md-4">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Sueldo" type="number" formControlName="sueldo" required>
+                <input matInput placeholder="Sueldo" formControlName="sueldo" required>
                 <mat-error *ngIf="campoNoValido('sueldo')">Este campo es obligatorio*</mat-error>
             </mat-form-field>
         </div>
         <div *ngIf="negociable" class="col-md-4">
-            <h3>Sueldo Negociable</h3>
+            <p>Sueldo Negociable</p>
         </div>
 
         <!-- Modalidad -->
@@ -73,22 +73,29 @@
     <!-- Sucursal -->
     <div *ngIf="sucursales" class="row">
         <div class="col-md-4 m-t">
-            <mat-slide-toggle>
+            <mat-slide-toggle formControlName="id_sucursal_fk" (toggleChange)="isSucursal()">
                 Elegir Sucursal
             </mat-slide-toggle>
         </div>
-        <div class="col-md-8">
+        <div *ngIf="elegirSucursal" class="col-md-8">
             <mat-form-field class="example-full-width">
                 <mat-label>Sucursal</mat-label>
-                <mat-select formControlName="sucursal">
-                    <mat-option *ngFor="let sucursal of sucursales" [value]="sucursal.id_usuario_fk">
+                <mat-select formControlName="id_sucursal_fk">
+                    <mat-option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">
                         {{sucursal.nombre}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
     </div>
-
-    <button mat-raised-button type="submit" class="btn btn-primary pull-right">Crear vacante</button>
-    <div class="clearfix"></div>
+    <!-- Renglón justificado al final -->
+    <div class="row justify-content-end">
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="deleteVacante()">
+            <i class="material-icons">delete</i>
+        </button>
+        <!-- ===== btn icon aceptar ===== -->
+        <button type="submit" class="btn btn-primary btn-sm btn-just-icon m-r">
+            <i class="material-icons">done</i>
+        </button>
+    </div>
 </form>

@@ -55,7 +55,7 @@ export class SidebarComponent implements OnInit {
                 ROUTES = [
                     { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
                     { path: '/company-profile', title: 'Company Profile', icon: 'person', class: '' },
-                    { path: '/vacante', title: 'Crear una Vacante', icon: 'assignment', class: '' },
+                    { path: '/my-vacancies', title: 'Mis Vacantes', icon: 'assignment', class: '' },
                     { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
                     { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
                     { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },

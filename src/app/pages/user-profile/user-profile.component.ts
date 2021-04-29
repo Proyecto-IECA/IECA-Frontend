@@ -30,7 +30,6 @@ export class UserProfileComponent implements OnInit {
   valores: ValorI[];
 
   idUsuario: number;
-  type: string = "Postulante";
 
   experienciasLaborales: ExperienciaLaboralI[];
   experienciasAcademicas: ExperienciaAcademicaI[];

@@ -1,0 +1,87 @@
+<div class="main-content">
+    <div class="row ">
+        <div class="col-md-12">
+            <button mat-raised-button class="btn btn-primary pull-left" routerLink="/create-vacancie">Nueva vacante</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Vacantes Publicadas</h4>
+                    <p class="card-category">Lista de todas las vacantes creadas</p>
+                </div>
+                <div class="card-body table-responsive">
+
+                    <table mat-table [dataSource]="dataSource" class="table table-hover">
+
+                        <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+                        <!-- Fecha Column -->
+                        <ng-container matColumnDef="fecha_publicacion">
+                            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                            <td mat-cell *matCellDef="let vacante"> {{vacante.fecha_publicacion}}
+                            </td>
+
+                        </ng-container>
+
+                        <!-- Puesto Column -->
+                        <ng-container matColumnDef="puesto">
+                            <th mat-header-cell *matHeaderCellDef> Puesto </th>
+                            <td mat-cell *matCellDef="let vacante"> {{vacante.puesto}} </td>
+                        </ng-container>
+
+                        <!-- Nivel Column -->
+                        <ng-container matColumnDef="nivel">
+                            <th mat-header-cell *matHeaderCellDef> Nivel </th>
+                            <td mat-cell *matCellDef="let vacante"> {{vacante.nivel}} </td>
+                        </ng-container>
+
+                        <!-- Modalidad Column -->
+                        <ng-container matColumnDef="modalidad">
+                            <th mat-header-cell *matHeaderCellDef> Modalidad </th>
+                            <td mat-cell *matCellDef="let vacante"> {{vacante.modalidad}}</td>
+                        </ng-container>
+
+                        <!-- Disponible Column -->
+                        <ng-container matColumnDef="disponible">
+                            <th mat-header-cell *matHeaderCellDef> Disponible </th>
+                            <td mat-cell *matCellDef="let vacante"> {{vacante.disponible}} </td>
+                        </ng-container>
+
+                        <!-- Publicada Column -->
+                        <ng-container matColumnDef="publicada">
+                            <th mat-header-cell *matHeaderCellDef> Publicada </th>
+                            <td mat-cell *matCellDef="let vacante"> {{vacante.publicada}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="editar">
+                            <th mat-header-cell *matHeaderCellDef>Editar</th>
+                            <td mat-cell *matCellDef="let vacante">
+                                <button mat-raised-button type="button" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="updateVacante(vacante.id_vacante)">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                        <!-- <ng-container matColumnDef="¿Eliminar vacante?">
+                            <tr>
+                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                            <i class="material-icons">edit</i>
+                        </button>
+                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                            <i class="material-icons">close</i>
+                        </button>
+                            </tr>
+                        </ng-container> -->
+                        <tr mat-header-row *matHeaderRowDef="dataColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: dataColumns;"></tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
