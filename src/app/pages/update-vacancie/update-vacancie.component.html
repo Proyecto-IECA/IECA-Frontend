@@ -75,5 +75,37 @@
                 <app-perfiles [perfiles]="perfiles" [id]="idVacante" [type]="'Vacante'"></app-perfiles>
             </div>
         </div>
+        <div class="row">
+            <h1>Postulantes</h1>
+        </div>
+        <div class="row m-t-2">
+            <!-- ===== Columna de Perfil -->
+            <div class="col-md-4" *ngFor="let postulante of postulantes">
+                <!-- ===== Foto de Perfil ====== -->
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <img class="img" src="./assets/img/faces/marc.jpg" />
+                    </div>
+                    <!-- Cuerpo del card -->
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">{{postulante.Usuario.nombre}}</h6>
+                        <h4 class="card-title">{{postulante.Usuario.email}}</h4>
+                        <p class="card-description">{{postulante.Usuario.telefono}}</p>
+                        <p class="card-description">{{postulante.fecha_postulacion}}</p>
+                        <p class="card-description">{{postulante.Usuario.calificacion}}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-danger btn-sm m-r" (click)="rechazarPostulacion(postulante.id_postulacion)">
+                            <i class="material-icons">cancel</i> Rechazar
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-sm m-r" (click)="aceptarPostulacion(postulante.id_postulacion)">
+                            <i class="material-icons">done</i> Aceptar
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
     </div>
 </div>

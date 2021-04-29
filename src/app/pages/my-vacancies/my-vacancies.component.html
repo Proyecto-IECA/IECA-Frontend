@@ -11,7 +11,7 @@
                     <h4 class="card-title">Vacantes Publicadas</h4>
                     <p class="card-category">Lista de todas las vacantes creadas</p>
                 </div>
-                <div class="card-body table-responsive">
+                <div *ngIf="dataSource" class="card-body table-responsive">
 
                     <table mat-table [dataSource]="dataSource" class="table table-hover">
 
