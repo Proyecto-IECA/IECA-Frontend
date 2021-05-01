@@ -22,6 +22,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { TableListComponent } from './table-list/table-list.component';
 import { TypographyComponent } from './typography/typography.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
+import { CardVacanciesComponent } from './card-vacancies/card-vacancies.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -43,6 +45,7 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
     TypographyComponent,
     UpgradeComponent,
     VacanteComponent,
+    CardVacanciesComponent,
   ],
   exports: [
     HabilidadesComponent,
@@ -60,7 +63,8 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
     TableListComponent,
     TypographyComponent,
     UpgradeComponent,
-    VacanteComponent
+    VacanteComponent,
+    CardVacanciesComponent,
   ],
   imports: [
     CommonModule,
@@ -68,6 +72,7 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
     ReactiveFormsModule,
     MaterialModule,
     GooglePlaceModule,
+    RouterModule,
   ]
 })
 export class ComponentsPagesModule { }

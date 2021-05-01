@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
     };
 
     cargarRoutes() {
-        let tipo = localStorage.getItem('tipo_usuario');
+        const tipo = localStorage.getItem('tipo_usuario');
 
         switch (tipo) {
             case 'Postulante':
@@ -43,14 +43,15 @@ export class SidebarComponent implements OnInit {
                     { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
                     { path: '/vacancies', title: 'Lista de Vacantes', icon: 'list', class: '' },
                     { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
+                    { path: '/favorites', title: 'Vacantes Favoritas', icon: 'favorite', class: '' },
                     { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
                     { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
                     { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
-                    { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' }
+                    { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
                     // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
                 ];
                 break;
-        
+
             case 'Empresa':
                 ROUTES = [
                     { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
@@ -62,7 +63,7 @@ export class SidebarComponent implements OnInit {
                     // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
                 ];
                 break;
-        
+
             default:
                 console.log(`Tipo no encontrado`);
         }

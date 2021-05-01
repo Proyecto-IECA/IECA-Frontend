@@ -14,6 +14,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatTableModule } from '@angular/material/table';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -33,7 +35,9 @@ import { MatTableModule } from '@angular/material/table';
     MatTooltipModule,
     MatMomentDateModule,
     MaterialFileInputModule,
-    MatTableModule
+    MatTableModule,
+    MatCarouselModule,
+    MatPaginatorModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -50,7 +54,9 @@ import { MatTableModule } from '@angular/material/table';
     MatTooltipModule,
     MatMomentDateModule,
     MaterialFileInputModule,
-    MatTableModule
+    MatTableModule,
+    MatCarouselModule,
+    MatPaginatorModule
   ],
   declarations: []
 })

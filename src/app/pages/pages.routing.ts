@@ -18,6 +18,10 @@ import { PagesComponent } from './pages.component';
 import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.component';
 import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
 import { MyVacanciesComponent } from './my-vacancies/my-vacancies.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+
+
+
 export const routes: Routes = [
     //   path: '',
     //   children: [ {
@@ -79,7 +83,8 @@ export const routes: Routes = [
             { path: 'update-vacancie/:id',  component: UpdateVacancieComponent},
             { path: 'vacancies',        component: VacanciesComponent },
             { path: 'my-vacancies',     component: MyVacanciesComponent},
-            { path: 'postulate-vacancy/:id', component: PostulateVacancyComponent}
+            { path: 'postulate-vacancy/:id', component: PostulateVacancyComponent},
+            { path: 'favorites', component: FavoritesComponent },
         ]
     },
 

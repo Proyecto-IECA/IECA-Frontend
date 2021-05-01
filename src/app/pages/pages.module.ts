@@ -15,6 +15,7 @@ import { ComponentsPagesModule } from './components/components-pages.module';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.component';
 import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy
         MyVacanciesComponent,
         UpdateVacancieComponent,
         PostulateVacancyComponent,
+        FavoritesComponent,
     ],
     imports: [
         CommonModule,
