@@ -19,6 +19,7 @@ import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.compo
 import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
 import { MyVacanciesComponent } from './my-vacancies/my-vacancies.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { SeeProfileComponent } from './see-profile/see-profile.component';
 
 
 
@@ -85,6 +86,7 @@ export const routes: Routes = [
             { path: 'my-vacancies',     component: MyVacanciesComponent},
             { path: 'postulate-vacancy/:id', component: PostulateVacancyComponent},
             { path: 'favorites', component: FavoritesComponent },
+            { path: 'see-profile', component: SeeProfileComponent}
         ]
     },
 
