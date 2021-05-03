@@ -3,7 +3,7 @@ import { VacantesI } from '../../models/vacantes';
 import { UpdateVacancieService } from './update-vacancie.service';
 import { PerfilI } from '../../models/perfil';
 import { AuthResponseI } from '../../models/auth-response';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostulacionI } from '../../models/postulacion';
 import Swal from 'sweetalert2';
 
@@ -21,7 +21,8 @@ export class UpdateVacancieComponent implements OnInit {
   
   constructor(
     private updateVacanteService: UpdateVacancieService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +39,10 @@ export class UpdateVacancieComponent implements OnInit {
         this.postulantes = resp.data.Postulaciones;
       }
     })
+  }
+
+  verPerfil(idUsuario) {
+    this.router.navigate(['/see-profile', idUsuario]);
   }
 
   aceptarPostulacion(idPostulacion) {

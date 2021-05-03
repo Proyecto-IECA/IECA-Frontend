@@ -86,7 +86,7 @@ export const routes: Routes = [
             { path: 'my-vacancies',     component: MyVacanciesComponent},
             { path: 'postulate-vacancy/:id', component: PostulateVacancyComponent},
             { path: 'favorites', component: FavoritesComponent },
-            { path: 'see-profile', component: SeeProfileComponent}
+            { path: 'see-profile/:id', component: SeeProfileComponent}
         ]
     },
 

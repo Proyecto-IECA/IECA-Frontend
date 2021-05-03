@@ -82,12 +82,12 @@
             <!-- ===== Columna de Perfil -->
             <div class="col-md-4" *ngFor="let postulante of postulantes">
                 <!-- ===== Foto de Perfil ====== -->
-                <div class="card card-profile" routerLink='/see-profile'>
+                <div class="card card-profile" (click)="verPerfil(postulante.Usuario.id_usuario)">
                     <div class="card-avatar">
                         <img class="img" src="./assets/img/faces/marc.jpg" />
                     </div>
                     <!-- Cuerpo del card -->
-                    <div class="card-body" routerLink='/see-profile'>
+                    <div class="card-body" (click)="verPerfil(postulante.Usuario.id_usuario)">
                         <h6 class="card-category text-gray">{{postulante.Usuario.nombre}}</h6>
                         <h4 class="card-title">{{postulante.Usuario.email}}</h4>
                         <p class="card-description">{{postulante.Usuario.telefono}}</p>
