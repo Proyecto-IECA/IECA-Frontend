@@ -41,8 +41,8 @@ export class UpdateVacancieComponent implements OnInit {
     })
   }
 
-  verPerfil(idUsuario) {
-    this.router.navigate(['/see-profile', idUsuario]);
+  verPerfil(idPostulacion) {
+    this.router.navigate(['/see-profile', idPostulacion]);
   }
 
   aceptarPostulacion(idPostulacion) {
