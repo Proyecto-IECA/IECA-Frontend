@@ -10,6 +10,8 @@ import { IdiomaI } from 'app/models/idioma';
 import { ValorI } from '../../models/valor';
 import { PerfilI } from '../../models/perfil';
 import { CursoCertificacionI } from '../../models/cursos_certificaciones';
+import Swal from 'sweetalert2';
+import { PostulacionI } from 'app/models/postulacion';
 
 @Component({
   selector: 'app-see-profile',
@@ -19,8 +21,10 @@ import { CursoCertificacionI } from '../../models/cursos_certificaciones';
 export class SeeProfileComponent implements OnInit {
 
 
+  idPostulacion: number;
   idUsuario: number;
   usuario: UsuarioI;
+  postulante: PostulacionI;
   habilidades: HabilidadI[];
   idiomas: IdiomaI[];
   valores: ValorI[];
@@ -35,13 +39,17 @@ export class SeeProfileComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.idUsuario = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.seeProfileService.getUsuario(this.idUsuario).subscribe((resp: AuthResponseI) => {
+    this.idPostulacion = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.seeProfileService.getPostulante(this.idPostulacion).subscribe((resp: AuthResponseI) => {
       if(resp.status) {
-        this.usuario = resp.data;
+        this.usuario = resp.data.Usuario;
+        this.idUsuario = this.usuario.id_usuario;
+        this.loadData();
       }
     });
+  }
 
+  loadData() {
     this.seeProfileService.getExpLaboral(this.idUsuario).subscribe((resp: AuthResponseI) => {
       if(resp.status) {
         this.expLaborales = resp.data;
@@ -85,4 +93,30 @@ export class SeeProfileComponent implements OnInit {
     });
   }
 
+  aceptarPostulacion() {    
+    this.seeProfileService.aceptarPostulacion(this.idPostulacion).subscribe((resp: AuthResponseI) => {      
+      if (resp.status) {
+        this.doneMassage("Acepto al postulante");
+      }
+    });
+  }
+
+  rechazarPostulacion() {
+    this.seeProfileService.rechazarPostulacion(this.idPostulacion).subscribe((resp: AuthResponseI) => {
+      console.log(resp);
+      if (resp.status) {
+        this.doneMassage("Rechazo al postulante");
+      }
+    });
+  }
+
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
 }

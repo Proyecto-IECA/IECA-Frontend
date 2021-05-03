@@ -11,8 +11,8 @@ export class SeeProfileService {
 
   constructor(private http: HttpClient) { }
 
-  getUsuario(id) {
-    return this.http.get(`${baseUrl}/usuarios/${id}`)
+  getPostulante(id) {
+    return this.http.get(`${baseUrl}/postulaciones/${id}`)
   }
 
   getExpLaboral(id) {
@@ -41,5 +41,13 @@ export class SeeProfileService {
 
   getCursoCertificado(id) {
     return this.http.get(`${baseUrl}/cursos-certificaciones/${id}`);
+  }
+
+  aceptarPostulacion(idPostulacion) {
+    return this.http.get(`${baseUrl}/postulaciones/aceptar/${idPostulacion}`);
+  }
+
+  rechazarPostulacion(idPostulacion) {
+    return this.http.get(`${baseUrl}/postulaciones/rechazar/${idPostulacion}`);
   }
 }
