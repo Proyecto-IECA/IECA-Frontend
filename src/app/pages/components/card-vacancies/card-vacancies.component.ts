@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { VacantesI } from '../../../models/vacantes';
-import { VacanciesService } from '../../vacancies/vacancies.service';
+import { VacanciesService } from 'app/pages/vacancies/vacancies.service';
+import { VacantesFavI } from '../../../models/vacantes_favoritas';
+import { AuthResponseI } from '../../../models/auth-response';
+import Swal from 'sweetalert2';
+import { FavoritesService } from '../../favorites/favorites.service';
 
 @Component({
   selector: 'app-card-vacancies',
@@ -14,21 +17,35 @@ import { VacanciesService } from '../../vacancies/vacancies.service';
 export class CardVacanciesComponent implements OnInit {
 
   /* * ----- INPUT ----- */
-  @Input() listaVacantes: VacantesI[];
+  @Input() listaVacantes: VacantesFavI[];
 
-  constructor(private vacantesService: VacanciesService) { }
+  constructor(
+    private vacantesService: VacanciesService,
+    private vacantesFavService: FavoritesService
+    ) { }
 
   ngOnInit(): void {
   }
 
-  markFavorite(id_vacante: number): void {
-    console.log('Marcada como favorito');
-    // this.vacantesService.markFavorite(id_vacante);
+  unmarkFavorite(idVacanteFav: number): void {
+    this.vacantesService.unmarkFavorite(idVacanteFav).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.vacantesFavService.getVacantesFav().subscribe((resp: AuthResponseI) => {
+          this.listaVacantes = resp.data.Vacantes_Favoritas;
+        })
+        this.doneMassage("Vacante eliminada de favoritas");
+      }
+    })
   }
 
-  unmarkFavorite(id_vacante: number): void {
-    console.log('Desmarcada como favorito');
-    // this.vacantesService.unmarkFavorite(id_vacante);
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
   }
 
 }

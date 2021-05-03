@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { VacantesI } from '../../models/vacantes';
 
-import { VacanciesService } from '../vacancies/vacancies.service';
 import { AuthResponseI } from '../../models/auth-response';
+import { FavoritesService } from './favorites.service';
+import { VacantesFavI } from '../../models/vacantes_favoritas';
 
 
 @Component({
@@ -16,10 +16,10 @@ import { AuthResponseI } from '../../models/auth-response';
 export class FavoritesComponent implements OnInit {
 
   /* ? ----- VARIABLES ----- */
-  listaVacantes: VacantesI[];
+  listaVacantes: VacantesFavI[];
   slides = [{image: '1'}, {image: '2'}, {image: '3'}]
 
-  constructor(private vacantesService: VacanciesService,
+  constructor(private vacantesFavService: FavoritesService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -28,9 +28,9 @@ export class FavoritesComponent implements OnInit {
 
   /* ? ----- METODOS ----- */
   loadData(): void {
-    this.vacantesService.getListaVacantes().subscribe((resp: AuthResponseI) => {
+    this.vacantesFavService.getVacantesFav().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.listaVacantes = resp.data;
+        this.listaVacantes = resp.data.Vacantes_Favoritas;
       }
     });
   }

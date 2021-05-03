@@ -13,7 +13,15 @@
             <div class="col-md-4" *ngFor="let vacante of listaVacantes">
                 <div class="card-group">
                     <div class="card">
+                        <div class="justify-content-end">
+
+                            <!-- Boton de Favorito -->
+                            <mat-icon *ngIf="vacante.Vacantes_Favoritas.length > 0" (click)="unmarkFavorite(vacante.Vacantes_Favoritas)" class="text-primary justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
+                            <mat-icon *ngIf="vacante.Vacantes_Favoritas.length == 0" (click)="markFavorite(vacante)" class="text-primary justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
+                        </div>
+
                         <img src="../../../assets/img/IECA-Blanco.jpg" class="card-img-top" alt="...">
+
                         <div class="card-body">
                             <h5 class="card-title">{{vacante.puesto}}</h5>
                             <p class="card-text">{{vacante.descripcion}}</p>

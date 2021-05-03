@@ -12,4 +12,5 @@ export class VacantesI {
     publicada?: number;
     id_usuario_fk?: number;
     id_sucursal_fk?: number;
+    Vacantes_Favoritas?: any;
 }

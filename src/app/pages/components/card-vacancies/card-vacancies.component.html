@@ -1,34 +1,32 @@
 <!-- Cards de lista de vacantes disponibles -->
 <div class="row">
-	<div class="col-md-4" *ngFor="let vacante of listaVacantes">
-		<div class="card-group">
-			<div class="card">
+    <div class="col-md-4" *ngFor="let vacante of listaVacantes">
+        <div class="card-group">
+            <div class="card">
 
-				<div class="justify-content-end">
+                <div class="justify-content-end">
 
-					<!-- Boton de Favorito -->
-					<mat-icon (click)="unmarkFavorite(vacante.id_vacante)" class="cursor text-primary justify-content-md-end">favorite</mat-icon>
-					<mat-icon (click)="markFavorite(vacante.id_vacante)"   class="cursor text-primary justify-content-md-end">favorite_border</mat-icon>
+                    <!-- Boton de Favorito -->
+                    <mat-icon (click)="unmarkFavorite(vacante.id_vacante_favorita)" class="cursor text-primary justify-content-md-end">favorite</mat-icon>
 
-					<!-- Images por default -->
-					<img src="../../../assets/img/IECA-Blanco.jpg" class="card-img-top" alt="...">
+                    <!-- Images por default -->
+                    <img src="../../../assets/img/IECA-Blanco.jpg" class="card-img-top" alt="...">
 
-				</div>
+                </div>
 
-				<!-- Cuerpo del Card -->
-				<div class="card-body">
-					<h5 class="card-title">{{vacante.puesto}}</h5>
-					<p class="card-text">{{vacante.descripcion}}</p>
-					<button type="button" class="btn btn-primary btn-lg btn-block" [routerLink]="['/postulate-vacancy', vacante.id_vacante]">Visualizar</button>
-				</div>
+                <!-- Cuerpo del Card -->
+                <div class="card-body">
+                    <h5 class="card-title">{{vacante.Vacante.puesto}}</h5>
+                    <p class="card-text">{{vacante.Vacante.descripcion}}</p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" [routerLink]="['/postulate-vacancy', vacante.Vacante.id_vacante]">Visualizar</button>
+                </div>
 
-				<!-- Fecha de pubicación -->
-				<div class="card-footer">
-					<small class="text-muted">Fecha de pubicación: {{vacante.fecha_publicacion}}</small>
-				</div>
+                <!-- Fecha de pubicación -->
+                <div class="card-footer">
+                    <small class="text-muted">Fecha de pubicación: {{vacante.Vacante.fecha_publicacion}}</small>
+                </div>
 
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
-

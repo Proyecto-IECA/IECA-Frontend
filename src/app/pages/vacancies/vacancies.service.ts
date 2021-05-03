@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
 
 const baseUrl = environment.baseUrl + '/vacantes'
 
@@ -15,19 +14,19 @@ export class VacanciesService {
   }
 
   getListaVacantes () {
-    return this.http.get(`${baseUrl}`);
-  }
-
-  getFavotires(): Observable<any> {
     return this.http.get(`${baseUrl}/${this.id_usuario}`);
   }
 
-  markFavorite(id_vacante: number): Observable<any> {
-    return this.http.post(`${baseUrl}/${this.id_usuario}`, id_vacante);
+  markFavorite(idVacante) {
+    const formData = {
+      id_usuario_fk: this.id_usuario,
+      id_vacante_fk: idVacante
+    }
+    return this.http.post(`${baseUrl}-favoritas`, formData);
   }
 
-  unmarkFavorite(id_vacante: number): Observable<any> {
-    return this.http.put(`${baseUrl}/${this.id_usuario}`, id_vacante);
+  unmarkFavorite(idVacanteFav) {
+    return this.http.delete(`${baseUrl}-favoritas/${idVacanteFav}`);
   }
 
 }
