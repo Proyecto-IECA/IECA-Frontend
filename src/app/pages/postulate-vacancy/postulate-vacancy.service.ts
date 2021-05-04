@@ -12,7 +12,7 @@ export class PostulateVacancyService {
   constructor(private http: HttpClient) { }
 
   getVacante(idVacante) {
-    return this.http.get(`${baseUrl}/vacantes/${idVacante}`);
+    return this.http.get(`${baseUrl}/vacantes/vacante/${idVacante}`);
   }
 
   addPostulante(idVacante){
