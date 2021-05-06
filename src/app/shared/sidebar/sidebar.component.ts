@@ -48,7 +48,9 @@ export class SidebarComponent implements OnInit {
                     { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
                     { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
                     { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
-                    // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
+                    // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' }
+                    { path: '/my-postulations', title: 'Mis Postulaciones', icon: 'engineering', class: '' }
+                    
                 ];
                 break;
 
