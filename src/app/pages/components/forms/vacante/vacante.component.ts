@@ -63,6 +63,7 @@ export class VacanteComponent implements OnInit {
   ngOnInit(): void {
     this.vacanteService.getVacante(this.idVacante).subscribe(
       (resp: AuthResponseI) => {
+        console.log(resp);
         if (resp.status) {
           this.vacante = resp.data;
           this.loadData();

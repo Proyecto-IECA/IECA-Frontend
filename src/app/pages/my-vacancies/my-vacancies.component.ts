@@ -11,8 +11,14 @@ import { Router } from '@angular/router';
 })
 export class MyVacanciesComponent implements OnInit {
 
-  dataColumns: string[] = ['fecha_publicacion', 'puesto', 'nivel', 'modalidad', 'disponible', 'publicada', 'editar'];
-  dataSource: VacantesI[];
+  vacantesP: VacantesI[];
+  vacantesB: VacantesI[];
+  vacantesC: VacantesI[];
+  vacantesD: VacantesI[];
+  numVacantesP: number;
+  numVacantesB: number;
+  numVacantesC: number;
+  numVacantesD: number;
   
   constructor(
     private myVacanciesService: MyVacanciesService,
@@ -22,7 +28,15 @@ export class MyVacanciesComponent implements OnInit {
   ngOnInit(): void {
     this.myVacanciesService.getVacantes().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.dataSource = resp.data;
+        console.log(resp);
+        this.vacantesP = resp.data.VacantesPublicadas;
+        this.vacantesB = resp.data.VacantesBorradores;
+        this.vacantesC = resp.data.VacantesCerradas;
+        this.vacantesD = resp.data.VacantesDisponibles;
+        this.numVacantesP = this.vacantesP.length;
+        this.numVacantesB = this.vacantesB.length;
+        this.numVacantesC = this.vacantesC.length;
+        this.numVacantesD = this.vacantesD.length;
       }
     })
   }
