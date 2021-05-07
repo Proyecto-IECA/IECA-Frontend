@@ -21,7 +21,7 @@ export class UserProfileService {
   updateFoto(formData: any) {
     return this.http.put(`${baseUrl}/usuarios/updatefoto`, formData)
   }
-  
+
   getPerfilesUsuario() {
     return this.http.get(`${baseUrl}/perfiles/usuario/${id}`);
   }

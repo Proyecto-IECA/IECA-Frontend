@@ -17,6 +17,7 @@ import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.compo
 import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { SeeProfileComponent } from './see-profile/see-profile.component';
+import { SeeCompanyComponent } from './see-company/see-company.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { SeeProfileComponent } from './see-profile/see-profile.component';
         PostulateVacancyComponent,
         FavoritesComponent,
         SeeProfileComponent,
+        SeeCompanyComponent,
     ],
     imports: [
         CommonModule,

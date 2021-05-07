@@ -11,8 +11,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./postulate-vacancy.component.css']
 })
 export class PostulateVacancyComponent implements OnInit {
-  
-  idVacante: number; 
+
+  idVacante: number;
   vacante: VacantesI;
   constructor(
     private postulateVacancyService: PostulateVacancyService,
@@ -22,7 +22,7 @@ export class PostulateVacancyComponent implements OnInit {
   ngOnInit(): void {
     this.idVacante = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.postulateVacancyService.getVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
-      if(resp.status){
+      if (resp.status) {
         this.vacante = resp.data;
       }
     });
@@ -30,7 +30,7 @@ export class PostulateVacancyComponent implements OnInit {
 
   postularme() {
     this.postulateVacancyService.addPostulante(this.idVacante).subscribe((resp: AuthResponseI) => {
-      if(resp.status) {
+      if (resp.status) {
         this.doneMassage('Exito al postularse');
       }
     });
