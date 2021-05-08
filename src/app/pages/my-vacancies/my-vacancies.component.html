@@ -1,86 +1,247 @@
 <div class="main-content">
     <div class="row ">
-        <div class="col-md-12">
-            <button mat-raised-button class="btn btn-primary pull-left" routerLink="/create-vacancie">Nueva vacante</button>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">content_copy</i>
+                    </div>
+                    <p class="card-category">Publicadas</p>
+                    <h3 class="card-title">{{numVacantesP}}</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">store</i>
+                    </div>
+                    <p class="card-category">Sin Publicar</p>
+                    <h3 class="card-title">{{numVacantesB}}</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">info_outline</i>
+                    </div>
+                    <p class="card-category">Cerradas</p>
+                    <h3 class="card-title">{{numVacantesC}}</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="fa fa-twitter"></i>
+                    </div>
+                    <p class="card-category">Disponibles</p>
+                    <h3 class="card-title">{{numVacantesD}}</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="card">
-                <div class="card-header card-header-success">
-                    <h4 class="card-title">Vacantes Publicadas</h4>
-                    <p class="card-category">Lista de todas las vacantes creadas</p>
+                <div class="card-header card-header-tabs card-header-success">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <span class="nav-tabs-title">Vacantes:</span>
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="nav-item">
+                                    <a mat-button class="nav-link active" href="#publicadas" data-toggle="tab">
+                                        <i class="material-icons">bug_report</i> Publicadas
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a mat-button class="nav-link" href="#borradores" data-toggle="tab">
+                                        <i class="material-icons">bug_report</i> Sin publicar
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a mat-button class="nav-link" href="#cerradas" data-toggle="tab">
+                                        <i class="material-icons">bug_report</i> Cerradas
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a mat-button class="nav-link" href="#disponibles" data-toggle="tab">
+                                        <i class="material-icons">bug_report</i> Disponibles
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body table-responsive">
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="publicadas">
+                            <table class="table">
+                                <thead class="text-success text-center">
+                                    <th>Fecha</th>
+                                    <th>Puesto</th>
+                                    <th>Nivel</th>
+                                    <th>Modalidad</th>
+                                    <th>Dejar de publicar</th>
 
-                    <table mat-table [dataSource]="dataSource" class="table table-hover">
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let vacante of vacantesP" class="text-center">
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.fecha_publicacion}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.puesto}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.nivel}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.modalidad}}
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <div class="form-check">
+                                                    <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="noPublicar(vacante)">
+                                                        <i class="material-icons">done</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="borradores">
+                            <table class="table">
+                                <thead class="text-success text-center">
+                                    <th>Puesto</th>
+                                    <th>Nivel</th>
+                                    <th>Modalidad</th>
+                                    <th>Publicar</th>
 
-                        <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let vacante of vacantesB" class="text-center">
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.puesto}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.nivel}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.modalidad}}
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <div class="form-check">
+                                                    <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="publicar(vacante)">
+                                                        <i class="material-icons">done</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="cerradas">
+                            <table class="table">
+                                <thead class="text-success text-center">
+                                    <th>Fecha</th>
+                                    <th>Puesto</th>
+                                    <th>Nivel</th>
+                                    <th>Modalidad</th>
+                                    <th>Abrir</th>
 
-                        <!-- Fecha Column -->
-                        <ng-container matColumnDef="fecha_publicacion">
-                            <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                            <td mat-cell *matCellDef="let vacante"> {{vacante.fecha_publicacion}}
-                            </td>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let vacante of vacantesC" class="text-center">
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.fecha_publicacion}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.puesto}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.nivel}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.modalidad}}
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <div class="form-check">
+                                                    <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="abrir(vacante)">
+                                                        <i class="material-icons">done</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="disponibles">
+                            <table class="table">
+                                <thead class="text-success text-center">
+                                    <th>Fecha</th>
+                                    <th>Puesto</th>
+                                    <th>Nivel</th>
+                                    <th>Modalidad</th>
+                                    <th>Cerrar</th>
 
-                        </ng-container>
 
-                        <!-- Puesto Column -->
-                        <ng-container matColumnDef="puesto">
-                            <th mat-header-cell *matHeaderCellDef> Puesto </th>
-                            <td mat-cell *matCellDef="let vacante"> {{vacante.puesto}} </td>
-                        </ng-container>
-
-                        <!-- Nivel Column -->
-                        <ng-container matColumnDef="nivel">
-                            <th mat-header-cell *matHeaderCellDef> Nivel </th>
-                            <td mat-cell *matCellDef="let vacante"> {{vacante.nivel}} </td>
-                        </ng-container>
-
-                        <!-- Modalidad Column -->
-                        <ng-container matColumnDef="modalidad">
-                            <th mat-header-cell *matHeaderCellDef> Modalidad </th>
-                            <td mat-cell *matCellDef="let vacante"> {{vacante.modalidad}}</td>
-                        </ng-container>
-
-                        <!-- Disponible Column -->
-                        <ng-container matColumnDef="disponible">
-                            <th mat-header-cell *matHeaderCellDef> Disponible </th>
-                            <td mat-cell *matCellDef="let vacante"> {{vacante.disponible}} </td>
-                        </ng-container>
-
-                        <!-- Publicada Column -->
-                        <ng-container matColumnDef="publicada">
-                            <th mat-header-cell *matHeaderCellDef> Publicada </th>
-                            <td mat-cell *matCellDef="let vacante"> {{vacante.publicada}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="editar">
-                            <th mat-header-cell *matHeaderCellDef>Editar</th>
-                            <td mat-cell *matCellDef="let vacante">
-                                <button mat-raised-button type="button" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="updateVacante(vacante.id_vacante)">
-                                    <i class="material-icons">edit</i>
-                                </button>
-                            </td>
-                        </ng-container>
-
-                        <!-- <ng-container matColumnDef="¿Eliminar vacante?">
-                            <tr>
-                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                            <i class="material-icons">edit</i>
-                        </button>
-                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                            <i class="material-icons">close</i>
-                        </button>
-                            </tr>
-                        </ng-container> -->
-                        <tr mat-header-row *matHeaderRowDef="dataColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: dataColumns;"></tr>
-
-                    </table>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let vacante of vacantesD" class="text-center">
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.fecha_publicacion}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.puesto}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.nivel}}
+                                        </td>
+                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            {{vacante.modalidad}}
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="cerrar(vacante)">
+                                                    <i class="material-icons">done</i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
+            </div>
+        </div>
+        <div class="col-md-2 align-self-center">
+            <div class="col-md-12">
+                <button mat-raised-button class="btn btn-primary pull-left" routerLink="/create-vacancie">Nueva vacante</button>
             </div>
         </div>
     </div>
