@@ -1,3 +1,5 @@
+import { UsuarioI } from './usuario';
+
 export class VacantesI {
     id_vacante?: number;
     puesto?: string;
@@ -13,4 +15,5 @@ export class VacantesI {
     id_usuario_fk?: number;
     id_sucursal_fk?: number;
     Vacantes_Favoritas?: any;
+    Usuario?: UsuarioI;
 }

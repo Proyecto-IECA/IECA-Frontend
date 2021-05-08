@@ -24,6 +24,7 @@ import { TypographyComponent } from './typography/typography.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
 import { CardVacanciesComponent } from './card-vacancies/card-vacancies.component';
 import { RouterModule } from '@angular/router';
+import { CardProfileComponent } from './card-profile/card-profile.component';
 
 
 
@@ -46,26 +47,28 @@ import { RouterModule } from '@angular/router';
     UpgradeComponent,
     VacanteComponent,
     CardVacanciesComponent,
+    CardProfileComponent,
   ],
-  exports: [
-    HabilidadesComponent,
-    IdiomasComponent,
-    PerfilesComponent,
-    ValoresComponent,
-    CursoCertificacionComponent,
-    ExperienciaAcademicaComponent,
-    ExperienciaLaboralComponent,
-    SucursalesComponent,
-    UserComponent,
-    IconsComponent,
-    MapsComponent,
-    NotificationsComponent,
-    TableListComponent,
-    TypographyComponent,
-    UpgradeComponent,
-    VacanteComponent,
-    CardVacanciesComponent,
-  ],
+    exports: [
+        HabilidadesComponent,
+        IdiomasComponent,
+        PerfilesComponent,
+        ValoresComponent,
+        CursoCertificacionComponent,
+        ExperienciaAcademicaComponent,
+        ExperienciaLaboralComponent,
+        SucursalesComponent,
+        UserComponent,
+        IconsComponent,
+        MapsComponent,
+        NotificationsComponent,
+        TableListComponent,
+        TypographyComponent,
+        UpgradeComponent,
+        VacanteComponent,
+        CardVacanciesComponent,
+        CardProfileComponent,
+    ],
   imports: [
     CommonModule,
     FormsModule,

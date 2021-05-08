@@ -16,6 +16,7 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatTableModule } from '@angular/material/table';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -37,6 +38,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MaterialFileInputModule,
     MatTableModule,
     MatCarouselModule,
+    MatCardModule,
     MatPaginatorModule
   ],
   exports: [
@@ -56,6 +58,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MaterialFileInputModule,
     MatTableModule,
     MatCarouselModule,
+    MatCardModule,
     MatPaginatorModule
   ],
   declarations: []
