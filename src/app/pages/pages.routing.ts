@@ -20,13 +20,10 @@ import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy
 import { MyVacanciesComponent } from './my-vacancies/my-vacancies.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { SeeProfileComponent } from './see-profile/see-profile.component';
-<<<<<<< HEAD
 import { MyPostulationsComponent } from './my-postulations/my-postulations.component';
-=======
+import { SeeCompanyComponent } from './see-company/see-company.component';
 // Borrar
 import { CardProfileComponent } from './components/card-profile/card-profile.component';
-import { SeeCompanyComponent } from './see-company/see-company.component';
->>>>>>> main
 
 
 
@@ -92,15 +89,10 @@ export const routes: Routes = [
             { path: 'vacancies',             component: VacanciesComponent },
             { path: 'my-vacancies',          component: MyVacanciesComponent},
             { path: 'postulate-vacancy/:id', component: PostulateVacancyComponent},
-<<<<<<< HEAD
             { path: 'favorites', component: FavoritesComponent },
             { path: 'see-profile/:id', component: SeeProfileComponent},
-            { path: 'my-postulations', component: MyPostulationsComponent}
-=======
-            { path: 'favorites',             component: FavoritesComponent },
-            { path: 'see-profile/:id',       component: SeeProfileComponent},
+            { path: 'my-postulations', component: MyPostulationsComponent},
             { path: 'see-company/:id',       component: SeeCompanyComponent },
->>>>>>> main
         ]
     },
 

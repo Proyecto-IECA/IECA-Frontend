@@ -17,11 +17,8 @@ import { UpdateVacancieComponent } from './update-vacancie/update-vacancie.compo
 import { PostulateVacancyComponent } from './postulate-vacancy/postulate-vacancy.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { SeeProfileComponent } from './see-profile/see-profile.component';
-<<<<<<< HEAD
 import { MyPostulationsComponent } from './my-postulations/my-postulations.component';
-=======
 import { SeeCompanyComponent } from './see-company/see-company.component';
->>>>>>> main
 
 
 @NgModule({
@@ -37,11 +34,8 @@ import { SeeCompanyComponent } from './see-company/see-company.component';
         PostulateVacancyComponent,
         FavoritesComponent,
         SeeProfileComponent,
-<<<<<<< HEAD
         MyPostulationsComponent,
-=======
         SeeCompanyComponent,
->>>>>>> main
     ],
     imports: [
         CommonModule,
