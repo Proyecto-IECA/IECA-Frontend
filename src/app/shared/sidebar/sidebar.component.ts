@@ -49,8 +49,8 @@ export class SidebarComponent implements OnInit {
                     { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
                     { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
                     // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' }
-                    { path: '/my-postulations', title: 'Mis Postulaciones', icon: 'engineering', class: '' }
-                    
+                    { path: '/my-postulations', title: 'Mis Postulaciones', icon: 'engineering', class: '' },
+                    { path: '/reviews', title: 'Reviews', icon: 'contact_page', class: ''},
                 ];
                 break;
 
@@ -63,6 +63,7 @@ export class SidebarComponent implements OnInit {
                     { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
                     { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
                     // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
+                    { path: '/reviews', title: 'Reviews', icon: 'contact_page', class: ''},
                 ];
                 break;
 

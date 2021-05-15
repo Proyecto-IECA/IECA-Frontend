@@ -14,7 +14,7 @@ import { AuthResponseI } from '../../models/auth-response';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['../auth.component.css']
+  styleUrls: ['../auth.component.css', './login.component.css']
 })
 export class LoginComponent implements OnInit {
 

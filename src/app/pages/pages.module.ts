@@ -19,6 +19,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { SeeProfileComponent } from './see-profile/see-profile.component';
 import { MyPostulationsComponent } from './my-postulations/my-postulations.component';
 import { SeeCompanyComponent } from './see-company/see-company.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { SeeCompanyComponent } from './see-company/see-company.component';
         SeeProfileComponent,
         MyPostulationsComponent,
         SeeCompanyComponent,
+        ReviewsComponent,
     ],
     imports: [
         CommonModule,
