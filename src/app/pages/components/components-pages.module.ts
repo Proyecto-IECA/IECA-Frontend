@@ -15,13 +15,7 @@ import { ExperienciaLaboralComponent } from './forms/experiencia-laboral/experie
 import { SucursalesComponent } from './forms/sucursales/sucursales.component'
 import { UserComponent } from './forms/user/user.component';
 import { VacanteComponent } from './forms/vacante/vacante.component';
-
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { TypographyComponent } from './typography/typography.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
 import { CardVacanciesComponent } from './card-vacancies/card-vacancies.component';
 import { RouterModule } from '@angular/router';
 import { CardProfileComponent } from './card-profile/card-profile.component';
@@ -39,12 +33,7 @@ import { CardProfileComponent } from './card-profile/card-profile.component';
     ExperienciaLaboralComponent,
     SucursalesComponent,
     UserComponent,
-    IconsComponent,
-    MapsComponent,
     NotificationsComponent,
-    TableListComponent,
-    TypographyComponent,
-    UpgradeComponent,
     VacanteComponent,
     CardVacanciesComponent,
     CardProfileComponent,
@@ -59,12 +48,7 @@ import { CardProfileComponent } from './card-profile/card-profile.component';
         ExperienciaLaboralComponent,
         SucursalesComponent,
         UserComponent,
-        IconsComponent,
-        MapsComponent,
         NotificationsComponent,
-        TableListComponent,
-        TypographyComponent,
-        UpgradeComponent,
         VacanteComponent,
         CardVacanciesComponent,
         CardProfileComponent,
