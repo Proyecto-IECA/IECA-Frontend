@@ -1,207 +1,195 @@
 <form class="sign-in-form">
-
     <h2 class="title">¡Bienvenido!</h2>
     <!-- Seleción de formulario -->
     <div class="input-field">
         <i class="material-icons">keyboard_arrow_down</i>
         <select class="form-select" id="inputGroupSelect02" name="type" [(ngModel)]="type" (change)="changeTipo($event.target.value)">
-            <option value="">Soy un(a) ...</option>
-			<option value="Postulante">Aspirante</option>
-			<option value="Empresa">Empresa</option>
-		</select>
+      <option value="">Soy un(a) ...</option>
+      <option value="Postulante">Aspirante</option>
+      <option value="Empresa">Empresa</option>
+    </select>
     </div>
+    <app-social-media *ngIf="type == ''"></app-social-media>
+</form>
 
-    <!-- Si selecciona USUARIO -->
-    <form *ngIf="type == 'Postulante'" (ngSubmit)="registro(registerUsuarioForm)" [formGroup]="registerUsuarioForm">
-        <!-- Mostrar formulario -->
-        <div *ngIf="part">
-            <!-- Nombre -->
-            <div class="input-field">
-                <i class="material-icons">person</i>
-                <input type="text" placeholder="Nombre" formControlName="nombre" />
-            </div>
-            <small *ngIf="controlNoValid(registerUsuarioForm,'nombre')" class="form-text text-danger">
-				* Debe contener al menos 3 letras
-				<br>
-			</small>
-            <!-- Apellido paterno -->
-            <div class="input-field">
-                <i class="material-icons">person</i>
-                <input type="text" placeholder="Apellido Paterno" formControlName="apellido_paterno" />
-            </div>
-            <small *ngIf="controlNoValid(registerUsuarioForm,'apellido_paterno')" class="form-text text-danger">
-				* Debe contener al menos 3 letras
-				<br>
-			</small>
-            <!-- Apellido materno -->
-            <div class="input-field">
-                <i class="material-icons">person</i>
-                <input type="text" placeholder="Apellido Materno" formControlName="apellido_materno" />
-            </div>
-            <small *ngIf="controlNoValid(registerUsuarioForm,'apellido_materno')" class="form-text text-danger">
-				* Debe contener al menos 3 letras
-				<br>
-			</small>
-            <!-- fecha_nacimiento -->
-            <div class="input-field">
-                <i class="material-icons">calendar_today</i>
-                <input type="date" placeholder="Fecha de Nacimiento" formControlName="fecha_nacimiento" />
-            </div>
-            <!-- Género -->
-            <div class="input-field">
-                <i class="material-icons">keyboard_arrow_down</i>
-                <select class="form-select" id="inputGroupSelect03" formControlName="sexo">
-					<option value="null">Género...</option>
-					<option value="H">Hombre</option>
-					<option value="M">Mujer</option>
-					<option value="X">Prefiero no decirlo</option>
-				</select>
-            </div>
-            <small *ngIf="controlNoValid(registerUsuarioForm,'sexo')" class="form-text text-danger">
-				* Elegir una opción válida
-				<br>
-			</small>
-        </div>
+<!-- Si selecciona USUARIO -->
+<form *ngIf="type == 'Postulante'" (ngSubmit)="registro(registerUsuarioForm)" [formGroup]="registerUsuarioForm">
+    <!-- Mostrar formulario -->
+    <!-- Nombre -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">person</i>
+        <input type="text" placeholder="Nombre" formControlName="nombre" />
+    </div>
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'nombre')" class="form-text text-danger">
+    * Debe contener al menos 3 letras
+    <br />
+  </small>
+    <!-- Apellido paterno -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">person</i>
+        <input type="text" placeholder="Apellido Paterno" formControlName="apellido_paterno" />
+    </div>
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'apellido_paterno')" class="form-text text-danger">
+    * Debe contener al menos 3 letras
+    <br />
+  </small>
+    <!-- Apellido materno -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">person</i>
+        <input type="text" placeholder="Apellido Materno" formControlName="apellido_materno" />
+    </div>
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'apellido_materno')" class="form-text text-danger">
+    * Debe contener al menos 3 letras
+    <br />
+  </small>
+    <!-- fecha_nacimiento -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">calendar_today</i>
+        <input type="date" placeholder="Fecha de Nacimiento" formControlName="fecha_nacimiento" />
+    </div>
+    <!-- Género -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">keyboard_arrow_down</i>
+        <select class="form-select" id="inputGroupSelect03" formControlName="sexo">
+      <option value="null">Género...</option>
+      <option value="H">Hombre</option>
+      <option value="M">Mujer</option>
+      <option value="X">Prefiero no decirlo</option>
+    </select>
+    </div>
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'sexo')" class="form-text text-danger">
+    * Elegir una opción válida
+    <br />
+  </small>
+
+    <!-- Email -->
+    <div *ngIf="!part" class="input-field">
+        <i class="material-icons">email</i>
+        <input type="email" placeholder="Correo Electrónico" formControlName="email" />
+    </div>
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'email')" class="form-text text-danger">
+    * Correo Electrónico no válido
+    <br />
+  </small>
+    <!-- Password -->
+    <div *ngIf="!part" class="input-field">
+        <i class="material-icons">lock</i>
+        <input type="password" placeholder="Contraseña" formControlName="pass" />
+    </div>
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'pass')" class="form-text text-danger">
+    * Debe contener al menos 6 letras
+    <br />
+  </small>
+    <!-- Confirm Password -->
+    <div *ngIf="!part" class="input-field">
+        <i class="material-icons">lock</i>
+        <input type="password" placeholder="Confirmar Contraseña" formControlName="password" />
+    </div>
+    <small *ngIf="validarPassword(registerUsuarioForm)" class="form-text text-danger">
+    ** La contraseña no coincide
+    <br />
+  </small>
+
+    <!-- Mostrar botones -->
+    <div *ngIf="type == 'Postulante'">
+        <!-- Next Form -->
+        <button *ngIf="part" (click)="part = !part" class="btn btn-primary" type="button">
+      Siguiente &nbsp; <i class="material-icons">keyboard_arrow_right</i>
+    </button>
+        <!-- Previous Form and Button submit -->
         <div *ngIf="!part">
-            <!-- Email -->
-            <div class="input-field">
-                <i class="material-icons">email</i>
-                <input type="email" placeholder="Correo Electrónico" formControlName="email" />
-            </div>
-            <small *ngIf="controlNoValid(registerUsuarioForm,'email')" class="form-text text-danger">
-				* Correo Electrónico no válido
-				<br>
-			</small>
-            <!-- Password -->
-            <div class="input-field">
-                <i class="material-icons">lock</i>
-                <input type="password" placeholder="Contraseña" formControlName="pass" />
-            </div>
-            <small *ngIf="controlNoValid(registerUsuarioForm,'pass')" class="form-text text-danger">
-				* Debe contener al menos 6 letras
-				<br>
-			</small>
-            <!-- Confirm Password -->
-            <div class="input-field">
-                <i class="material-icons">lock</i>
-                <input type="password" placeholder="Confirmar Contraseña" formControlName="password" />
-            </div>
-            <small *ngIf="validarPassword(registerUsuarioForm)" class="form-text text-danger">
-				** La contraseña no coincide
-				<br>
-			</small>
+            <button (click)="part = !part" class="btn btn-primary" type="button">
+        <i class="material-icons">keyboard_arrow_left</i> Regresar
+      </button> &nbsp;
+            <button type="submit" [disabled]="registerUsuarioForm.pristine && registerUsuarioForm.touched" class="btn btn-primary">
+        Registrar
+      </button>
         </div>
+    </div>
+</form>
 
-        <!-- Mostrar botones -->
-        <div *ngIf="type == 'Postulante'">
-            <!-- Next Form -->
-            <button *ngIf="part" (click)="part = !part" class="btn btn-primary" type="button">
-				Siguiente &nbsp; <i class="material-icons">keyboard_arrow_right</i>
-			</button>
-            <!-- Previous Form and Button submit -->
-            <div *ngIf="!part">
-                <button (click)="part = !part" class="btn btn-primary" type="button">
-					<i class="material-icons">keyboard_arrow_left</i> Regresar
-				</button> &nbsp;
-                <button type="submit" [disabled]="registerUsuarioForm.pristine && registerUsuarioForm.touched" class="btn btn-primary">Registrar
-				</button>
-            </div>
+<!-- Si selecciona EMPRESA -->
+<form *ngIf="type == 'Empresa'" (ngSubmit)="registro(registerEmpresaForm)" [formGroup]="registerEmpresaForm">
+    <!-- Mostrar formulario -->
+    <!-- Nombre de la empresa -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">business</i>
+        <input type="text" placeholder="Nombre de la Empresa" formControlName="nombre" />
+    </div>
+    <small *ngIf="controlNoValid(registerEmpresaForm, 'nombre')" class="form-text text-danger">
+        * Debe contener al menos 2 letras
+        <br />
+      </small>
+    <!-- Nombre del administrador -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">person</i>
+        <input type="text" placeholder="Nombre del Administrador" formControlName="administrador" />
+    </div>
+    <small *ngIf="controlNoValid(registerEmpresaForm, 'administrador')" class="form-text text-danger">
+        * Debe contener al menos 3 letras
+        <br />
+      </small>
+    <!-- Ubicación -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">room</i>
+        <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" type="text" placeholder="Dirección" formControlName="ubicacion" />
+        <!--<input id="autocomplete" type="text" placeholder="Dirección" formControlName="ubicacion" />-->
+        <!--<input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>-->
+    </div>
+    <small *ngIf="controlNoValid(registerEmpresaForm, 'ubicacion')" class="form-text text-danger">
+        * Campo obligatorio
+        <br />
+      </small>
+    <!-- Giro de la empresa -->
+    <div *ngIf="part" class="input-field">
+        <i class="material-icons">work</i>
+        <input type="text" placeholder="Giro de la Empresa" formControlName="giro" />
+        <!--Cambiar a un desplegable (Select)-->
+    </div>
+    <small *ngIf="controlNoValid(registerEmpresaForm, 'giro')" class="form-text text-danger">
+        * Selecionar una opción válida
+        <br />
+      </small>
+    <!-- Email -->
+    <div *ngIf="!part" class="input-field">
+        <i class="material-icons">email</i>
+        <input type="email" placeholder="Correo Electrónico" formControlName="email" />
+    </div>
+    <small *ngIf="controlNoValid(registerEmpresaForm, 'email')" class="form-text text-danger">
+        * Correo electrónico no válido
+        <br />
+      </small>
+    <!-- Password -->
+    <div *ngIf="!part" class="input-field">
+        <i class="material-icons">lock</i>
+        <input type="password" placeholder="Contraseña" formControlName="pass" />
+    </div>
+    <small *ngIf="controlNoValid(registerEmpresaForm, 'pass')" class="form-text text-danger">
+        * Debe contener al menos 6 letras
+        <br />
+      </small>
+    <!-- Confirm Password -->
+    <div *ngIf="!part" class="input-field">
+        <i class="material-icons">lock</i>
+        <input type="password" placeholder="Confirmar Contraseña" formControlName="password" />
+    </div>
+    <small *ngIf="validarPassword(registerEmpresaForm)" class="form-text text-danger">
+        ** La contraseña no concide
+      </small>
+    <br />
+
+    <!-- Mostrar botones -->
+    <div *ngIf="type == 'Empresa'">
+        <!-- Next Form -->
+        <button *ngIf="part" (click)="part = !part" class="btn btn-work" type="button">
+      Siguiente &nbsp; <i class="material-icons">keyboard_arrow_right</i>
+    </button>
+        <!-- Previous Form and Button submit -->
+        <div *ngIf="!part">
+            <button (click)="part = !part" class="btn btn-work" type="button">
+        <i class="material-icons">keyboard_arrow_left</i> Regresar
+      </button> &nbsp;
+            <button type="submit" class="btn btn-work">Registrar</button>
         </div>
-    </form>
-
-    <!-- Si selecciona EMPRESA -->
-    <form (ngSubmit)="registro(registerEmpresaForm)" [formGroup]="registerEmpresaForm">
-        <!-- Mostrar formulario -->
-        <div *ngIf="type == 'Empresa'">
-            <div *ngIf="part">
-                <!-- Nombre de la empresa -->
-                <div class="input-field">
-                    <i class="material-icons">business</i>
-                    <input type="text" placeholder="Nombre de la Empresa" formControlName="nombre" />
-                </div>
-                <small *ngIf="controlNoValid(registerEmpresaForm,'nombre')" class="form-text text-danger">
-					* Debe contener al menos 2 letras
-					<br>
-				</small>
-                <!-- Nombre del administrador -->
-                <div class="input-field">
-                    <i class="material-icons">person</i>
-                    <input type="text" placeholder="Nombre del Administrador" formControlName="administrador" />
-                </div>
-                <small *ngIf="controlNoValid(registerEmpresaForm,'administrador')" class="form-text text-danger">
-					* Debe contener al menos 3 letras
-					<br>
-				</small>
-                <!-- Ubicación -->
-                <div class="input-field">
-                    <i class="material-icons">room</i>
-                    <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" type="text" placeholder="Dirección" formControlName="ubicacion" />
-                    <!--<input id="autocomplete" type="text" placeholder="Dirección" formControlName="ubicacion" />-->
-                    <!--<input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>-->
-                </div>
-                <small *ngIf="controlNoValid(registerEmpresaForm,'ubicacion')" class="form-text text-danger">
-					* Campo obligatorio
-					<br>
-				</small>
-                <!-- Giro de la empresa -->
-                <div class="input-field">
-                    <i class="material-icons">work</i>
-                    <input type="text" placeholder="Giro de la Empresa" formControlName="giro" />
-                    <!--Cambiar a un desplegable (Select)-->
-                </div>
-                <small *ngIf="controlNoValid(registerEmpresaForm,'giro')" class="form-text text-danger">
-					* Selecionar una opción válida
-					<br>
-				</small>
-            </div>
-            <div *ngIf="!part">
-                <!-- Email -->
-                <div class="input-field">
-                    <i class="material-icons">email</i>
-                    <input type="email" placeholder="Correo Electrónico" formControlName="email" />
-                </div>
-                <small *ngIf="controlNoValid(registerEmpresaForm,'email')" class="form-text text-danger">
-					* Correo electrónico no válido
-					<br>
-				</small>
-                <!-- Password -->
-                <div class="input-field">
-                    <i class="material-icons">lock</i>
-                    <input type="password" placeholder="Contraseña" formControlName="pass" />
-                </div>
-                <small *ngIf="controlNoValid(registerEmpresaForm,'pass')" class="form-text text-danger">
-					* Debe contener al menos 6 letras
-					<br>
-				</small>
-                <!-- Confirm Password -->
-                <div class="input-field">
-                    <i class="material-icons">lock</i>
-                    <input type="password" placeholder="Confirmar Contraseña" formControlName="password" />
-                </div>
-                <small *ngIf="validarPassword(registerEmpresaForm)" class="form-text text-danger">
-					** La contraseña no concide
-				</small>
-            </div>
-            <br>
-        </div>
-
-        <!-- Mostrar botones -->
-        <div *ngIf="type == 'Empresa'">
-            <!-- Next Form -->
-            <button *ngIf="part" (click)="part = !part" class="btn btn-work" type="button">
-				Siguiente &nbsp; <i class="material-icons">keyboard_arrow_right</i>
-			</button>
-            <!-- Previous Form and Button submit -->
-            <div *ngIf="!part">
-                <button (click)="part = !part" class="btn btn-work" type="button">
-					<i class="material-icons">keyboard_arrow_left</i> Regresar
-				</button> &nbsp;
-                <button type="submit" class="btn btn-work">Registrar</button>
-            </div>
-        </div>
-
-    </form>
-
-    <app-social-media *ngIf="type==''"></app-social-media>
-
+    </div>
 </form>
