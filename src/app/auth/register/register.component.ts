@@ -175,7 +175,7 @@ export class RegisterComponent implements OnInit {
       nombre: this.registerEmpresaForm.value.nombre,
       administrador: this.registerEmpresaForm.value.administrador,
       giro: this.registerEmpresaForm.value.giro,
-      ubicacion: `${address.name}, ${address.formatted_address}`,
+      ubicacion: `${address.formatted_address}`,
       email: this.registerEmpresaForm.value.email,
       pass: this.registerEmpresaForm.value.pass,
       password: this.registerEmpresaForm.value.password,

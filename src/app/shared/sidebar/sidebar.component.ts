@@ -39,9 +39,8 @@ export class SidebarComponent implements OnInit {
         switch (tipo) {
             case 'Postulante':
                 ROUTES = [
-                    { path: '/dashboard', title: 'Inicio', icon: 'dashboard', class: '' },
+                    { path: '/vacancies', title: 'Inicio', icon: 'list', class: '' },
                     { path: '/user-profile', title: 'Mi Perfil', icon: 'person', class: '' },
-                    { path: '/vacancies', title: 'Lista de Vacantes', icon: 'list', class: '' },
                     { path: '/favorites', title: 'Vacantes Favoritas', icon: 'favorite', class: '' },
                     { path: '/my-postulations', title: 'Mis Postulaciones', icon: 'engineering', class: '' }
                     
@@ -50,9 +49,8 @@ export class SidebarComponent implements OnInit {
 
             case 'Empresa':
                 ROUTES = [
-                    { path: '/dashboard', title: 'Inicio', icon: 'dashboard', class: '' },
+                    { path: '/my-vacancies', title: 'Mis Vacantes', icon: 'dashboard', class: '' },
                     { path: '/company-profile', title: 'Perfil de Empresa', icon: 'person', class: '' },
-                    { path: '/my-vacancies', title: 'Mis Vacantes', icon: 'assignment', class: '' },
                 ];
                 break;
 

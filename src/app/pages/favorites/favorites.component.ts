@@ -5,22 +5,31 @@ import { Router } from '@angular/router';
 import { AuthResponseI } from '../../models/auth-response';
 import { FavoritesService } from './favorites.service';
 import { VacantesFavI } from '../../models/vacantes_favoritas';
+import { PageEvent } from '@angular/material/paginator';
+import { VacanciesService } from '../vacancies/vacancies.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
-  styles: [
-  ]
+  styleUrls: ['./favorites.component.css']
 })
 export class FavoritesComponent implements OnInit {
 
   /* ? ----- VARIABLES ----- */
-  listaVacantes: VacantesFavI[];
-  slides = [{image: '1'}, {image: '2'}, {image: '3'}]
+  page_size: number = 5;
+  page_number: number = 1;
+  pageSizeOptions: number[] = [5, 10, 20, 50, 100];
+  vacantes: VacantesFavI[] = [];
 
-  constructor(private vacantesFavService: FavoritesService,
-              private router: Router) { }
+  // slides = [{image: '1'}, {image: '2'}, {image: '3'}]
+
+  constructor(
+    private vacantesService: VacanciesService,
+    private vacantesFavService: FavoritesService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -30,9 +39,39 @@ export class FavoritesComponent implements OnInit {
   loadData(): void {
     this.vacantesFavService.getVacantesFav().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.listaVacantes = resp.data.Vacantes_Favoritas;
+        this.vacantes = resp.data.Vacantes_Favoritas;
       }
     });
+  }
+
+  visualizar(idVacante) {
+    this.router.navigate(['/postulate-vacancy', idVacante]);
+  }
+
+  unmarkFavorite(idVacanteFav: number): void {
+    this.vacantesService.unmarkFavorite(idVacanteFav).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.vacantesFavService.getVacantesFav().subscribe((resp: AuthResponseI) => {
+          this.vacantes = resp.data.Vacantes_Favoritas;
+        })
+        this.doneMassage("Vacante eliminada de favoritas");
+      }
+    })
+  }
+
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  handlePage(e: PageEvent) {
+    this.page_size = e.pageSize;
+    this.page_number = e.pageIndex + 1;
   }
 
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { MatPaginator } from '@angular/material/paginator';
 
 const baseUrl = environment.baseUrl + '/vacantes'
+const baseUrl2 = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,20 @@ export class VacanciesService {
   constructor(private http: HttpClient) {
   }
 
-  getListaVacantes () {
-    return this.http.get(`${baseUrl}/${this.id_usuario}`);
+  getVacantesRecientes () {
+    return this.http.get(`${baseUrl}/recientes/${this.id_usuario}`);
+  }
+
+  getVacantesRecomendadas () {
+    return this.http.get(`${baseUrl}/recomendadas/${this.id_usuario}`);
+  }
+
+  getVacantes (formData) {
+    return this.http.put(`${baseUrl}/generales/${this.id_usuario}`, formData);
+  }
+
+  getPerfilesUsuario() {
+    return this.http.get(`${baseUrl2}/perfiles/usuario/${this.id_usuario}`);
   }
 
   markFavorite(idVacante) {

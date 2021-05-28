@@ -19,6 +19,11 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { SeeProfileComponent } from './see-profile/see-profile.component';
 import { MyPostulationsComponent } from './my-postulations/my-postulations.component';
 import { SeeCompanyComponent } from './see-company/see-company.component';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatiorItnl } from './pagination-es';
+import { PaginatePipe } from './pipes/paginate.pipe';
+import { SearchPipe } from './pipes/search.pipe';
 
 
 @NgModule({
@@ -36,6 +41,9 @@ import { SeeCompanyComponent } from './see-company/see-company.component';
         SeeProfileComponent,
         MyPostulationsComponent,
         SeeCompanyComponent,
+        ReviewsComponent,
+        PaginatePipe,
+        SearchPipe,
     ],
     imports: [
         CommonModule,
@@ -45,6 +53,12 @@ import { SeeCompanyComponent } from './see-company/see-company.component';
         ComponentsPagesModule,
         MaterialModule,
         GooglePlaceModule,
+    ],
+    providers: [
+        {
+            provide: MatPaginatorIntl,
+            useClass: CustomMatPaginatiorItnl
+        }
     ]
 })
 

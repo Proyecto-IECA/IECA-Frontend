@@ -1,0 +1,66 @@
+.example-card {
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.align-end {
+    text-align: end;
+}
+
+/* Mantener Estrella Amarilla */
+.valoracion .star {
+    background-color: initial;
+    border: 0;
+    color: #ffa400;
+}
+
+/* Estrellas */
+.valoracion {
+    display: flex;
+    flex-direction: row-reverse;
+    --color-inactivo: #5f5050;
+    --color-hover: #ffa400;
+}
+
+.valoracion button {
+    background-color: initial;
+    border: 0;
+    color: var(--color-inactivo);
+    transition: 1s all;
+}
+
+.valoracion button:hover {
+    cursor: pointer;
+    color: var(--color-hover);
+    transform: rotate(360deg);
+}
+
+button:nth-child(1):hover ~ button {
+    color: var(--color-hover);
+    transform: rotate(360deg);
+}
+
+button:nth-child(2):hover ~ button {
+    color: var(--color-hover);
+    transform: rotate(360deg);
+}
+
+button:nth-child(3):hover ~ button {
+    color: var(--color-hover);
+    transform: rotate(360deg);
+}
+
+button:nth-child(4):hover ~ button {
+    color: var(--color-hover);
+    transform: rotate(360deg);
+}
+
+button:nth-child(5):hover ~ button {
+    color: var(--color-hover);
+    transform: rotate(360deg);
+}
