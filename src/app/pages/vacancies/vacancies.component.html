@@ -9,12 +9,11 @@
             </div>
         </div> -->
         <!-- Cards de lista de vacantes disponibles -->
-        <h3>Mas recientes</h3>
+        <!-- <h3>Mas recientes</h3>
         <div class="row">
             <div class="col-md-12" *ngFor="let vacante of vacantesRecientes">
                 <div class="card mb-3">
                     <div class="posicion-t-r">
-                        <!-- Boton de Favorito -->
                         <mat-icon *ngIf="vacante.Vacantes_Favoritas.length > 0" (click)="unmarkFavorite(vacante.Vacantes_Favoritas)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
                         <mat-icon *ngIf="vacante.Vacantes_Favoritas.length == 0" (click)="markFavorite(vacante)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
                     </div>
@@ -44,7 +43,6 @@
             <div class="col-md-12" *ngFor="let vacante of vacantesRecomendadas">
                 <div class="card mb-3">
                     <div class="posicion-t-r">
-                        <!-- Boton de Favorito -->
                         <mat-icon *ngIf="vacante.Vacantes_Favoritas.length > 0" (click)="unmarkFavorite(vacante.Vacantes_Favoritas)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
                         <mat-icon *ngIf="vacante.Vacantes_Favoritas.length == 0" (click)="markFavorite(vacante)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
                     </div>
@@ -66,19 +64,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <h3>Todas</h3>
+        <h3>Vacantes</h3>
 
         <div class="card">
             <div class="card-body">
+                <h4 class="text-primary">Filtros</h4>
                 <form [formGroup]="filterForm">
                     <div class="row  align-items-center justify-content-center">
-                        <div class="col-md-3">
-                            <h4 *ngIf="!filterActive">Filtros</h4>
-                            <button *ngIf="filterActive" class="btn btn-primary" (click)="filtrarVcantes()">Filtrar</button>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary" (click)="filtrarVcantes()" [disabled]="!filterActive">Filtrar</button>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="row">
                                 <mat-checkbox formControlName="recientes" (change)="changeRecientes()">Mas recientes</mat-checkbox>
                             </div>
@@ -94,9 +92,9 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Buscar..." [formControl]="search">
+                                <input type="text" value="" class="form-control" placeholder="Buscar por puesto, modalidad o empresa ..." [formControl]="search">
                                 <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
                                     <i class="material-icons">search</i>
                                     <div class="ripple-container"></div>
