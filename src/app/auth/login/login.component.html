@@ -18,17 +18,14 @@
 		* Debe ser mayor o igual a 6 letras
 		<br>
 	</small>
-    <div class="form-row">
-        <!-- RememberMe -->
-        <div class="checkbox checkbox-primary">
-            <input type="checkbox" name="rememberMe" id="checkbox-signup" formControlName="rememberMe">
-            <label for="checkbox-signup" class="subtitle">&nbsp;¿Recordárme? </label>
-        </div>
-        <a class="subtitle-primary" (click)="recoverPassword()">Olvidé mi contraseña </a>
+    <!-- RememberMe -->
+    <div class="checkbox checkbox-primary">
+        <input type="checkbox" name="rememberMe" id="checkbox-signup" formControlName="rememberMe">
+        <label for="checkbox-signup" class="subtitle">&nbsp;¿Recordárme? </label>
+        <a class="subtitle puntero text-primary font-a" (click)="recoverPassword()"> Olvidé mi contraseña </a>
     </div>
 
     <button class="btn btn-primary">Entrar</button>
-    <a class="subtitle puntero" (click)="recoverPassword()"> Olvidé mi contraseña </a>
 
     <app-social-media></app-social-media>
 
