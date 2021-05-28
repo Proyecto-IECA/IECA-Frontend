@@ -23,6 +23,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatiorItnl } from './pagination-es';
 import { PaginatePipe } from './pipes/paginate.pipe';
+import { SearchPipe } from './pipes/search.pipe';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { PaginatePipe } from './pipes/paginate.pipe';
         SeeCompanyComponent,
         ReviewsComponent,
         PaginatePipe,
+        SearchPipe,
     ],
     imports: [
         CommonModule,

@@ -26,7 +26,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{vacante.puesto}} </h5>
                                 <p class="card-text text-primary">{{vacante.modalidad}}</p>
-                                <p class="card-text">Empresa</p>
+                                <p class="card-text">{{vacante.Usuario.nombre}}</p>
                                 <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.fecha_publicacion}}</small></p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{vacante.puesto}} </h5>
                                 <p class="card-text text-primary">{{vacante.modalidad}}</p>
-                                <p class="card-text">Empresa</p>
+                                <p class="card-text">{{vacante.Usuario.nombre}}</p>
                                 <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.fecha_publicacion}}</small></p>
                             </div>
                         </div>
@@ -72,30 +72,31 @@
 
         <div class="card">
             <div class="card-body">
-                <form>
+                <form [formGroup]="filterForm">
                     <div class="row  align-items-center justify-content-center">
                         <div class="col-md-3">
-                            <h4>Filtros</h4>
+                            <h4 *ngIf="!filterActive">Filtros</h4>
+                            <button *ngIf="filterActive" class="btn btn-primary" (click)="filtrarVcantes()">Filtrar</button>
                         </div>
                         <div class="col-md-3">
                             <div class="row">
-                                <mat-checkbox checked="'true'">Mas recientes</mat-checkbox>
+                                <mat-checkbox formControlName="recientes" (change)="changeRecientes()">Mas recientes</mat-checkbox>
                             </div>
                             <div class="row">
-                                <mat-checkbox checked>Mas antiguas</mat-checkbox>
+                                <mat-checkbox formControlName="antiguas" (change)="changeAntiguos()">Mas antiguas</mat-checkbox>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <mat-form-field appearance="">
                                 <mat-label>Perfiles</mat-label>
-                                <mat-select multiple>
+                                <mat-select multiple formControlName="perfiles" (selectionChange)="changeSelection()">
                                     <mat-option *ngFor="let perfil of perfiles" [value]="perfil.descripcion">{{perfil.descripcion}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
                             <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Buscar...">
+                                <input type="text" value="" class="form-control" placeholder="Buscar..." [formControl]="search">
                                 <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
                                     <i class="material-icons">search</i>
                                     <div class="ripple-container"></div>
@@ -109,7 +110,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12" *ngFor="let vacante of vacantes | paginate:page_size:page_number">
+            <div class="col-md-12" *ngFor="let vacante of vacantes | paginate:page_size:page_number | search:searchValue">
                 <div class="card mb-3">
                     <div class="posicion-t-r">
                         <!-- Boton de Favorito -->
@@ -124,7 +125,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{vacante.puesto}} </h5>
                                 <p class="card-text text-primary">{{vacante.modalidad}}</p>
-                                <p class="card-text">Empresa</p>
+                                <p class="card-text">{{vacante.Usuario.nombre}}</p>
                                 <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.fecha_publicacion}}</small></p>
                             </div>
                         </div>
@@ -134,6 +135,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
         <!-- Paginación -->
         <div class="row justify-content-end m-t-2">
