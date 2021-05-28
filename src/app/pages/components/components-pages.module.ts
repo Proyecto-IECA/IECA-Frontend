@@ -16,7 +16,6 @@ import { SucursalesComponent } from './forms/sucursales/sucursales.component'
 import { UserComponent } from './forms/user/user.component';
 import { VacanteComponent } from './forms/vacante/vacante.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { CardVacanciesComponent } from './card-vacancies/card-vacancies.component';
 import { RouterModule } from '@angular/router';
 import { CardProfileComponent } from './card-profile/card-profile.component';
 
@@ -35,7 +34,6 @@ import { CardProfileComponent } from './card-profile/card-profile.component';
     UserComponent,
     NotificationsComponent,
     VacanteComponent,
-    CardVacanciesComponent,
     CardProfileComponent,
   ],
     exports: [
@@ -50,7 +48,6 @@ import { CardProfileComponent } from './card-profile/card-profile.component';
         UserComponent,
         NotificationsComponent,
         VacanteComponent,
-        CardVacanciesComponent,
         CardProfileComponent,
     ],
   imports: [
