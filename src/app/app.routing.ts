@@ -17,7 +17,7 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'dashboard',
   },
-  /*{
+  {
     path: '',
     component: PagesComponent,
     canActivate: [TokenValidoGuard, EmailValidadoGuard],
@@ -25,7 +25,7 @@ const routes: Routes = [
       path: '',
       loadChildren: './pages/pages.module#PagesModule'
     }]
-  }*/
+  }
 ];
 
 @NgModule({
