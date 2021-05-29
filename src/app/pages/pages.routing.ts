@@ -27,7 +27,7 @@ export const routes: Routes = [
     {
         path: '',
         component: PagesComponent,
-        /* canActivate: [TokenValidoGuard], */
+        canActivate: [TokenValidoGuard],
         children: [
             { path: 'dashboard',             component: DashboardComponent },
             { path: 'user-profile',          component: UserProfileComponent },

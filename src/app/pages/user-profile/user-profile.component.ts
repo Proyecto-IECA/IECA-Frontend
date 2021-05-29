@@ -180,10 +180,10 @@ export class UserProfileComponent implements OnInit {
       this.userProfileService.updateFoto(this.imageForm.value).subscribe(
         (resp: AuthResponseI) => {
           if (resp.status) {
-            this.doneMassage(resp.message);
+            this.doneMassage(resp.data);
             this.changeFoto = false;
           } else {
-            this.errorPeticion(resp.message);
+            this.errorPeticion(resp.data);
           }
         },
         (error) => {

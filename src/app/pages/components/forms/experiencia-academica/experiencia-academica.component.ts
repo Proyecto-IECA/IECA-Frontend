@@ -152,9 +152,9 @@ export class ExperienciaAcademicaComponent implements OnInit {
           formDirective.resetForm();
           this.academicaForm.get('estudiando').setValue(false);
           this._userProC.panelExpA = false;
-          this.doneMassage(resp.message);
+          this.doneMassage(resp.data);
         } else {
-          this.errorPeticion(resp.message);
+          this.errorPeticion(resp.data);
         }
       }, (error) => this.errorServer(error));
     } else {
@@ -176,9 +176,9 @@ export class ExperienciaAcademicaComponent implements OnInit {
       this.expAcademicaSerice.updateExpAcademica(this.experienciaAcademica.id_experiencia_academica, this.academicaForm.value).subscribe((resp: AuthResponseI) => {
         if (resp.status) {
           this._userProC.getExperienciasAcademicas();
-          this.doneMassage(resp.message);
+          this.doneMassage(resp.data);
         } else {
-          this.errorPeticion(resp.message);
+          this.errorPeticion(resp.data);
         }
       }, (error) => this.errorServer(error));
     } else {
@@ -190,7 +190,7 @@ export class ExperienciaAcademicaComponent implements OnInit {
     this.expAcademicaSerice.deleteExpAcademica(this.experienciaAcademica.id_experiencia_academica).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this._userProC.getExperienciasAcademicas();
-        this.doneMassage(resp.message);
+        this.doneMassage(resp.data);
       } else {
         this.errorMassage();
       }

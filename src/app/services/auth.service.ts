@@ -117,7 +117,7 @@ export class AuthService {
                     console.log(response);
                     if (response.data) {
                         this.email = response.data.email;
-                        this.refreshToken = response.refreshToken;
+                        // this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
                         localStorage.setItem('data', JSON.stringify(response.data));
                     }
@@ -143,7 +143,7 @@ export class AuthService {
                     console.log(response);
                     if (response.data) {
                         this.email = response.data.email;
-                        this.refreshToken = response.refreshToken;
+                        // this.refreshToken = response.refreshToken;
                         this._usuario = response.data;
                     }
                     return response;

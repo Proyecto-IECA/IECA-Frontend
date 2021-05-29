@@ -8,6 +8,15 @@ import { TokenValidoGuard } from './guards/token-valido.guard';
 import { ComponentsRoutingModule } from './components/components-routing.module';
 import { PagesRoutingModule } from './pages/pages.routing';
 
+const tipo_usuario = localStorage.getItem('tipo_usuario') || '';
+let ruta = '';
+if (tipo_usuario == 'Postulante') {
+  ruta = 'vacancies';
+}
+if (tipo_usuario == 'Empresa') {
+  ruta = 'my-vacancies';
+}
+
 const routes: Routes = [
   { path: 'auth',
     component: AuthComponent
@@ -15,7 +24,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'dashboard',
+    redirectTo: ruta,
   },
   {
     path: '',

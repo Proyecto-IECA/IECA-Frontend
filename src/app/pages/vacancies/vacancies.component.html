@@ -74,13 +74,10 @@
                 <form [formGroup]="filterForm">
                     <div class="row  align-items-center justify-content-center">
                         <div class="col-md-2">
-                            <button class="btn btn-primary" (click)="filtrarVcantes()" [disabled]="!filterActive">Filtrar</button>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 <mat-checkbox formControlName="recientes" (change)="changeRecientes()">Mas recientes</mat-checkbox>
                             </div>
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 <mat-checkbox formControlName="antiguas" (change)="changeAntiguos()">Mas antiguas</mat-checkbox>
                             </div>
                         </div>
@@ -100,6 +97,9 @@
                                     <div class="ripple-container"></div>
                                 </button>
                             </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary" (click)="filtrarVcantes()" [disabled]="!filterActive">Filtrar</button>
                         </div>
                     </div>
 

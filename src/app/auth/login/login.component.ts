@@ -179,10 +179,16 @@ export class LoginComponent implements OnInit {
         }
 
         loginForm.reset();
-        return this.router.navigateByUrl('/dashboard');
+        let ruta = '';
+        if (resp.data.tipo_usuario == 'Postulante') {
+          ruta = '/vacancies';
+        }
+        if (resp.data.tipo_usuario == 'Empresa') {
+          ruta = '/my-vacancies';
+        }
+        return this.router.navigateByUrl(ruta);        
       }, ((error) => {
           /* Mensaje de error si el servidor no recibe la petición */
-          console.log(error);
           this.errorServer();
       })
     )

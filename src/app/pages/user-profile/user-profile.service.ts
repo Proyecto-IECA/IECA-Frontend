@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { AuthResponseI } from '../../models/auth-response';
-import { UsuarioI } from '../../models/usuario';
 
 const baseUrl = environment.baseUrl;
 const id = localStorage.getItem('id_usuario');
@@ -15,11 +13,11 @@ export class UserProfileService {
   constructor(private http: HttpClient) { }
 
   getUsuario() {
-    return this.http.get(`${baseUrl}/usuarios/${id}`)
+    return this.http.get(`${baseUrl}/usuarios/${id}`);
   }
 
   updateFoto(formData: any) {
-    return this.http.put(`${baseUrl}/usuarios/updatefoto`, formData)
+    return this.http.put(`${baseUrl}/usuarios/updatefoto`, formData);
   }
 
   getPerfilesUsuario() {

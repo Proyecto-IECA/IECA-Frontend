@@ -65,9 +65,9 @@ export class CursoCertificacionComponent implements OnInit {
           this.certificadoForm.reset();
           formDirective.resetForm();
           this._userProC.panelCurC = false;
-          this.doneMassage(resp.message);
+          this.doneMassage(resp.data);
         } else {
-          this.errorPeticion(resp.message);
+          this.errorPeticion(resp.data);
         }
       }, (error) => this.errorServer(error));
     } else {
@@ -88,9 +88,9 @@ export class CursoCertificacionComponent implements OnInit {
       this.cursoCertificacionService.updateCursoCertifi(this.cursoCertificacion.id_curso_certificacion, this.certificadoForm.value).subscribe((resp: AuthResponseI) => {
         if (resp.status) {
           this._userProC.getCursosCertificaciones();
-          this.doneMassage(resp.message);
+          this.doneMassage(resp.data);
         } else {
-          this.errorPeticion(resp.message);
+          this.errorPeticion(resp.data);
         }
       }, (error) => this.errorServer(error));
     } else {
@@ -102,9 +102,9 @@ export class CursoCertificacionComponent implements OnInit {
     this.cursoCertificacionService.deleteCursoCertifi(this.cursoCertificacion.id_curso_certificacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this._userProC.getCursosCertificaciones();
-        this.doneMassage(resp.message);
+        this.doneMassage(resp.data);
       } else {
-        this.errorPeticion(resp.message);
+        this.errorPeticion(resp.data);
       }
     }, (error) => this.errorServer(error));
   }
