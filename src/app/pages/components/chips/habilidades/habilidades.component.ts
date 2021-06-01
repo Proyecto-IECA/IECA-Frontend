@@ -22,7 +22,7 @@ export class HabilidadesComponent implements OnInit {
   selectable = true;
   removable = true;
   guardarHabilidad = false;
-  habilidadesAux: HabilidadI[];
+  habilidadesAux: HabilidadI[] = [];
   habilidadControl = new FormControl();
   filteredHabilidad: Observable<HabilidadI[]>;
   listaHabilidades: HabilidadI[];

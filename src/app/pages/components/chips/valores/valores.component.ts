@@ -22,7 +22,7 @@ export class ValoresComponent implements OnInit {
   selectable = true;
   removable = true;
   guardarValor = false;
-  valoresAux: ValorI[];
+  valoresAux: ValorI[] = [];
   valorCtrl = new FormControl();
   filteredValor: Observable<ValorI[]>
   listaValores: ValorI[];
