@@ -166,9 +166,6 @@ export class LoginComponent implements OnInit {
     // Manda la data al service correspondiente
     this.authUserService.login(data).subscribe(
       (resp: AuthResponseI) => {
-        localStorage.removeItem('id_usuario');
-        localStorage.removeItem('tipo_usuario');
-        localStorage.removeItem('token');
         if (!resp.status) {
           return this.errorMassageLogin(resp.data);
         }
@@ -189,10 +186,6 @@ export class LoginComponent implements OnInit {
         if (resp.data.tipo_usuario == 'Empresa') {
           ruta = '/my-vacancies';
         }
-
-        localStorage.setItem('id_usuario', resp.data.id_usuario);
-        localStorage.setItem('tipo_usuario', resp.data.tipo_usuario);
-        localStorage.setItem('token', resp.token);
         return this.router.navigateByUrl(ruta);        
       }, ((error) => {
           /* Mensaje de error si el servidor no recibe la petición */
