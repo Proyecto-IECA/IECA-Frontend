@@ -58,23 +58,23 @@
     <!-- Renglón justificado al final -->
     <div *ngIf="tipo=='add'" class="row justify-content-end">
         <!-- ===== btn icon cancelar ===== -->
-        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="cancelarAdd(formDirective)">
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="cancelarAdd(formDirective)" title="Cerrar">
             <i class="material-icons">close</i>
         </button>
         <!-- ===== btn icon aceptar ===== -->
-        <button type="submit" class="btn btn-primary btn-sm btn-just-icon m-r">
-            <i class="material-icons">done</i>
+        <button type="submit" class="btn btn-color btn-sm btn-just-icon m-r" title="Guardar">
+            <i class="material-icons">save</i>
         </button>
     </div>
 
     <!-- Renglón justificado al final -->
     <div *ngIf="tipo=='update'" class="row justify-content-end">
         <!-- ===== btn icon cancelar ===== -->
-        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="deleteExpAcademica()">
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="deleteExpAcademica()" title="Borrar">
             <i class="material-icons">delete</i>
         </button>
         <!-- ===== btn icon aceptar ===== -->
-        <button type="submit" class="btn btn-primary btn-sm btn-just-icon m-r">
+        <button type="submit" class="btn btn-color btn-sm btn-just-icon m-r" title="Editar">
             <i class="material-icons">edit</i>
         </button>
     </div>

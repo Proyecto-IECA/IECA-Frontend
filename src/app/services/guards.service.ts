@@ -10,7 +10,7 @@ const baseUrl = environment.baseUrl + '/validar';
 })
 export class GuardsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   validarToken() {
     const id = localStorage.getItem('id_usuario');
@@ -20,7 +20,6 @@ export class GuardsService {
         'x-token': token
       }
     }).pipe(map((resp: any) => {
-      console.log(resp);
       return resp.status;
     }));
   }

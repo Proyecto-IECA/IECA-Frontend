@@ -24,7 +24,7 @@ export class IdiomasComponent implements OnInit {
   selectable = true;
   removable = true;
   guardarIdioma = false;
-  idiomasAux: IdiomaI[];
+  idiomasAux: IdiomaI[] = [];
   idiomaCtrl = new FormControl();
   filteredIdioma: Observable<IdiomaI[]>;
   listaIdiomas: IdiomaI[];

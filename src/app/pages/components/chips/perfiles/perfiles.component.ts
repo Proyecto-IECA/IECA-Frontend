@@ -24,7 +24,7 @@ export class PerfilesComponent implements OnInit {
   selectable = true;
   removable = true;
   guardarPerfil = false;
-  perfilesAux: PerfilI[];
+  perfilesAux: PerfilI[] = [];
   perfilCtrl = new FormControl();
   filteredPerfil: Observable<PerfilI[]>;
   ListaPerfiles: PerfilI[];
@@ -67,6 +67,8 @@ export class PerfilesComponent implements OnInit {
         }
       }
     )
+
+    console.log(this.perfiles);
 
   }
 

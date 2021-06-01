@@ -19,7 +19,6 @@ export class TokenValidoGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> {
 
     return this.guardService.validarToken().pipe(
-        delay(1000),
         tap((valid) => {
           console.log(valid);
           if (!valid) {
