@@ -1,40 +1,32 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { PagesComponent } from './pages/pages.component';
-import { AuthComponent } from './auth/auth.component';
-import { EmailValidadoGuard } from './guards/email-validado.guard'
-import { TokenValidoGuard } from './guards/token-valido.guard';
-import { ComponentsRoutingModule } from './components/components-routing.module';
-import { PagesRoutingModule } from './pages/pages.routing';
+import { PagesComponent } from "./pages/pages.component";
+import { AuthComponent } from "./auth/auth.component";
+import { EmailValidadoGuard } from "./guards/email-validado.guard";
+import { TokenValidoGuard } from "./guards/token-valido.guard";
+import { ComponentsRoutingModule } from "./components/components-routing.module";
+import { PagesRoutingModule } from "./pages/pages.routing";
 
-const tipo_usuario = localStorage.getItem('tipo_usuario') || '';
-let ruta = '';
-if (tipo_usuario == 'Postulante') {
-  ruta = 'vacancies';
-}
-if (tipo_usuario == 'Empresa') {
-  ruta = 'my-vacancies';
-}
 
 const routes: Routes = [
-  { path: 'auth',
-    component: AuthComponent
+  { path: "auth", component: AuthComponent },
+  {
+    path: "",
+    pathMatch: "full",
+    redirectTo: "auth",
   },
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: ruta,
-  },
-  {
-    path: '',
+    path: "",
     component: PagesComponent,
     canActivate: [TokenValidoGuard, EmailValidadoGuard],
-    children: [{
-      path: '',
-      loadChildren: './pages/pages.module#PagesModule'
-    }]
-  }
+    children: [
+      {
+        path: "",
+        loadChildren: "./pages/pages.module#PagesModule",
+      },
+    ],
+  },
 ];
 
 @NgModule({
@@ -49,4 +41,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
