@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { MatPaginator } from '@angular/material/paginator';
 
 const baseUrl = environment.baseUrl + '/vacantes'
 const baseUrl2 = environment.baseUrl;
@@ -10,30 +9,34 @@ const baseUrl2 = environment.baseUrl;
   providedIn: 'root'
 })
 export class VacanciesService {
-  private id_usuario = localStorage.getItem('id_usuario');
 
   constructor(private http: HttpClient) {
   }
 
   getVacantesRecientes () {
-    return this.http.get(`${baseUrl}/recientes/${this.id_usuario}`);
+    const id = localStorage.getItem('id_usuario');
+    return this.http.get(`${baseUrl}/recientes/${id}`);
   }
 
   getVacantesRecomendadas () {
-    return this.http.get(`${baseUrl}/recomendadas/${this.id_usuario}`);
+    const id = localStorage.getItem('id_usuario');
+    return this.http.get(`${baseUrl}/recomendadas/${id}`);
   }
 
   getVacantes (formData) {
-    return this.http.put(`${baseUrl}/generales/${this.id_usuario}`, formData);
+    const id = localStorage.getItem('id_usuario');
+    return this.http.put(`${baseUrl}/generales/${id}`, formData);
   }
 
   getPerfilesUsuario() {
-    return this.http.get(`${baseUrl2}/perfiles/usuario/${this.id_usuario}`);
+    const id = localStorage.getItem('id_usuario');
+    return this.http.get(`${baseUrl2}/perfiles/usuario/${id}`);
   }
 
   markFavorite(idVacante) {
+    const id = localStorage.getItem('id_usuario');
     const formData = {
-      id_usuario_fk: this.id_usuario,
+      id_usuario_fk: id,
       id_vacante_fk: idVacante
     }
     return this.http.post(`${baseUrl}-favoritas`, formData);

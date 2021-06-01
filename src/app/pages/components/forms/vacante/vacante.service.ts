@@ -4,7 +4,6 @@ import { environment } from 'environments/environment';
 import { VacantesI } from '../../../../models/vacantes';
 
 const baseUrl = environment.baseUrl;
-const id_empresa = localStorage.getItem("id_usuario");
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +13,7 @@ export class VacanteService {
   constructor(private http: HttpClient) { }
 
   getSucursales() {
+    const id_empresa = localStorage.getItem("id_usuario");
     return this.http.get(`${baseUrl}/sucursales/${id_empresa}`);
   }
 
