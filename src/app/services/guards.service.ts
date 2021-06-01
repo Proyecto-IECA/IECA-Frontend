@@ -4,8 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 const baseUrl = environment.baseUrl + '/validar';
-const id = localStorage.getItem('id_usuario');
-const token = localStorage.getItem('token') || '';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +13,8 @@ export class GuardsService {
   constructor(private http: HttpClient) { }
 
   validarToken() {
+    const id = localStorage.getItem('id_usuario');
+    const token = localStorage.getItem('token') || '';
     return this.http.get(`${baseUrl}/token/${id}`, {
       headers: {
         'x-token': token
@@ -22,10 +22,6 @@ export class GuardsService {
     }).pipe(map((resp: any) => {
       console.log(resp);
       return resp.status;
-      /*if (resp.status) {
-        return true;
-      }
-      return false;*/
     }));
   }
 }

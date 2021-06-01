@@ -32,7 +32,7 @@ export const routes: Routes = [
             { path: 'dashboard',             component: DashboardComponent },
             { path: 'user-profile',          component: UserProfileComponent },
             { path: 'company-profile',       component: CompanyProfileComponent },
-            { path: 'create-vacancie',       component: CreateVacancyComponent,    canActivate: [PerfilCompletoGuard] },
+            { path: 'create-vacancie',       component: CreateVacancyComponent },
             { path: 'update-vacancie/:id',   component: UpdateVacancieComponent},
             { path: 'vacancies',             component: VacanciesComponent },
             { path: 'my-vacancies',          component: MyVacanciesComponent},
