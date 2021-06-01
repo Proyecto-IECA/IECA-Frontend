@@ -166,6 +166,9 @@ export class LoginComponent implements OnInit {
     // Manda la data al service correspondiente
     this.authUserService.login(data).subscribe(
       (resp: AuthResponseI) => {
+        localStorage.removeItem('id_usuario');
+        localStorage.removeItem('tipo_usuario');
+        localStorage.removeItem('token');
         if (!resp.status) {
           return this.errorMassageLogin(resp.data);
         }
