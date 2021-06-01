@@ -135,6 +135,22 @@
             }
         }
     }
+    .card-header-bdark .card-icon,
+    .card-header-bdark .card-text,
+    .card-header-bdark:not(.card-header-icon):not(.card-header-text),
+    &.bg-bdark,
+    &.card-rotate.bg-bdark .front,
+    &.card-rotate.bg-bdark .back {
+        background: linear-gradient(60deg, $palete-700, $palete-800);
+    }
+    .card-header-bblue .card-icon,
+    .card-header-bblue .card-text,
+    .card-header-bblue:not(.card-header-icon):not(.card-header-text),
+    &.bg-bblue,
+    &.card-rotate.bg-bblue .front,
+    &.card-rotate.bg-bblue .back {
+        background: linear-gradient(60deg, $palete-900, $palete-1000);
+    }
     .card-header-primary .card-icon,
     .card-header-primary .card-text,
     .card-header-primary:not(.card-header-icon):not(.card-header-text),

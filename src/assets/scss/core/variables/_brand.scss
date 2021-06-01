@@ -2,10 +2,15 @@
 
 /*     brand Colors              */
 
-$brand-primary: $indigo-500 !default;
+$brand-primary: $palete-1000 !default;
 $brand-info: $cyan-500 !default;
 $brand-success: $green-500 !default;
 $brand-warning: $orange-500 !default;
 $brand-danger: $red-500 !default;
 $brand-rose: $pink-500 !default;
 $brand-inverse: $black-color !default;
+
+/* Palte de color azul */
+
+$brand-bdark: $palete-800 !default;
+$brand-bblue: $palete-1000 !default;
