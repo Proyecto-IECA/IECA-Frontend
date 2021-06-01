@@ -18,13 +18,7 @@ export class AuthUserService {
   }
 
   login(formData: UsuarioI) {
-    return this.http.post(`${baseUrl}/login`, formData).pipe(
-      tap((resp: AuthResponseI) => {
-        localStorage.setItem('id_usuario', resp.data.id_usuario);
-        localStorage.setItem('tipo_usuario', resp.data.tipo_usuario);
-        localStorage.setItem('token', resp.token);
-      })
-    );
+    return this.http.post(`${baseUrl}/login`, formData);
   }
 
   register(formData: UsuarioI) {

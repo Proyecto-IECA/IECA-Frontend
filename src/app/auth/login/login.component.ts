@@ -186,6 +186,10 @@ export class LoginComponent implements OnInit {
         if (resp.data.tipo_usuario == 'Empresa') {
           ruta = '/my-vacancies';
         }
+
+        localStorage.setItem('id_usuario', resp.data.id_usuario);
+        localStorage.setItem('tipo_usuario', resp.data.tipo_usuario);
+        localStorage.setItem('token', resp.token);
         return this.router.navigateByUrl(ruta);        
       }, ((error) => {
           /* Mensaje de error si el servidor no recibe la petición */
