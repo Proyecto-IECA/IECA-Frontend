@@ -3,7 +3,7 @@ import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-const baseUrl = environment.baseUrl + "/validar";
+const baseUrl = environment.baseUrl + '/validar';
 const id = localStorage.getItem('id_usuario');
 const token = localStorage.getItem('token') || '';
 
@@ -21,8 +21,11 @@ export class GuardsService {
       }
     }).pipe(map((resp: any) => {
       console.log(resp);
-      if (resp.status) return true;
-      return false;
+      return resp.status;
+      /*if (resp.status) {
+        return true;
+      }
+      return false;*/
     }));
   }
 }
