@@ -9,11 +9,11 @@ const baseUrl = environment.baseUrl + '/vacantes-favoritas'
   providedIn: 'root'
 })
 export class FavoritesService {
-  private id_usuario = localStorage.getItem('id_usuario');
 
   constructor(private http: HttpClient) { }
 
   getVacantesFav () {
-    return this.http.get(`${baseUrl}/${this.id_usuario}`);
+    const id_usuario = localStorage.getItem('id_usuario');
+    return this.http.get(`${baseUrl}/${id_usuario}`);
   }
 }

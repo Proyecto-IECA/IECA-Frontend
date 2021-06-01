@@ -4,7 +4,6 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 
 const baseUrl = environment.baseUrl;
-const id_usuario = Number( localStorage.getItem('id_usuario') );
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +13,7 @@ export class ReviewsService {
   constructor(private http: HttpClient) { }
 
   getReviewsPendientes(): Observable<any> {
+    const id_usuario = Number( localStorage.getItem('id_usuario') );
     return this.http.get(`${ baseUrl }/resenias/pendientes/${ id_usuario }`);
   }
 
@@ -22,6 +22,7 @@ export class ReviewsService {
   }
 
   updateCalificar(id_receptor: number, calificacion: number, comentario: string): Observable<any> {
+    const id_usuario = Number( localStorage.getItem('id_usuario') );
     const body = {
       id_emisor: id_usuario,
       id_receptor,

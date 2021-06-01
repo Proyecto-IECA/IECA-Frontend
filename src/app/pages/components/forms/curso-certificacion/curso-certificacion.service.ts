@@ -4,7 +4,6 @@ import { environment } from 'environments/environment';
 import { CursoCertificacionI } from 'app/models/cursos_certificaciones';
 
 const baseUrl = environment.baseUrl + '/cursos-certificaciones';
-const id = parseInt(localStorage.getItem('id_usuario'));
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +13,7 @@ export class CursoCertificacionService {
   constructor(private http: HttpClient) { }
 
   addCursoCertifi (formData: CursoCertificacionI) {
+    const id = parseInt(localStorage.getItem('id_usuario'));
     formData.id_usuario_fk = id;
     return this.http.post(`${baseUrl}`, formData);
   }

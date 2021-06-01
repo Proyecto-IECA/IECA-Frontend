@@ -4,7 +4,6 @@ import { environment } from 'environments/environment';
 import { ValorI } from '../../../../models/valor';
 
 const baseUrl = environment.baseUrl + "/valores";
-const id = localStorage.getItem("id_usuario");
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +17,12 @@ export class ValoresService {
   }
 
   getValoresUsuario() {
+    const id = localStorage.getItem("id_usuario");
     return this.http.get(`${baseUrl}/${id}`);
   }
 
   addValores(valores: ValorI[]) {
+    const id = localStorage.getItem("id_usuario");
     const formData = {
       id_usuario: id,
       valores: valores

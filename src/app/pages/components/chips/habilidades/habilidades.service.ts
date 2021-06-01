@@ -4,7 +4,6 @@ import { environment } from 'environments/environment';
 import { HabilidadI } from '../../../../models/habilidad';
 
 const baseUrl = environment.baseUrl + "/habilidades";
-const id = localStorage.getItem("id_usuario");
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +17,12 @@ export class HabilidadesService {
   }
 
   getHabilidadesUsuario() {
+    const id = localStorage.getItem("id_usuario");
     return this.http.get(`${baseUrl}/${id}`);
   }
 
   addHabilidades(habilidades: HabilidadI[]) {
+    const id = localStorage.getItem("id_usuario");
     const formData = {
       id_usuario: id,
       habilidades: habilidades

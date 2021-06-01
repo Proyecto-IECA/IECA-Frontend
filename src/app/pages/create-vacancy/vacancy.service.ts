@@ -5,7 +5,6 @@ import { VacantesI } from '../../models/vacantes';
 import { PerfilI } from 'app/models/perfil';
 
 const baseUrl = environment.baseUrl;
-const id_empresa = parseInt(localStorage.getItem("id_usuario"));
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +14,12 @@ export class VacancyService {
   constructor(private http: HttpClient) { }
 
   getSucursales() {
+    const id_empresa = parseInt(localStorage.getItem("id_usuario"));
     return this.http.get(`${baseUrl}/sucursales/${id_empresa}`);
   }
 
   addVacante(formData: VacantesI) {
+    const id_empresa = parseInt(localStorage.getItem("id_usuario"));
     formData.id_usuario_fk = id_empresa;
     return this.http.post(`${baseUrl}/vacantes`, formData);
   }
