@@ -3,34 +3,17 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-header card-header-bblue card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">content_copy</i>
+                            <i class="material-icons">visibility</i>
                         </div>
                         <p class="card-category">Vistas</p>
                         <h3 class="card-title">49</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-warning">warning</i>
-                            <a>Postulantes</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">store</i>
-                        </div>
-                        <p class="card-category">Alcance</p>
-                        <h3 class="card-title">49</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-success">local_offer</i>
-                            <a>Postulantes</a>
+                            <i class="material-icons text-primary">visibility</i>
+                            <a>Vistas por usuario</a>
                         </div>
                     </div>
                 </div>
@@ -39,15 +22,32 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">store</i>
+                            <i class="material-icons">person</i>
+                        </div>
+                        <p class="card-category">Alcance</p>
+                        <h3 class="card-title">49</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-info">person</i>
+                            <a>Usuarios Alcanzados</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-stats">
+                    <div class="card-header card-header-color card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">contact_page</i>
                         </div>
                         <p class="card-category">Postulaciones</p>
                         <h3 class="card-title">12</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-info">update</i>
-                            <a>Recién actualizado</a>
+                            <i class="material-icons text-color">contact_page</i>
+                            <a>Postulaciones a la vacante</a>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
             <div class="col-md-8">
                 <div class="card m-t-3">
                     <!-- Header -->
-                    <div class="card-header card-header-primary">
+                    <div class="card-header card-header-bdark">
                         <h4 class="card-title">Vacante</h4>
                         <p class="card-category">Actualiza la vacante</p>
                     </div>
@@ -69,9 +69,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="col-md-12">
-                    <img src="../../../assets/img/log.svg" alt="" class="img-thumbnail">
-                </div>
+
                 <app-perfiles [perfiles]="perfiles" [id]="idVacante" [type]="'Vacante'"></app-perfiles>
             </div>
         </div>

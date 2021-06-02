@@ -29,7 +29,7 @@ export class CompanyProfileComponent implements OnInit {
   companyForm: FormGroup;
 
   panel = false; // false
-  haveBranches = true; // Dejarlo en false
+  haveBranches = false; // Dejarlo en false
   panelOpenState = false;
 
   @ViewChild('placesRef') placesRef: GooglePlaceDirective; // autocompletar dirección

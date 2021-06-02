@@ -91,8 +91,8 @@
                         </div>
                         <div class="col-md-5">
                             <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Buscar por puesto, modalidad o empresa ..." [formControl]="search">
-                                <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <input type="text" value="" class="form-control" placeholder="Buscar por puesto, modalidad, nivel o empresa ..." [formControl]="search">
+                                <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" title="Filtrar">
                                     <i class="material-icons">search</i>
                                     <div class="ripple-container"></div>
                                 </button>
@@ -121,8 +121,8 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{vacante.puesto}} </h5>
-                                <p class="card-text text-primary">{{vacante.modalidad}}</p>
+                                <h4 class="card-title">Puesto: <b class="text-primary">{{vacante.puesto}}</b> </h4>
+                                <p class="card-text">Nivel: <b class="text-primary">{{vacante.nivel}}</b> / Modalidad: <b class="text-primary">{{vacante.modalidad}}</b></p>
                                 <p class="card-text">{{vacante.Usuario.nombre}}</p>
                                 <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.fecha_publicacion}}</small></p>
                             </div>

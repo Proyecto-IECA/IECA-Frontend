@@ -12,14 +12,14 @@
         <div class="row justify-content-md-center">
             <!-- ==== Encabezado de la página-->
             <div class="col-md-auto">
-                <h1> Nombre de la Empresa </h1>
+                <h1> {{company.nombre}} </h1>
             </div>
         </div>
 
         <!-- === Subtitulo === -->
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
-                <h2> Giro de la Empresa </h2>
+                <h2>{{company.giro}}</h2>
             </div>
         </div>
 
@@ -113,7 +113,7 @@
                 <div class="card">
 
                     <!-- Encabezado de Card -->
-                    <div class="card-header card-header-primary">
+                    <div class="card-header card-header-bblue">
                         <h4 class="card-title">Perfil</h4>
                         <p class="card-category">Actualiza tu información</p>
                     </div>
@@ -121,9 +121,6 @@
                     <!-- Formulario -->
                     <div class="card-body">
                         <form (ngSubmit)="updateCompany()" [formGroup]="companyForm">
-
-                            <!-- Mensaje de Campos Obligatorios -->
-                            <small class="text-danger">Campos obligatorios *</small>
 
                             <!-- Nombre de la empresa y administrador -->
                             <div class="row">
@@ -149,13 +146,7 @@
                                 <!-- Ubicación -->
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input ngx-google-places-autocomplete
-                                               matInput
-                                               #placesRef="ngx-places"
-                                               (onAddressChange)="handleAddressChange($event)"
-                                               type="text"
-                                               placeholder="Dirección"
-                                               formControlName="ubicacion"/>
+                                        <input ngx-google-places-autocomplete matInput #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" type="text" placeholder="Dirección" formControlName="ubicacion" />
                                     </mat-form-field>
                                     <small *ngIf="controlNoValid( 'ubicacion')" class="form-text text-danger">* Este campo es obligatorio</small>
                                 </div>
@@ -194,11 +185,7 @@
                                 <!-- Renglón justificado al inicio -->
                                 <div class="col-md-6 ">
                                     <!-- Switcher icon -->
-                                    <mat-slide-toggle id="sucuarsales"
-                                                      class="justify-content-start"
-                                                      (change)="haveBranches = $event.checked"
-                                                      [checked]="haveBranches"
-                                                      [disabled]="company.numero_sucursales > 0">
+                                    <mat-slide-toggle id="sucuarsales" class="justify-content-start" (change)="haveBranches = $event.checked" [checked]="haveBranches" [disabled]="company.numero_sucursales > 0">
                                         ¿Cuenta con más sucursales?
                                     </mat-slide-toggle>
                                 </div>
@@ -208,17 +195,12 @@
                                     <div class="row justify-content-end">
 
                                         <!-- Restaurar el formulario -->
-                                        <button type="button"
-                                                (click)="loadData()"
-                                                title="Restaurar"
-                                                class="btn btn-warning btn-sm btn-just-icon m-r">
+                                        <button type="button" (click)="loadData()" title="Restaurar" class="btn btn-warning btn-sm btn-just-icon m-r">
                                             <i class="material-icons md-36">settings_backup_restore</i>
                                         </button>
 
                                         <!-- Guardar cambios -->
-                                        <button type="submit"
-                                                title="Guardar"
-                                                class="btn btn-info btn-sm btn-just-icon m-r">
+                                        <button type="submit" title="Guardar" class="btn btn-primary btn-sm btn-just-icon m-r">
                                             <i class="material-icons md-36">save</i>
                                         </button>
 
@@ -244,7 +226,7 @@
                 <div class="card">
 
                     <!-- ===== Encabezado de Card ===== -->
-                    <div class="card-header card-header-info">
+                    <div class="card-header card-header-bdark">
                         <h4 class="card-title"> Sucursales </h4>
                         <p class="card-catergory">
                             Lista de sucursales
@@ -266,26 +248,24 @@
                                 </mat-expansion-panel-header>
                                 <!-- ===== Formulario para agregar una sucursal ===== -->
                                 <app-sucursales></app-sucursales>
-                        </mat-expansion-panel>
-
-                        <div *ngFor="let branch of branches">
-                            <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        {{branch.nombre}}
-                                    </mat-panel-title>
-                                    <mat-panel-description [hidden]="panelOpenState">
-                                        {{branch.ubicacion}}
-                                        <mat-icon *ngIf="branch.ubicacion" class="text-primary">done</mat-icon>
-                                    </mat-panel-description>
-                                </mat-expansion-panel-header>
-
-                                <app-sucursales [branch]="branch"
-                                                [update]="true"
-                                                [id_sucursal]="branch.id_sucursal"></app-sucursales>
-                                <!--(tipo)="prueba($event)"-->
                             </mat-expansion-panel>
-                        </div>
+
+                            <div *ngFor="let branch of branches">
+                                <mat-expansion-panel class="m-t" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{branch.nombre}}
+                                        </mat-panel-title>
+                                        <mat-panel-description [hidden]="panelOpenState">
+                                            {{branch.ubicacion}}
+                                            <mat-icon *ngIf="branch.ubicacion" class="text-primary">done</mat-icon>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+
+                                    <app-sucursales [branch]="branch" [update]="true" [id_sucursal]="branch.id_sucursal"></app-sucursales>
+                                    <!--(tipo)="prueba($event)"-->
+                                </mat-expansion-panel>
+                            </div>
 
                         </mat-accordion>
                     </div>
@@ -296,9 +276,8 @@
             <div class="col-md-4">
                 <img src="../../../assets/img/bussiness.svg" alt="..." class="img-thumbnail">
             </div>
-	    </div>
+        </div>
 
 
     </div>
 </div>
-

@@ -1,247 +1,250 @@
 <div class="main-content">
-    <div class="row ">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">content_copy</i>
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">public</i>
+                        </div>
+                        <p class="card-category">Publicadas</p>
+                        <h3 class="card-title">{{numVacantesP}}</h3>
                     </div>
-                    <p class="card-category">Publicadas</p>
-                    <h3 class="card-title">{{numVacantesP}}</h3>
+                    <div class="card-footer">
+                    </div>
                 </div>
-                <div class="card-footer">
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">unpublished</i>
+                        </div>
+                        <p class="card-category">Sin Publicar</p>
+                        <h3 class="card-title">{{numVacantesB}}</h3>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">done</i>
+                        </div>
+                        <p class="card-category">Disponibles</p>
+                        <h3 class="card-title">{{numVacantesD}}</h3>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">block</i>
+                        </div>
+                        <p class="card-category">Cerradas</p>
+                        <h3 class="card-title">{{numVacantesC}}</h3>
+                    </div>
+                    <div class="card-footer">
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-success card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">store</i>
-                    </div>
-                    <p class="card-category">Sin Publicar</p>
-                    <h3 class="card-title">{{numVacantesB}}</h3>
-                </div>
-                <div class="card-footer">
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-danger card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">info_outline</i>
-                    </div>
-                    <p class="card-category">Cerradas</p>
-                    <h3 class="card-title">{{numVacantesC}}</h3>
-                </div>
-                <div class="card-footer">
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                    <div class="card-icon">
-                        <i class="fa fa-twitter"></i>
-                    </div>
-                    <p class="card-category">Disponibles</p>
-                    <h3 class="card-title">{{numVacantesD}}</h3>
-                </div>
-                <div class="card-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header card-header-tabs card-header-success">
-                    <div class="nav-tabs-navigation">
-                        <div class="nav-tabs-wrapper">
-                            <span class="nav-tabs-title">Vacantes:</span>
-                            <ul class="nav nav-tabs" data-tabs="tabs">
-                                <li class="nav-item">
-                                    <a mat-button class="nav-link active" href="#publicadas" data-toggle="tab">
-                                        <i class="material-icons">bug_report</i> Publicadas
-                                        <div class="ripple-container"></div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a mat-button class="nav-link" href="#borradores" data-toggle="tab">
-                                        <i class="material-icons">bug_report</i> Sin publicar
-                                        <div class="ripple-container"></div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a mat-button class="nav-link" href="#cerradas" data-toggle="tab">
-                                        <i class="material-icons">bug_report</i> Cerradas
-                                        <div class="ripple-container"></div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a mat-button class="nav-link" href="#disponibles" data-toggle="tab">
-                                        <i class="material-icons">bug_report</i> Disponibles
-                                        <div class="ripple-container"></div>
-                                    </a>
-                                </li>
-                            </ul>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-bblue">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <span class="nav-tabs-title">Vacantes:</span>
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link active" href="#publicadas" data-toggle="tab">
+                                            <i class="material-icons">bug_report</i> Publicadas
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#borradores" data-toggle="tab">
+                                            <i class="material-icons">bug_report</i> Sin publicar
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#cerradas" data-toggle="tab">
+                                            <i class="material-icons">bug_report</i> Cerradas
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#disponibles" data-toggle="tab">
+                                            <i class="material-icons">bug_report</i> Disponibles
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="publicadas">
-                            <table class="table">
-                                <thead class="text-success text-center">
-                                    <th>Fecha</th>
-                                    <th>Puesto</th>
-                                    <th>Nivel</th>
-                                    <th>Modalidad</th>
-                                    <th>Dejar de publicar</th>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="publicadas">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Fecha</th>
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Dejar de publicar</th>
 
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let vacante of vacantesP" class="text-center">
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.fecha_publicacion}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.puesto}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.nivel}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.modalidad}}
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesP" class="text-center">
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.fecha_publicacion}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td>
                                                 <div class="form-check">
-                                                    <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="noPublicar(vacante)">
+                                                    <div class="form-check">
+                                                        <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="noPublicar(vacante)">
                                                         <i class="material-icons">done</i>
                                                     </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane" id="borradores">
-                            <table class="table">
-                                <thead class="text-success text-center">
-                                    <th>Puesto</th>
-                                    <th>Nivel</th>
-                                    <th>Modalidad</th>
-                                    <th>Publicar</th>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="borradores">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Publicar</th>
 
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let vacante of vacantesB" class="text-center">
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.puesto}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.nivel}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.modalidad}}
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesB" class="text-center">
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td>
                                                 <div class="form-check">
-                                                    <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="publicar(vacante)">
+                                                    <div class="form-check">
+                                                        <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="publicar(vacante)">
                                                         <i class="material-icons">done</i>
                                                     </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane" id="cerradas">
-                            <table class="table">
-                                <thead class="text-success text-center">
-                                    <th>Fecha</th>
-                                    <th>Puesto</th>
-                                    <th>Nivel</th>
-                                    <th>Modalidad</th>
-                                    <th>Abrir</th>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="cerradas">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Fecha</th>
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Abrir</th>
 
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let vacante of vacantesC" class="text-center">
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.fecha_publicacion}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.puesto}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.nivel}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.modalidad}}
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesC" class="text-center">
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.fecha_publicacion}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td>
                                                 <div class="form-check">
-                                                    <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="abrir(vacante)">
+                                                    <div class="form-check">
+                                                        <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="abrir(vacante)">
                                                         <i class="material-icons">done</i>
                                                     </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane" id="disponibles">
-                            <table class="table">
-                                <thead class="text-success text-center">
-                                    <th>Fecha</th>
-                                    <th>Puesto</th>
-                                    <th>Nivel</th>
-                                    <th>Modalidad</th>
-                                    <th>Cerrar</th>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="disponibles">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Fecha</th>
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Cerrar</th>
 
 
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let vacante of vacantesD" class="text-center">
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.fecha_publicacion}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.puesto}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.nivel}}
-                                        </td>
-                                        <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                            {{vacante.modalidad}}
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="cerrar(vacante)">
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesD" class="text-center">
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.fecha_publicacion}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="cerrar(vacante)">
                                                     <i class="material-icons">done</i>
                                                 </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button mat-fab color="default" class="pull-right" routerLink="/create-vacancie" title="Nueva vacante">
+                            <mat-icon>add</mat-icon>
+                        </button>
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </div>
-        <div class="col-md-2 align-self-center">
-            <div class="col-md-12">
-                <button mat-raised-button class="btn btn-primary pull-left" routerLink="/create-vacancie">Nueva vacante</button>
             </div>
         </div>
     </div>
