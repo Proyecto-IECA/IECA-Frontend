@@ -19,6 +19,7 @@ import { MyPostulationsComponent } from "./my-postulations/my-postulations.compo
 import { SeeCompanyComponent } from "./see-company/see-company.component";
 import { ReviewsComponent } from "./reviews/reviews.component";
 import { GuardsService } from '../services/guards.service';
+import { EmailValidadoGuard } from '../guards/email-validado.guard';
 
 const tipo_usuario = localStorage.getItem("tipo_usuario") || "";
 export let ruta = "auth";
@@ -39,7 +40,7 @@ export const routes: Routes = [
   {
     path: "",
     component: PagesComponent,
-    canActivate: [TokenValidoGuard],
+    canActivate: [TokenValidoGuard, EmailValidadoGuard],
     children: [
       { path: "dashboard", component: DashboardComponent },
       { path: "user-profile", component: UserProfileComponent },

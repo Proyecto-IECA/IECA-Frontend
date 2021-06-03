@@ -75,7 +75,6 @@ export class VacanciesComponent implements OnInit {
     this.vacantesService.getVacantes(this.filtered).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.vacantes = resp.data;
-        console.log(this.vacantes);
       }
     });
 

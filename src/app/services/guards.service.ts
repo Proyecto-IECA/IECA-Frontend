@@ -23,4 +23,12 @@ export class GuardsService {
       return resp.status;
     }));
   }
+
+  validarEmail() {
+    const id = localStorage.getItem('id_usuario');
+    return this.http.get(`${baseUrl}/email/${id}`)
+    .pipe(map((resp: any ) => {
+      return resp.status;
+    }))
+  }
 }

@@ -12,6 +12,11 @@ export class ComponentsService {
 
   constructor(private http: HttpClient) { }
 
+  getUsuario() {
+    const id = localStorage.getItem('id_usuario');
+    return this.http.get(`${baseUrl}/${id}`);
+  }
+
   forgotPass(id, formData: UsuarioI) {
     return this.http.put(`${baseUrl}/renewpass/${id}`, formData);
   }
@@ -19,6 +24,10 @@ export class ComponentsService {
   validarEmail(id) {
     return this.http.get(`${baseUrl}/validemail/${id}`);
   }
-  
+
+  sendEmail(formData) {
+    console.log(formData);
+    return this.http.post(`${baseUrl}/send-email/`, formData)
+  }
 }
 

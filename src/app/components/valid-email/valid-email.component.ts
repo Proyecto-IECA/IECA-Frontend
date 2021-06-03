@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'app/services/auth.service';
 import Swal from 'sweetalert2';
 import { ComponentsService } from '../components.service';
 import { AuthResponseI } from '../../models/auth-response';
@@ -18,7 +17,6 @@ export class ValidEmailComponent implements OnInit {
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private authService: AuthService,
         private componentService: ComponentsService,
         private router: Router
     ) {
@@ -45,7 +43,7 @@ export class ValidEmailComponent implements OnInit {
     errorMassage(): void {
         Swal.fire({
             icon: 'error',
-            title: 'Datos incorrectos',
+            title: 'Ocurrio un error al enviar el correo',
             text: 'Vuelve a intentarlo de nuevo...',
         });
     }
@@ -74,7 +72,6 @@ export class ValidEmailComponent implements OnInit {
         this.componentService.validarEmail(this.id).subscribe(
             (resp: AuthResponseI) => {
                 if (!resp.status) {
-                    this.errorMassage();
                     return;
                 }
                 this.email_validado = true;
@@ -82,7 +79,6 @@ export class ValidEmailComponent implements OnInit {
             },
             (error) => {
                 this.errorServer();
-                console.log(error);
             }
         )
     }
@@ -91,20 +87,39 @@ export class ValidEmailComponent implements OnInit {
 
     reenviarCorreo(): void {
         // Peticion mamalona para reenviar el correo de validacion
-        this.authService.validarEmail().subscribe(
-            response => {
-                if (!response.status) {
-                    /* Mensaje de error en Sweetalert2 */
+        this.componentService.getUsuario().subscribe((resp: any) => {
+            if (!resp.status) {
+                return this.errorMassage();
+            }
+            let email = resp.data.email;
+
+            this.componentService.sendEmail({
+                email: email,
+                ruta: 'validarEmail'
+            }).subscribe((resp: any) => {
+                if (!resp.status) {
                     return this.errorMassage();
                 }
-                return this.emailEnviado(); // email enviado
-            },
-            error => {
-                /* Mensaje de error si el servidor no recibe las peticiones */
-                this.errorServer();
-                console.log(error);
+
+                this.emailEnviado();
+            })
+        })
+    }
+
+    getRuta(): string {
+        let ruta = ''
+        this.componentService.getUsuario().subscribe((resp: any) => {
+            if (!resp.status) {
+                return this.errorMassage();
             }
-        );
+            if (resp.data.tipo_usuario == 'Postulante') {
+                ruta = 'vacancies'
+            } else {
+                ruta = 'my-vacancies';
+            }
+        })
+
+        return ruta;
     }
 
 }

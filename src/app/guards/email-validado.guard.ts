@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import { tap } from 'rxjs/operators';
+import { GuardsService } from '../services/guards.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +10,24 @@ import { tap } from 'rxjs/operators';
 export class EmailValidadoGuard implements CanActivate {
 
 
-  constructor(private authService: AuthService,
-              private router: Router) {  }
+  constructor(
+    private router: Router,
+    private guardService: GuardsService
+  ) {  }
 
-  canActivate(route: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): Observable<boolean> | boolean {
-    console.log('Guardian Email-Validado');
-    // return this.authService.validarToken()
-    return this.authService.validarEmailValidado()
-      .pipe(
-        tap((valid) => {
-          if (!valid) {
-            return this.router.navigateByUrl('/validarEmail');
-          }
-        })
-      );
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | boolean {
+
+    return this.guardService.validarEmail().pipe(
+      tap((valid) => {
+        if (!valid) {
+          return this.router.navigateByUrl('/validarEmail');
+        }
+        return true;
+      })
+    );
+  
   }
 
 }
