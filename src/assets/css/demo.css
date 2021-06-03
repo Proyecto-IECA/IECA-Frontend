@@ -56,6 +56,10 @@
     margin-right: 50px !important;
 }
 
+.m-l-5 {
+    margin-left: 50px !important;
+}
+
 .example-action-buttons {
     padding-bottom: 20px;
 }
