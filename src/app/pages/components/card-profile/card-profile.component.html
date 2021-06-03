@@ -1,48 +1,44 @@
-
 <!-- ===== Card Perfil ====== -->
 <div class="card card-profile">
 
-	<!-- Picture default -->
-	<div class="card-avatar" *ngIf="!profile.foto_perfil">
-		<img class="img" src="./assets/img/faces/marc.jpg"/>
-	</div>
+    <!-- Picture default -->
+    <div class="card-avatar" *ngIf="!profile.foto_perfil">
+        <img class="img" src="./assets/img/faces/marc.jpg" />
+    </div>
 
-	<!-- Picture Perfil -->
-	<div class="card-avatar" *ngIf="profile.foto_perfil">
-		<img class="img" [src]="profile.foto_perfil"/>
-	</div>
+    <!-- Picture Perfil -->
+    <div class="card-avatar" *ngIf="profile.foto_perfil">
+        <img class="img" [src]="profile.foto_perfil" />
+    </div>
 
-	<!-- Cuerpo del card -->
-	<div class="card-body">
+    <!-- Cuerpo del card -->
+    <div class="card-body">
 
-		<!-- Si es Company -->
-		<div *ngIf="profile.pagina_web">
+        <!-- Si es Company -->
+        <div *ngIf="profile.pagina_web">
 
-			<h4 [routerLink]="['/see-company',profile.id_usuario]" class="cursor card-title">{{ profile.nombre }}</h4>
+            <h4 [routerLink]="['/see-company',profile.id_usuario]" class="cursor card-title">{{ profile.nombre }}</h4>
 
-			<h6 class="card-category text-gray">
-				<a href="https://{{ profile.pagina_web }}" target="_blank">Página Web</a>
-			</h6>
+            <h6 class="card-category text-gray">
+                <a href="https://{{ profile.pagina_web }}" target="_blank">Página Web</a>
+            </h6>
 
-		</div>
+        </div>
 
-		<!-- Si es Postulante -->
-		<div *ngIf="!profile.pagina_web">
+        <!-- Si es Postulante -->
+        <div *ngIf="!profile.pagina_web">
 
-			<h4 [routerLink]="['/see-profile',profile.id_usuario]" class="cursor card-title">{{ profile.nombre }}</h4>
+            <h4 [routerLink]="['/see-profile',profile.id_usuario]" class="cursor card-title">{{ profile.nombre }}</h4>
 
-			<h6 class="card-category text-lowercase text-gray">
-				{{ profile.email }}
-			</h6>
+            <h6 class="card-category text-lowercase text-gray">
+                {{ profile.email }}
+            </h6>
 
-		</div>
+        </div>
 
-		<h5 class="text-muted">Calificación</h5>
-		<p>{{ profile.calificacion }}/5</p>
+        <h5 class="text-muted">Calificación</h5>
+        <p>{{ profile.calificacion }}/5</p>
 
-	</div>
+    </div>
 
 </div>
-
-
-

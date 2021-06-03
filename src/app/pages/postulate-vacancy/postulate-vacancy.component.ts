@@ -31,7 +31,7 @@ export class PostulateVacancyComponent implements OnInit {
   postularme() {
     this.postulateVacancyService.addPostulante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.doneMassage('Exito al postularse');
+        this.doneMassage('Éxito al postularse');
       }
     });
   }
