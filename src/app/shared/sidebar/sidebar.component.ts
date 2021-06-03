@@ -39,8 +39,8 @@ export class SidebarComponent implements OnInit {
         switch (tipo) {
             case 'Postulante':
                 ROUTES = [
-                    { path: '/vacancies', title: 'Inicio', icon: 'list', class: '' },
-                    { path: '/user-profile', title: 'Mi Perfil', icon: 'person', class: '' },
+                    { path: '/vacancies', title: 'Inicio', icon: 'dashboard', class: '' },
+                    { path: '/user-profile', title: 'Mi Perfil', icon: 'account_circle', class: '' },
                     { path: '/favorites', title: 'Vacantes Favoritas', icon: 'favorite', class: '' },
                     { path: '/my-postulations', title: 'Mis Postulaciones', icon: 'engineering', class: '' }
                     
