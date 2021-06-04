@@ -52,7 +52,7 @@
         </div>
 
         <!-- Vacantes -->
-        <p *ngIf="vacantes.length == 0">Por el momento no hay vacantes</p>
+        <p *ngIf="vacantes.length == 0"> No hay vacantes publicadas</p>
 
         <div class="row" *ngIf="vacantes.length > 0">
             <div class="col-md-12" *ngFor="let vacante of vacantes | paginate:page_size:page_number | search:searchValue">

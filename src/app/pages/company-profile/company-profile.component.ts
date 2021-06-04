@@ -63,39 +63,6 @@ export class CompanyProfileComponent implements OnInit {
     return false;
   }
 
-
-  //  ---------- MENSAJES ---------- //
-  errorServer(): void {
-    // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
-    Swal.fire({
-      icon: 'error',
-      title: 'Petición NO procesada',
-      text: `Vuelve a intentar de nuevo...
-      Si el error persiste ponerse en contacto con soporte técnico`,
-    });
-  }
-
-  errorMassage(text: string): void {
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: text,
-      showConfirmButton: false,
-      timer: 2700
-    });
-  }
-
-  doneMassage(text: string): void {
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: text,
-      showConfirmButton: false,
-      timer: 1700
-    });
-  }
-
-
   //  ---------- FORMULARIO ---------- //
   companyCreateForm(): void {
     this.companyForm = this.formB.group({
@@ -103,7 +70,7 @@ export class CompanyProfileComponent implements OnInit {
       administrador: [, [Validators.required, Validators.minLength(3)]],
       ubicacion: [, [Validators.required, Validators.minLength(5)]],
       giro: [, [Validators.required, Validators.minLength(3)]],
-      pagina_web: [, Validators.required],
+      pagina_web: [],
       telefono: [, [Validators.required, Validators.maxLength(10)]],
     });
   }
@@ -276,5 +243,35 @@ export class CompanyProfileComponent implements OnInit {
   }
 
 
+
+  //  ---------- MENSAJES ---------- //
+  errorServer(): void {
+    // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
+    Swal.fire({
+      icon: 'error',
+      title: 'Petición NO procesada',
+      text: `Vuelve a intentar de nuevo...
+      Si el error persiste ponerse en contacto con soporte técnico`,
+    });
+  }
+
+  errorMassage(text: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: text,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  doneMassage(text: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: text,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
 
 }

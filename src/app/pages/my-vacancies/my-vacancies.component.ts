@@ -29,7 +29,6 @@ export class MyVacanciesComponent implements OnInit {
   ngOnInit(): void {
     this.myVacanciesService.getVacantes().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        console.log(resp);
         this.vacantesP = resp.data.VacantesPublicadas;
         this.vacantesB = resp.data.VacantesBorradores;
         this.vacantesC = resp.data.VacantesCerradas;

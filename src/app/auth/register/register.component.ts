@@ -78,11 +78,11 @@ export class RegisterComponent implements OnInit {
     console.log(error);
   }
 
-  errorMassage(): void {
+  errorMassage(title, message): void {
     Swal.fire({
       icon: 'error',
-      title: 'Datos incorrectos',
-      text: 'Vuelve a intentar de nuevo...',
+      title: title,
+      text: message,
     });
   }
 
@@ -148,13 +148,13 @@ export class RegisterComponent implements OnInit {
     /* Validar formulario */
     if (this.formularioNoValido(data)) {
       /* Mensaje de error en Sweetalert2 */
-      return this.errorMassage();
+      return this.errorMassage('Revisa el Formulario', 'Formulario No valido');
     }
 
     this.authUserService.register(data).subscribe(
       (resp: AuthResponseI) => {
         if (!resp.status) {
-          return this.errorMassage();
+          return this.errorMassage('Ocurrio un error', resp.data.errors[0].message);
         }
         form.reset();
         return this.emailEnviado();
