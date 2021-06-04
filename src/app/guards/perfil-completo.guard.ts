@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import { tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
@@ -19,21 +18,22 @@ export class PerfilCompletoGuard implements CanActivate {
         });
     }
 
-    constructor(private authService: AuthService) {
+    constructor() {
     }
 
     canActivate(): Observable<boolean> | boolean {
-        console.log('Guardian canActivate: Perfil Completo');
-        return this.authService.validarPerfil()
-            .pipe(
-                tap((valid) => {
-                    if (!valid) {
-                        this.validatedPerfil();
-                        return false;
-                    }
-                    return true;
-                })
-            );
+        // console.log('Guardian canActivate: Perfil Completo');
+        // return this.authService.validarPerfil()
+        //     .pipe(
+        //         tap((valid) => {
+        //             if (!valid) {
+        //                 this.validatedPerfil();
+        //                 return false;
+        //             }
+        //             return true;
+        //         })
+        //     );
+        return true;
     }
 
 }

@@ -54,11 +54,10 @@ export class LoginComponent implements OnInit {
 
   /* Validar Email para recuperar la contraseña */
   validateEmail(email: string): void {
-    console.log(email);
-
-    this.authUserService.sendEmail('forgetPassword', email).subscribe((resp: AuthResponseI) => {
-      console.log(resp);
-
+    this.authUserService.sendEmail({
+      email: email,
+      ruta: 'forgetPassword'
+    }).subscribe((resp: AuthResponseI) => {
       Swal.close();
           /* Si la respuesta es correcta */
           if (!resp.status) {
@@ -210,8 +209,9 @@ export class LoginComponent implements OnInit {
       showLoaderOnConfirm: true,
       preConfirm: (email) => {
         /* Validamos el correo ingresado */
-        Swal.showLoading();
         this.validateEmail(email);
+
+        Swal.showLoading();
       }
     });
   }

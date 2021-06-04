@@ -87,3 +87,11 @@
     padding-top: 10px !important;
     padding-bottom: 10px !important;
 }
+
+.error-snack {
+    background-color: #B00020 !important;
+}
+
+.success-snack {
+    background-color: #20b000;
+}

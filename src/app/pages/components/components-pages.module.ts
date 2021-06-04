@@ -18,6 +18,7 @@ import { VacanteComponent } from './forms/vacante/vacante.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { RouterModule } from '@angular/router';
 import { CardProfileComponent } from './card-profile/card-profile.component';
+import { NotifierComponent } from './notifier/notifier.component';
 
 
 
@@ -35,6 +36,7 @@ import { CardProfileComponent } from './card-profile/card-profile.component';
     NotificationsComponent,
     VacanteComponent,
     CardProfileComponent,
+    NotifierComponent,
   ],
     exports: [
         HabilidadesComponent,

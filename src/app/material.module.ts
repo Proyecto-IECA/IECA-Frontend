@@ -18,6 +18,7 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -41,7 +42,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCarouselModule,
     MatCardModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -62,7 +64,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCarouselModule,
     MatCardModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
   declarations: []
 })

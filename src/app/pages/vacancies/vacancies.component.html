@@ -9,65 +9,9 @@
             </div>
         </div> -->
         <!-- Cards de lista de vacantes disponibles -->
-        <!-- <h3>Mas recientes</h3>
-        <div class="row">
-            <div class="col-md-12" *ngFor="let vacante of vacantesRecientes">
-                <div class="card mb-3">
-                    <div class="posicion-t-r">
-                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length > 0" (click)="unmarkFavorite(vacante.Vacantes_Favoritas)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
-                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length == 0" (click)="markFavorite(vacante)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
-                    </div>
-                    <div class="row g-0 align-items-center justify-content-center">
-                        <div class="col-md-2">
-                            <img src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{vacante.puesto}} </h5>
-                                <p class="card-text text-primary">{{vacante.modalidad}}</p>
-                                <p class="card-text">{{vacante.Usuario.nombre}}</p>
-                                <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.fecha_publicacion}}</small></p>
-                            </div>
-                        </div>
-                        <div class="posicion-b-r">
-                            <a class="text-primary" (click)="visualizar(vacante.id_vacante)" style="cursor:pointer">Ver más ...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <h3>Recomendadas</h3>
-        <div class="row">
-            <div class="col-md-12" *ngFor="let vacante of vacantesRecomendadas">
-                <div class="card mb-3">
-                    <div class="posicion-t-r">
-                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length > 0" (click)="unmarkFavorite(vacante.Vacantes_Favoritas)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
-                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length == 0" (click)="markFavorite(vacante)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
-                    </div>
-                    <div class="row g-0 align-items-center justify-content-center">
-                        <div class="col-md-2">
-                            <img src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{vacante.puesto}} </h5>
-                                <p class="card-text text-primary">{{vacante.modalidad}}</p>
-                                <p class="card-text">{{vacante.Usuario.nombre}}</p>
-                                <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.fecha_publicacion}}</small></p>
-                            </div>
-                        </div>
-                        <div class="posicion-b-r">
-                            <a class="text-primary" (click)="visualizar(vacante.id_vacante)" style="cursor:pointer">Ver más ...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
 
         <h3>Vacantes</h3>
-
+        <!-- Filtros -->
         <div class="card">
             <div class="card-body">
                 <h4 class="text-primary">Filtros</h4>
@@ -107,7 +51,10 @@
             </div>
         </div>
 
-        <div class="row">
+        <!-- Vacantes -->
+        <p *ngIf="vacantes.length == 0">Por el momento no hay vacantes</p>
+
+        <div class="row" *ngIf="vacantes.length > 0">
             <div class="col-md-12" *ngFor="let vacante of vacantes | paginate:page_size:page_number | search:searchValue">
                 <div class="card mb-3">
                     <div class="posicion-t-r">
@@ -135,8 +82,9 @@
             </div>
 
         </div>
+
         <!-- Paginación -->
-        <div class="row justify-content-end m-t-2">
+        <div class="row justify-content-end m-t-2" *ngIf="vacantes.length > 0">
             <div class="col-md-12">
                 <mat-paginator [length]="vacantes.length" [pageSize]="page_size" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons (page)="handlePage($event)">
                 </mat-paginator>

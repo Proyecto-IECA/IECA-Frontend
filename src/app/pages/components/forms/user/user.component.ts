@@ -4,6 +4,7 @@ import { UsuarioI } from "../../../../models/usuario";
 import Swal from "sweetalert2";
 import { AuthResponseI } from "../../../../models/auth-response";
 import { UserService } from "./user.service";
+import { NotifierService } from '../../../../services/notifier.service';
 
 interface Sexo {
   value: string;
@@ -42,7 +43,8 @@ export class UserComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private notifierService: NotifierService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class UserComponent implements OnInit {
         (resp: AuthResponseI) => {
           if (resp.status) {
             this.doneMassage("Información actualizada");
+            // this.notifierService.showNotification('Información Actualizada', 'done', 'success-snack');
             this.formSubmitted = false;
           } else {
             this.errorPeticion(resp.data);

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { PeticionesService } from './peticiones.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthResponseI } from '../models/auth-response';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { AuthService } from './auth.service';
 import { UsuarioI } from '../models/usuario';
 import { EmpresaI } from '../models/empresa';
 
@@ -20,9 +18,7 @@ export class FileUploadService {
 
 
   constructor(private http: HttpClient,
-              private authService: AuthService,
-              private peticion: PeticionesService) {
-    this.email = this.authService.usuario.email;
+              ) {
   }
 
   async actualizarFoto(archivo: File) /*: Promise<Observable<AuthResponseI>>*/ {
@@ -32,28 +28,27 @@ export class FileUploadService {
     };
 
     // Obtenemos el tipo
-    const tipo = localStorage.getItem('tipo');
-    switch (tipo) {
-      case '1':
-          this.peticion.putQuery('usuarios', 'update-foto', body)
-              .subscribe(
-              (resp: AuthResponseI) => {
-                console.log(resp);
-              });
-          break;
+    // const tipo = localStorage.getItem('tipo');
+    // switch (tipo) {
+    //   case '1':
+    //       this.peticion.putQuery('usuarios', 'update-foto', body)
+    //           .subscribe(
+    //           (resp: AuthResponseI) => {
+    //             console.log(resp);
+    //           });
+    //       break;
 
-      case '2':
-          this.peticion.putQuery('empresas', 'update-foto', body)
-              .subscribe(
-                  (resp: AuthResponseI) => {
-                    console.log(resp);
-                  });
-          break;
+    //   case '2':
+    //       this.peticion.putQuery('empresas', 'update-foto', body)
+    //           .subscribe(
+    //               (resp: AuthResponseI) => {
+    //                 console.log(resp);
+    //               });
+    //       break;
 
-      default:
-        console.log('Error al encontrar un tipo');
-        this.authService.validarToken();
-    }
+    //   default:
+    //     console.log('Error al encontrar un tipo');
+    // }
 
 /*
     try {

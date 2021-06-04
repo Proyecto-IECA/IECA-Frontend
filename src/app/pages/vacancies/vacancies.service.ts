@@ -13,16 +13,6 @@ export class VacanciesService {
   constructor(private http: HttpClient) {
   }
 
-  getVacantesRecientes () {
-    const id = localStorage.getItem('id_usuario');
-    return this.http.get(`${baseUrl}/recientes/${id}`);
-  }
-
-  getVacantesRecomendadas () {
-    const id = localStorage.getItem('id_usuario');
-    return this.http.get(`${baseUrl}/recomendadas/${id}`);
-  }
-
   getVacantes (formData) {
     const id = localStorage.getItem('id_usuario');
     return this.http.put(`${baseUrl}/generales/${id}`, formData);

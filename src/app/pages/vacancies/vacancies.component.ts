@@ -26,8 +26,6 @@ export class VacanciesComponent implements OnInit {
   filterActive = false;
   searchValue = '';
 
-  vacantesRecientes: VacantesI[];
-  vacantesRecomendadas: VacantesI[];
   vacantes: VacantesI[] = [];
   perfiles: PerfilI[] = [];
   perfilesAux: PerfilI[] = [];
@@ -60,18 +58,6 @@ export class VacanciesComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.vacantesService.getVacantesRecientes().subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.vacantesRecientes = resp.data;
-      }
-    });
-  
-    this.vacantesService.getVacantesRecomendadas().subscribe((resp: AuthResponseI) => {
-      if (resp.status) {
-        this.vacantesRecomendadas = resp.data;
-      }
-    });
-
     this.vacantesService.getVacantes(this.filtered).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.vacantes = resp.data;

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'app/services/auth.service';
 import { ValidatorsService } from 'app/services/validators.service';
 import Swal from 'sweetalert2';
 import { AuthResponseI } from '../../models/auth-response';
@@ -24,7 +23,6 @@ export class ForgetPasswordComponent implements OnInit {
     private formB: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private validators: ValidatorsService,
-    private authService: AuthService,
     private router: Router,
     private componentService: ComponentsService
   ) { 
@@ -97,8 +95,6 @@ export class ForgetPasswordComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.id = Number(params.id);
       this.token = params.token;
-      console.log('id: ', this.id);
-      console.log(this.token);
     });
   }
 

@@ -31,12 +31,9 @@ export class AuthUserService {
     return this.http.post(`${baseUrl}`, formData);
   }
 
-  sendEmail(ruta, email) {
-    const data = {
-      email: email,
-      ruta: ruta
-    }
-    return this.http.post(`${baseUrl}/send-email`, data);
+  sendEmail(formData) {
+    console.log(formData);
+    return this.http.post(`${baseUrl}/send-email/`, formData)
   }
 
   logout(): void {
