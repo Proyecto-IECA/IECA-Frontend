@@ -2,10 +2,7 @@
 <form autocomplete="off" [formGroup]="vacanteForm" (ngSubmit)="updateVacante(1)">
     <!-- Datos del puesto -->
     <div class="row">
-        <!-- Mensaje de Campos requeridos -->
-        <div class="col-md-12">
-            <small class="form-text text-danger ml-3">* Campos requeridos</small>
-        </div>
+
         <!-- Puesto -->
         <div class="col-md-8">
             <mat-form-field class="example-full-width">
@@ -94,8 +91,8 @@
             <i class="material-icons">delete</i>
         </button>
         <!-- ===== btn icon aceptar ===== -->
-        <button type="submit" class="btn btn-primary btn-sm btn-just-icon m-r">
-            <i class="material-icons">done</i>
+        <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r">
+            <i class="material-icons">save</i>
         </button>
     </div>
 </form>
