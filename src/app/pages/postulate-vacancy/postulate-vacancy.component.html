@@ -5,10 +5,12 @@
             <mat-icon routerLink="/vacancies" class="m-l-5" style="cursor:pointer">arrow_back_ios</mat-icon>
         </div>
         <div class="col-2" *ngIf="postulacion">
-            <button type="button" class="btn btn-rose btn-lg " (click)="postularme()">Postularme</button>
+            <p *ngIf="validacionCurso">Estamos validando tu perfil</p>
+            <button *ngIf="!activedPostulacion" type="button" class="btn btn-rose btn-lg" (click)="confirmarPostulacion()">Postularme</button>
+            <p *ngIf="activedPostulacion && !validacionCurso">Tu perfil no cumple los requisitos para poder postularte</p>
         </div>
         <div class="col-2" *ngIf="!postulacion">
-            <button type="button" class="btn btn-rose btn-lg " (click)="postularme()">Cancelar Postulacion</button>
+            <button type="button" class="btn btn-rose btn-lg " (click)="confirmarCancelarPostulacion()">Cancelar Postulacion</button>
         </div>
     </div>
     <!-- Spinner -->

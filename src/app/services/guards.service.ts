@@ -36,7 +36,6 @@ export class GuardsService {
     const id = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/perfil/${id}`)
     .pipe(map((resp: any ) => {
-      console.log(resp);
       return resp;
     })) 
   }

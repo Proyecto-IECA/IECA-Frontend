@@ -23,6 +23,9 @@ export class PostulateVacancyService {
     }
     return this.http.post(`${baseUrl}/postulaciones`, formData);
   }
+  cancelarPostulacion(idPostulacion) {
+    return this.http.get(`${baseUrl}/postulaciones/cancelar/${idPostulacion}`);
+  }
 
   getPostulacion(idVacante) {
     const idUsuario = localStorage.getItem('id_usuario');
