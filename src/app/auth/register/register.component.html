@@ -101,10 +101,14 @@
             <button (click)="part = !part" class="btn btn-primary" type="button">
         <i class="material-icons">keyboard_arrow_left</i> Regresar
       </button> &nbsp;
-            <button type="submit" [disabled]="registerUsuarioForm.pristine && registerUsuarioForm.touched" class="btn btn-primary">
+            <button *ngIf="registerUsuarioForm.valid" type="submit" [disabled]="registerUsuarioForm.invalid" class="btn btn-primary">
         Registrar
       </button>
         </div>
+        <p *ngIf="registerUsuarioForm.invalid && registerUsuarioForm.pristine && registerUsuarioForm.touched && registerUsuarioForm.errors"
+           class="text-danger">
+            * Tienes campos por llenar
+        </p>
     </div>
 </form>
 
@@ -187,9 +191,13 @@
         <!-- Previous Form and Button submit -->
         <div *ngIf="!part">
             <button (click)="part = !part" class="btn btn-work" type="button">
-        <i class="material-icons">keyboard_arrow_left</i> Regresar
-      </button> &nbsp;
-            <button type="submit" class="btn btn-work">Registrar</button>
+                <i class="material-icons">keyboard_arrow_left</i> Regresar
+            </button> &nbsp;
+            <button *ngIf="registerEmpresaForm.valid" [disabled]="registerEmpresaForm.invalid" type="submit" class="btn btn-work">Registrar</button>
         </div>
+        <p *ngIf="registerEmpresaForm.invalid && registerEmpresaForm.pristine && registerEmpresaForm.touched && registerEmpresaForm.errors"
+           class="text-danger">
+            * Tienes campos por llenar
+        </p>
     </div>
 </form>
