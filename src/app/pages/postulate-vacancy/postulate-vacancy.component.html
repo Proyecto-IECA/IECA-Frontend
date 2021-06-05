@@ -4,8 +4,11 @@
         <div class="col-10">
             <mat-icon routerLink="/vacancies" class="m-l-5" style="cursor:pointer">arrow_back_ios</mat-icon>
         </div>
-        <div class="col-2">
+        <div class="col-2" *ngIf="postulacion">
             <button type="button" class="btn btn-rose btn-lg " (click)="postularme()">Postularme</button>
+        </div>
+        <div class="col-2" *ngIf="!postulacion">
+            <button type="button" class="btn btn-rose btn-lg " (click)="postularme()">Cancelar Postulacion</button>
         </div>
     </div>
     <!-- Spinner -->

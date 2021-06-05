@@ -18,7 +18,7 @@ export class UserProfileService {
 
   updateFoto(formData: any) {
     const id = localStorage.getItem('id_usuario');
-    return this.http.put(`${baseUrl}/usuarios/updatefoto`, formData);
+    return this.http.put(`${baseUrl}/usuarios/updatefoto/${id}`, formData);
   }
 
   getPerfilesUsuario() {

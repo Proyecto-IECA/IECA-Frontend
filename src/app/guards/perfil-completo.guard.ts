@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { CanActivate } from "@angular/router";
+import { CanActivate, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
 import Swal from "sweetalert2";
@@ -14,34 +14,31 @@ export class PerfilCompletoGuard implements CanActivate {
       icon: "info",
       title: "Para poder crear vacantes completa tu perfil",
       html: errors,
+      confirmButtonText: "Completarlo Ahora!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('/company-profile');
+      }
     });
   }
 
-  validatedPostulante(errors): void {
-    Swal.fire({
-      icon: "info",
-      title: "Para poder ver las vacantes y postularte completa tu perfil",
-      html: errors,
-    });
-  }
 
-  constructor(private guardService: GuardsService) {}
+  constructor(
+    private guardService: GuardsService,
+    private router: Router
+  ) {}
 
   canActivate(): Observable<boolean> | boolean {
     return this.guardService.validarPerfil().pipe(
       map((resp) => {
         if (!resp.status) {
-          const tipoUsuario = localStorage.getItem("tipo_usuario");
           let errors = `<p>Campos Faltantes: </p>`;
           resp.data.forEach((error) => {
             errors += `<div>${error}</div>`;
           });
 
-          if (tipoUsuario == "Postulante") {
-            this.validatedPostulante(errors);
-          } else {
-            this.validatedEmpresa(errors);
-          }
+          this.validatedEmpresa(errors);
+          
           return false;
         }
 

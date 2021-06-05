@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
-import { ValidatorsService } from '../../services/validators.service';
 import { AuthUserService } from '../auth-user.service';
 import { AuthResponseI } from '../../models/auth-response';
 
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
       private formB: FormBuilder,
-      private validators: ValidatorsService,
       private router: Router,
       private authUserService: AuthUserService
   ) {
@@ -177,7 +175,6 @@ export class LoginComponent implements OnInit {
           localStorage.removeItem('type');
         }
 
-        loginForm.reset();
         let ruta = '';
         if (resp.data.tipo_usuario == 'Postulante') {
           ruta = '/vacancies';
@@ -185,6 +182,7 @@ export class LoginComponent implements OnInit {
         if (resp.data.tipo_usuario == 'Empresa') {
           ruta = '/my-vacancies';
         }
+        loginForm.reset();
         return this.router.navigateByUrl(ruta);        
       }, ((error) => {
           /* Mensaje de error si el servidor no recibe la petición */

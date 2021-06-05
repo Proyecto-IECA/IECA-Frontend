@@ -49,7 +49,7 @@ export const routes: Routes = [
       { path: "update-vacancie/:id", component: UpdateVacancieComponent, canActivate: [PerfilCompletoGuard] },
       { path: "vacancies", component: VacanciesComponent },
       { path: "my-vacancies", component: MyVacanciesComponent },
-      { path: "postulate-vacancy/:id", component: PostulateVacancyComponent, canActivate: [PerfilCompletoGuard] },
+      { path: "postulate-vacancy/:id", component: PostulateVacancyComponent},
       { path: "favorites", component: FavoritesComponent },
       { path: "see-profile/:id", component: SeeProfileComponent },
       { path: "my-postulations", component: MyPostulationsComponent },
