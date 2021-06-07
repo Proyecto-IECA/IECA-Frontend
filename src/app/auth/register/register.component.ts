@@ -31,9 +31,6 @@ export class RegisterComponent implements OnInit {
   constructor(
       private formB: FormBuilder,
       private validators: ValidatorsService,
-      /*private authService: AuthService,
-      private empresaSvc: EmpresaService,
-      private usuarioSvc: UsuarioService,*/
       private router: Router,
       private authUserService: AuthUserService
   ) {
@@ -100,15 +97,14 @@ export class RegisterComponent implements OnInit {
   /* Formulario REGISTRO para USUARIO */
   registerUsuarioCreateForm(): void {
     this.registerUsuarioForm = this.formB.group({
-          nombre: [, [Validators.required, Validators.minLength(3)]],
-          apellido_paterno: [, [Validators.required, Validators.minLength(3)]],
-          apellido_materno: [, [Validators.required, Validators.minLength(3)]],
-          email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
-          pass: [, [Validators.required, Validators.minLength(6)]],
-          password: [, [Validators.required]],
-          sexo: [, Validators.required],
-          fecha_nacimiento: [, Validators.required],
-          tipo_usuario: [, Validators.required]
+          nombre: ['', [Validators.required, Validators.minLength(3)]],
+          apellido_paterno: ['', Validators.required],
+          apellido_materno: ['', Validators.required],
+          email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
+          pass: ['', [Validators.required, Validators.minLength(6)]],
+          password: ['', [Validators.required, Validators.minLength(6)]],
+          sexo: ['', Validators.required],
+          fecha_nacimiento: ['', Validators.required]
         },
         {
           validators: [this.validators.ValidarPassword('pass', 'password')],
@@ -118,14 +114,13 @@ export class RegisterComponent implements OnInit {
   /* Formulario REGISTRO para EMPRESA */
   registerEmpresaCreateForm(): void {
     this.registerEmpresaForm = this.formB.group({
-          nombre: [, [Validators.required, Validators.minLength(2)]],
-          administrador: [, [Validators.required, Validators.minLength(3)]],
-          giro: [, Validators.required],
-          ubicacion: [, [Validators.required, Validators.minLength(2)]],
-          email: [, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
-          pass: [, [Validators.required, Validators.minLength(6)]],
-          password: [, [Validators.required]],
-          tipo_usuario: [, Validators.required]
+          nombre: ['', [Validators.required, Validators.minLength(2)]],
+          administrador: ['', [Validators.required, Validators.minLength(3)]],
+          giro: ['', Validators.required],
+          ubicacion: ['', [Validators.required, Validators.minLength(2)]],
+          email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
+          pass: ['', [Validators.required, Validators.minLength(6)]],
+          password: ['', [Validators.required]]
         },
         {
           validators: [this.validators.ValidarPassword('pass', 'password')],
@@ -142,7 +137,6 @@ export class RegisterComponent implements OnInit {
     // console.log(form);
 
     /* Asigna los valores del formualrio en una variable llamada data */
-    form.get('tipo_usuario').setValue(this.tipo_usuario);
     const data = form.value;
 
     /* Validar formulario */
@@ -162,7 +156,7 @@ export class RegisterComponent implements OnInit {
       ((error) => {
         this.errorServer(error);
       })
-    )
+    );
   }
 
   // Autocompletar la dirección en la ubicación
