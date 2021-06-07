@@ -62,7 +62,7 @@
                     <div class="card-header card-header-tabs card-header-bblue">
                         <div class="nav-tabs-navigation">
                             <div class="nav-tabs-wrapper">
-                                <span class="nav-tabs-title">Vacantes:</span>
+                                <span class="nav-tabs-title font-weight-bold">Vacantes:</span>
                                 <ul class="nav nav-tabs" data-tabs="tabs">
                                     <li class="nav-item">
                                         <a mat-button class="nav-link active" href="#publicadas" data-toggle="tab">
@@ -101,7 +101,7 @@
                                         <th>Puesto</th>
                                         <th>Nivel</th>
                                         <th>Modalidad</th>
-                                        <th>Dejar de publicar</th>
+                                        <th>Acción</th>
 
                                     </thead>
                                     <tbody>
@@ -121,9 +121,7 @@
                                             <td>
                                                 <div class="form-check">
                                                     <div class="form-check">
-                                                        <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="noPublicar(vacante)">
-                                                        <i class="material-icons">done</i>
-                                                    </button>
+                                                        <button type="button" class="btn btn-danger m-r" (click)="noPublicar(vacante)">Dejar de Publicar</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -137,7 +135,7 @@
                                         <th>Puesto</th>
                                         <th>Nivel</th>
                                         <th>Modalidad</th>
-                                        <th>Publicar</th>
+                                        <th>Acción</th>
 
                                     </thead>
                                     <tbody>
@@ -154,9 +152,7 @@
                                             <td>
                                                 <div class="form-check">
                                                     <div class="form-check">
-                                                        <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="publicar(vacante)">
-                                                        <i class="material-icons">done</i>
-                                                    </button>
+                                                        <button type="button" class="btn btn-success m-r" (click)="publicar(vacante)">Publicar</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -171,7 +167,7 @@
                                         <th>Puesto</th>
                                         <th>Nivel</th>
                                         <th>Modalidad</th>
-                                        <th>Abrir</th>
+                                        <th>Acción</th>
 
                                     </thead>
                                     <tbody>
@@ -191,9 +187,7 @@
                                             <td>
                                                 <div class="form-check">
                                                     <div class="form-check">
-                                                        <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="abrir(vacante)">
-                                                        <i class="material-icons">done</i>
-                                                    </button>
+                                                        <button type="button" class="btn btn-success m-r" (click)="abrir(vacante)">Abrir</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -208,9 +202,7 @@
                                         <th>Puesto</th>
                                         <th>Nivel</th>
                                         <th>Modalidad</th>
-                                        <th>Cerrar</th>
-
-
+                                        <th>Acción</th>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let vacante of vacantesD" class="text-center">
@@ -228,9 +220,7 @@
                                             </td>
                                             <td>
                                                 <div class="form-check">
-                                                    <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="cerrar(vacante)">
-                                                    <i class="material-icons">done</i>
-                                                </button>
+                                                    <button type="button" class="btn btn-danger m-r" (click)="cerrar(vacante)">Cerrar</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -239,7 +229,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button mat-fab color="default" class="pull-right" routerLink="/create-vacancie" title="Nueva vacante">
+                            <button mat-fab color="default" class="pull-right" routerLink="/create-vacancie" title="Agregar vacante">
                             <mat-icon>add</mat-icon>
                         </button>
                         </div>
