@@ -93,10 +93,10 @@
                         <p class="card-description">{{postulante.Usuario.calificacion}}</p>
                     </div>
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-danger btn-sm m-r" (click)="rechazarPostulacion(postulante.id_postulacion)">
+                        <button type="submit" class="btn btn-danger btn-sm m-r" (click)="confirmarRechazarPostulacion(postulante.id_postulacion)">
                             <i class="material-icons">cancel</i> Rechazar
                         </button>
-                        <button type="submit" class="btn btn-primary btn-sm m-r" (click)="aceptarPostulacion(postulante.id_postulacion)">
+                        <button type="submit" class="btn btn-primary btn-sm m-r" (click)="confirmarAceptarPostulacions(postulante.id_postulacion)">
                             <i class="material-icons">done</i> Aceptar
                         </button>
                     </div>

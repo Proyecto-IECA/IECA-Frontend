@@ -70,6 +70,7 @@ export class PostulateVacancyComponent implements OnInit {
     this.postulateVacancyService.addPostulante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage('Éxito al postularse');
+        this.postulacion = false;
       }
     });
   }
@@ -77,7 +78,8 @@ export class PostulateVacancyComponent implements OnInit {
   cancelarPostulacion() {
     this.postulateVacancyService.cancelarPostulacion(this.idPostulacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.doneMassage('Se cancelo tu postulación')
+        this.doneMassage('Se cancelo tu postulación');
+        this.postulacion = true;
       }
     });
   }

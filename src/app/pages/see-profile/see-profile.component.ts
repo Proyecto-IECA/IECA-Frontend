@@ -110,6 +110,34 @@ export class SeeProfileComponent implements OnInit {
     });
   }
 
+  confirmarAceptarPostulacion() {
+    Swal.fire({
+      icon: 'info',
+      title: "¿Estas seguro que deseas aceptar al postulante?",
+      showCancelButton: true,
+      confirmButtonText: 'Si, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.aceptarPostulacion();
+      }
+    })
+  }
+
+  confirmarRechazarPostulacion() {
+    Swal.fire({
+      icon: 'info',
+      title: "¿Estas seguro que deseas rechazar al postulante?",
+      showCancelButton: true,
+      confirmButtonText: 'Si, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.rechazarPostulacion();
+      }
+    })
+  }
+
   doneMassage(message: string): void {
     Swal.fire({
       icon: 'success',

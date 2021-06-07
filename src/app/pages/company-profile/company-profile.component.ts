@@ -134,6 +134,9 @@ export class CompanyProfileComponent implements OnInit {
     }
 
     console.log(this.companyForm.value);
+    if ( this.companyForm.get("pagina_web").value == "" ) {
+      this.companyForm.get("pagina_web").setValue(null);
+    }
     // Petición al services de actualizar la información de la empresa
     this.empresaSvc.updateCompany(this.companyForm.value).subscribe(
         response => {

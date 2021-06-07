@@ -37,6 +37,7 @@ export class UpdateVacancieComponent implements OnInit {
     this.updateVacanteService.getPostulantesVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.postulantes = resp.data.Postulaciones;
+        console.log(resp.data);
       }
     })
   }
@@ -57,6 +58,34 @@ export class UpdateVacancieComponent implements OnInit {
     this.updateVacanteService.rechazarPostulacion(idPostulacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage("Rechazo al postulante");
+      }
+    })
+  }
+
+  confirmarAceptarPostulacion(idPostulacion) {
+    Swal.fire({
+      icon: 'info',
+      title: "¿Estas seguro que deseas aceptar al postulante?",
+      showCancelButton: true,
+      confirmButtonText: 'Si, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.aceptarPostulacion(idPostulacion);
+      }
+    })
+  }
+
+  confirmarRechazarPostulacion(idPostulacion) {
+    Swal.fire({
+      icon: 'info',
+      title: "¿Estas seguro que deseas rechazar al postulante?",
+      showCancelButton: true,
+      confirmButtonText: 'Si, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.rechazarPostulacion(idPostulacion);
       }
     })
   }
