@@ -12,20 +12,20 @@
         <div class="row justify-content-md-center">
             <!-- ==== Encabezado de la página-->
             <div class="col-md-auto">
-                <h1> {{company.nombre}} </h1>
+                <h1 class="font-weight-bold"> {{company.nombre}} </h1>
             </div>
         </div>
 
         <!-- === Subtitulo === -->
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
-                <h2>{{company.giro}}</h2>
+                <h2 class="font-weight-bold">{{company.giro}}</h2>
             </div>
         </div>
 
         <!-- ===== Card de Perfil ===== -->
+        <hr>
         <div class="row align-items-center m-t-3">
-
             <!-- ===== Foto de Perfil ====== -->
             <div class="col-md-4">
                 <div class="card card-profile">
@@ -49,16 +49,10 @@
 
                     <!-- Cuerpo del card -->
                     <div class="card-body">
-                        <h4 class="card-title">Página Web</h4>
-                        <h4 class="card-title">{{ company.pagina_web }}</h4>
 
-                        <h6 class="card-category text-gray">Nombre Empresa</h6>
-                        <h6 class="card-category text-gray">{{ company.nombre }}</h6>
-
-                        <p class="card-description">Teléfono</p>
-                        <p class="card-description">{{ company.telefono }}</p>
-
-                        <h5 class="text-muted">Calificación</h5>
+                        <h4 class="card-category text-gray font-weight-bold">{{ company.nombre }}</h4>
+                        <h4 class="card-title text-primary font-weight-bold">{{ company.pagina_web }}</h4>
+                        <h4 class="card-description font-weight-bold">{{ company.telefono }}</h4>
 
                         <!-- IMG Change -->
                         <input type="file" hidden #inputFotoPerfil accept="image/*">
@@ -69,44 +63,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Mini Cars Información -->
-            <!--<div class="col-md-8">
-                <div class="row justify-content-md-center">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        &lt;!&ndash; Vacantes &ndash;&gt;
-                        <div class="card card-stats">
-                            <div class="card-header card-header-warning card-header-icon">
-                                <div class="card-icon">
-                                    <i class="material-icons">business</i>
-                                </div>
-                                <p class="card-category">Sucursales</p>
-                                <h3 class="card-title">$34,245</h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">date_range</i> Last 24 Hours
-                                </div>
-                            </div>
-                        </div>
-                        &lt;!&ndash; Sucursales &ndash;&gt;
-                        <div class="card card-stats">
-                            <div class="card-header card-header-rose card-header-icon">
-                                <div class="card-icon">
-                                    <i class="material-icons">work</i>
-                                </div>
-                                <p class="card-category">Vacantes</p>
-                                <h3 class="card-title">$34,245</h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">date_range</i> Last 24 Hours
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
 
             <!-- Card Editar Perfil -->
             <div class="col-md-8">

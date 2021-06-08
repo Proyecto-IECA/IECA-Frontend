@@ -1,5 +1,5 @@
 <div class="main-content">
-
+    <!-- Botón de regresar y postular -->
     <div class="row align-items-center">
         <div class="col-10">
             <mat-icon routerLink="/vacancies" class="m-l-5" style="cursor:pointer">arrow_back_ios</mat-icon>
@@ -17,27 +17,24 @@
     <div *ngIf="!vacante" class="row justify-content-center align-items-center vh-100">
         <mat-spinner></mat-spinner>
     </div>
-
+    <!-- Información de la vacante -->
     <div *ngIf="vacante" class="container-fluid">
         <div class="row align-items-center m-t-3">
-            <!-- Card Profile -->
-            <app-card-profile class="col-md-3" [profile]="vacante.Usuario"></app-card-profile>
 
             <!-- Datos de la vacante -->
-            <div class="col-md-9">
-
+            <div class="col-md-12">
                 <div class="row align-items-center">
                     <div class="col-md-4">
                         <img src="../../../assets/img/IECA-Blanco.jpg" alt="" class="card-img-top">
                     </div>
                     <div class="col-md-4">
                         <h2 class="font-weight-bold">{{vacante.puesto}}</h2>
-                        <h3>{{vacante.id_usuario_fk}}</h3>
+                        <h3>{{vacante.nombre}}</h3>
                         <h3>{{vacante.id_sucursal_fk}}</h3>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 align-self-center">
                         <h3>Modalidad: {{vacante.modalidad}}</h3>
-                        <h3>Sueldo: ${{vacante.sueldo}}</h3>
+                        <h3>Sueldo: {{vacante.sueldo}}</h3>
                         <h3>Nivel: {{vacante.nivel}}</h3>
                     </div>
                 </div>
