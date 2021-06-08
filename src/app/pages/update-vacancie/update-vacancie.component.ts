@@ -4,7 +4,6 @@ import { UpdateVacancieService } from './update-vacancie.service';
 import { PerfilI } from '../../models/perfil';
 import { AuthResponseI } from '../../models/auth-response';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostulacionI } from '../../models/postulacion';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,10 +13,12 @@ import Swal from 'sweetalert2';
 })
 export class UpdateVacancieComponent implements OnInit {
 
-  @Input() vacante: VacantesI;
+  vacante: VacantesI;
+  vistas: number = 0;
+  alcance: number = 0;
+  numPostulaciones: number = 0;
   idVacante: number;
   perfiles: PerfilI[];
-  postulantes: PostulacionI[];
   
   constructor(
     private updateVacanteService: UpdateVacancieService,
@@ -27,67 +28,32 @@ export class UpdateVacancieComponent implements OnInit {
 
   ngOnInit(): void {
     this.idVacante = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-
+    
     this.updateVacanteService.getPerfilesVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.perfiles = resp.data;
       }
     })
 
-    this.updateVacanteService.getPostulantesVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
+    this.updateVacanteService.getVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.postulantes = resp.data.Postulaciones;
-        console.log(resp.data);
+        this.vacante = resp.data;
+        this.vistas = resp.data.vistas;
       }
     })
-  }
 
-  verPerfil(idPostulacion) {
-    this.router.navigate(['/see-profile', idPostulacion]);
-  }
-
-  aceptarPostulacion(idPostulacion) {
-    this.updateVacanteService.aceptarPostulacion(idPostulacion).subscribe((resp: AuthResponseI) => {
+    this.updateVacanteService.getAlcance(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.doneMassage("Acepto al postulante");
+        this.alcance = resp.data;
       }
     })
-  }
 
-  rechazarPostulacion(idPostulacion) {
-    this.updateVacanteService.rechazarPostulacion(idPostulacion).subscribe((resp: AuthResponseI) => {
+    this.updateVacanteService.getNumPostulaciones(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.doneMassage("Rechazo al postulante");
+        this.numPostulaciones = resp.data;
       }
     })
-  }
 
-  confirmarAceptarPostulacion(idPostulacion) {
-    Swal.fire({
-      icon: 'info',
-      title: "¿Estas seguro que deseas aceptar al postulante?",
-      showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.aceptarPostulacion(idPostulacion);
-      }
-    })
-  }
-
-  confirmarRechazarPostulacion(idPostulacion) {
-    Swal.fire({
-      icon: 'info',
-      title: "¿Estas seguro que deseas rechazar al postulante?",
-      showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.rechazarPostulacion(idPostulacion);
-      }
-    })
   }
 
   doneMassage(message: string): void {
@@ -98,5 +64,9 @@ export class UpdateVacancieComponent implements OnInit {
       showConfirmButton: false,
       timer: 2700
     });
+  }
+
+  verPostulaciones() {
+    this.router.navigate(['/postulations', this.idVacante]);
   }
 }

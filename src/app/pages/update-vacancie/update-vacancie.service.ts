@@ -15,15 +15,16 @@ export class UpdateVacancieService {
     return this.http.get(`${baseUrl}/perfiles/vacante/${idVacante}`);
   }
 
-  getPostulantesVacante(idVacante) {
-    return this.http.get(`${baseUrl}/vacantes/postulantes/${idVacante}`);
+  getVacante(idVacante) {
+    return this.http.get(`${baseUrl}/vacantes/vacante/${idVacante}`);
   }
 
-  aceptarPostulacion(idPostulacion) {
-    return this.http.get(`${baseUrl}/postulaciones/aceptar/${idPostulacion}`);
+  getAlcance(idVacante) {
+    return this.http.get(`${baseUrl}/vistas-vacantes/${idVacante}`);
   }
 
-  rechazarPostulacion(idPostulacion) {
-    return this.http.get(`${baseUrl}/postulaciones/rechazar/${idPostulacion}`);
+  getNumPostulaciones(idVacante) {
+    return this.http.get(`${baseUrl}/vacantes/numero-postulaciones/${idVacante}`);
   }
+
 }

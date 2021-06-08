@@ -1,5 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-stats">
@@ -8,7 +9,7 @@
                             <i class="material-icons">visibility</i>
                         </div>
                         <p class="card-category">Vistas</p>
-                        <h3 class="card-title">49</h3>
+                        <h3 class="card-title">{{vistas}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -25,7 +26,7 @@
                             <i class="material-icons">person</i>
                         </div>
                         <p class="card-category">Alcance</p>
-                        <h3 class="card-title">49</h3>
+                        <h3 class="card-title">{{alcance}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -42,7 +43,7 @@
                             <i class="material-icons">contact_page</i>
                         </div>
                         <p class="card-category">Postulaciones</p>
-                        <h3 class="card-title">12</h3>
+                        <h3 class="card-title">{{numPostulaciones}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -54,6 +55,12 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" (click)="verPostulaciones()">Ver Postulaciones</button>
+            </div>
+        </div>
+
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="card m-t-3">
@@ -62,8 +69,8 @@
                         <h4 class="card-title">Vacante</h4>
                         <p class="card-category">Actualiza la vacante</p>
                     </div>
-                    <div class="card-body">
-                        <app-vacante-form [idVacante]="idVacante"></app-vacante-form>
+                    <div class="card-body" *ngIf="vacante">
+                        <app-vacante-form [vacante]="vacante"></app-vacante-form>
                     </div>
                 </div>
             </div>
@@ -73,37 +80,6 @@
                 <app-perfiles [perfiles]="perfiles" [id]="idVacante" [type]="'Vacante'"></app-perfiles>
             </div>
         </div>
-        <div class="row">
-            <h1>Postulantes</h1>
-        </div>
-        <div class="row m-t-2">
-            <!-- ===== Columna de Perfil -->
-            <div class="col-md-4" *ngFor="let postulante of postulantes">
-                <!-- ===== Foto de Perfil ====== -->
-                <div class="card card-profile" (click)="verPerfil(postulante.id_postulacion)">
-                    <div class="card-avatar">
-                        <img class="img" src="./assets/img/faces/marc.jpg" />
-                    </div>
-                    <!-- Cuerpo del card -->
-                    <div class="card-body" (click)="verPerfil(postulante.id_postulacion)">
-                        <h6 class="card-category text-gray">{{postulante.Usuario.nombre}}</h6>
-                        <h4 class="card-title">{{postulante.Usuario.email}}</h4>
-                        <p class="card-description">{{postulante.Usuario.telefono}}</p>
-                        <p class="card-description">{{postulante.fecha_postulacion}}</p>
-                        <p class="card-description">{{postulante.Usuario.calificacion}}</p>
-                    </div>
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-danger btn-sm m-r" (click)="confirmarRechazarPostulacion(postulante.id_postulacion)">
-                            <i class="material-icons">cancel</i> Rechazar
-                        </button>
-                        <button type="submit" class="btn btn-primary btn-sm m-r" (click)="confirmarAceptarPostulacions(postulante.id_postulacion)">
-                            <i class="material-icons">done</i> Aceptar
-                        </button>
-                    </div>
-                </div>
 
-
-            </div>
-        </div>
     </div>
 </div>

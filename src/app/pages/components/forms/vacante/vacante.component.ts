@@ -32,9 +32,8 @@ const MODALIDAD: Element[] = [
 })
 export class VacanteComponent implements OnInit {
 
-  @Input() idVacante: number;
+  @Input() vacante: VacantesI;
   sucursales: SucursalesI[];
-  vacante: VacantesI;
   public niveles = NIVEL;
   public modalidades = MODALIDAD;
   public negociable = false;
@@ -61,16 +60,7 @@ export class VacanteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.vacanteService.getVacante(this.idVacante).subscribe(
-      (resp: AuthResponseI) => {
-        console.log(resp);
-        if (resp.status) {
-          this.vacante = resp.data;
-          this.loadData();
-        }
-      }
-    )
-
+    this.loadData();
     this.vacanteService.getSucursales().subscribe(
       (resp: AuthResponseI) => {
         if (resp.status) {
@@ -97,7 +87,7 @@ export class VacanteComponent implements OnInit {
     this.formSubmitted = true;
     console.log(this.vacanteForm.value);
     if (this.vacanteForm.valid) {
-      this.vacanteService.updateVacante(this.idVacante, this.vacanteForm.value).subscribe(
+      this.vacanteService.updateVacante(this.vacante.id_vacante, this.vacanteForm.value).subscribe(
         (resp: AuthResponseI) => {
           if (resp.status) {
             this.doneMassage('Experiencia Laboral actualiza');
@@ -110,7 +100,7 @@ export class VacanteComponent implements OnInit {
   }
 
   deleteVacante() {
-    this.vacanteService.deleteVacante(this.idVacante).subscribe(
+    this.vacanteService.deleteVacante(this.vacante.id_vacante).subscribe(
       (resp: AuthResponseI) => {
         if (resp.status) {
           this.doneMassage('Experiencia Laboral eliminada');

@@ -68,7 +68,6 @@ export class PerfilesComponent implements OnInit {
       }
     )
 
-    console.log(this.perfiles);
 
   }
 

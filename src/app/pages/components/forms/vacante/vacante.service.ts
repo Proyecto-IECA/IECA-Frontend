@@ -17,10 +17,6 @@ export class VacanteService {
     return this.http.get(`${baseUrl}/sucursales/${id_empresa}`);
   }
 
-  getVacante(idVacante) {
-    return this.http.get(`${baseUrl}/vacantes/vacante/${idVacante}`)
-  }
-
   updateVacante(idVacante, formData: VacantesI) {
     return this.http.put(`${baseUrl}/vacantes/${idVacante}`, formData);
   }
