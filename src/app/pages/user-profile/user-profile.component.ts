@@ -190,14 +190,7 @@ export class UserProfileComponent implements OnInit {
           this.errorServer(error);
         }
       );
-      /* this.usuarioService.updateFoto(this.imageForm.value).subscribe((resp: AuthResponseI) => {
-        if (resp.status) {
-          this.doneMassage(resp.message);
-          this.changeFoto = false;
-        } else {
-          this.errorPeticion(resp.message);
-        }
-      }, (error) => this.errorServer(error)); */
+
     } catch (error) {
       console.log(error);
       return null;
@@ -207,7 +200,7 @@ export class UserProfileComponent implements OnInit {
   validarFile(event) {
     this.changeFoto = false;
     const extensionesPermitidas = [".png", ".jpg", ".jpeg"];
-    const tamanio = 2;
+    const tamanio = 0.75;
     const rutaArchivo = event.name;
     const ultimoPunto = event.name.lastIndexOf(".");
     const extension = rutaArchivo.slice(ultimoPunto, rutaArchivo.length);
@@ -216,7 +209,7 @@ export class UserProfileComponent implements OnInit {
       return false;
     }
 
-    if (event.size / 1048576 > tamanio) {
+    if (event.size / 100000 > tamanio) {
       this.tamnioValid = true;
       return false;
     }

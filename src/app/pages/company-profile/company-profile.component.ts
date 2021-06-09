@@ -31,6 +31,12 @@ export class CompanyProfileComponent implements OnInit {
   panel = false; // false
   haveBranches = false; // Dejarlo en false
   panelOpenState = false;
+  changeFoto = false;
+  foto_perfil = "";
+  extensionValid = false;
+  tamnioValid = false;
+
+
 
   @ViewChild('placesRef') placesRef: GooglePlaceDirective; // autocompletar dirección
 
@@ -75,6 +81,10 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
+  public imageForm = this.formB.group({
+    foto_perfil: [""],
+  });
+
 
   //  ---------- MÉTODOS ---------- //
   /* Cargar datos al template */
@@ -89,6 +99,8 @@ export class CompanyProfileComponent implements OnInit {
 
         // Cargar datos al objeto company
         this.company = resp.data;
+        this.foto_perfil = this.company.foto_perfil;
+
         // this.empresaSvc._company = resp.data;
 
         // Cargar datos al formulario
@@ -164,9 +176,6 @@ export class CompanyProfileComponent implements OnInit {
 
   // Autocompletar la dirección en la ubicación
   public handleAddressChange(address: Address) {
-    // Do some stuff
-    // console.log(address);
-
     // Asignar el valor de google al formulario de registerEmpresaForm
     this.companyForm.reset({
       nombre: this.companyForm.value.nombre,
@@ -178,74 +187,81 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  /* Mostrar Imagen cargada */
-  updateImg($event: Event | any): void {
-/*
-    // Evaluia si el $event está vacío
-    if (!$event.target.files[0]) {
-      return this.imgForm.reset();
-    }
-
-    // foltramos la variable $event para solo tomar lo importante
-    const imageCapturada = $event.target.files[0];
-    // this.imgForm.value.foto_empresa = $event.target.files[0].name;
-    this.imgUpdate = $event.target.files[0];
-    // console.log(imageCapturada.type);
-
-    // Verificamos que el archivo cargado sea una imagen
-    switch (imageCapturada.type) {
-      case 'image/png':
-        console.log('Archivo PNG');
-        this.imgForm.get('foto_empresa').setErrors(null);
-        this.showImg();
-        break;
-
-      case 'image/jpeg':
-        console.log('Archivo JPEG');
-        this.imgForm.get('foto_empresa').setErrors(null);
-        this.showImg();
-        break;
-
-      case 'image/jpg':
-        console.log('Archivo JPG');
-        this.imgForm.get('foto_empresa').setErrors(null);
-        this.showImg();
-        break;
-
-      default:
-        console.log(`El archivo es de tipo: ${imageCapturada.type}.`);
-        console.log(this.imgForm);
-        return this.imgForm.get('foto_empresa').setErrors({ noCompatible: true });
-    }
-*/
-  }
-
-  /* Actualizar Imagen en la Base de Datos */
-  saveImg(): void {
-
-    /*this.updateFile.actualizarFoto(this.imgUpdate)
-        .then( img => {
-          console.log(img);
-        });*/
-
-    /*console.log(this.company.foto_empresa);
-    try {
-      // this.imgForm.get('foto_empresa').setValue(this.company.foto_empresa);
-      console.log(this.imgForm.value);
-      this.updateFile.actualizarFoto(this.imgForm.value).subscribe((resp: AuthResponseI) => {
-        if (!resp.status) {
-          return this.errorMassage();
-        }
-        console.log('Foto guardada correctamente');
+  capturarImage(event) {
+    const imageCapturada = event.target.files[0];
+    if (this.validarFile(imageCapturada)) {
+      this.extraerBase64(imageCapturada).then((image: any) => {
+        this.foto_perfil = image.base;
+        this.changeFoto = true;
       });
-    } catch (error)  {
-      /!* Mensaje de error si el servidor no recibe las peticiones *!/
-      console.log(error);
-      return this.errorServer();
-    }*/
+    }
   }
 
+  extraerBase64 = async ($event: any) =>
+  new Promise((resolve, reject) => {
+    try {
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result,
+        });
+      };
+      reader.onerror = (error) => {
+        resolve({
+          base: null,
+        });
+      };
+    } catch (error) {
+      return null;
+    }
+  });
 
+  guardarFoto() {
+    try {
+      this.imageForm.get("foto_perfil").setValue(this.foto_perfil);
+      this.empresaSvc.updateFoto(this.imageForm.value).subscribe(
+        (resp: AuthResponseI) => {
+          if (resp.status) {
+            this.doneMassage(resp.data);
+            this.changeFoto = false;
+          } else {
+            this.errorMassage(resp.data);
+          }
+        },
+        (error) => {
+          this.errorServer();
+        }
+      );
+
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  validarFile(event) {
+    this.changeFoto = false;
+    const extensionesPermitidas = [".png", ".jpg", ".jpeg"];
+    const tamanio = 0.75;
+    const rutaArchivo = event.name;
+    const ultimoPunto = event.name.lastIndexOf(".");
+    const extension = rutaArchivo.slice(ultimoPunto, rutaArchivo.length);
+    console.log(event.size);
+    if (extensionesPermitidas.indexOf(extension) === -1) {
+      this.extensionValid = true;
+      return false;
+    }
+
+    if (event.size / 100000 > tamanio) {
+      this.tamnioValid = true;
+      return false;
+    }
+
+    this.extensionValid = false;
+    this.tamnioValid = false;
+    return true;
+  }
 
   //  ---------- MENSAJES ---------- //
   errorServer(): void {

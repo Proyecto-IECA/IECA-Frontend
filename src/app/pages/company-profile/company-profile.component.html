@@ -28,38 +28,26 @@
         <div class="row align-items-center m-t-3">
             <!-- ===== Foto de Perfil ====== -->
             <div class="col-md-4">
+                <!-- ===== Foto de Perfil ====== -->
                 <div class="card card-profile">
-
-                    <!-- Picture default -->
-                    <div class="card-avatar" *ngIf="!company.foto_perfil">
+                    <div class="card-avatar" *ngIf="!foto_perfil">
                         <p (click)="inputFotoPerfil.click()">Cambiar</p>
                         <img class="img" src="./assets/img/faces/marc.jpg" (click)="inputFotoPerfil.click()" />
                     </div>
-
-                    <!-- Picture Perfil -->
-                    <div class="card-avatar" *ngIf="company.foto_perfil">
+                    <div class="card-avatar" *ngIf="foto_perfil">
                         <p (click)="inputFotoPerfil.click()">Cambiar</p>
-                        <img class="img" [src]="company.foto_perfil" (click)="inputFotoPerfil.click()" />
+                        <img class="img" [src]="foto_perfil" (click)="inputFotoPerfil.click()" />
                     </div>
-
-                    <!-- Leyenda -->
-                    <br/>
-                    <small class="form-text text-gray">* Archivos compatibles: JPEG, JPG y PNG</small>
-                    <small *ngIf="company.foto_perfil" class="form-text text-danger">Archivo es INCOMPATIBLE</small>
-
                     <!-- Cuerpo del card -->
                     <div class="card-body">
-
                         <h4 class="card-category text-gray font-weight-bold">{{ company.nombre }}</h4>
                         <h4 class="card-title text-primary font-weight-bold">{{ company.pagina_web }}</h4>
                         <h4 class="card-description font-weight-bold">{{ company.telefono }}</h4>
 
-                        <!-- IMG Change -->
-                        <input type="file" hidden #inputFotoPerfil accept="image/*">
-                        <!--<input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil>-->
-
-                        <!-- Boton cambiar foto -->
-                        <button *ngIf="company.foto_perfil" type="submit" class="btn btn-rose" [disabled]="!company.foto_perfil">Actualizar foto</button>
+                        <input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil (change)="capturarImage($event)">
+                        <p *ngIf="extensionValid" class="text-danger">Formatos validos '.png' '.jpg' '.jpeg'</p>
+                        <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 75 Kilobytes</p>
+                        <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
                     </div>
                 </div>
             </div>

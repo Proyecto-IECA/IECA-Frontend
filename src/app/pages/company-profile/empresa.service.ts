@@ -82,4 +82,9 @@ export class EmpresaService {
     return;
   }
 
+  updateFoto(formData: any) {
+    const id = localStorage.getItem('id_usuario');
+    return this.http.put(`${baseUrl}/updatefoto/${id}`, formData);
+  }
+
 }

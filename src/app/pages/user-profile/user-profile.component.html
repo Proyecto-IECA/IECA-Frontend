@@ -30,7 +30,7 @@
                             </p>
                             <input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil (change)="capturarImage($event)">
                             <p *ngIf="extensionValid" class="text-danger">Formatos validos '.png' '.jpg' '.jpeg'</p>
-                            <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 8 MB</p>
+                            <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 75 Kilobytes</p>
                             <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
                         </div>
                     </div>
