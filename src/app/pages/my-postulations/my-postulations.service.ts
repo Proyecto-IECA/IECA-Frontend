@@ -16,4 +16,8 @@ export class MyPostulationsService {
     return this.http.get(`${baseUrl}/postulaciones/realizadas/${idUsuario}`)
   }
 
+  cancelarPostulacion(idPostulacion) {
+    return this.http.delete(`${baseUrl}/postulaciones/${idPostulacion}`);
+  }
+  
 }

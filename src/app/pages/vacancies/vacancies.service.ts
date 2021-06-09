@@ -36,4 +36,13 @@ export class VacanciesService {
     return this.http.delete(`${baseUrl}-favoritas/${idVacanteFav}`);
   }
 
+  verVacante(idVacante) {
+    const id = localStorage.getItem('id_usuario');
+    const data = {
+      id_vacante_fk: idVacante,
+      id_usuario_fk: id
+    };
+    return this.http.post(`${baseUrl2}/vistas-vacantes`, data);
+  }
+
 }

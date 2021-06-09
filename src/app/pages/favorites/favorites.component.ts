@@ -45,7 +45,13 @@ export class FavoritesComponent implements OnInit {
   }
 
   visualizar(idVacante) {
-    this.router.navigate(['/postulate-vacancy', idVacante]);
+    this.vacantesService.verVacante(idVacante).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.router.navigate(['/postulate-vacancy', idVacante]);
+      } else {
+        this.errorMassage('Error al cargar la vacante');
+      }
+    })
   }
 
   unmarkFavorite(idVacanteFav: number): void {
@@ -59,6 +65,11 @@ export class FavoritesComponent implements OnInit {
     })
   }
 
+  handlePage(e: PageEvent) {
+    this.page_size = e.pageSize;
+    this.page_number = e.pageIndex + 1;
+  }
+
   doneMassage(message: string): void {
     Swal.fire({
       icon: 'success',
@@ -69,9 +80,16 @@ export class FavoritesComponent implements OnInit {
     });
   }
 
-  handlePage(e: PageEvent) {
-    this.page_size = e.pageSize;
-    this.page_number = e.pageIndex + 1;
+  errorMassage(message: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Ocurrio un error',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
   }
+
+
 
 }

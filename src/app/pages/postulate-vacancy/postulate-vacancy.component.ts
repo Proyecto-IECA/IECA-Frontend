@@ -17,7 +17,6 @@ export class PostulateVacancyComponent implements OnInit {
   vacante: VacantesI;
   postulacion = true;
   activedPostulacion = true;
-  validacionCurso = true;
   idPostulacion: number;
 
   constructor(
@@ -29,7 +28,16 @@ export class PostulateVacancyComponent implements OnInit {
 
   ngOnInit(): void {
     this.idVacante = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.validarPerfil();
+    this.guardService.validarPerfil().subscribe((resp: AuthResponseI) => {
+      if (!resp.status) {
+        let errors = `<p>Campos Faltantes: </p>`;
+        resp.data.forEach((error) => {
+          errors += `<div>${error}</div>`;
+        });
+
+        this.validatedPostulante(errors);
+      }
+    });
 
     this.postulateVacancyService.getVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
@@ -52,7 +60,6 @@ export class PostulateVacancyComponent implements OnInit {
 
   validarPerfil() {
     this.guardService.validarPerfil().subscribe((resp: AuthResponseI) => {
-      this.validacionCurso = false;
       if (!resp.status) {
         let errors = `<p>Campos Faltantes: </p>`;
         resp.data.forEach((error) => {
@@ -61,7 +68,7 @@ export class PostulateVacancyComponent implements OnInit {
 
         this.validatedPostulante(errors);
       } else {
-        this.activedPostulacion = false;
+        this.confirmarPostulacion();
       }
     })
   }
@@ -69,6 +76,7 @@ export class PostulateVacancyComponent implements OnInit {
   postularme() {
     this.postulateVacancyService.addPostulante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
+        this.idPostulacion = resp.data.id_postulacion;
         this.doneMassage('Éxito al postularse');
         this.postulacion = false;
       }

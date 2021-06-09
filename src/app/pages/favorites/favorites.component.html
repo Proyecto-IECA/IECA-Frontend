@@ -19,11 +19,13 @@
 
         <!-- Cards de lista de vacantes disponibles -->
         <div class="row">
+
             <div class="col-md-12" *ngFor="let vacante of vacantes | paginate:page_size:page_number">
                 <div class="card mb-3">
                     <div class="posicion-t-r">
                         <!-- Boton de Favorito -->
-                        <mat-icon (click)="unmarkFavorite(vacante.id_vacante_favorita)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
+                        <mat-icon *ngIf="!vacante.Vacante.disponible || !vacante.Vacante.activo || !vacante.Vacante.publicada" class="text-danger justify-content-md-end fa fa-heart-broken"></mat-icon>
+                        <mat-icon *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="unmarkFavorite(vacante.id_vacante_favorita)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
                     </div>
                     <div class="row g-0 align-items-center justify-content-center">
                         <div class="col-md-2">
@@ -38,7 +40,11 @@
                             </div>
                         </div>
                         <div class="posicion-b-r">
-                            <a class="text-primary" (click)="visualizar(vacante.Vacante.id_vacante)" style="cursor:pointer">Ver más información</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.publicada && vacante.Vacante.activo && vacante.Vacante.disponible">Esta vacante ya no esta publica</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada">Esta vacante se cerro</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && !vacante.Vacante.publicada">Esta vacante se cerro o ya no esta pública</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.activo">Eliminaron esta vacante</a>
+                            <a class="text-primary" *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="visualizar(vacante.Vacante.id_vacante)" style="cursor:pointer">Ver más información</a>
                         </div>
                     </div>
                 </div>

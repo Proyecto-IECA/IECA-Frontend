@@ -103,7 +103,13 @@ export class VacanciesComponent implements OnInit {
   }
 
   visualizar(idVacante) {
-    this.router.navigate(['/postulate-vacancy', idVacante]);
+    this.vacantesService.verVacante(idVacante).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.router.navigate(['/postulate-vacancy', idVacante]);
+      } else {
+        this.errorMassage('Error al cargar la vacante');
+      }
+    })
   }
 
   changeRecientes() {
@@ -174,6 +180,16 @@ export class VacanciesComponent implements OnInit {
     Swal.fire({
       icon: 'success',
       title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
+
+  errorMassage(message: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Ocurrio un error',
       text: message,
       showConfirmButton: false,
       timer: 2700

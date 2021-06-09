@@ -16,4 +16,5 @@ export class FavoritesService {
     const id_usuario = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/${id_usuario}`);
   }
+  
 }

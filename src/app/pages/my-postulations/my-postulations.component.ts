@@ -3,6 +3,7 @@ import { MyPostulationsService } from './my-postulations.service';
 import { AuthResponseI } from '../../models/auth-response';
 import { PostulacionI } from '../../models/postulacion';
 import { UsuarioI } from '../../models/usuario';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-my-postulations',
@@ -19,6 +20,10 @@ export class MyPostulationsComponent implements OnInit {
   constructor(private mypostulationService: MyPostulationsService) { }
 
   ngOnInit(): void {
+   this.getPostulaciones();
+  }
+
+  getPostulaciones() {
     this.mypostulationService.getMisPostulaciones().subscribe((resp: AuthResponseI) => {
       if(resp.status) {
         this.postulaciones = resp.data;     
@@ -40,5 +45,40 @@ export class MyPostulationsComponent implements OnInit {
     return false;
   }
 
+  cancelarPostulacion(idPostulacion) {
+    this.mypostulationService.cancelarPostulacion(idPostulacion).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.nPendientes = 0;
+        this.nRechazadas = 0;
+        this.nAceptadas = 0;
+        this.doneMassage('Se cancelo tu postulación');
+        this.getPostulaciones();
+      }
+    });
+  }
+
+  confirmarCancelarPostulacion(idPostulacion) {
+    Swal.fire({
+      icon: 'info',
+      title: "¿Estas seguro que deseas cancelar tu postulacion?",
+      showCancelButton: true,
+      confirmButtonText: 'Si, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cancelarPostulacion(idPostulacion);
+      }
+    })
+  }
+
+  doneMassage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Actualizados',
+      text: message,
+      showConfirmButton: false,
+      timer: 2700
+    });
+  }
 
 }

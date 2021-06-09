@@ -17,7 +17,7 @@
             <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">close</i>
+                        <i class="material-icons">cancel</i>
                     </div>
                     <p class="card-category">Rechazada</p>
                     <h3 class="card-title">{{nRechazadas}}</h3>
@@ -57,6 +57,7 @@
                             <th>Nivel</th>
                             <th>Modalidad</th>
                             <th>Status</th>
+                            <th></th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let postulacion of postulaciones" class="text-center">
@@ -68,6 +69,11 @@
                                 <td *ngIf="statusVacante(postulacion.rechazada)" class="text-danger">Rechazada</td>
                                 <td *ngIf="statusVacante(postulacion.aceptada)" class="text-success">Aceptada</td>
                                 <td *ngIf="!statusVacante(postulacion.rechazada) && !statusVacante(postulacion.aceptada)" class="text-info">Pendiente</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm btn-just-icon" matTooltip="Cancelar postulación" (click)="confirmarCancelarPostulacion(postulacion.id_postulacion)">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
