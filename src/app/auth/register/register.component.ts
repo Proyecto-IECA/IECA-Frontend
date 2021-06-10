@@ -21,10 +21,19 @@ export class RegisterComponent implements OnInit {
 
   //  ---------- VARIABLES ---------- //
   part = true; // True - Muestra la 1ra parte del formulario. False - Muestra la 2da parte del formulario
-  type = ''; // Dejarlo vacío ''
+  type = 'Postulante'; // Dejarlo vacío ''
   registerUsuarioForm: FormGroup;
   registerEmpresaForm: FormGroup;
   tipo_usuario: 'Postulante';
+
+  // Expresión regular del CURP
+  private expresionRegularCURP =
+      '[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}' +
+      '(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])' +
+      '[HM]{1}' +
+      '(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)' +
+      '[B-DF-HJ-NP-TV-Z]{3}' +
+      '[0-9A-Z]{1}[0-9]{1}$';
 
   @ViewChild('placesRef') placesRef: GooglePlaceDirective; // autocompletar dirección
 
@@ -103,8 +112,8 @@ export class RegisterComponent implements OnInit {
           email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')]],
           pass: ['', [Validators.required, Validators.minLength(6)]],
           password: ['', [Validators.required, Validators.minLength(6)]],
-          sexo: ['', Validators.required],
-          fecha_nacimiento: ['', Validators.required]
+          fecha_nacimiento: ['', Validators.required],
+          curp: ['', [Validators.required, Validators.pattern(this.expresionRegularCURP)]]
         },
         {
           validators: [this.validators.ValidarPassword('pass', 'password')],

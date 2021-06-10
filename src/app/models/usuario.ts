@@ -26,6 +26,7 @@ export class UsuarioI {
   domicilio?: string;
   telefono_casa?: string;
   sexo?: string;
+  curp?: string;
 
   // Atributos de Empresa
   administrador?: string;
