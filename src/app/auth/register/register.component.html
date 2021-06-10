@@ -20,7 +20,7 @@
         <i class="material-icons">person</i>
         <input type="text" placeholder="Nombre" formControlName="nombre" />
     </div>
-    <small *ngIf="controlNoValid(registerUsuarioForm, 'nombre')" class="form-text text-danger">
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'nombre') && part" class="form-text text-danger">
     * Debe contener al menos 3 letras
     <br />
   </small>
@@ -29,7 +29,7 @@
         <i class="material-icons">person</i>
         <input type="text" placeholder="Apellido Paterno" formControlName="apellido_paterno" />
     </div>
-    <small *ngIf="controlNoValid(registerUsuarioForm, 'apellido_paterno')" class="form-text text-danger">
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'apellido_paterno') && part" class="form-text text-danger">
     * Debe contener al menos 3 letras
     <br />
   </small>
@@ -38,7 +38,7 @@
         <i class="material-icons">person</i>
         <input type="text" placeholder="Apellido Materno" formControlName="apellido_materno" />
     </div>
-    <small *ngIf="controlNoValid(registerUsuarioForm, 'apellido_materno')" class="form-text text-danger">
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'apellido_materno') && part" class="form-text text-danger">
     * Debe contener al menos 3 letras
     <br />
   </small>
@@ -47,27 +47,22 @@
         <i class="material-icons">calendar_today</i>
         <input type="date" placeholder="Fecha de Nacimiento" formControlName="fecha_nacimiento" />
     </div>
-    <!-- Género -->
+    <!-- CURP -->
     <div *ngIf="part" class="input-field">
-        <i class="material-icons">keyboard_arrow_down</i>
-        <select class="form-select" id="inputGroupSelect03" formControlName="sexo">
-      <option value="null">Género...</option>
-      <option value="H">Hombre</option>
-      <option value="M">Mujer</option>
-      <option value="X">Prefiero no decirlo</option>
-    </select>
+        <i class="material-icons">person</i>
+        <input type="text" placeholder="CURP" formControlName="curp" />
     </div>
-    <small *ngIf="controlNoValid(registerUsuarioForm, 'sexo')" class="form-text text-danger">
-    * Elegir una opción válida
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'curp') && part" class="form-text text-danger">
+    * CURP inválida
     <br />
-  </small>
+    </small>
 
     <!-- Email -->
     <div *ngIf="!part" class="input-field">
         <i class="material-icons">email</i>
         <input type="email" placeholder="Correo Electrónico" formControlName="email" />
     </div>
-    <small *ngIf="controlNoValid(registerUsuarioForm, 'email')" class="form-text text-danger">
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'email') && !part" class="form-text text-danger">
     * Correo Electrónico no válido
     <br />
   </small>
@@ -76,7 +71,7 @@
         <i class="material-icons">lock</i>
         <input type="password" placeholder="Contraseña" formControlName="pass" />
     </div>
-    <small *ngIf="controlNoValid(registerUsuarioForm, 'pass')" class="form-text text-danger">
+    <small *ngIf="controlNoValid(registerUsuarioForm, 'pass') && !part" class="form-text text-danger">
     * Debe contener al menos 6 letras
     <br />
   </small>
@@ -85,7 +80,7 @@
         <i class="material-icons">lock</i>
         <input type="password" placeholder="Confirmar Contraseña" formControlName="password" />
     </div>
-    <small *ngIf="validarPassword(registerUsuarioForm)" class="form-text text-danger">
+    <small *ngIf="validarPassword(registerUsuarioForm) && !part" class="form-text text-danger">
     ** La contraseña no coincide
     <br />
   </small>

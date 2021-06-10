@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
 
   //  ---------- VARIABLES ---------- //
-  register = false; // (Siempre en falso) Cambia la vista entre el login y el register
+  register = true; // (Siempre en falso) Cambia la vista entre el login y el register
 
   constructor() {
   }
