@@ -56,7 +56,7 @@ export const routes: Routes = [
       { path: "my-postulations", component: MyPostulationsComponent },
       { path: "see-company/:id", component: SeeCompanyComponent },
       { path: "reviews", component: ReviewsComponent },
-      { path: "postulations/:id", component: PostulationsComponent},
+      { path: "postulations/:id/:tipo", component: PostulationsComponent},
     ],
   },
 ];

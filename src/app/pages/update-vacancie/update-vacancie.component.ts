@@ -67,6 +67,6 @@ export class UpdateVacancieComponent implements OnInit {
   }
 
   verPostulaciones() {
-    this.router.navigate(['/postulations', this.idVacante]);
+    this.router.navigate(['/postulations', this.idVacante, 2]);
   }
 }

@@ -31,4 +31,8 @@ export class MyVacanciesService {
   cerrarVacante(id_vacante) {
     return this.http.get(`${baseUrl}/cerrar/${id_vacante}`);
   }
+
+  borrarVacante(id_vacante) {
+    return this.http.delete(`${baseUrl}/${id_vacante}`);
+  }
 }

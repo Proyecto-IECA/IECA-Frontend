@@ -17,8 +17,10 @@ export class PostulationsComponent implements OnInit {
   page_number: number = 1;
   pageSizeOptions: number[] = [6, 12, 24, 48, 96];
   idVacante: number;
+  tipo: number;
+  ruta = '/';
   postulantes: PostulacionI[] = [];
-
+  
   constructor(
     private postulationsService: PostulationsService,
     private activatedRoute: ActivatedRoute,
@@ -31,11 +33,17 @@ export class PostulationsComponent implements OnInit {
 
   getPostulantes() {
     this.idVacante = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.tipo = parseInt(this.activatedRoute.snapshot.paramMap.get('tipo'));
+    if (this.tipo == 1) {
+      this.ruta += 'my-vacancies';
+    } else {
+      this.ruta += 'update-vacancie/'+this.idVacante;
+    }
 
     this.postulationsService.getPostulantesVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.postulantes = resp.data.Postulaciones;
-        
+        console.log(this.postulantes);
       }
     })
   }

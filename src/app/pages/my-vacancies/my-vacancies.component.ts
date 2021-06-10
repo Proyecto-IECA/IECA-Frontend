@@ -27,6 +27,10 @@ export class MyVacanciesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadVacantes();
+  }
+
+  loadVacantes () {
     this.myVacanciesService.getVacantes().subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.vacantesP = resp.data.VacantesPublicadas;
@@ -45,58 +49,74 @@ export class MyVacanciesComponent implements OnInit {
     this.router.navigate(['/update-vacancie', id]);
   }
 
-  publicar(vacante) {
-    this.myVacanciesService.publicarVacante(vacante.id_vacante).subscribe((resp: AuthResponseI) => {
+  publicar(idVacante) {
+    this.myVacanciesService.publicarVacante(idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage("Vacante públicada");
-        let index = this.vacantesB.indexOf(vacante);
-        let vacanteP = this.vacantesB.splice(index, 1);
-        this.vacantesP.unshift(vacanteP[0]);
-        this.numVacantesB = this.numVacantesB - 1;
-        this.numVacantesP = this.numVacantesP + 1;
+        this.loadVacantes();
       }
     })
   }
 
-  noPublicar(vacante) {
-    this.myVacanciesService.noPublicarVacante(vacante.id_vacante).subscribe((resp: AuthResponseI) => {
+  noPublicar(idVacante) {
+    this.myVacanciesService.noPublicarVacante(idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage("Vacante no públicada");
-        let index = this.vacantesP.indexOf(vacante);
-        let vacanteB = this.vacantesP.splice(index, 1);
-        this.vacantesB.unshift(vacanteB[0]);
-        this.numVacantesP = this.numVacantesP - 1;
-        this.numVacantesB = this.numVacantesB + 1;
+        this.loadVacantes();
       }
     })
   }
 
-  cerrar(vacante) {
-    this.myVacanciesService.cerrarVacante(vacante.id_vacante).subscribe((resp: AuthResponseI) => {
+  cerrar(idVacante) {
+    this.myVacanciesService.cerrarVacante(idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage("Vacante cerrada");
-        let index = this.vacantesD.indexOf(vacante);
-        let vacanteC = this.vacantesD.splice(index, 1);
-        this.vacantesC.unshift(vacanteC[0]);
-        this.numVacantesD = this.numVacantesD - 1;
-        this.numVacantesC = this.numVacantesC + 1;
+        this.loadVacantes();
       }
     })
   }
 
-  abrir(vacante) {
-    this.myVacanciesService.abrirVacante(vacante.id_vacante).subscribe((resp: AuthResponseI) => {
+  abrir(idVacante) {
+    this.myVacanciesService.abrirVacante(idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage("Vacante abierta");
-        let index = this.vacantesC.indexOf(vacante);
-        let vacanteD = this.vacantesC.splice(index, 1);
-        this.vacantesD.unshift(vacanteD[0]);
-        this.numVacantesC = this.numVacantesC - 1;
-        this.numVacantesD = this.numVacantesD + 1;
+        this.loadVacantes();
       }
     })
   }
+
+  borrar(idVacante) {
+    this.myVacanciesService.borrarVacante(idVacante).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.doneMassage("Vacante eliminada");
+        this.loadVacantes();
+      }
+    })
+  }
+
+  verPostulaciones(idVacante) {
+    this.router.navigate(['/postulations', idVacante, 1]);
+  }
   
+  statusVacante(status) {
+    if (status == 1) return true;
+    return false;
+  }
+
+  confirmarEliminacionVacante(idVacante) {
+    Swal.fire({
+      icon: 'warning',
+      title: "¿Estas seguro que deseas eliminar esta vacante?",
+      showCancelButton: true,
+      confirmButtonText: 'Si, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.borrar(idVacante);
+      }
+    })
+  }
+
   doneMassage(message: string): void {
     Swal.fire({
       icon: 'success',
@@ -106,4 +126,5 @@ export class MyVacanciesComponent implements OnInit {
       timer: 2700
     });
   }
+
 }

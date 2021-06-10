@@ -1,6 +1,10 @@
 <div class="main-content">
     <div class="container-fluid">
-
+        <div class="row">
+            <div class="col-md-12">
+                <mat-icon class="m-l-5" style="cursor:pointer" matTooltip="Regresar" routerLink="/my-vacancies">arrow_back_ios</mat-icon>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-stats">
@@ -14,7 +18,7 @@
                     <div class="card-footer">
                         <div class="stats">
                             <i class="material-icons text-primary">visibility</i>
-                            <a>Vistas por usuario</a>
+                            <a>Vistas totales de tu vacante</a>
                         </div>
                     </div>
                 </div>
@@ -31,7 +35,7 @@
                     <div class="card-footer">
                         <div class="stats">
                             <i class="material-icons text-info">person</i>
-                            <a>Usuarios Alcanzados</a>
+                            <a>Usuarios que vieron tu vacante</a>
                         </div>
                     </div>
                 </div>
@@ -48,16 +52,12 @@
                     <div class="card-footer">
                         <div class="stats">
                             <i class="material-icons text-color">contact_page</i>
-                            <a>Postulaciones a la vacante</a>
+                            <a>Postulaciones a tu vacante</a>
                         </div>
+                        <i class="material-icons text-primary posicion-b-r" matTooltip="Ver Postulaciones" style="cursor: pointer;" (click)="verPostulaciones()">engineering</i>
+
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-primary" (click)="verPostulaciones()">Ver Postulaciones</button>
             </div>
         </div>
 

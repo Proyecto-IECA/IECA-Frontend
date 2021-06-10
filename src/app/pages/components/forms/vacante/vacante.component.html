@@ -70,7 +70,7 @@
     <!-- Sucursal -->
     <div *ngIf="sucursales" class="row">
         <div class="col-md-4 m-t">
-            <mat-slide-toggle formControlName="id_sucursal_fk" (toggleChange)="isSucursal()">
+            <mat-slide-toggle *ngIf="sucursales.length > 0" formControlName="id_sucursal_fk" (toggleChange)="isSucursal()">
                 Elegir Sucursal
             </mat-slide-toggle>
         </div>

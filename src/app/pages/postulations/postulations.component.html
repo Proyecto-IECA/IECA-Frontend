@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-10">
-                <mat-icon class="m-l-5" style="cursor:pointer">arrow_back_ios</mat-icon>
+                <mat-icon class="m-l-5" style="cursor:pointer" [routerLink]="ruta">arrow_back_ios</mat-icon>
             </div>
         </div>
         <div class="row m-t-2">
@@ -12,7 +12,8 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <p (click)="verPerfil(postulante.id_postulacion)">Ver Perfil</p>
-                        <img class="img" src="./assets/img/faces/marc.jpg" />
+                        <img *ngIf="!postulante.Usuario.foto_perfil" class="img" src="./assets/img/faces/marc.jpg" />
+                        <img *ngIf="postulante.Usuario.foto_perfil" class="img" [src]="postulante.Usuario.foto_perfil" />
                     </div>
                     <!-- Cuerpo del card -->
                     <div class="card-body">

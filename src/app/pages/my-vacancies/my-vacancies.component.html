@@ -31,7 +31,7 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">done</i>
+                            <i class="material-icons">lock_open</i>
                         </div>
                         <p class="card-category">Disponibles</p>
                         <h3 class="card-title">{{numVacantesD}}</h3>
@@ -44,7 +44,7 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-danger card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">block</i>
+                            <i class="material-icons">lock</i>
                         </div>
                         <p class="card-category">Cerradas</p>
                         <h3 class="card-title">{{numVacantesC}}</h3>
@@ -77,14 +77,14 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a mat-button class="nav-link" href="#cerradas" data-toggle="tab">
-                                            <i class="material-icons">block</i> Cerradas
+                                        <a mat-button class="nav-link" href="#disponibles" data-toggle="tab">
+                                            <i class="material-icons">lock_open</i> Disponibles
                                             <div class="ripple-container"></div>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a mat-button class="nav-link" href="#disponibles" data-toggle="tab">
-                                            <i class="material-icons">done</i> Disponibles
+                                        <a mat-button class="nav-link" href="#cerradas" data-toggle="tab">
+                                            <i class="material-icons">lock</i> Cerradas
                                             <div class="ripple-container"></div>
                                         </a>
                                     </li>
@@ -101,27 +101,46 @@
                                         <th>Puesto</th>
                                         <th>Nivel</th>
                                         <th>Modalidad</th>
-                                        <th>Acción</th>
+                                        <th>Status</th>
+                                        <th></th>
 
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let vacante of vacantesP" class="text-center">
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.fecha_publicacion}}
                                             </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.puesto}}
                                             </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.nivel}}
                                             </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.modalidad}}
+                                            </td>
+                                            <td *ngIf="statusVacante(vacante.disponible)" class="text-success">
+                                                Disponible
+                                            </td>
+                                            <td *ngIf="!statusVacante(vacante.disponible)" class="text-danger">
+                                                Cerrada
                                             </td>
                                             <td>
                                                 <div class="form-check">
                                                     <div class="form-check">
-                                                        <button type="button" class="btn btn-danger m-r" (click)="noPublicar(vacante)">Dejar de Publicar</button>
+                                                        <button class="btn btn-danger btn-sm btn-just-icon" matTooltip="Dejar de públicar vacante" (click)="noPublicar(vacante.id_vacante)">
+                                                            <i class="material-icons">unpublished</i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-sm btn-just-icon m-l" matTooltip="Ver postulaciones" (click)="verPostulaciones(vacante.id_vacante)">
+                                                            <i class="material-icons">engineering</i>
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm btn-just-icon m-l" matTooltip="Editar vacante" (click)="updateVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Eliminar vacante" (click)="confirmarEliminacionVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
+
                                                     </div>
                                                 </div>
                                             </td>
@@ -135,60 +154,43 @@
                                         <th>Puesto</th>
                                         <th>Nivel</th>
                                         <th>Modalidad</th>
-                                        <th>Acción</th>
-
+                                        <th>Status</th>
+                                        <th></th>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let vacante of vacantesB" class="text-center">
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.puesto}}
                                             </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.nivel}}
                                             </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.modalidad}}
+                                            </td>
+                                            <td *ngIf="statusVacante(vacante.disponible)" class="text-success">
+                                                Disponible
+                                            </td>
+                                            <td *ngIf="!statusVacante(vacante.disponible)" class="text-danger">
+                                                Cerrada
                                             </td>
                                             <td>
                                                 <div class="form-check">
                                                     <div class="form-check">
-                                                        <button type="button" class="btn btn-success m-r" (click)="publicar(vacante)">Publicar</button>
+                                                        <button class="btn btn-success btn-sm btn-just-icon" matTooltip="Públicar vacante" (click)="publicar(vacante.id_vacante)">
+                                                            <i class="material-icons">public</i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-sm btn-just-icon m-l" matTooltip="Ver postulaciones" (click)="verPostulaciones(vacante.id_vacante)">
+                                                            <i class="material-icons">engineering</i>
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm btn-just-icon m-l" matTooltip="Editar vacante" (click)="updateVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Eliminar vacante" (click)="confirmarEliminacionVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-pane" id="cerradas">
-                                <table class="table">
-                                    <thead class="text-primary text-center">
-                                        <th>Fecha</th>
-                                        <th>Puesto</th>
-                                        <th>Nivel</th>
-                                        <th>Modalidad</th>
-                                        <th>Acción</th>
 
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let vacante of vacantesC" class="text-center">
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                                {{vacante.fecha_publicacion}}
-                                            </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                                {{vacante.puesto}}
-                                            </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                                {{vacante.nivel}}
-                                            </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
-                                                {{vacante.modalidad}}
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <div class="form-check">
-                                                        <button type="button" class="btn btn-success m-r" (click)="abrir(vacante)">Abrir</button>
-                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -202,25 +204,95 @@
                                         <th>Puesto</th>
                                         <th>Nivel</th>
                                         <th>Modalidad</th>
-                                        <th>Acción</th>
+                                        <th>Status</th>
+                                        <th></th>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let vacante of vacantesD" class="text-center">
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.fecha_publicacion}}
                                             </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.puesto}}
                                             </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.nivel}}
                                             </td>
-                                            <td (click)="updateVacante(vacante.id_vacante)" style="cursor:pointer">
+                                            <td>
                                                 {{vacante.modalidad}}
+                                            </td>
+                                            <td *ngIf="statusVacante(vacante.publicada)" class="text-success">
+                                                Públicada
+                                            </td>
+                                            <td *ngIf="!statusVacante(vacante.publicada)" class="text-danger">
+                                                Sin públicar
                                             </td>
                                             <td>
                                                 <div class="form-check">
-                                                    <button type="button" class="btn btn-danger m-r" (click)="cerrar(vacante)">Cerrar</button>
+                                                    <button class="btn btn-danger btn-sm btn-just-icon" matTooltip="Cerrar Vacante" (click)="cerrar(vacante.id_vacante)">
+                                                        <i class="material-icons">lock</i>
+                                                    </button>
+                                                    <button class="btn btn-primary btn-sm btn-just-icon m-l" matTooltip="Ver postulaciones" (click)="verPostulaciones(vacante.id_vacante)">
+                                                        <i class="material-icons">engineering</i>
+                                                    </button>
+                                                    <button class="btn btn-warning btn-sm btn-just-icon m-l" matTooltip="Editar vacante" (click)="updateVacante(vacante.id_vacante)">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Eliminar vacante" (click)="confirmarEliminacionVacante(vacante.id_vacante)">
+                                                        <i class="material-icons">delete</i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="cerradas">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Fecha</th>
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesC" class="text-center">
+                                            <td>
+                                                {{vacante.fecha_publicacion}}
+                                            </td>
+                                            <td>
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td>
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td>
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td *ngIf="statusVacante(vacante.publicada)" class="text-success">
+                                                Públicada
+                                            </td>
+                                            <td *ngIf="!statusVacante(vacante.publicada)" class="text-danger">
+                                                Sin públicar
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <div class="form-check">
+                                                        <button class="btn btn-success btn-sm btn-just-icon" matTooltip="Abrir vacante" (click)="abrir(vacante.id_vacante)">
+                                                            <i class="material-icons">lock_open</i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-sm btn-just-icon m-l" matTooltip="Ver postulaciones" (click)="verPostulaciones(vacante.id_vacante)">
+                                                            <i class="material-icons">engineering</i>
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm btn-just-icon m-l" matTooltip="Editar vacante" (click)="updateVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Eliminar vacante" (click)="confirmarEliminacionVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -229,7 +301,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button mat-fab color="default" class="pull-right" routerLink="/create-vacancie" title="Agregar vacante">
+                            <button mat-fab color="default" class="pull-right" routerLink="/create-vacancie" matTooltip="Nueva vacante">
                             <mat-icon>add</mat-icon>
                         </button>
                         </div>
