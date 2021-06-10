@@ -1,48 +1,65 @@
 <div class="main-content">
-    <!-- Botón de regresar y postular -->
-    <div class="row align-items-center">
-        <div class="col-10">
-            <mat-icon routerLink="/vacancies" class="m-l-5" style="cursor:pointer">arrow_back_ios</mat-icon>
+    <div class="container-fluid">
+        <!-- Spinner -->
+        <div *ngIf="!vacante" class="row justify-content-center align-items-center vh-100">
+            <mat-spinner></mat-spinner>
         </div>
-        <div class="col-2" *ngIf="postulacion">
-            <button type="button" class="btn btn-rose btn-lg" (click)="validarPerfil()">Postularme</button>
-        </div>
-        <div class="col-2" *ngIf="!postulacion">
-            <button type="button" class="btn btn-rose btn-lg " (click)="confirmarCancelarPostulacion()">Cancelar Postulacion</button>
-        </div>
-    </div>
-    <!-- Spinner -->
-    <div *ngIf="!vacante" class="row justify-content-center align-items-center vh-100">
-        <mat-spinner></mat-spinner>
-    </div>
-    <!-- Información de la vacante -->
-    <div *ngIf="vacante" class="container-fluid">
-        <div class="row align-items-center m-t-3">
 
-            <!-- Datos de la vacante -->
-            <div class="col-md-12">
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <img src="../../../assets/img/IECA-Blanco.jpg" alt="" class="card-img-top">
-                    </div>
-                    <div class="col-md-4">
-                        <h2 class="font-weight-bold">{{vacante.puesto}}</h2>
-                        <h3>{{vacante.nombre}}</h3>
-                        <h3>{{vacante.id_sucursal_fk}}</h3>
-                    </div>
-                    <div class="col-md-4 align-self-center">
-                        <h3>Modalidad: {{vacante.modalidad}}</h3>
-                        <h3>Sueldo: {{vacante.sueldo}}</h3>
-                        <h3>Nivel: {{vacante.nivel}}</h3>
+        <mat-icon routerLink="/vacancies" class="m-l-5" style="cursor:pointer">arrow_back_ios</mat-icon>
+        <!-- Card postulación -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <img src="../../../assets/img/IECA-Blanco.jpg" class="img-fluid" alt="Imagen de la empresa">
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 class="font-weight-bold">{{vacante.puesto}}</h3>
+                                    <p>Nombre | Dirección | Publicación </p>
+                                </div>
+                                <div class="posicion-t-r">
+                                    <!-- Boton de Favorito -->
+                                    <mat-icon class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
+                                </div>
+                                <div class="posicion-b-r" *ngIf="postulacion">
+                                    <!-- <p *ngIf="validacionCurso">Estamos validando tu perfil</p> -->
+                                    <button type="button" class="btn btn-primary" (click)="confirmarPostulacion()">Postularme</button>
+                                    <!-- <p *ngIf="activedPostulacion && !validacionCurso">Tu perfil no cumple los requisitos para poder postularte</p> -->
+                                </div>
+                                <div class="posicion-b-r" *ngIf="!postulacion">
+                                    <button type="button" class="btn btn-danger btn-lg " (click)="confirmarCancelarPostulacion()">Cancelar Postulacion</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <br>
-                <h3 class="font-weight-bold">Características:</h3>
-                <div class="row align-items-center">
-                    <div class="col-md-12 ">
-                        <hr>
-                        <h3>{{vacante.descripcion}}</h3>
-                        <hr>
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row justify-content-md-start">
+                                <div class="col-md-8">
+                                    <h3 class="font-weight-bold m-l-5">Acerca del empleo</h3>
+                                    <hr>
+                                    <p class="m-l-5">{{vacante.descripcion}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="font-weight-bold">Nivel de Experiencia:</p>
+                        <p>{{vacante.nivel}}</p>
+                        <p class="font-weight-bold">Modalidad:</p>
+                        <p>{{vacante.modalidad}}</p>
+                        <p class="font-weight-bold">Sueldo:</p>
+                        <p>{{vacante.sueldo}}</p>
                     </div>
                 </div>
             </div>
