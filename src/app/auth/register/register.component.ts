@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
   //  ---------- VARIABLES ---------- //
   part = true; // True - Muestra la 1ra parte del formulario. False - Muestra la 2da parte del formulario
-  type = 'Postulante'; // Dejarlo vacío ''
+  type = ''; // Dejarlo vacío ''
   registerUsuarioForm: FormGroup;
   registerEmpresaForm: FormGroup;
   tipo_usuario: 'Postulante';

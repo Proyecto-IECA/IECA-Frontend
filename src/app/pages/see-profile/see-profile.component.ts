@@ -33,6 +33,7 @@ export class SeeProfileComponent implements OnInit {
   expAcademicas: ExperienciaAcademicaI[];
   cursoCertificados: CursoCertificacionI[];
 
+
   constructor(
     private seeProfileService: SeeProfileService,
     private activatedRoute: ActivatedRoute
@@ -40,9 +41,12 @@ export class SeeProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.idPostulacion = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+ 
+    
     this.seeProfileService.getPostulante(this.idPostulacion).subscribe((resp: AuthResponseI) => {
       if(resp.status) {
         this.usuario = resp.data.Usuario;
+        this.postulante = resp.data;
         this.idUsuario = this.usuario.id_usuario;
         this.loadData();
       }
@@ -93,21 +97,30 @@ export class SeeProfileComponent implements OnInit {
     });
   }
 
-  aceptarPostulacion() {    
-    this.seeProfileService.aceptarPostulacion(this.idPostulacion).subscribe((resp: AuthResponseI) => {      
+  updatePostulante() {
+    this.seeProfileService.getPostulante(this.idPostulacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.doneMassage("Acepto al postulante");
+        this.postulante = resp.data;
       }
-    });
+    })
   }
 
-  rechazarPostulacion() {
-    this.seeProfileService.rechazarPostulacion(this.idPostulacion).subscribe((resp: AuthResponseI) => {
-      console.log(resp);
+  aceptarPostulacion() {
+    this.seeProfileService.aceptarPostulacion(this.idPostulacion).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.doneMassage("Acepto al postulante");
+        this.updatePostulante();
+      }
+    })
+  }
+
+  rechazarPostulacion(comentario) {
+    this.seeProfileService.rechazarPostulacion(this.idPostulacion, comentario).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage("Rechazo al postulante");
+        this.updatePostulante();
       }
-    });
+    })
   }
 
   confirmarAceptarPostulacion() {
@@ -128,14 +141,15 @@ export class SeeProfileComponent implements OnInit {
     Swal.fire({
       icon: 'info',
       title: "¿Estas seguro que deseas rechazar al postulante?",
+      input: 'textarea',
+      inputPlaceholder: 'Deja un comentario',
       showCancelButton: true,
       confirmButtonText: 'Si, estoy seguro',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.rechazarPostulacion();
+      cancelButtonText: 'Cancelar',
+      preConfirm: (comentario) => {
+        this.rechazarPostulacion(comentario);
       }
-    })
+    });
   }
 
   doneMassage(message: string): void {

@@ -43,7 +43,6 @@ export class PostulationsComponent implements OnInit {
     this.postulationsService.getPostulantesVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.postulantes = resp.data.Postulaciones;
-        console.log(this.postulantes);
       }
     })
   }
@@ -57,8 +56,8 @@ export class PostulationsComponent implements OnInit {
     })
   }
 
-  rechazarPostulacion(idPostulacion) {
-    this.postulationsService.rechazarPostulacion(idPostulacion).subscribe((resp: AuthResponseI) => {
+  rechazarPostulacion(idPostulacion, comentario) {
+    this.postulationsService.rechazarPostulacion(idPostulacion, comentario).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage("Rechazo al postulante");
         this.getPostulantes();
@@ -94,14 +93,15 @@ export class PostulationsComponent implements OnInit {
     Swal.fire({
       icon: 'info',
       title: "¿Estas seguro que deseas rechazar al postulante?",
+      input: 'textarea',
+      inputPlaceholder: 'Deja un comentario',
       showCancelButton: true,
       confirmButtonText: 'Si, estoy seguro',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.rechazarPostulacion(idPostulacion);
+      cancelButtonText: 'Cancelar',
+      preConfirm: (comentario) => {
+        this.rechazarPostulacion(idPostulacion, comentario);
       }
-    })
+    });
   }
 
   doneMassage(message: string): void {

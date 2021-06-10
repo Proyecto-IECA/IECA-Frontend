@@ -47,7 +47,10 @@ export class SeeProfileService {
     return this.http.get(`${baseUrl}/postulaciones/aceptar/${idPostulacion}`);
   }
 
-  rechazarPostulacion(idPostulacion) {
-    return this.http.get(`${baseUrl}/postulaciones/rechazar/${idPostulacion}`);
+  rechazarPostulacion(idPostulacion, comentario) {
+    const data = {
+      comentario: comentario
+    }
+    return this.http.put(`${baseUrl}/postulaciones/rechazar/${idPostulacion}`, data);
   }
 }

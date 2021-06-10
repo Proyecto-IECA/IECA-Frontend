@@ -71,6 +71,14 @@ export class MyPostulationsComponent implements OnInit {
     })
   }
 
+  verComentario(comentario) {
+    Swal.fire({
+      icon: 'info',
+      title: comentario,
+      timer: 3600
+    })
+  }
+
   doneMassage(message: string): void {
     Swal.fire({
       icon: 'success',
