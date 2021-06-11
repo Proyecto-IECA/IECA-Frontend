@@ -160,7 +160,7 @@ export class VacanteComponent implements OnInit {
       icon: 'error',
       title: 'Petición NO procesada',
       text: `Vuelve a intentar de nuevo...
-      Si el error persiste ponerse en contacto con soporte técnico`,
+      Si el error persiste, comuníquese con el soporte técnico.`,
     });
     console.log(error);
   }

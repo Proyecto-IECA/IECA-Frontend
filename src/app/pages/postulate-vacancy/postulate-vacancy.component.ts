@@ -86,7 +86,7 @@ export class PostulateVacancyComponent implements OnInit {
   cancelarPostulacion() {
     this.postulateVacancyService.cancelarPostulacion(this.idPostulacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.doneMassage('Se cancelo tu postulación');
+        this.doneMassage('Se canceló tu postulación');
         this.postulacion = true;
       }
     });
@@ -105,11 +105,11 @@ export class PostulateVacancyComponent implements OnInit {
   validatedPostulante(errors): void {
     Swal.fire({
       icon: "info",
-      title: "Para poder postularte completa tu perfil",
+      title: "Para postularte debes completar tu perfil",
       html: errors,
       showCancelButton: true,
       cancelButtonText: "Entendido",
-      confirmButtonText: "Completarlo Ahora!"
+      confirmButtonText: "¡Completarlo Ahora!"
     }).then((result) => {
       if (result.isConfirmed) {
         this.router.navigateByUrl('/user-profile');
@@ -120,9 +120,9 @@ export class PostulateVacancyComponent implements OnInit {
   confirmarPostulacion() {
     Swal.fire({
       icon: 'info',
-      title: "¿Estas seguro que deseas postularte a esta vacante?",
+      title: "¿Está seguro que desea postularte a esta vacante?",
       showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
+      confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
@@ -134,9 +134,9 @@ export class PostulateVacancyComponent implements OnInit {
   confirmarCancelarPostulacion() {
     Swal.fire({
       icon: 'info',
-      title: "¿Estas seguro que deseas cancelar tu postulacion?",
+      title: "¿Está seguro que desea cancelar su postulacion?",
       showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
+      confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {

@@ -180,8 +180,8 @@ export class PerfilesComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Petición NO procesada',
-      text: `Vuelve a intentar de nuevo...
-      Si el error persiste ponerse en contacto con soporte técnico`,
+      text: `Vuelve a intentar de nuevo.
+      Si el error persiste, comuníquese con el soporte técnico.`,
     });
   }
 
