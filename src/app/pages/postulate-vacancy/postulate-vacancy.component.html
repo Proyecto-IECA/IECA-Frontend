@@ -20,7 +20,7 @@
                                     <h3 class="font-weight-bold m-t">{{vacante.puesto}}</h3>
                                     <h4><b>Empresa: </b> {{vacante.Usuario.nombre}}</h4>
                                     <h4><b>Dirección: </b> {{vacante.Usuario.ubicacion}}</h4>
-                                    <a href="https://www.google.com/" class="text-primary" style="cursor: pointer;">Visitar sitio web</a>
+                                    <a [href]="vacante.Usuario.pagina_web" target="_blank" class="text-primary" style="cursor: pointer;">Visitar sitio web</a>
                                     <p><small>Fecha de publicación: {{vacante.fecha_publicacion}} </small></p>
                                     <p style="visibility: hidden;">No se ve </p>
 
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="posicion-b-r" *ngIf="postulacion">
                                     <!-- <p *ngIf="validacionCurso">Estamos validando tu perfil</p> -->
-                                    <button class="btn btn-primary btn-sm" (click)="confirmarPostulacion()">Postularme</button>
+                                    <button class="btn btn-primary btn-sm" (click)="validarPerfil()">Postularme</button>
                                     <!-- <p *ngIf="activedPostulacion && !validacionCurso">Tu perfil no cumple los requisitos para poder postularte</p> -->
                                 </div>
                                 <div class="posicion-b-r" *ngIf="!postulacion">
