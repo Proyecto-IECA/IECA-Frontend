@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Host, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { ValidatorsService } from '../../services/validators.service';
 import { AuthUserService } from '../auth-user.service';
 import { AuthResponseI } from 'app/models/auth-response';
+import { AuthComponent } from '../auth.component';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class RegisterComponent implements OnInit {
       private formB: FormBuilder,
       private validators: ValidatorsService,
       private router: Router,
-      private authUserService: AuthUserService
+      private authUserService: AuthUserService,
+      @Host() private authComponent: AuthComponent
   ) {
     this.registerUsuarioCreateForm();
     this.registerEmpresaCreateForm();
@@ -160,7 +162,9 @@ export class RegisterComponent implements OnInit {
           return this.errorMassage('Ocurrio un error', resp.data.errors[0].message);
         }
         form.reset();
-        return this.emailEnviado();
+        this.emailEnviado();
+        this.authComponent.register = false;
+        return;
       },
       ((error) => {
         this.errorServer(error);

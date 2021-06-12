@@ -42,6 +42,7 @@ export class PostulateVacancyComponent implements OnInit {
     this.postulateVacancyService.getVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.vacante = resp.data;
+        console.log(this.vacante);
       }
     });
 

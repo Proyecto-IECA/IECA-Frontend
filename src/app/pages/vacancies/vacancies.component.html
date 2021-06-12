@@ -69,18 +69,20 @@
                     </div>
                     <div class="row g-0 align-items-center justify-content-center">
                         <div class="col-md-2">
-                            <img src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="...">
+                            <img *ngIf="!vacante.Usuario.foto_perfil" src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="...">
+                            <img *ngIf="vacante.Usuario.foto_perfil" [src]="vacante.Usuario.foto_perfil" class="card-img-bottom" alt="...">
+
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h4 class="card-title">Puesto: <b class="text-primary">{{vacante.puesto}}</b> </h4>
-                                <p class="card-text">Nivel: <b class="text-primary">{{vacante.nivel}}</b> / Modalidad: <b class="text-primary">{{vacante.modalidad}}</b></p>
+                                <h4 class="card-title"><b>Puesto: </b>{{vacante.puesto}}</h4>
+                                <p class="card-text"><b>Nivel: </b>{{vacante.nivel}} / <b>Modalidad: </b>{{vacante.modalidad}}</p>
                                 <p class="card-text">{{vacante.Usuario.nombre}}</p>
                                 <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.fecha_publicacion}}</small></p>
                             </div>
                         </div>
                         <div class="posicion-b-r">
-                            <a class="text-primary" (click)="visualizar(vacante.id_vacante)" style="cursor:pointer">Ver más información</a>
+                            <a class="text-primary" (click)="visualizar(vacante.id_vacante)" style="cursor:pointer">Ver más ...</a>
                         </div>
                     </div>
                 </div>

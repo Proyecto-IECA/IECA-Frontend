@@ -18,7 +18,7 @@ export class PostulationsComponent implements OnInit {
   pageSizeOptions: number[] = [6, 12, 24, 48, 96];
   idVacante: number;
   tipo: number;
-  ruta = '/';
+  ruta = '';
   postulantes: PostulacionI[] = [];
   
   constructor(
@@ -35,9 +35,9 @@ export class PostulationsComponent implements OnInit {
     this.idVacante = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.tipo = parseInt(this.activatedRoute.snapshot.paramMap.get('tipo'));
     if (this.tipo == 1) {
-      this.ruta += 'my-vacancies';
+      this.ruta = '/my-vacancies';
     } else {
-      this.ruta += 'update-vacancie/'+this.idVacante;
+      this.ruta = '/update-vacancie/'+this.idVacante;
     }
 
     this.postulationsService.getPostulantesVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
