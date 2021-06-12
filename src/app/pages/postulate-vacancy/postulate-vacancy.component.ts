@@ -14,6 +14,10 @@ import { GuardsService } from '../../services/guards.service';
 export class PostulateVacancyComponent implements OnInit {
 
   idVacante: number;
+  idUsuario: number;
+  idCompany: number;
+  nombre: string;
+  puesto: string;
   vacante: VacantesI;
   postulacion = true;
   activedPostulacion = true;
@@ -42,19 +46,29 @@ export class PostulateVacancyComponent implements OnInit {
       }
     });
 
+    this.postulateVacancyService.getUsuario().subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.idUsuario = resp.data.id_usuario;
+        this.nombre = resp.data.nombre + ' ' + resp.data.apellido_paterno + ' ' + resp.data.apellido_materno;
+      }
+    })
+
     this.postulateVacancyService.getVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.vacante = resp.data;
+        this.puesto = resp.data.puesto;
+        this.idCompany = resp.data.id_usuario_fk;
       }
     });
 
     this.postulateVacancyService.getPostulacion(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         if (resp.data != null) {
-          this.idPostulacion = resp.data.id_postulacion;
+          this.idPostulacion = resp.data.id_postulacion;          
           this.postulacion = false;
           this.aceptada = resp.data.aceptada;
           this.rechazada = resp.data.rechazada;
+          
           if (this.aceptada == true || this.rechazada == true) {
             this.pendiente = false;
             this.verComentario(resp.data.titulo, resp.data.comentario);
@@ -89,6 +103,7 @@ export class PostulateVacancyComponent implements OnInit {
         this.idPostulacion = resp.data.id_postulacion;
         this.doneMassage('Éxito al postularse');
         this.postulacion = false;
+        this.addNotificacion('se postulo a tu vacante', 1);
       }
     });
   }
@@ -98,6 +113,7 @@ export class PostulateVacancyComponent implements OnInit {
       if (resp.status) {
         this.doneMassage('Se cancelo tu postulación');
         this.postulacion = true;
+        this.addNotificacion('cancelo su postulacion', 2)
       }
     });
   }
@@ -109,6 +125,22 @@ export class PostulateVacancyComponent implements OnInit {
       text: comentario,
       timer: 3600
     })
+  }
+
+  addNotificacion(status, tipo) {
+    let url = ''; 
+    if (tipo == 1) {
+      url = '/see-profile/' + this.idPostulacion;
+    } else {
+      url = '/my-vacancies';
+    }
+    let titulo = this.nombre + ' ' + status;
+    let mensaje = this.nombre + ' ' + status + ' para el puesto de ' + this.puesto;
+    this.postulateVacancyService.addNotificacion(url, titulo, mensaje, this.idPostulacion, this.idCompany).subscribe((resp: AuthResponseI) => {
+      if (!resp.status) {
+        console.log(resp);
+      }
+    });
   }
 
   doneMassage(message: string): void {
@@ -135,6 +167,8 @@ export class PostulateVacancyComponent implements OnInit {
       }
     });
   }
+
+
 
   confirmarPostulacion() {
     Swal.fire({

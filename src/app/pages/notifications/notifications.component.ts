@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { NotificationsService } from './notifications.service';
 import { AuthResponseI } from '../../models/auth-response';
 import { NotificationI } from '../../models/notifications';
@@ -26,8 +26,12 @@ export class NotificationsComponent implements OnInit {
    })
   }
 
-  verNotificacion(url) {
-    this.router.navigate([url]);
+  verNotificacion(idNotificacion, url) {
+    this.notifService.verNotificacion(idNotificacion).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.router.navigate([url]);
+      }
+    })
   }
 
 }

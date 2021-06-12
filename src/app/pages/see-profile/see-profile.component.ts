@@ -23,6 +23,9 @@ export class SeeProfileComponent implements OnInit {
 
   idPostulacion: number;
   idUsuario: number;
+  idVacante: number;
+  nombre: string;
+  puesto: string;
   usuario: UsuarioI;
   postulante: PostulacionI;
   habilidades: HabilidadI[];
@@ -48,6 +51,9 @@ export class SeeProfileComponent implements OnInit {
         this.usuario = resp.data.Usuario;
         this.postulante = resp.data;
         this.idUsuario = this.usuario.id_usuario;
+        this.idVacante = resp.data.Vacante.id_vacante;
+        this.puesto = resp.data.Vacante.puesto;
+        this.nombre = resp.data.Vacante.Usuario.nombre;
         this.loadData();
       }
     });
@@ -110,6 +116,7 @@ export class SeeProfileComponent implements OnInit {
       if (resp.status) {
         this.doneMassage("Acepto al postulante");
         this.updatePostulante();
+        this.addNotificacion('acepto', 'Felicidades, ');
       }
     })
   }
@@ -119,8 +126,20 @@ export class SeeProfileComponent implements OnInit {
       if (resp.status) {
         this.doneMassage("Rechazo al postulante");
         this.updatePostulante();
+        this.addNotificacion('rechazo', 'Lo sentimos, ');
       }
     })
+  }
+
+  addNotificacion(status, inicio) {
+    let url = '/postulate-vacancy/' + this.idVacante; 
+    let titulo = inicio + this.nombre + ' ' + status + ' tu postulacion!';
+    let mensaje = 'La empresa ' + this.nombre + ' ' + status + ' tu postulacion de su vacante para ' + this.puesto;
+    this.seeProfileService.addNotificacion(url, titulo, mensaje, this.idVacante, this.idUsuario).subscribe((resp: AuthResponseI) => {
+      if (!resp.status) {
+        console.log(resp);
+      }
+    });
   }
 
   confirmarAceptarPostulacion() {

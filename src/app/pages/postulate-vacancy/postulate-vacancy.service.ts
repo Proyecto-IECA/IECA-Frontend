@@ -11,6 +11,11 @@ export class PostulateVacancyService {
 
   constructor(private http: HttpClient) { }
 
+  getUsuario() {
+    const id = localStorage.getItem('id_usuario');
+    return this.http.get(`${baseUrl}/usuarios/${id}`);
+  }
+  
   getVacante(idVacante) {
     return this.http.get(`${baseUrl}/vacantes/vacante/${idVacante}`);
   }
@@ -32,4 +37,17 @@ export class PostulateVacancyService {
     const idUsuario = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/postulaciones/validar/${idUsuario}/${idVacante}`);
   }
+
+  addNotificacion(url, titulo, mensaje, idPostulacion, idReceptor) {
+    const data = {
+      url: url,
+      titulo: titulo,
+      mensaje: mensaje,
+      id_vacante_fk: null,
+      id_postulacion_fk: idPostulacion,
+      id_receptor: idReceptor
+    }
+    return this.http.post(`${baseUrl}/notificaciones`, data);
+  }
+
 }
