@@ -106,9 +106,9 @@ export class MyVacanciesComponent implements OnInit {
   confirmarEliminacionVacante(idVacante) {
     Swal.fire({
       icon: 'warning',
-      title: "¿Estas seguro que deseas eliminar esta vacante?",
+      title: "¿Está seguro que desea eliminar esta vacante?",
       showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
+      confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {

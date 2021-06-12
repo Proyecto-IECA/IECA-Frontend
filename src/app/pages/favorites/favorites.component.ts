@@ -83,7 +83,7 @@ export class FavoritesComponent implements OnInit {
   errorMassage(message: string): void {
     Swal.fire({
       icon: 'error',
-      title: 'Ocurrio un error',
+      title: 'Ocurrió un error',
       text: message,
       showConfirmButton: false,
       timer: 2700
