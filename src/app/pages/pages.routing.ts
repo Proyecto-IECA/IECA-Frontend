@@ -21,6 +21,7 @@ import { ReviewsComponent } from "./reviews/reviews.component";
 import { GuardsService } from '../services/guards.service';
 import { EmailValidadoGuard } from '../guards/email-validado.guard';
 import { PostulationsComponent } from './postulations/postulations.component';
+import { NotificationsComponent } from "./notifications/notifications.component";
 
 const tipo_usuario = localStorage.getItem("tipo_usuario") || "";
 export let ruta = "auth";
@@ -57,6 +58,7 @@ export const routes: Routes = [
       { path: "see-company/:id", component: SeeCompanyComponent },
       { path: "reviews", component: ReviewsComponent },
       { path: "postulations/:id/:tipo", component: PostulationsComponent},
+      { path: "notifications", component: NotificationsComponent}
     ],
   },
 ];

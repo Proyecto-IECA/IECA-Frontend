@@ -25,4 +25,17 @@ export class PostulationsService {
     }
     return this.http.put(`${baseUrl}/postulaciones/rechazar/${idPostulacion}`, data);
   }
+
+  addNotificacion(url, titulo, mensaje, idVacante, idReceptor) {
+    const data = {
+      url: url,
+      titulo: titulo,
+      mensaje: mensaje,
+      id_vacante_fk: idVacante,
+      id_postulacion_fk: null,
+      id_receptor: idReceptor
+    }
+    return this.http.post(`${baseUrl}/notificaciones`, data);
+  }
+
 }

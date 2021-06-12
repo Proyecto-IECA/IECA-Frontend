@@ -25,7 +25,7 @@ export class PostulateVacancyService {
   }
   
   cancelarPostulacion(idPostulacion) {
-    return this.http.delete(`${baseUrl}/postulaciones/${idPostulacion}`);
+    return this.http.get(`${baseUrl}/postulaciones/cancelar/${idPostulacion}`);
   }
 
   getPostulacion(idVacante) {

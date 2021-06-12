@@ -29,7 +29,7 @@
                         <button *ngIf="!postulante.rechazada" class="btn btn-danger btn-sm m-r" (click)="confirmarRechazarPostulacion(postulante.id_postulacion)">
                             <i class="material-icons">cancel</i> Rechazar
                         </button>
-                        <button *ngIf="!postulante.aceptada" class="btn btn-primary btn-sm m-r" (click)="confirmarAceptarPostulacion(postulante.id_postulacion)">
+                        <button *ngIf="!postulante.aceptada" class="btn btn-primary btn-sm m-r" (click)="confirmarAceptarPostulacion(postulante.id_postulacion, postulante.Usuario.id_usuario)">
                             <i class="material-icons">done</i> Aceptar
                         </button>
                     </div>

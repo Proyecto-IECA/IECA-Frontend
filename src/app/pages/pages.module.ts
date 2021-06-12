@@ -25,6 +25,7 @@ import { CustomMatPaginatiorItnl } from './pagination-es';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { PostulationsComponent } from './postulations/postulations.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { PostulationsComponent } from './postulations/postulations.component';
         PaginatePipe,
         SearchPipe,
         PostulationsComponent,
+        NotificationsComponent,
     ],
     imports: [
         CommonModule,

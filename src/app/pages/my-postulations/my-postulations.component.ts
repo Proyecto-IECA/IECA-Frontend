@@ -71,10 +71,11 @@ export class MyPostulationsComponent implements OnInit {
     })
   }
 
-  verComentario(comentario) {
+  verComentario(titulo, comentario) {
     Swal.fire({
       icon: 'info',
-      title: comentario,
+      title: titulo,
+      text: comentario,
       timer: 3600
     })
   }

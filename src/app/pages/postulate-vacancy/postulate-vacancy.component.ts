@@ -18,6 +18,9 @@ export class PostulateVacancyComponent implements OnInit {
   postulacion = true;
   activedPostulacion = true;
   idPostulacion: number;
+  pendiente = true;
+  aceptada = false;
+  rechazada = false;
 
   constructor(
     private postulateVacancyService: PostulateVacancyService,
@@ -42,15 +45,21 @@ export class PostulateVacancyComponent implements OnInit {
     this.postulateVacancyService.getVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.vacante = resp.data;
-        console.log(this.vacante);
       }
     });
 
     this.postulateVacancyService.getPostulacion(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.idPostulacion = resp.data.id_postulacion;
         if (resp.data != null) {
+          this.idPostulacion = resp.data.id_postulacion;
           this.postulacion = false;
+          this.aceptada = resp.data.aceptada;
+          this.rechazada = resp.data.rechazada;
+          if (this.aceptada == true || this.rechazada == true) {
+            this.pendiente = false;
+            this.verComentario(resp.data.titulo, resp.data.comentario);
+          }
+
         } else {
           this.postulacion = true;
         }
@@ -91,6 +100,15 @@ export class PostulateVacancyComponent implements OnInit {
         this.postulacion = true;
       }
     });
+  }
+
+  verComentario(titulo, comentario) {
+    Swal.fire({
+      icon: 'info',
+      title: titulo,
+      text: comentario,
+      timer: 3600
+    })
   }
 
   doneMassage(message: string): void {

@@ -70,7 +70,7 @@
                                 <td *ngIf="statusVacante(postulacion.aceptada)" class="text-success">Aceptada</td>
                                 <td *ngIf="!statusVacante(postulacion.rechazada) && !statusVacante(postulacion.aceptada)" class="text-info">Pendiente</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm btn-just-icon" matTooltip="Ver comentario" (click)="verComentario(postulacion.comentario)">
+                                    <button class="btn btn-primary btn-sm btn-just-icon" matTooltip="Ver comentario" (click)="verComentario(postulacion.titulo, postulacion.comentario)">
                                         <i class="material-icons">comment</i>
                                     </button>
                                     <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Cancelar postulación" (click)="confirmarCancelarPostulacion(postulacion.id_postulacion)">

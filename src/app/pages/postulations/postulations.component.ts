@@ -20,6 +20,8 @@ export class PostulationsComponent implements OnInit {
   tipo: number;
   ruta = '';
   postulantes: PostulacionI[] = [];
+  nombre: string = '';
+  puesto: string = '';
   
   constructor(
     private postulationsService: PostulationsService,
@@ -43,15 +45,18 @@ export class PostulationsComponent implements OnInit {
     this.postulationsService.getPostulantesVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.postulantes = resp.data.Postulaciones;
+        this.nombre = resp.data.Usuario.nombre;
+        this.puesto = resp.data.puesto;
       }
     })
   }
 
-  aceptarPostulacion(idPostulacion) {
+  aceptarPostulacion(idPostulacion, idUsuario) {
     this.postulationsService.aceptarPostulacion(idPostulacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.doneMassage("Acepto al postulante");
         this.getPostulantes();
+         this.addNotificacion(idUsuario);
       }
     })
   }
@@ -70,12 +75,23 @@ export class PostulationsComponent implements OnInit {
     this.router.navigate(['/see-profile', idPostulacion]);
   }
 
+  addNotificacion(idUsuario) {
+    let url = '/postulate-vacancy/' + this.idVacante; 
+    let titulo = 'Felicidades ' +this.nombre + ' acepto tu postulacion!';
+    let mensaje = 'La empresa ' + this.nombre + ' acepto tu postulacion de su vacante para ' + this.puesto;
+    this.postulationsService.addNotificacion(url, titulo, mensaje, this.idVacante, idUsuario).subscribe((resp: AuthResponseI) => {
+      if (!resp.status) {
+        console.log(resp);
+      }
+    });
+  }
+
   handlePage(e: PageEvent) {
     this.page_size = e.pageSize;
     this.page_number = e.pageIndex + 1;
   }
 
-  confirmarAceptarPostulacion(idPostulacion) {
+  confirmarAceptarPostulacion(idPostulacion, idUsuario) {
     Swal.fire({
       icon: 'info',
       title: "¿Estas seguro que deseas aceptar al postulante?",
@@ -84,7 +100,7 @@ export class PostulationsComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.aceptarPostulacion(idPostulacion);
+        this.aceptarPostulacion(idPostulacion, idUsuario);
       }
     })
   }

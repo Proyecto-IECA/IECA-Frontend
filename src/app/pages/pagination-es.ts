@@ -7,8 +7,10 @@ export class CustomMatPaginatiorItnl extends MatPaginatorIntl {
     constructor() {
         super();
     }
-
-    itemsPerPageLabel = 'Vacantes por página';
+    
+    
+    
+    itemsPerPageLabel = this.getLabel();
     nextPageLabel = 'Siguiente';
     previousPageLabel = 'Atras';
     firstPageLabel = 'Primera página';
@@ -22,7 +24,22 @@ export class CustomMatPaginatiorItnl extends MatPaginatorIntl {
         length = Math.max(length, 0);
         const startIndex = page * pageSize;
         const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length): startIndex + pageSize;
+       
         return `${startIndex + 1} - ${endIndex} de ${length}`;
+    }
+
+    getLabel() {
+        const tipo_usuario = localStorage.getItem("tipo_usuario") || "";
+        let label = '';
+
+        if (tipo_usuario == "Postulante") {
+            label = "Vacantes por página";
+        }
+        if (tipo_usuario == "Empresa") {
+            label = "Postulaciones por página";
+        }
+
+        return label;
     }
 
 }
