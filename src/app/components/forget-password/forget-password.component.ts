@@ -62,9 +62,9 @@ export class ForgetPasswordComponent implements OnInit {
   errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: 'error',
-      title: 'Petición NO procesada',
-      text: `Vuelve a intentar de nuevo...
-      Si el error persiste ponerse en contacto con soporte técnico`,
+      title: 'Petición no procesada',
+      text: `Vuelve a intentar de nuevo.
+      Si el error persiste, comuníquese con soporte técnico.`,
     });
     console.log(error);
   }
@@ -83,7 +83,7 @@ export class ForgetPasswordComponent implements OnInit {
     Swal.fire({
       icon: 'success',
       title: 'Contraseña actualizada',
-      text: 'Favor de probar tu nueva contraseña',
+      text: 'Ya puedes utilizar tu nueva contraseña.',
       showConfirmButton: false,
       timer: 2700
     });
@@ -120,7 +120,7 @@ export class ForgetPasswordComponent implements OnInit {
       /* Mensaje de error en Sweetalert2 */
       Swal.fire({
         icon: 'error',
-        title: 'Error en contraseñas',
+        title: 'Verifica tu contraseña',
         text: 'Las contraseñas no son iguales'
       });
       return;

@@ -108,7 +108,7 @@ export class MyVacanciesComponent implements OnInit {
       icon: 'warning',
       title: "¿Está seguro que desea eliminar esta vacante?",
       showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
+      confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {

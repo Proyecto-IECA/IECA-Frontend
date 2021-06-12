@@ -121,7 +121,7 @@ export class PostulateVacancyComponent implements OnInit {
   confirmarPostulacion() {
     Swal.fire({
       icon: 'info',
-      title: "¿Está seguro que desea postularte a esta vacante?",
+      title: "¿Está seguro que desea postularse a esta vacante?",
       showCancelButton: true,
       confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'

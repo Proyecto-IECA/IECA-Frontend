@@ -34,17 +34,17 @@ export class ValidEmailComponent implements OnInit {
     errorServer(): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
         Swal.fire({
             icon: 'error',
-            title: 'Petición NO procesada',
-            text: `Vuelve a intentar de nuevo...
-      Si el error persiste ponerse en contacto con soporte técnico`,
+            title: 'Petición no procesada',
+            text: `Vuelve a intentar de nuevo.
+            Si el error persiste, comuníquese con soporte técnico.`,
         });
     }
 
     errorMassage(): void {
         Swal.fire({
             icon: 'error',
-            title: 'Ocurrio un error al enviar el correo',
-            text: 'Vuelve a intentarlo de nuevo...',
+            title: 'Ocurrió un error al enviar el correo',
+            text: 'Vuelve a intentarlo de nuevo.',
         });
     }
 
@@ -52,7 +52,7 @@ export class ValidEmailComponent implements OnInit {
         Swal.fire({
             icon: 'success',
             title: 'Correo enviado',
-            text: 'Favor de revisar su bandeja de entrada o spam',
+            text: 'Por favor revise su bandeja de entrada o spam',
             showConfirmButton: false,
             timer: 2700
         });

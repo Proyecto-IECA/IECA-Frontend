@@ -78,9 +78,9 @@ export class PostulationsComponent implements OnInit {
   confirmarAceptarPostulacion(idPostulacion) {
     Swal.fire({
       icon: 'info',
-      title: "¿Estas seguro que deseas aceptar al postulante?",
+      title: "¿Está seguro que desea aceptar al postulante?",
       showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
+      confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
@@ -92,11 +92,11 @@ export class PostulationsComponent implements OnInit {
   confirmarRechazarPostulacion(idPostulacion) {
     Swal.fire({
       icon: 'info',
-      title: "¿Estas seguro que deseas rechazar al postulante?",
+      title: "¿Está seguro que desea rechazar al postulante?",
       input: 'textarea',
       inputPlaceholder: 'Deja un comentario',
       showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
+      confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar',
       preConfirm: (comentario) => {
         this.rechazarPostulacion(idPostulacion, comentario);

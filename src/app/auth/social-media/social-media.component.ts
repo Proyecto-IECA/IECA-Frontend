@@ -15,7 +15,7 @@ export class SocialMediaComponent implements OnInit {
 
   accountIECA(): void {
     Swal.fire({
-      title: 'Vincular cuenta de IECA',
+      title: 'Vincula tu cuenta de IECA',
       text: 'Escribe tu correo electrónico',
       input: 'email',
       inputPlaceholder: 'ejemplo@swal.com',

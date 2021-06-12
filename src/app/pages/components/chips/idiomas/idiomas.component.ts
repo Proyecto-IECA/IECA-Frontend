@@ -149,7 +149,7 @@ export class IdiomasComponent implements OnInit {
    errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: 'error',
-      title: 'Petición NO procesada',
+      title: 'Petición no procesada',
       text: `Vuelve a intentar de nuevo.
       Si el error persiste, comuníquese con el soporte técnico.`,
     });
@@ -159,8 +159,8 @@ export class IdiomasComponent implements OnInit {
   errorMassage(): void {
     Swal.fire({
       icon: 'error',
-      title: 'Revisa el formulario',
-      text: 'Revisa que el formulario esté correctamente llenado',
+      title: 'Verifica el formulario',
+      text: 'Verifica que el formulario este completo.',
       showConfirmButton: false,
       timer: 2700
     });
