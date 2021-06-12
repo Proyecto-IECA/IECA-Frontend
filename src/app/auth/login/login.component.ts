@@ -61,14 +61,14 @@ export class LoginComponent implements OnInit {
           if (!resp.status) {
             /* Mensaje de error, preguntar si quiere intentarlo de nuevo */
             Swal.fire({
-              title: 'No encotramos tu correo electrónico',
-              text: '¿Quieres volver a intentar?',
+              title: 'No encontramos tu correo electrónico.',
+              text: '¿Quieres volver a intentarlo?',
               icon: 'question',
               showCancelButton: true,
-              cancelButtonText: 'No, gracias!',
+              cancelButtonText: 'No, gracias',
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, por favor!'
+              confirmButtonText: 'Sí, por favor'
             }).then((result) => {
               if (result.isConfirmed) {
                 this.recoverPassword();
@@ -90,9 +90,9 @@ export class LoginComponent implements OnInit {
   errorServer(): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: 'error',
-      title: 'Petición NO procesada',
-      text: `Vuelve a intentar de nuevo...
-      Si el error persiste ponerse en contacto con soporte técnico`,
+      title: 'Petición no procesada',
+      text: `Vuelve a intentar de nuevo.
+      Si el error persiste, comuníquese con soporte técnico.`,
     });
   }
 
@@ -100,9 +100,9 @@ export class LoginComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Datos incorrectos',
-      text: 'Vuelve a intentar de nuevo...',
+      text: 'Vuelve a intentar de nuevo.',
       showCancelButton: true,
-      confirmButtonText: '¿Olvidaste la contraseña?',
+      confirmButtonText: '¿Olvidaste tu contraseña?',
       cancelButtonText: 'Intentarlo de nuevo',
       reverseButtons: true
     }).then((result) => {
@@ -118,7 +118,7 @@ export class LoginComponent implements OnInit {
       title: 'Datos incorrectos',
       text: message,
       showCancelButton: true,
-      confirmButtonText: '¿Olvidaste la contraseña?',
+      confirmButtonText: '¿Olvidaste tu contraseña?',
       cancelButtonText: 'Intentarlo de nuevo',
       reverseButtons: true
     }).then((result) => {
@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit {
     Swal.fire({
       icon: 'success',
       title: 'Correo enviado',
-      text: 'Favor de revisar su bandeja de entrada o spam',
+      text: 'Por favor revise su bandeja de entrada o spam',
       showConfirmButton: false,
       timer: 2700
     });

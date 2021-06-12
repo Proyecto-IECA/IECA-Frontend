@@ -224,9 +224,9 @@ export class UserProfileComponent implements OnInit {
     // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: "error",
-      title: "Petición NO procesada",
-      text: `Vuelve a intentar de nuevo...
-        Si el error persiste ponerse en contacto con soporte técnico`,
+      title: "Petición no procesada",
+      text: `Vuelve a intentar de nuevo.
+      Si el error persiste, comuníquese con el soporte técnico.`,
     });
     console.log(error);
   }

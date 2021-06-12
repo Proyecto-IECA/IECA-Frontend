@@ -79,9 +79,9 @@ export class RegisterComponent implements OnInit {
   errorServer(error: any): void { // Lo sentimos su petición no puede ser procesada, favor de ponerse en contacto con soporte técnico
     Swal.fire({
       icon: 'error',
-      title: 'Petición NO procesada',
-      text: `Vuelve a intentar de nuevo...
-      Si el error persiste ponerse en contacto con soporte técnico`,
+      title: 'Petición no procesada',
+      text: `Vuelve a intentar de nuevo.
+      Si el error persiste, comuníquese con soporte técnico.`,
     });
     console.log(error);
   }
@@ -98,7 +98,7 @@ export class RegisterComponent implements OnInit {
     Swal.fire({
       icon: 'success',
       title: 'Correo enviado',
-      text: 'Favor de revisar su bandeja de entrada o spam',
+      text: 'Por favor revise su bandeja de entrada o spam',
       showConfirmButton: false,
       timer: 2700
     });

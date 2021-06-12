@@ -60,9 +60,9 @@ export class MyPostulationsComponent implements OnInit {
   confirmarCancelarPostulacion(idPostulacion) {
     Swal.fire({
       icon: 'info',
-      title: "¿Estas seguro que deseas cancelar tu postulacion?",
+      title: "¿Está seguro que desea cancelar su postulación?",
       showCancelButton: true,
-      confirmButtonText: 'Si, estoy seguro',
+      confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
