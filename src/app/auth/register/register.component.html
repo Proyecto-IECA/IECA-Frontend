@@ -53,7 +53,7 @@
         <input type="text" placeholder="CURP" formControlName="curp" />
     </div>
     <small *ngIf="controlNoValid(registerUsuarioForm, 'curp') && part" class="form-text text-danger">
-    * CURP inválida
+    * CURP inválido
     <br />
     </small>
 
@@ -81,7 +81,7 @@
         <input type="password" placeholder="Confirmar Contraseña" formControlName="password" />
     </div>
     <small *ngIf="validarPassword(registerUsuarioForm) && !part" class="form-text text-danger">
-    ** La contraseña no coincide
+    * La contraseña no coincide
     <br />
   </small>
 
@@ -100,8 +100,7 @@
         Registrar
       </button>
         </div>
-        <p *ngIf="registerUsuarioForm.invalid && registerUsuarioForm.pristine && registerUsuarioForm.touched && registerUsuarioForm.errors"
-           class="text-danger">
+        <p *ngIf="registerUsuarioForm.invalid && registerUsuarioForm.pristine && registerUsuarioForm.touched && registerUsuarioForm.errors" class="text-danger">
             * Tienes campos por llenar
         </p>
     </div>
@@ -146,7 +145,7 @@
         <!--Cambiar a un desplegable (Select)-->
     </div>
     <small *ngIf="controlNoValid(registerEmpresaForm, 'giro')" class="form-text text-danger">
-        * Selecionar una opción válida
+        * Seleciona una opción válida
         <br />
       </small>
     <!-- Email -->
@@ -173,7 +172,7 @@
         <input type="password" placeholder="Confirmar Contraseña" formControlName="password" />
     </div>
     <small *ngIf="validarPassword(registerEmpresaForm)" class="form-text text-danger">
-        ** La contraseña no concide
+        * La contraseña no concide
       </small>
     <br />
 
@@ -190,8 +189,7 @@
             </button> &nbsp;
             <button *ngIf="registerEmpresaForm.valid" [disabled]="registerEmpresaForm.invalid" type="submit" class="btn btn-work">Registrar</button>
         </div>
-        <p *ngIf="registerEmpresaForm.invalid && registerEmpresaForm.pristine && registerEmpresaForm.touched && registerEmpresaForm.errors"
-           class="text-danger">
+        <p *ngIf="registerEmpresaForm.invalid && registerEmpresaForm.pristine && registerEmpresaForm.touched && registerEmpresaForm.errors" class="text-danger">
             * Tienes campos por llenar
         </p>
     </div>

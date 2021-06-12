@@ -45,7 +45,7 @@
                         <h4 class="card-description font-weight-bold">{{ company.telefono }}</h4>
 
                         <input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil (change)="capturarImage($event)">
-                        <p *ngIf="extensionValid" class="text-danger">Formatos validos '.png' '.jpg' '.jpeg'</p>
+                        <p *ngIf="extensionValid" class="text-danger">Formatos válidos '.png' '.jpg' '.jpeg'</p>
                         <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 75 Kilobytes</p>
                         <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
                     </div>

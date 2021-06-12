@@ -40,11 +40,11 @@
                             </div>
                         </div>
                         <div class="posicion-b-r">
-                            <a class="text-danger" *ngIf="!vacante.Vacante.publicada && vacante.Vacante.activo && vacante.Vacante.disponible">Esta vacante ya no esta publica</a>
-                            <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada">Esta vacante se cerro</a>
-                            <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && !vacante.Vacante.publicada">Esta vacante se cerro o ya no esta pública</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.publicada && vacante.Vacante.activo && vacante.Vacante.disponible">Esta vacante ya no esta pública</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada">Esta vacante se cerr</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && !vacante.Vacante.publicada">Esta vacante se cerró o ya no esta pública</a>
                             <a class="text-danger" *ngIf="!vacante.Vacante.activo">Eliminaron esta vacante</a>
-                            <a class="text-primary" *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="visualizar(vacante.Vacante.id_vacante)" style="cursor:pointer">Ver más información</a>
+                            <a class="text-primary" *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="visualizar(vacante.Vacante.id_vacante)" style="cursor:pointer">Ver más ...</a>
                         </div>
                     </div>
                 </div>
