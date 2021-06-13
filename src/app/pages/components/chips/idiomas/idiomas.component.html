@@ -16,7 +16,7 @@
             <mat-chip-list #chipListI aria-label="idioma selection">
                 <mat-chip *ngFor="let idioma of idiomas" [selectable]="selectable" [removable]="removable" (removed)="removeIdi(idioma)">
                     {{idioma.descripcion}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    <mat-icon matTooltip="Eliminar" matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input placeholder="Nuevo Idioma" #idiomaInput [formControl]="idiomaCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListI" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addIdi($event)">
             </mat-chip-list>
@@ -27,7 +27,7 @@
             </mat-autocomplete>
         </mat-form-field>
         <div *ngIf="guardarIdioma" class="row justify-content-end">
-            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarIdiomas()" title="Guardar">
+            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarIdiomas()" matTooltip="Guardar">
                 <i class="material-icons">save</i>
             </button>
         </div>

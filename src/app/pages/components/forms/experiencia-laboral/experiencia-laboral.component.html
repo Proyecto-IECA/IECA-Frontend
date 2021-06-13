@@ -47,7 +47,7 @@
                 <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
                 <mat-datepicker #dp2 startView="multi-year" (yearSelected)="chosenYearHandler($event, 2)" (monthSelected)="chosenMonthHandler($event, dp2, 2)" panelClass="example-month-picker">
                 </mat-datepicker>
-                <mat-error *ngIf="fechaSalidaValida()">Ingresa un feacha válida</mat-error>
+                <mat-error *ngIf="fechaSalidaValida()">Ingresa un fecha válida</mat-error>
             </mat-form-field>
         </div>
         <!-- ===== Columna de Empleo estutus ===== -->
@@ -62,11 +62,11 @@
 
         <div class="row justify-content-end">
             <!-- ===== btn icon cancelar ===== -->
-            <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="cancelarAdd(formDirective)" title="Cancelar">
+            <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="cancelarAdd(formDirective)" matTooltip="Cancelar">
                 <i class="material-icons">close</i>
             </button>
             <!-- ===== btn icon aceptar ===== -->
-            <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r" title="Guardar">
+            <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r" matTooltip="Guardar">
                 <i class="material-icons">save</i>
             </button>
         </div>
@@ -76,11 +76,11 @@
     <div *ngIf="tipo=='update'" class="row justify-content-end">
         <!-- ===== btn icon cancelar ===== -->
         <!-- ===== btn icon cancelar ===== -->
-        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="deleteExpLaboral()" title="Borrar">
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="deleteExpLaboral()" matTooltip="Eliminar">
             <i class="material-icons">delete</i>
         </button>
         <!-- ===== btn icon aceptar ===== -->
-        <button type="submit" class="btn btn-color btn-sm btn-just-icon m-r" title="Editar">
+        <button type="submit" class="btn btn-color btn-sm btn-just-icon m-r" matTooltip="Editar">
             <i class="material-icons">edit</i>
         </button>
 

@@ -17,7 +17,7 @@
             <mat-chip-list #chipListH aria-label="habilidad selection">
                 <mat-chip *ngFor="let habilidad of habilidades" [selectable]="selectable" [removable]="removable" (removed)="removeHab(habilidad)">
                     {{habilidad.descripcion}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    <mat-icon matTooltip="Eliminar" matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input placeholder="Nueva Habilidad" #habilidadInput [formControl]="habilidadControl" [matAutocomplete]="auto" [matChipInputFor]="chipListH" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addHab($event)">
             </mat-chip-list>
@@ -28,7 +28,7 @@
             </mat-autocomplete>
         </mat-form-field>
         <div *ngIf="guardarHabilidad" class="row justify-content-end">
-            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarHabilidades()" title="Guardar">
+            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarHabilidades()" matTooltip="Guardar">
                 <i class="material-icons">save</i>
             </button>
         </div>

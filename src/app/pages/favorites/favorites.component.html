@@ -24,8 +24,8 @@
                 <div class="card mb-3">
                     <div class="posicion-t-r">
                         <!-- Boton de Favorito -->
-                        <mat-icon *ngIf="!vacante.Vacante.disponible || !vacante.Vacante.activo || !vacante.Vacante.publicada" class="text-danger justify-content-md-end fa fa-heart-broken"></mat-icon>
-                        <mat-icon *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="unmarkFavorite(vacante.id_vacante_favorita)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
+                        <mat-icon *ngIf="!vacante.Vacante.disponible || !vacante.Vacante.activo || !vacante.Vacante.publicada" class="text-danger justify-content-md-end fa fa-heart-broken" matTooltip="Agregar a favoritas"></mat-icon>
+                        <mat-icon *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="unmarkFavorite(vacante.id_vacante_favorita)" class="text-danger justify-content-md-end" matTooltip="Quitar de favoritas" style="cursor:pointer">favorite</mat-icon>
                     </div>
                     <div class="row g-0 align-items-center justify-content-center">
                         <div class="col-md-2">
@@ -44,7 +44,7 @@
                             <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada">Esta vacante se cerr</a>
                             <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && !vacante.Vacante.publicada">Esta vacante se cerró o ya no esta pública</a>
                             <a class="text-danger" *ngIf="!vacante.Vacante.activo">Eliminaron esta vacante</a>
-                            <a class="text-primary" *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="visualizar(vacante.Vacante.id_vacante)" style="cursor:pointer">Ver más ...</a>
+                            <a class="text-primary" *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="visualizar(vacante.Vacante.id_vacante)" matTooltip="Ver más información de esta vacante" style="cursor:pointer">Ver más ...</a>
                         </div>
                     </div>
                 </div>
