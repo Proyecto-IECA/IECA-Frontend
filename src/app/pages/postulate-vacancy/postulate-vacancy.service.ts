@@ -32,4 +32,5 @@ export class PostulateVacancyService {
     const idUsuario = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/postulaciones/validar/${idUsuario}/${idVacante}`);
   }
+  
 }

@@ -17,7 +17,7 @@
             <mat-chip-list #chipListV aria-label="valor selection">
                 <mat-chip *ngFor="let valor of valores" [selectable]="selectable" [removable]="removable" (removed)="removeVal(valor)">
                     {{valor.descripcion}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    <mat-icon matTooltip="Eliminar" matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input placeholder="Nuevo Valor" #valorInput [formControl]="valorCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListV" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addVal($event)">
             </mat-chip-list>
@@ -28,7 +28,7 @@
             </mat-autocomplete>
         </mat-form-field>
         <div *ngIf="guardarValor" class="row justify-content-end">
-            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarValores()" title="Guardar">
+            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarValores()" matTooltip="Guardar">
                 <i class="material-icons">save</i>
             </button>
         </div>

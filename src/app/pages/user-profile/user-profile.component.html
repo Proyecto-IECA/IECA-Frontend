@@ -7,6 +7,7 @@
 
     <div *ngIf="usuario">
         <div class="container-fluid">
+
             <!-- ===== Primer Renglón ===== -->
             <div class="row align-items-center">
                 <!-- ===== Columna de Perfil -->
@@ -14,7 +15,7 @@
                     <!-- ===== Foto de Perfil ====== -->
                     <div class="card card-profile">
                         <div class="card-avatar" *ngIf="!foto_perfil">
-                            <p (click)="inputFotoPerfil.click()">Cambiar</p>
+                            <p matTooltip="Cambiar foto de perfil" (click)="inputFotoPerfil.click()">Cambiar</p>
                             <img class="img" src="./assets/img/faces/marc.jpg" (click)="inputFotoPerfil.click()" />
                         </div>
                         <div class="card-avatar" *ngIf="foto_perfil">
@@ -31,11 +32,9 @@
                             <input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil (change)="capturarImage($event)">
                             <p *ngIf="extensionValid" class="text-danger">Formatos válidos '.png' '.jpg' '.jpeg'</p>
                             <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 75 Kilobytes</p>
-                            <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
+                            <button *ngIf="changeFoto" class="btn btn-rose" matTooltip="Guardar foto" (click)="guardarFoto()">Guardar foto</button>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- ===== Columna de Datos personales ===== -->
                 <div class="col-md-8">
@@ -80,7 +79,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Experiencia Laboral
-                                            <mat-icon class="text-primary">add</mat-icon>
+                                            <mat-icon class="text-primary" matTooltip="Agregar una nueva">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar una experiencia laboral ===== -->
@@ -94,7 +93,7 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{expL.empresa}}
-                                                <mat-icon *ngIf="expL.trabajando" class="text-primary">done</mat-icon>
+                                                <mat-icon *ngIf="expL.trabajando" class="text-primary" matTooltip="Empleo actual">done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para editar experiencia laboral ===== -->
@@ -135,7 +134,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Experiencia Académica
-                                            <mat-icon class="text-primary">add</mat-icon>
+                                            <mat-icon class="text-primary" matTooltip="Agregar una nueva">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar una experiencia academica ===== -->
@@ -150,7 +149,7 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{expA.institucion}}
-                                                <mat-icon *ngIf="expA.estudiando" class="text-primary">done</mat-icon>
+                                                <mat-icon *ngIf="expA.estudiando" class="text-primary" matTooltip="Estudio actual">done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para editar experiencia academica ===== -->
@@ -193,7 +192,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Nuevo curso o certificacion
-                                            <mat-icon class="text-primary">add</mat-icon>
+                                            <mat-icon class="text-primary" matTooltip="Agregar una nueva">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar un curso o certificacion ===== -->
@@ -232,7 +231,7 @@
                         <div class="col-md-12 text-center">
                             <img src="../../../assets/img/log.svg" class="img-fluid" alt="..." width="50%">
                         </div>
-                        <button class="btn btn-primary m-t" type="button">Descargar CV</button>
+                        <button class="btn btn-primary m-t" type="button" matTooltip="Descargar Curriculum Vitae">Descargar CV</button>
 
                     </div>
                 </div>
