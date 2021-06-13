@@ -37,7 +37,6 @@ export class PostulateVacancyService {
     const idUsuario = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/postulaciones/validar/${idUsuario}/${idVacante}`);
   }
-<<<<<<< HEAD
 
   addNotificacion(url, titulo, mensaje, idPostulacion, idReceptor) {
     const data = {
@@ -51,7 +50,4 @@ export class PostulateVacancyService {
     return this.http.post(`${baseUrl}/notificaciones`, data);
   }
 
-=======
-  
->>>>>>> saris
 }
