@@ -129,7 +129,7 @@
                                 <div class="col-md-6 ">
                                     <!-- Switcher icon -->
                                     <mat-slide-toggle id="sucuarsales" class="justify-content-start" (change)="haveBranches = $event.checked" [checked]="haveBranches" [disabled]="company.numero_sucursales > 0">
-                                        ¿Cuenta con más sucursales?
+                                        ¿Hay más sucursales en la empresa?
                                     </mat-slide-toggle>
                                 </div>
 
@@ -138,12 +138,12 @@
                                     <div class="row justify-content-end">
 
                                         <!-- Restaurar el formulario -->
-                                        <button type="button" (click)="loadData()" title="Restaurar" class="btn btn-warning btn-sm btn-just-icon m-r">
+                                        <button type="button" matTooltip="Restaurar" (click)="loadData()" class="btn btn-warning btn-sm btn-just-icon m-r">
                                             <i class="material-icons md-36">settings_backup_restore</i>
                                         </button>
 
                                         <!-- Guardar cambios -->
-                                        <button type="submit" matTooltip="Guardar" matTooltipClass="tooltip-gray" class="btn btn-primary btn-sm btn-just-icon m-r">
+                                        <button type="submit" matTooltip="Guardar" matTooltipClass="tooltip-gray" class="btn btn-success btn-sm btn-just-icon m-r">
                                             <i class="material-icons md-36">save</i>
                                         </button>
                                     </div>

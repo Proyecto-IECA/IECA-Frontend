@@ -58,7 +58,7 @@ export class PostulationsComponent implements OnInit {
       if (resp.status) {
         this.doneMassage("Acepto al postulante");
         this.getPostulantes();
-        this.addNotificacion(idUsuario, 'acepto', 'Felicidades, ');
+        this.addNotificacion(idUsuario, 'aceptó', 'Felicidades, ');
       }
     })
   }
@@ -68,7 +68,7 @@ export class PostulationsComponent implements OnInit {
       if (resp.status) {
         this.doneMassage("Rechazo al postulante");
         this.getPostulantes();
-        this.addNotificacion(idUsuario, 'rechazo', 'Lo sentimos, ');
+        this.addNotificacion(idUsuario, 'rechazó', 'Lo sentimos, ');
       }
     })
   }
@@ -80,8 +80,8 @@ export class PostulationsComponent implements OnInit {
 
   addNotificacion(idUsuario, status, inicio) {
     let url = '/postulate-vacancy/' + this.idVacante; 
-    let titulo = inicio + this.nombre + ' ' + status + ' tu postulacion!';
-    let mensaje = 'La empresa ' + this.nombre + ' ' + status + ' tu postulacion de su vacante para ' + this.puesto;
+    let titulo = inicio + this.nombre + ' ' + status + ' tu postulación!';
+    let mensaje = 'La empresa ' + this.nombre + ' ' + status + ' tu postulación de su vacante para ' + this.puesto;
     this.postulationsService.addNotificacion(url, titulo, mensaje, this.idVacante, idUsuario).subscribe((resp: AuthResponseI) => {
       if (!resp.status) {
         console.log(resp);
