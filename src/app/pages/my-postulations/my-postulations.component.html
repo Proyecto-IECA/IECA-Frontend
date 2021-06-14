@@ -66,14 +66,14 @@
                                 <td>{{postulacion.Vacante.puesto}}</td>
                                 <td>{{postulacion.Vacante.nivel}}</td>
                                 <td>{{postulacion.Vacante.modalidad}}</td>
-                                <td *ngIf="statusVacante(postulacion.rechazada)" class="text-danger">Rechazada</td>
-                                <td *ngIf="statusVacante(postulacion.aceptada)" class="text-success">Aceptada</td>
-                                <td *ngIf="!statusVacante(postulacion.rechazada) && !statusVacante(postulacion.aceptada)" class="text-info">Pendiente</td>
+                                <td *ngIf="postulacion.rechazada" class="text-danger">Rechazada</td>
+                                <td *ngIf="postulacion.aceptada" class="text-success">Aceptada</td>
+                                <td *ngIf="!postulacion.rechazada && !postulacion.aceptada" class="text-info">Pendiente</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm btn-just-icon" matTooltip="Ver comentario" (click)="verComentario(postulacion.titulo, postulacion.comentario)">
+                                    <button *ngIf="postulacion.rechazada || postulacion.aceptada" class="btn btn-primary btn-sm btn-just-icon" matTooltip="Ver comentario" (click)="verComentario(postulacion.titulo, postulacion.comentario)">
                                         <i class="material-icons">comment</i>
                                     </button>
-                                    <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Cancelar postulación" (click)="confirmarCancelarPostulacion(postulacion.id_postulacion)">
+                                    <button *ngIf="!postulacion.rechazada && !postulacion.aceptada" class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Cancelar postulación" (click)="confirmarCancelarPostulacion(postulacion.id_postulacion)">
                                         <i class="material-icons">close</i>
                                     </button>
                                 </td>

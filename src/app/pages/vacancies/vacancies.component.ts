@@ -157,8 +157,6 @@ export class VacanciesComponent implements OnInit {
         this.doneMassage("Vacante agregada a favoritas");
       }
     })
-
-    // this.vacantesService.markFavorite(id_vacante);
   }
 
   unmarkFavorite(vacantesFav: VacantesFavI[]): void {
@@ -168,7 +166,6 @@ export class VacanciesComponent implements OnInit {
         this.doneMassage("Vacante eliminada de favoritas");
       }
     })
-    // this.vacantesService.unmarkFavorite(id_vacante);
   }
 
   handlePage(e: PageEvent) {

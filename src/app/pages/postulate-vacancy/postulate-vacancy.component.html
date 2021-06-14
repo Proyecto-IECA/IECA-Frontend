@@ -27,7 +27,8 @@
                             </div>
                             <div class="posicion-t-r">
                                 <!-- Boton de Favorito -->
-                                <mat-icon class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
+                                <mat-icon *ngIf="vacantesFav.length > 0" (click)="unmarkFavorite()" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
+                                <mat-icon *ngIf="vacantesFav.length == 0" (click)="markFavorite()" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
                             </div>
                             <div class="posicion-b-r" *ngIf="postulacion">
                                 <!-- <p *ngIf="validacionCurso">Estamos validando tu perfil</p> -->

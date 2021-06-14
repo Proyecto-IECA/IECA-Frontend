@@ -5,6 +5,7 @@ import { PostulateVacancyService } from './postulate-vacancy.service';
 import { AuthResponseI } from '../../models/auth-response';
 import Swal from 'sweetalert2';
 import { GuardsService } from '../../services/guards.service';
+import { VacantesFavI } from 'app/models/vacantes_favoritas';
 
 @Component({
   selector: 'app-postulate-vacancy',
@@ -19,6 +20,7 @@ export class PostulateVacancyComponent implements OnInit {
   nombre: string;
   puesto: string;
   vacante: VacantesI;
+  vacantesFav: VacantesFavI[] = [];
   postulacion = true;
   activedPostulacion = true;
   idPostulacion: number;
@@ -56,6 +58,7 @@ export class PostulateVacancyComponent implements OnInit {
     this.postulateVacancyService.getVacante(this.idVacante).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this.vacante = resp.data;
+        this.vacantesFav = resp.data.Vacantes_Favoritas;
         this.puesto = resp.data.puesto;
         this.idCompany = resp.data.id_usuario_fk;
       }
@@ -116,6 +119,24 @@ export class PostulateVacancyComponent implements OnInit {
         this.addNotificacion('cancelo su postulacion', 2)
       }
     });
+  }
+
+  markFavorite(): void {
+    this.postulateVacancyService.markFavorite(this.idVacante).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.vacantesFav.push(resp.data);
+        this.doneMassage("Vacante agregada a favoritas");
+      }
+    })
+  }
+
+  unmarkFavorite(): void {
+    this.postulateVacancyService.unmarkFavorite(this.vacantesFav[0].id_vacante_favorita).subscribe((resp: AuthResponseI) => {
+      if (resp.status) {
+        this.vacantesFav.pop();
+        this.doneMassage("Vacante eliminada de favoritas");
+      }
+    })
   }
 
   verComentario(titulo, comentario) {

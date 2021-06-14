@@ -17,7 +17,8 @@ export class PostulateVacancyService {
   }
   
   getVacante(idVacante) {
-    return this.http.get(`${baseUrl}/vacantes/vacante/${idVacante}`);
+    const id = localStorage.getItem('id_usuario');
+    return this.http.get(`${baseUrl}/vacantes/vacante/${idVacante}/${id}`);
   }
 
   addPostulante(idVacante){
@@ -37,6 +38,20 @@ export class PostulateVacancyService {
     const idUsuario = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/postulaciones/validar/${idUsuario}/${idVacante}`);
   }
+
+  markFavorite(idVacante) {
+    const id = localStorage.getItem('id_usuario');
+    const formData = {
+      id_usuario_fk: id,
+      id_vacante_fk: idVacante
+    }
+    return this.http.post(`${baseUrl}/vacantes-favoritas`, formData);
+  }
+
+  unmarkFavorite(idVacanteFav) {
+    return this.http.delete(`${baseUrl}/vacantes-favoritas/${idVacanteFav}`);
+  }
+
 
   addNotificacion(url, titulo, mensaje, idPostulacion, idReceptor) {
     const data = {
