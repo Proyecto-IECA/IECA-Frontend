@@ -37,14 +37,14 @@
                         <div class="col-md-5">
                             <div class="input-group no-border">
                                 <input type="text" value="" class="form-control" placeholder="Buscar por puesto, modalidad, nivel o empresa ..." [formControl]="search">
-                                <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" title="Filtrar">
+                                <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" matTooltip="Buscar">
                                     <i class="material-icons">search</i>
                                     <div class="ripple-container"></div>
                                 </button>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-primary" (click)="filtrarVcantes()" [disabled]="!filterActive">Filtrar</button>
+                            <button class="btn btn-primary" matTooltip="Filtrar" (click)="filtrarVcantes()" [disabled]="!filterActive">Filtrar</button>
                         </div>
                     </div>
 
@@ -55,7 +55,7 @@
         <!-- Sin Vacantes -->
         <div *ngIf="vacantes.length == 0">
             <h3 class="font-weight-bold text-center text-primary">¡No se han encontrado resultados!</h3>
-            <img src="../../../assets/img/without_result.svg" class="img-fluid rounded mx-auto d-block" alt="...">
+            <img src="../../../assets/img/without_result.svg" class="img-fluid rounded mx-auto d-block" alt="Imagen para representar que no hay resultados">
         </div>
 
         <!-- Lista de Vacantes -->
@@ -64,13 +64,13 @@
                 <div class="card mb-3">
                     <div class="posicion-t-r">
                         <!-- Boton de Favorito -->
-                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length > 0" (click)="unmarkFavorite(vacante.Vacantes_Favoritas)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
-                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length == 0" (click)="markFavorite(vacante)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
+                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length > 0" matTooltip="Quitar de favoritas" (click)="unmarkFavorite(vacante.Vacantes_Favoritas)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
+                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length == 0" matTooltip="Agregar a favoritas" (click)="markFavorite(vacante)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
                     </div>
                     <div class="row g-0 align-items-center justify-content-center">
                         <div class="col-md-2">
-                            <img *ngIf="!vacante.Usuario.foto_perfil" src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="...">
-                            <img *ngIf="vacante.Usuario.foto_perfil" [src]="vacante.Usuario.foto_perfil" class="card-img-bottom" alt="...">
+                            <img *ngIf="!vacante.Usuario.foto_perfil" src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="Foto de perfil predeterminada de IECA">
+                            <img *ngIf="vacante.Usuario.foto_perfil" [src]="vacante.Usuario.foto_perfil" class="card-img-bottom" alt="Foto de perfil asignada por la empresa">
 
                         </div>
                         <div class="col-md-8">
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <div class="posicion-b-r">
-                            <a class="text-primary" (click)="visualizar(vacante.id_vacante)" style="cursor:pointer">Ver más ...</a>
+                            <a class="text-primary" matTooltip="Ver más información de esta vacante" (click)="visualizar(vacante.id_vacante)" style="cursor:pointer">Ver más ...</a>
                         </div>
                     </div>
                 </div>

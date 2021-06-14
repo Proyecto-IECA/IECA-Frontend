@@ -17,7 +17,7 @@
             <mat-chip-list #chipListP aria-label="valor selection">
                 <mat-chip *ngFor="let perfil of perfiles" [selectable]="selectable" [removable]="removable" (removed)="removePer(perfil)">
                     {{perfil.descripcion}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    <mat-icon matTooltip="Eliminar" matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input placeholder="Nuevo Perfil" #perfilInput [formControl]="perfilCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListP" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addPer($event)">
             </mat-chip-list>
@@ -28,7 +28,7 @@
             </mat-autocomplete>
         </mat-form-field>
         <div *ngIf="guardarPerfil" class="row justify-content-end">
-            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarPerfiles()" title="Guardar">
+            <button type="button" class="btn btn-success btn-sm btn-just-icon m-r" (click)="guardarPerfiles()" matTooltip="Guardar">
                 <i class="material-icons">save</i>
             </button>
         </div>

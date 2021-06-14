@@ -114,9 +114,9 @@ export class SeeProfileComponent implements OnInit {
   aceptarPostulacion() {
     this.seeProfileService.aceptarPostulacion(this.idPostulacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.doneMassage("Acepto al postulante");
+        this.doneMassage("Aceptó al postulante");
         this.updatePostulante();
-        this.addNotificacion('acepto', 'Felicidades, ');
+        this.addNotificacion('aceptó', 'Felicidades, ');
       }
     })
   }
@@ -124,9 +124,9 @@ export class SeeProfileComponent implements OnInit {
   rechazarPostulacion(comentario) {
     this.seeProfileService.rechazarPostulacion(this.idPostulacion, comentario).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
-        this.doneMassage("Rechazo al postulante");
+        this.doneMassage("Rechazó al postulante");
         this.updatePostulante();
-        this.addNotificacion('rechazo', 'Lo sentimos, ');
+        this.addNotificacion('rechazó', 'Lo sentimos, ');
       }
     })
   }

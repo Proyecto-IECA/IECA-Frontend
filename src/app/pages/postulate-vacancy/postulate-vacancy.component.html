@@ -31,15 +31,12 @@
                                 <mat-icon *ngIf="vacantesFav.length == 0" (click)="markFavorite()" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
                             </div>
                             <div class="posicion-b-r" *ngIf="postulacion">
-                                <!-- <p *ngIf="validacionCurso">Estamos validando tu perfil</p> -->
-                                <button class="btn btn-primary btn-sm" (click)="validarPerfil()">Postularme</button>
-                                <!-- <p *ngIf="activedPostulacion && !validacionCurso">Tu perfil no cumple los requisitos para poder postularte</p> -->
+                                <button class="btn btn-primary btn-sm" (click)="validarPerfil()" matTooltip="Postularte a esta vacante">Postularme</button>
                             </div>
                             <div class="posicion-b-r" *ngIf="!postulacion">
-                                <button *ngIf="pendiente" class="btn btn-danger btn-sm " (click)="confirmarCancelarPostulacion()">Cancelar Postulacion</button>
+                                <button *ngIf="pendiente" class="btn btn-danger btn-sm " (click)="confirmarCancelarPostulacion()" matTooltip="Cancelar postulación">Cancelar Postulación</button>
                                 <p *ngIf="rechazada" class="card-description" style="margin-bottom: 0px;">Status: <span class="text-danger">Rechazada</span></p>
                                 <p *ngIf="aceptada" class="card-description" style="margin-bottom: 0px;">Status: <span class="text-success">Aceptada</span></p>
-
                             </div>
                         </div>
                     </div>

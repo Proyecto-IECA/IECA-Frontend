@@ -106,7 +106,7 @@ export class PostulateVacancyComponent implements OnInit {
         this.idPostulacion = resp.data.id_postulacion;
         this.doneMassage('Éxito al postularse');
         this.postulacion = false;
-        this.addNotificacion('se postulo a tu vacante', 1);
+        this.addNotificacion('se postuló a tu vacante', 1);
       }
     });
   }
@@ -116,7 +116,7 @@ export class PostulateVacancyComponent implements OnInit {
       if (resp.status) {
         this.doneMassage('Se canceló tu postulación');
         this.postulacion = true;
-        this.addNotificacion('cancelo su postulacion', 2)
+        this.addNotificacion('canceló su postulacion', 2)
       }
     });
   }
@@ -208,7 +208,7 @@ export class PostulateVacancyComponent implements OnInit {
   confirmarCancelarPostulacion() {
     Swal.fire({
       icon: 'info',
-      title: "¿Está seguro que desea cancelar su postulacion?",
+      title: "¿Está seguro que desea cancelar su postulación?",
       showCancelButton: true,
       confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'
