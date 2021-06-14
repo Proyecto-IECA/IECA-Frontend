@@ -15,4 +15,8 @@ export class NotificationsService {
     const id = localStorage.getItem('id_usuario');
     return this.http.get(`${baseUrl}/${id}`);
   }
+
+  verNotificacion(idPostulacion) {
+    return this.http.get(`${baseUrl}/ver/${idPostulacion}`);
+  }
 }
