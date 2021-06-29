@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 const baseUrl = environment.baseUrl + '/usuarios';
+const baseUrl2 = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +33,11 @@ export class AuthUserService {
   }
 
   sendEmail(formData) {
-    console.log(formData);
     return this.http.post(`${baseUrl}/send-email/`, formData)
+  }
+
+  vincularCuenta(CURP) {
+    return this.http.get(`${baseUrl2}/vincular-cuenta/${CURP}`);
   }
 
   logout(): void {
