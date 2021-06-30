@@ -9,6 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { PerfilI } from '../../models/perfil';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { SearchPipe } from '../pipes/search.pipe';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class VacanciesComponent implements OnInit {
   recientesAux = true
   filterActive = false;
   searchValue = '';
+  spinerActived = true;
 
   vacantes: VacantesI[] = [];
   perfiles: PerfilI[] = [];
@@ -60,6 +62,7 @@ export class VacanciesComponent implements OnInit {
   ngOnInit(): void {
     this.vacantesService.getVacantes(this.filtered).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
+        this.spinerActived = false;
         this.vacantes = resp.data;
       }
     });
@@ -75,7 +78,7 @@ export class VacanciesComponent implements OnInit {
       debounceTime(300)
     )  
     .subscribe((value) => {
-      this.searchValue = value;
+        this.searchValue = value;
     });
   }
 
@@ -191,5 +194,18 @@ export class VacanciesComponent implements OnInit {
       showConfirmButton: false,
       timer: 2700
     });
+  }
+
+  filterVacantes() {
+    const newSearchValue = this.searchValue.toUpperCase();
+    const vacantesFilter =  this.vacantes.filter(
+      (vacante) =>
+        vacante.puesto.toUpperCase().includes(newSearchValue) ||
+        vacante.modalidad.toUpperCase().includes(newSearchValue) ||
+        vacante.nivel.toUpperCase().includes(newSearchValue) ||
+        vacante.Usuario.nombre.toUpperCase().includes(newSearchValue) 
+    );  
+    if (vacantesFilter.length > 0 ) return true;
+    return false;
   }
 }

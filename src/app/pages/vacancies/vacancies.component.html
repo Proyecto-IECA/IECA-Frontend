@@ -52,14 +52,19 @@
             </div>
         </div>
 
+        <!-- Spiner -->
+        <div *ngIf="spinerActived" class="row justify-content-center align-items-center vh-100">
+            <mat-spinner></mat-spinner>
+        </div>
+
         <!-- Sin Vacantes -->
-        <div *ngIf="vacantes.length == 0">
-            <h3 class="font-weight-bold text-center text-primary">¡No se han encontrado resultados!</h3>
+        <div *ngIf="vacantes.length == 0 && !spinerActived">
+            <h3 class="font-weight-bold text-center text-primary">¡Por el momento no hay vacantes públicadas!</h3>
             <img src="../../../assets/img/without_result.svg" class="img-fluid rounded mx-auto d-block" alt="Imagen para representar que no hay resultados">
         </div>
 
         <!-- Lista de Vacantes -->
-        <div class="row" *ngIf="vacantes.length > 0">
+        <div class="row" *ngIf="vacantes.length > 0 && !spinerActived">
             <div class="col-md-12" *ngFor="let vacante of vacantes | paginate:page_size:page_number | search:searchValue">
                 <div class="card mb-3">
                     <div class="posicion-t-r">
@@ -88,6 +93,15 @@
                 </div>
             </div>
 
+
+            <div *ngIf="!filterVacantes() && !spinerActived">
+                <h3 class="font-weight-bold text-center text-primary">¡No se han encontrado resultados!</h3>
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <img src="../../../assets/img/without_result.svg" class="img-fluid rounded mx-auto d-block" alt="Imagen para representar que no hay resultados">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Paginación -->
