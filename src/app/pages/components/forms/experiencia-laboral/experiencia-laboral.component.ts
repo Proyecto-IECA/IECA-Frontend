@@ -174,7 +174,7 @@ export class ExperienciaLaboralComponent implements OnInit {
             formDirective.resetForm();
             this.laboralForm.get('trabajando').setValue(false);
             this._userProC.panelExpL = false;
-            this.doneMassage('Experiencia Laboral actualizada');
+            this.doneMassage('Experiencia laboral registrada');
           } else {
             console.log(resp);
             this.errorPeticion("Error al registrar la experiencia laboral");
@@ -200,9 +200,9 @@ export class ExperienciaLaboralComponent implements OnInit {
       this.expLabService.updateExpLaboral(this.experienciaLaboral.id_experiencia_laboral, this.laboralForm.value).subscribe((resp: AuthResponseI) => {
         if(resp.status) {
           this._userProC.getExperienciasLaborales();
-          this.doneMassage('Experiencia Laboral actualizada');
+          this.doneMassage('Experiencia laboral actualizada');
         } else {
-          this.errorPeticion(resp.data);
+          this.errorPeticion('Error al registrar la experiencia laboral');
         }
       }, (error) => this.errorServer(error))
     } else {
@@ -216,7 +216,7 @@ export class ExperienciaLaboralComponent implements OnInit {
         this._userProC.getExperienciasLaborales();
         this.doneMassage('Experiencia Laboral eliminada');
       } else {
-        this.errorPeticion(resp.data);
+        this.errorPeticion('Error al eliminar la experiencia laboral');
       }
     }, (error) => this.errorServer(error)); 
   }

@@ -143,7 +143,6 @@ export class ExperienciaAcademicaComponent implements OnInit {
     this.formSubmitted = true;
     if(this.academicaForm.valid) {
       this.expAcademicaSerice.addExpAcademica(this.academicaForm.value).subscribe((resp: AuthResponseI) => {
-        console.log(resp);
         if (resp.status) {
           this._userProC.getExperienciasAcademicas();
           this.formSubmitted = false;
@@ -151,9 +150,9 @@ export class ExperienciaAcademicaComponent implements OnInit {
           formDirective.resetForm();
           this.academicaForm.get('estudiando').setValue(false);
           this._userProC.panelExpA = false;
-          this.doneMassage(resp.data);
+          this.doneMassage('Experiencia academica registrada');
         } else {
-          this.errorPeticion(resp.data);
+          this.errorPeticion('Error al registrar la experiencia academica');
         }
       }, (error) => this.errorServer(error));
     } else {
@@ -175,9 +174,9 @@ export class ExperienciaAcademicaComponent implements OnInit {
       this.expAcademicaSerice.updateExpAcademica(this.experienciaAcademica.id_experiencia_academica, this.academicaForm.value).subscribe((resp: AuthResponseI) => {
         if (resp.status) {
           this._userProC.getExperienciasAcademicas();
-          this.doneMassage(resp.data);
+          this.doneMassage('Experiencia academica actualizada');
         } else {
-          this.errorPeticion(resp.data);
+          this.errorPeticion('Error al actualizar la experiencia laboral');
         }
       }, (error) => this.errorServer(error));
     } else {
@@ -189,11 +188,11 @@ export class ExperienciaAcademicaComponent implements OnInit {
     this.expAcademicaSerice.deleteExpAcademica(this.experienciaAcademica.id_experiencia_academica).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this._userProC.getExperienciasAcademicas();
-        this.doneMassage(resp.data);
+        this.doneMassage('Experiencia academica eliminada');
       } else {
-        this.errorMassage();
+        this.errorPeticion('Error al eliminar la experiencia academica');
       }
-    });
+    }, (error) => this.errorServer(error));
   }
 
   /* loadFechasForm() {

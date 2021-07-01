@@ -32,6 +32,8 @@
                         </button>
                     </div>
                 </div>
+
+
             </div>
             <div class="col-md-7">
                 <div class="row">
@@ -55,34 +57,7 @@
                             <h4>{{expAca.institucion}} | {{expAca.anio_entrada}} - {{expAca.anio_salida}}</h4>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <h3 class="font-weight-bold">Habilidades</h3>
-                        <hr>
-                        <div *ngFor="let hab of habilidades" class="card card-body">
-                            <h4>{{hab.descripcion}}</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="font-weight-bold">Valores</h3>
-                        <hr>
-                        <div *ngFor="let val of valores" class="card card-body">
-                            <h4>{{val.descripcion}}</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="font-weight-bold">Idiomas</h3>
-                        <hr>
-                        <div *ngFor="let idi of idiomas" class="card card-body">
-                            <h4>{{idi.descripcion}}</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="font-weight-bold">Perfil</h3>
-                        <hr>
-                        <div *ngFor="let per of perfiles" class="card card-body">
-                            <h4>{{per.descripcion}}</h4>
-                        </div>
-                    </div>
+
                     <div class="col-md-12">
                         <h3 class="font-weight-bold">Actualizaciones</h3>
                         <hr>
@@ -94,6 +69,39 @@
                             <h4>{{cur.link}}</h4>
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <h3 class="font-weight-bold">Habilidades</h3>
+                        <hr>
+                        <div *ngFor="let hab of habilidades" class="card card-body">
+                            <h4>{{hab.descripcion}}</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3 class="font-weight-bold">Perfil</h3>
+                        <hr>
+                        <div *ngFor="let per of perfiles" class="card card-body">
+                            <h4>{{per.descripcion}}</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3 class="font-weight-bold">Idiomas</h3>
+                        <hr>
+                        <div *ngFor="let idi of idiomas" class="card card-body">
+                            <h4>{{idi.descripcion}}</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3 class="font-weight-bold">Valores</h3>
+                        <hr>
+                        <div *ngFor="let val of valores" class="card card-body">
+                            <h4>{{val.descripcion}}</h4>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

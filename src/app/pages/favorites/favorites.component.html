@@ -29,7 +29,8 @@
                     </div>
                     <div class="row g-0 align-items-center justify-content-center">
                         <div class="col-md-2">
-                            <img src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="...">
+                            <img *ngIf="!vacante.Vacante.Usuario.foto_perfil" src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="Foto de perfil predeterminada de IECA">
+                            <img *ngIf="vacante.Vacante.Usuario.foto_perfil" [src]="vacante.Vacante.Usuario.foto_perfil" class="card-img-bottom" alt="Foto de perfil asignada por la empresa">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

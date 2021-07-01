@@ -16,7 +16,8 @@ export class UpdateVacancieService {
   }
 
   getVacante(idVacante) {
-    return this.http.get(`${baseUrl}/vacantes/vacante/${idVacante}`);
+    const idUsuario = localStorage.getItem("id_usuario");
+    return this.http.get(`${baseUrl}/vacantes/vacante/${idVacante}/${idUsuario}`);
   }
 
   getAlcance(idVacante) {

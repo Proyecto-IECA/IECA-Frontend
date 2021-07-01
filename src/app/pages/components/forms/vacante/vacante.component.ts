@@ -65,7 +65,6 @@ export class VacanteComponent implements OnInit {
       (resp: AuthResponseI) => {
         if (resp.status) {
           this.sucursales = resp.data;
-          console.log(this.sucursales);
         }
       }
     )

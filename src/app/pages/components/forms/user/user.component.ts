@@ -57,8 +57,8 @@ export class UserComponent implements OnInit {
       this.userService.updateUsuario(this.userForm.value).subscribe(
         (resp: AuthResponseI) => {
           if (resp.status) {
-            // this.doneMassage("Información actualizada");
-            this.notifierService.showNotification('Información Actualizada', 'done', 'success-snack');
+            this.doneMassage("Información actualizada");
+            //this.notifierService.showNotification('Información Actualizada', 'done', 'success-snack');
             this.formSubmitted = false;
           } else {
             this.errorPeticion(resp.data);

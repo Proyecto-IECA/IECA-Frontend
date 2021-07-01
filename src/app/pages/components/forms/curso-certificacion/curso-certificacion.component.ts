@@ -65,9 +65,9 @@ export class CursoCertificacionComponent implements OnInit {
           this.certificadoForm.reset();
           formDirective.resetForm();
           this._userProC.panelCurC = false;
-          this.doneMassage(resp.data);
+          this.doneMassage('Curso y/o certificación registrado');
         } else {
-          this.errorPeticion(resp.data);
+          this.errorPeticion('Error al registrar elcurso y/o certificación');
         }
       }, (error) => this.errorServer(error));
     } else {
@@ -88,9 +88,9 @@ export class CursoCertificacionComponent implements OnInit {
       this.cursoCertificacionService.updateCursoCertifi(this.cursoCertificacion.id_curso_certificacion, this.certificadoForm.value).subscribe((resp: AuthResponseI) => {
         if (resp.status) {
           this._userProC.getCursosCertificaciones();
-          this.doneMassage(resp.data);
+          this.doneMassage('Curso y/o certificación Actualizado');
         } else {
-          this.errorPeticion(resp.data);
+          this.errorPeticion('Error al actualizar el curso y/o certificación');
         }
       }, (error) => this.errorServer(error));
     } else {
@@ -102,9 +102,9 @@ export class CursoCertificacionComponent implements OnInit {
     this.cursoCertificacionService.deleteCursoCertifi(this.cursoCertificacion.id_curso_certificacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
         this._userProC.getCursosCertificaciones();
-        this.doneMassage(resp.data);
+        this.doneMassage('Curso y/o certificación eliminado');
       } else {
-        this.errorPeticion(resp.data);
+        this.errorPeticion('Error al eliminar el curso y/o certificación');
       }
     }, (error) => this.errorServer(error));
   }
