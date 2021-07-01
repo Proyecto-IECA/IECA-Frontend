@@ -17,7 +17,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" [routerLink]="['/notifications']" id="navbarDropdownMenuLink">
                         <i class="material-icons">notifications</i>
-                        <span class="notification">5</span>
+                        <span *ngIf="numeroNotificaciones > 0" class="notification">{{numeroNotificaciones}}</span>
                         <p>
                             <span class="d-lg-none d-md-block">Some Actions</span>
                         </p>

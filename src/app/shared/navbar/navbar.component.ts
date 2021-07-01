@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { NavbarService } from './navbar.service';
+import { AuthResponseI } from '../../models/auth-response';
 
 @Component({
     selector: 'app-navbar',
@@ -14,8 +16,9 @@ export class NavbarComponent implements OnInit {
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
+    numeroNotificaciones = 0;
 
-    constructor(location: Location, private element: ElementRef, private router: Router) {
+    constructor(location: Location, private element: ElementRef, private router: Router, private navbarService: NavbarService) {
         this.location = location;
         this.sidebarVisible = false;
     }
@@ -32,6 +35,13 @@ export class NavbarComponent implements OnInit {
                 this.mobile_menu_visible = 0;
             }
         });
+
+        this.navbarService.getCantidadNotifocaciones().subscribe((resp: AuthResponseI) => {
+            if (resp.status) {
+                this.numeroNotificaciones = resp.data;
+                console.log(this.numeroNotificaciones);
+            }
+        })
     }
 
     sidebarOpen() {
