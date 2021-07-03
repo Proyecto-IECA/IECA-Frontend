@@ -4,6 +4,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { Router } from '@angular/router';
 import { NavbarService } from './navbar.service';
 import { AuthResponseI } from '../../models/auth-response';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-navbar',
@@ -16,7 +17,8 @@ export class NavbarComponent implements OnInit {
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
-    numeroNotificaciones = 0;
+    numeroNotificaciones: Observable<number>;
+    numero = 0;
 
     constructor(location: Location, private element: ElementRef, private router: Router, private navbarService: NavbarService) {
         this.location = location;
@@ -38,10 +40,15 @@ export class NavbarComponent implements OnInit {
 
         this.navbarService.getCantidadNotifocaciones().subscribe((resp: AuthResponseI) => {
             if (resp.status) {
-                this.numeroNotificaciones = resp.data;
-                console.log(this.numeroNotificaciones);
+                this.navbarService.setNumN(resp.data);
+                this.numero = resp.data;
+                this.numeroNotificaciones = this.navbarService.getNumN();
+                this.numeroNotificaciones.subscribe(numero => this.numero = numero);
+
             }
         })
+
+        
     }
 
     sidebarOpen() {

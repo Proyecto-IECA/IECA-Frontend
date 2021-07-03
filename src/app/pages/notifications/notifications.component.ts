@@ -1,8 +1,9 @@
-import { Component, OnInit, resolveForwardRef } from '@angular/core';
+import { Component, Host, OnInit, resolveForwardRef } from '@angular/core';
 import { NotificationsService } from './notifications.service';
 import { AuthResponseI } from '../../models/auth-response';
 import { NotificationI } from '../../models/notifications';
 import { Router } from '@angular/router';
+import { NavbarService } from 'app/shared/navbar/navbar.service';
 
 @Component({
   selector: 'app-notifications',
@@ -15,7 +16,8 @@ export class NotificationsComponent implements OnInit {
 
   constructor(
     private notifService: NotificationsService,
-    private router: Router
+    private router: Router,
+    private navbarService: NavbarService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +31,9 @@ export class NotificationsComponent implements OnInit {
   verNotificacion(idNotificacion, url) {
     this.notifService.verNotificacion(idNotificacion).subscribe((resp: AuthResponseI) => {
       if (resp.status) {
+        if (this.navbarService.getNum() > 0) {
+          this.navbarService.setNumN(this.navbarService.getNum() - 1);
+        }
         this.router.navigate([url]);
       }
     })

@@ -22,6 +22,8 @@ import { GuardsService } from '../services/guards.service';
 import { EmailValidadoGuard } from '../guards/email-validado.guard';
 import { PostulationsComponent } from './postulations/postulations.component';
 import { NotificationsComponent } from "./notifications/notifications.component";
+import { TipoPostulante } from "app/guards/tipo-postulante.guard";
+import { TipoEmpresa } from "app/guards/tipo-empresa.guard";
 
 const tipo_usuario = localStorage.getItem("tipo_usuario") || "";
 export let ruta = "auth";
@@ -44,20 +46,20 @@ export const routes: Routes = [
     component: PagesComponent,
     canActivate: [TokenValidoGuard, EmailValidadoGuard],
     children: [
-      { path: "dashboard", component: DashboardComponent },
-      { path: "user-profile", component: UserProfileComponent },
-      { path: "company-profile", component: CompanyProfileComponent },
-      { path: "create-vacancie", component: CreateVacancyComponent, canActivate: [PerfilCompletoGuard] },
-      { path: "update-vacancie/:id", component: UpdateVacancieComponent, canActivate: [PerfilCompletoGuard] },
-      { path: "vacancies", component: VacanciesComponent },
-      { path: "my-vacancies", component: MyVacanciesComponent },
-      { path: "postulate-vacancy/:id", component: PostulateVacancyComponent},
-      { path: "favorites", component: FavoritesComponent },
-      { path: "see-profile/:id", component: SeeProfileComponent },
-      { path: "my-postulations", component: MyPostulationsComponent },
-      { path: "see-company/:id", component: SeeCompanyComponent },
-      { path: "reviews", component: ReviewsComponent },
-      { path: "postulations/:id/:tipo", component: PostulationsComponent},
+      // { path: "dashboard", component: DashboardComponent },
+      { path: "user-profile", component: UserProfileComponent, canActivate: [TipoPostulante] },
+      { path: "company-profile", component: CompanyProfileComponent, canActivate: [TipoEmpresa] },
+      { path: "create-vacancie", component: CreateVacancyComponent, canActivate: [TipoEmpresa, PerfilCompletoGuard] },
+      { path: "update-vacancie/:id", component: UpdateVacancieComponent, canActivate: [TipoEmpresa, PerfilCompletoGuard] },
+      { path: "vacancies", component: VacanciesComponent, canActivate: [TipoPostulante] },
+      { path: "my-vacancies", component: MyVacanciesComponent, canActivate: [TipoEmpresa] },
+      { path: "postulate-vacancy/:id", component: PostulateVacancyComponent, canActivate: [TipoPostulante]},
+      { path: "favorites", component: FavoritesComponent, canActivate: [TipoPostulante] },
+      { path: "see-profile/:id", component: SeeProfileComponent, canActivate: [TipoEmpresa] },
+      { path: "my-postulations", component: MyPostulationsComponent, canActivate: [TipoPostulante] },
+      { path: "see-company/:id", component: SeeCompanyComponent, canActivate: [TipoPostulante]},
+      // { path: "reviews", component: ReviewsComponent },
+      { path: "postulations/:id/:tipo", component: PostulationsComponent, canActivate: [TipoEmpresa]},
       { path: "notifications", component: NotificationsComponent}
     ],
   },
