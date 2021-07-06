@@ -29,7 +29,6 @@ export class NavbarService {
   }
 
   getNum(): number {
-    console.log(this.num);
     return this.num;
   }
 }
