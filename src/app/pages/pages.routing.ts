@@ -42,7 +42,7 @@ export const routes: Routes = [
   {
     path: "",
     component: PagesComponent,
-    canActivate: [TokenValidoGuard, EmailValidadoGuard],
+   /*  canActivate: [TokenValidoGuard, EmailValidadoGuard], */
     children: [
       { path: "dashboard", component: DashboardComponent },
       { path: "user-profile", component: UserProfileComponent },

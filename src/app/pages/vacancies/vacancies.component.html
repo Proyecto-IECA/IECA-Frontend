@@ -16,6 +16,10 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="text-primary">Filtros</h4>
+                <form *ngIf="!filterForm">
+                    <h3 class="font-weight-bold text-center text-primary">¡No se han encontrado resultados!</h3>
+                    <img src="../../../assets/img/without_result.svg" class="img-fluid rounded mx-auto d-block" alt="Imagen para representar que no hay resultados">
+                </form>
                 <form [formGroup]="filterForm">
                     <div class="row  align-items-center justify-content-center">
                         <div class="col-md-2">
@@ -47,7 +51,6 @@
                             <button class="btn btn-primary" matTooltip="Filtrar" (click)="filtrarVcantes()" [disabled]="!filterActive">Filtrar</button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
