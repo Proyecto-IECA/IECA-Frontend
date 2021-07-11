@@ -64,7 +64,7 @@ export class VacanciesComponent implements OnInit {
       if (resp.status) {
         this.spinerActived = false;
         this.vacantes = resp.data;
-      }
+      } 
     });
 
     this.vacantesService.getPerfilesUsuario().subscribe((resp: AuthResponseI) => {
@@ -179,7 +179,7 @@ export class VacanciesComponent implements OnInit {
   doneMassage(message: string): void {
     Swal.fire({
       icon: 'success',
-      title: 'Cambios Actualizados',
+      title: 'Cambios actualizados',
       text: message,
       showConfirmButton: false,
       timer: 2700
