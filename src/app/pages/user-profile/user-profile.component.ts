@@ -16,7 +16,7 @@ import { ValorI } from '../../models/valor';
 @Component({
   selector: "app-user-profile",
   templateUrl: "./user-profile.component.html",
-  styleUrls: ["./user-profile.component.css"],
+  styleUrls: ["../pages.component.css"],
 })
 export class UserProfileComponent implements OnInit {
   public imageForm = this.formBuilder.group({
