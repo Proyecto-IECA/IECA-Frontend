@@ -369,3 +369,17 @@ form.sign-in-form {
         left: 50%;
     }
 }
+
+label,
+a,
+h3,
+input,
+small,
+p,
+select,
+option,
+button,
+.title,
+.subtitle {
+    font-family: 'Baloo 2', cursive;
+}

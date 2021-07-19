@@ -1,0 +1,9 @@
+mat-error,
+mat-label,
+input,
+textarea,
+mat-datepicker,
+mat-slide-toggle,
+button {
+    font-family: 'Baloo 2', cursive;
+}

@@ -14,3 +14,19 @@ button {
 .m-r {
     margin-right: 5px;
 }
+
+h1,
+h2,
+h4,
+p,
+input,
+button,
+mat-slide-toggle,
+mat-panel-title,
+mat-panel-description,
+mat-error,
+mat-option,
+mat-label,
+mat-chip {
+    font-family: 'Baloo 2', cursive;
+}

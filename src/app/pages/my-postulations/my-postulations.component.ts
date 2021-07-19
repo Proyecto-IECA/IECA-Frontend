@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-my-postulations',
   templateUrl: './my-postulations.component.html',
-  styleUrls: ['./my-postulations.component.css']
+  styleUrls: ['../pages.component.css']
 })
 export class MyPostulationsComponent implements OnInit {
 

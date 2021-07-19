@@ -15,7 +15,7 @@ import { SearchPipe } from '../pipes/search.pipe';
 @Component({
   selector: 'app-vacancies',
   templateUrl: './vacancies.component.html',
-  styleUrls: ['./vacancies.component.css']
+  styleUrls: ['../pages.component.css']
 })
 export class VacanciesComponent implements OnInit {
   
