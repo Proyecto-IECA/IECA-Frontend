@@ -7,14 +7,15 @@ mat-checkbox,
 mat-label,
 mat-panel-tittle,
 mat-panel-descripcion,
-card-title,
-card-text,
+span,
 card-category,
-input,
+card-title,
+card-text input,
 mat-paginator,
 button,
 p,
 a,
-th {
+th,
+td {
     font-family: 'Baloo 2', cursive;
 }

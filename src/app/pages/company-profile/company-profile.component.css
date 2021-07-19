@@ -20,3 +20,15 @@ small {
     transition: all 0.5s ease;
     margin-top: 70%;
 }
+
+h1,
+h2,
+h4,
+p,
+input,
+button,
+mat-slide-toggle,
+mat-panel-title,
+mat-panel-description {
+    font-family: 'Baloo 2', cursive;
+}
