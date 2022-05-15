@@ -1,0 +1,313 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">public</i>
+                        </div>
+                        <p class="card-category">Publicadas</p>
+                        <h3 class="card-title">{{numVacantesP}}</h3>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">unpublished</i>
+                        </div>
+                        <p class="card-category">Sin Publicar</p>
+                        <h3 class="card-title">{{numVacantesB}}</h3>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">lock_open</i>
+                        </div>
+                        <p class="card-category">Disponibles</p>
+                        <h3 class="card-title">{{numVacantesD}}</h3>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">lock</i>
+                        </div>
+                        <p class="card-category">Cerradas</p>
+                        <h3 class="card-title">{{numVacantesC}}</h3>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-bblue">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <span class="nav-tabs-title font-weight-bold">Vacantes:</span>
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link active" href="#publicadas" data-toggle="tab">
+                                            <i class="material-icons">public</i> Publicadas
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#borradores" data-toggle="tab">
+                                            <i class="material-icons">unpublished</i> Sin publicar
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#disponibles" data-toggle="tab">
+                                            <i class="material-icons">lock_open</i> Disponibles
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#cerradas" data-toggle="tab">
+                                            <i class="material-icons">lock</i> Cerradas
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content table-responsive">
+                            <div class="tab-pane active" id="publicadas">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Fecha</th>
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Status</th>
+                                        <th></th>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesP" class="text-center">
+                                            <td>
+                                                {{vacante.fecha_publicacion}}
+                                            </td>
+                                            <td>
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td>
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td>
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td *ngIf="statusVacante(vacante.disponible)" class="text-success">
+                                                Disponible
+                                            </td>
+                                            <td *ngIf="!statusVacante(vacante.disponible)" class="text-danger">
+                                                Cerrada
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <div class="form-check">
+                                                        <button class="btn btn-danger btn-sm btn-just-icon" matTooltip="Dejar de publicar vacante" (click)="noPublicar(vacante.id_vacante)">
+                                                            <i class="material-icons">unpublished</i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-sm btn-just-icon m-l" matTooltip="Ver postulaciones" (click)="verPostulaciones(vacante.id_vacante)">
+                                                            <i class="material-icons">engineering</i>
+                                                        </button>
+                                                        <button class="btn btn-color btn-sm btn-just-icon m-l" matTooltip="Editar vacante" (click)="updateVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Eliminar vacante" (click)="confirmarEliminacionVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="borradores">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesB" class="text-center">
+                                            <td>
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td>
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td>
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td *ngIf="statusVacante(vacante.disponible)" class="text-success">
+                                                Disponible
+                                            </td>
+                                            <td *ngIf="!statusVacante(vacante.disponible)" class="text-danger">
+                                                Cerrada
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <div class="form-check">
+                                                        <button class="btn btn-success btn-sm btn-just-icon" matTooltip="Publicar vacante" (click)="publicar(vacante.id_vacante)">
+                                                            <i class="material-icons">public</i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-sm btn-just-icon m-l" matTooltip="Ver postulaciones" (click)="verPostulaciones(vacante.id_vacante)">
+                                                            <i class="material-icons">engineering</i>
+                                                        </button>
+                                                        <button class="btn btn-color btn-sm btn-just-icon m-l" matTooltip="Editar vacante" (click)="updateVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Eliminar vacante" (click)="confirmarEliminacionVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="disponibles">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Fecha</th>
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesD" class="text-center">
+                                            <td>
+                                                {{vacante.fecha_publicacion}}
+                                            </td>
+                                            <td>
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td>
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td>
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td *ngIf="statusVacante(vacante.publicada)" class="text-success">
+                                                Públicada
+                                            </td>
+                                            <td *ngIf="!statusVacante(vacante.publicada)" class="text-danger">
+                                                Sin públicar
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <button class="btn btn-danger btn-sm btn-just-icon" matTooltip="Cerrar Vacante" (click)="cerrar(vacante.id_vacante)">
+                                                        <i class="material-icons">lock</i>
+                                                    </button>
+                                                    <button class="btn btn-primary btn-sm btn-just-icon m-l" matTooltip="Ver postulaciones" (click)="verPostulaciones(vacante.id_vacante)">
+                                                        <i class="material-icons">engineering</i>
+                                                    </button>
+                                                    <button class="btn btn-color btn-sm btn-just-icon m-l" matTooltip="Editar vacante" (click)="updateVacante(vacante.id_vacante)">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Eliminar vacante" (click)="confirmarEliminacionVacante(vacante.id_vacante)">
+                                                        <i class="material-icons">delete</i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="cerradas">
+                                <table class="table">
+                                    <thead class="text-primary text-center">
+                                        <th>Fecha</th>
+                                        <th>Puesto</th>
+                                        <th>Nivel</th>
+                                        <th>Modalidad</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let vacante of vacantesC" class="text-center">
+                                            <td>
+                                                {{vacante.fecha_publicacion}}
+                                            </td>
+                                            <td>
+                                                {{vacante.puesto}}
+                                            </td>
+                                            <td>
+                                                {{vacante.nivel}}
+                                            </td>
+                                            <td>
+                                                {{vacante.modalidad}}
+                                            </td>
+                                            <td *ngIf="statusVacante(vacante.publicada)" class="text-success">
+                                                Públicada
+                                            </td>
+                                            <td *ngIf="!statusVacante(vacante.publicada)" class="text-danger">
+                                                Sin públicar
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <div class="form-check">
+                                                        <button class="btn btn-success btn-sm btn-just-icon" matTooltip="Abrir vacante" (click)="abrir(vacante.id_vacante)">
+                                                            <i class="material-icons">lock_open</i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-sm btn-just-icon m-l" matTooltip="Ver postulaciones" (click)="verPostulaciones(vacante.id_vacante)">
+                                                            <i class="material-icons">engineering</i>
+                                                        </button>
+                                                        <button class="btn btn-color btn-sm btn-just-icon m-l" matTooltip="Editar vacante" (click)="updateVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Eliminar vacante" (click)="confirmarEliminacionVacante(vacante.id_vacante)">
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button mat-fab color="default" class="pull-right" routerLink="/create-vacancie" matTooltip="Agregar una nueva">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

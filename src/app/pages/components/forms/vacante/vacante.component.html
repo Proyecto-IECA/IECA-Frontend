@@ -1,0 +1,98 @@
+<!-- Formulario -->
+<form autocomplete="off" [formGroup]="vacanteForm" (ngSubmit)="updateVacante(1)">
+    <!-- Datos del puesto -->
+    <div class="row">
+
+        <!-- Puesto -->
+        <div class="col-md-8">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Puesto" type="text" formControlName="puesto" required>
+                <mat-error *ngIf="campoNoValido('puesto')">Este campo es obligatorio*</mat-error>
+            </mat-form-field>
+        </div>
+        <!-- Nivel -->
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nivel</mat-label>
+                <mat-select formControlName="nivel" required>
+                    <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
+                        {{nivel.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="campoNoValido('nivel')">Este campo es obligatorio*</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Sueldo Negociable -->
+        <div class="col-md-4 m-t">
+            <mat-slide-toggle formControlName="negociable" (toggleChange)="isNegociable()">
+                Sueldo Negociable
+            </mat-slide-toggle>
+        </div>
+        <!-- Sueldo -->
+        <div *ngIf="!negociable" class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Sueldo" formControlName="sueldo" required>
+                <mat-error *ngIf="campoNoValido('sueldo')">Este campo es obligatorio*</mat-error>
+            </mat-form-field>
+        </div>
+        <div *ngIf="negociable" class="col-md-4">
+            <p>Sueldo Negociable</p>
+        </div>
+
+        <!-- Modalidad -->
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Modalidad</mat-label>
+                <mat-select formControlName="modalidad" required>
+                    <mat-option *ngFor="let modalidad of modalidades" [value]="modalidad.value">
+                        {{modalidad.viewValue}}
+                    </mat-option>
+                    <mat-error *ngIf="campoNoValido('modalidad')">Este campo es obligatorio*</mat-error>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- Descripción del Puesto -->
+    <div class="row">
+        <div class="col-md-12">
+            <mat-form-field appearance="fill">
+                <mat-label>Descripción del Puesto</mat-label>
+                <textarea matInput formControlName="descripcion" required></textarea>
+                <mat-error *ngIf="campoNoValido('descripcion')">Este campo es obligatorio*</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- Sucursal -->
+    <div *ngIf="sucursales" class="row">
+        <div class="col-md-4 m-t">
+            <mat-slide-toggle *ngIf="sucursales.length > 0" formControlName="id_sucursal_fk" (toggleChange)="isSucursal()">
+                Elegir Sucursal
+            </mat-slide-toggle>
+        </div>
+        <div *ngIf="elegirSucursal" class="col-md-8">
+            <mat-form-field class="example-full-width">
+                <mat-label>Sucursal</mat-label>
+                <mat-select formControlName="id_sucursal_fk">
+                    <mat-option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">
+                        {{sucursal.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <!-- Renglón justificado al final -->
+    <div class="row justify-content-end">
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="deleteVacante()">
+            <i class="material-icons">delete</i>
+        </button>
+        <!-- ===== btn icon aceptar ===== -->
+        <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r">
+            <i class="material-icons">save</i>
+        </button>
+    </div>
+</form>

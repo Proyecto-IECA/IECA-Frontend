@@ -135,6 +135,22 @@
             }
         }
     }
+    .card-header-bdark .card-icon,
+    .card-header-bdark .card-text,
+    .card-header-bdark:not(.card-header-icon):not(.card-header-text),
+    &.bg-bdark,
+    &.card-rotate.bg-bdark .front,
+    &.card-rotate.bg-bdark .back {
+        background: linear-gradient(60deg, $palete-700, $palete-800);
+    }
+    .card-header-bblue .card-icon,
+    .card-header-bblue .card-text,
+    .card-header-bblue:not(.card-header-icon):not(.card-header-text),
+    &.bg-bblue,
+    &.card-rotate.bg-bblue .front,
+    &.card-rotate.bg-bblue .back {
+        background: linear-gradient(60deg, $palete-900, $palete-1000);
+    }
     .card-header-primary .card-icon,
     .card-header-primary .card-text,
     .card-header-primary:not(.card-header-icon):not(.card-header-text),
@@ -157,7 +173,7 @@
     &.bg-success,
     &.card-rotate.bg-success .front,
     &.card-rotate.bg-success .back {
-        background: linear-gradient(60deg, $green-400, $green-600);
+        background: linear-gradient(60deg, $success-500, $success-700);
     }
     .card-header-warning .card-icon,
     .card-header-warning .card-text,
@@ -173,7 +189,7 @@
     &.bg-danger,
     &.card-rotate.bg-danger .front,
     &.card-rotate.bg-danger .back {
-        background: linear-gradient(60deg, $red-400, $red-600);
+        background: linear-gradient(60deg, $errors-500, $errors-700);
     }
     .card-header-rose .card-icon,
     .card-header-rose .card-text,

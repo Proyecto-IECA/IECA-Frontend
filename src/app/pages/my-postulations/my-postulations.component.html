@@ -1,0 +1,87 @@
+<div class="main-content">
+    <div class="row ">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">done</i>
+                    </div>
+                    <p class="card-category">Aceptada</p>
+                    <h3 class="card-title">{{nAceptadas}}</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">cancel</i>
+                    </div>
+                    <p class="card-category">Rechazada</p>
+                    <h3 class="card-title">{{nRechazadas}}</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">pending_actions</i>
+                    </div>
+                    <p class="card-category">Pendiente</p>
+                    <h3 class="card-title">{{nPendientes}}</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-bblue">
+                    <h4 class="card-tittle">Mis postulaciones</h4>
+                    <p class="card-category">Lista de las vacantes a las que me he postulado</p>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead class="text-primary text-center">
+                            <th>Fecha</th>
+                            <th>Empresa</th>
+                            <th>Puesto</th>
+                            <th>Nivel</th>
+                            <th>Modalidad</th>
+                            <th>Status</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let postulacion of postulaciones" class="text-center">
+                                <td>{{postulacion.fecha_postulacion}}</td>
+                                <td>{{postulacion.Vacante.Usuario.nombre}}</td>
+                                <td>{{postulacion.Vacante.puesto}}</td>
+                                <td>{{postulacion.Vacante.nivel}}</td>
+                                <td>{{postulacion.Vacante.modalidad}}</td>
+                                <td *ngIf="postulacion.rechazada" class="text-danger">Rechazada</td>
+                                <td *ngIf="postulacion.aceptada" class="text-success">Aceptada</td>
+                                <td *ngIf="!postulacion.rechazada && !postulacion.aceptada" class="text-info">Pendiente</td>
+                                <td>
+                                    <button *ngIf="postulacion.rechazada || postulacion.aceptada" class="btn btn-primary btn-sm btn-just-icon" matTooltip="Ver comentario" (click)="verComentario(postulacion.titulo, postulacion.comentario)">
+                                        <i class="material-icons">comment</i>
+                                    </button>
+                                    <button *ngIf="!postulacion.rechazada && !postulacion.aceptada" class="btn btn-danger btn-sm btn-just-icon m-l" matTooltip="Cancelar postulación" (click)="confirmarCancelarPostulacion(postulacion.id_postulacion)">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

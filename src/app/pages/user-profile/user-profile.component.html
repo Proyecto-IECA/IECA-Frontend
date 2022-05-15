@@ -1,12 +1,13 @@
 <div class="main-content">
-    <div *ngIf="!usuario">
-        <div class="row justify-content-center align-items-center vh-100">
-            <mat-spinner></mat-spinner>
-        </div>
+
+    <!-- Spinner -->
+    <div *ngIf="!usuario" class="row justify-content-center align-items-center vh-100">
+        <mat-spinner></mat-spinner>
     </div>
 
     <div *ngIf="usuario">
         <div class="container-fluid">
+
             <!-- ===== Primer Renglón ===== -->
             <div class="row align-items-center">
                 <!-- ===== Columna de Perfil -->
@@ -14,7 +15,7 @@
                     <!-- ===== Foto de Perfil ====== -->
                     <div class="card card-profile">
                         <div class="card-avatar" *ngIf="!foto_perfil">
-                            <p (click)="inputFotoPerfil.click()">Cambiar</p>
+                            <p matTooltip="Cambiar foto de perfil" (click)="inputFotoPerfil.click()">Cambiar</p>
                             <img class="img" src="./assets/img/faces/marc.jpg" (click)="inputFotoPerfil.click()" />
                         </div>
                         <div class="card-avatar" *ngIf="foto_perfil">
@@ -26,30 +27,27 @@
                             <h6 class="card-category text-gray">{{nombreCompleto}}</h6>
                             <h4 class="card-title">{{email}}</h4>
                             <p class="card-description">
-                                {{telefono_celular}}
+                                {{telefono}}
                             </p>
                             <input type="file" accept=".png, .jpg, .jpeg" hidden #inputFotoPerfil (change)="capturarImage($event)">
-                            <p *ngIf="extensionValid" class="text-danger">Formatos validos '.png' '.jpg' '.jpeg'</p>
-                            <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 8 MB</p>
-                            <button *ngIf="changeFoto" class="btn btn-rose" (click)="guardarFoto()">Guardar foto</button>
+                            <p *ngIf="extensionValid" class="text-danger">Formatos válidos '.png' '.jpg' '.jpeg'</p>
+                            <p *ngIf="tamnioValid" class="text-danger">El archivo no debe exceder los 75 Kilobytes</p>
+                            <button *ngIf="changeFoto" class="btn btn-rose" matTooltip="Guardar foto" (click)="guardarFoto()">Guardar foto</button>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- ===== Columna de Datos personales ===== -->
                 <div class="col-md-8">
                     <!-- ===== Card de Datos personales ===== -->
                     <div class="card">
                         <!-- ===== Encabezado de Card ===== -->
-                        <div class="card-header card-header-primary">
+                        <div class="card-header card-header-bblue">
                             <h4 class="card-title">Editar Perfil</h4>
-                            <p class="card-category">Completar tu perfil</p>
+                            <p class="card-category">Completa tu perfil</p>
                         </div>
                         <!-- ===== Contenido de Card ===== -->
                         <div class="card-body">
                             <!-- ===== Formulario de Datos Personales ===== -->
-                            <p class="text-danger">Campos obligatorios *</p>
                             <app-user-form [usuario]="usuario"></app-user-form>
                         </div>
                     </div>
@@ -60,14 +58,14 @@
             <div class="row align-items-center">
                 <!-- ===== Columna de Perfiles ===== -->
                 <div class="col-md-4">
-                    <app-perfiles [usuario]="usuario"></app-perfiles>
+                    <app-perfiles [perfiles]="perfiles" [id]="idUsuario" [type]="'Postulante'"></app-perfiles>
                 </div>
                 <!-- ===== Columna de Experiencia Laboral ===== -->
                 <div class="col-md-8">
                     <!-- ===== Card de Experiencia Laboral ===== -->
                     <div class="card">
                         <!-- ===== Encabezado de Experiencia Laboral ===== -->
-                        <div class="card-header card-header-warning">
+                        <div class="card-header card-header-bdark">
                             <h4 class="card-title">Experiencia Laboral</h4>
                             <p class="card-category">Completa tu perfil</p>
                         </div>
@@ -81,7 +79,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Experiencia Laboral
-                                            <mat-icon class="text-warning">add</mat-icon>
+                                            <mat-icon class="text-primary" matTooltip="Agregar una nueva">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar una experiencia laboral ===== -->
@@ -95,7 +93,7 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{expL.empresa}}
-                                                <mat-icon *ngIf="expL.trabajando" class="text-warning">done</mat-icon>
+                                                <mat-icon *ngIf="expL.trabajando" class="text-primary" matTooltip="Empleo actual">done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para editar experiencia laboral ===== -->
@@ -112,13 +110,13 @@
             <div class="row align-items-center">
                 <!-- ===== Columna de Habilidades ===== -->
                 <div class="col-md-4">
-                    <app-habilidades [usuario]="usuario"></app-habilidades>
+                    <app-habilidades [habilidades]="habilidades"></app-habilidades>
                 </div>
                 <!-- ===== Columna de Experiencia Academica ===== -->
                 <div class="col-md-8">
                     <div class="card">
                         <!-- ===== Encabezado de Card ===== -->
-                        <div class="card-header card-header-primary">
+                        <div class="card-header card-header-bblue">
                             <h4 class="card-title">
                                 Experiencia Acádemica
                             </h4>
@@ -135,8 +133,8 @@
                                             Nueva
                                         </mat-panel-title>
                                         <mat-panel-description>
-                                            Experiencia
-                                            <mat-icon class="text-primary">add</mat-icon>
+                                            Experiencia Académica
+                                            <mat-icon class="text-primary" matTooltip="Agregar una nueva">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar una experiencia academica ===== -->
@@ -151,7 +149,7 @@
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{expA.institucion}}
-                                                <mat-icon *ngIf="expA.estudiando" class="text-primary">done</mat-icon>
+                                                <mat-icon *ngIf="expA.estudiando" class="text-primary" matTooltip="Estudio actual">done</mat-icon>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
                                         <!-- ===== Formulario para editar experiencia academica ===== -->
@@ -169,14 +167,14 @@
             <div class="row align-items-center">
                 <!-- ==== Columna de Idiomas ====-->
                 <div class="col-md-4">
-                    <app-idiomas [usuario]="usuario"></app-idiomas>
+                    <app-idiomas [idiomas]="idiomas"></app-idiomas>
                 </div>
 
                 <!-- ===== Cursos y/o Certificados =====-->
                 <div class="col-md-8">
                     <div class="card">
                         <!-- ===== Encabezado de Card ===== -->
-                        <div class="card-header card-header-success">
+                        <div class="card-header card-header-bdark">
                             <h4 class="card-title">
                                 Cursos y/o Certificados
                             </h4>
@@ -194,7 +192,7 @@
                                         </mat-panel-title>
                                         <mat-panel-description>
                                             Nuevo curso o certificacion
-                                            <mat-icon class="text-success">add</mat-icon>
+                                            <mat-icon class="text-primary" matTooltip="Agregar una nueva">add</mat-icon>
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
                                     <!-- ===== Formulario para agregar un curso o certificacion ===== -->
@@ -224,7 +222,7 @@
             <div class="row align-items-center">
                 <!-- Columna de Valores -->
                 <div class="col-md-4">
-                    <app-valores [usuario]="usuario"></app-valores>
+                    <app-valores [valores]="valores"></app-valores>
                 </div>
 
                 <!-- Columna descargar Curriculum Vitae -->
@@ -233,7 +231,7 @@
                         <div class="col-md-12 text-center">
                             <img src="../../../assets/img/log.svg" class="img-fluid" alt="..." width="50%">
                         </div>
-                        <button class="btn btn-warning m-t" type="button">Descargar CV</button>
+                        <button class="btn btn-primary m-t" type="button" matTooltip="Descargar Curriculum Vitae">Descargar CV</button>
 
                     </div>
                 </div>

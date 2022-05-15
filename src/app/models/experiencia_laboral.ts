@@ -6,5 +6,5 @@ export class ExperienciaLaboralI {
     fecha_entrada?: string;
     fecha_salida?: string;
     trabajando?: boolean;
-    id_postulante?: number;
+    id_usuario_fk?: number;
 }

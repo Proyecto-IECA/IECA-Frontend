@@ -1,0 +1,32 @@
+<form class="sign-in-form" autocomplete="off" (ngSubmit)="login(loginForm)" [formGroup]="loginForm">
+    <h2 class="title">Inicio de Sesión</h2>
+    <!-- Email -->
+    <div class="input-field">
+        <i class="material-icons">email</i>
+        <input type="text" autocomplete="username" placeholder="Correo Electrónico" formControlName="email">
+    </div>
+    <small *ngIf="controlNoValid(loginForm,'email')" class="form-text text-danger">
+		* Correo electrónico no válido
+		<br>
+	</small>
+    <!-- Password -->
+    <div class="input-field">
+        <i class="material-icons">lock</i>
+        <input type="password" autocomplete="current-password" placeholder="Contraseña" formControlName="pass" />
+    </div>
+    <small *ngIf="controlNoValid(loginForm,'pass')" class="form-text text-danger">
+		* Debe ser mayor o igual a 6 letras
+		<br>
+	</small>
+    <!-- RememberMe -->
+    <div class="checkbox checkbox-primary">
+        <input type="checkbox" name="rememberMe" id="checkbox-signup" formControlName="rememberMe">
+        <label for="checkbox-signup" class="subtitle font-a">&nbsp;¿Recordárme? </label>
+        <a class="subtitle puntero text-primary font-a" (click)="recoverPassword()"> Olvidé mi contraseña </a>
+    </div>
+
+    <button class="btn btn-primary">Entrar</button>
+
+    <app-social-media></app-social-media>
+
+</form>

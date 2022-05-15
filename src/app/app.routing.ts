@@ -1,27 +1,33 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthComponent } from './auth/auth/auth.component';
-import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
-import { ValidEmailComponent } from './auth/valid-email/valid-email.component';
-import { AuthGuard } from './guards/auth.guard'
+import { PagesComponent } from "./pages/pages.component";
+import { AuthComponent } from "./auth/auth.component";
+import { EmailValidadoGuard } from "./guards/email-validado.guard";
+import { TokenValidoGuard } from "./guards/token-valido.guard";
+import { ComponentsRoutingModule } from "./components/components-routing.module";
+import { PagesRoutingModule } from "./pages/pages.routing";
+
 
 const routes: Routes = [
+  { path: "auth", component: AuthComponent },
   {
-    path: 'auth',
-    component: AuthComponent
+    path: "",
+    pathMatch: "full",
+    redirectTo: "auth",
   },
   {
-    path: 'validarEmail',
-    component: ValidEmailComponent
+    path: "",
+    component: PagesComponent,
+    // canActivate: [TokenValidoGuard, EmailValidadoGuard],
+    children: [
+      {
+        path: "",
+        loadChildren: "./pages/pages.module#PagesModule",
+      },
+    ],
   },
-  {
-    path: 'validarEmail/:tipo/:token',
-    component: ValidEmailComponent
-  },
+<<<<<<< HEAD
   {
     path: 'forgetPassword/:tipo/:token',
     component: ForgetPasswordComponent
@@ -39,17 +45,20 @@ const routes: Routes = [
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
     }]
   }
+=======
+>>>>>>> main
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    BrowserModule,
+    RouterModule.forRoot(routes, { useHash: true }),
+    PagesRoutingModule,
+    ComponentsRoutingModule,
+    /*BrowserModule,
     RouterModule.forRoot(routes, {
        useHash: true
-    })
+    })*/
   ],
-  exports: [
-  ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

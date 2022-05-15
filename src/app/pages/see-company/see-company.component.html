@@ -1,0 +1,63 @@
+<div class="main-content">
+
+	<!-- Spinner -->
+	<div *ngIf="!reviews" class="row justify-content-center align-items-center vh-100">
+		<mat-spinner></mat-spinner>
+	</div>
+
+
+	<div *ngIf="reviews" class="container-fluid">
+		<div class="row align-items-center m-t-3">
+			<div class="col align-center">
+
+				<!-- Datos Empresa -->
+				<mat-card class="example-card">
+					<mat-card-header>
+						<div mat-card-avatar class="example-header-image"></div>
+						<mat-card-title>{{ reviews.nombre }}</mat-card-title>
+						<mat-card-subtitle><a href="https://{{ reviews.pagina_web }}" target="_blanck">Pagina Web</a></mat-card-subtitle>
+						<mat-card-content>
+							<mat-card-subtitle class="valoracion">
+								<span [class.star]="reviews.calificacion >= 5" class="material-icons">star</span>
+								<span [class.star]="reviews.calificacion >= 4" class="material-icons">star</span>
+								<span [class.star]="reviews.calificacion >= 3" class="material-icons">star</span>
+								<span [class.star]="reviews.calificacion >= 2" class="material-icons">star</span>
+								<span [class.star]="reviews.calificacion >= 1" class="material-icons">star</span>
+								{{ reviews.calificacion || 0 }}/5 ({{ reviews.numero_calificaciones }})
+							</mat-card-subtitle>
+						</mat-card-content>
+					</mat-card-header>
+				</mat-card>
+
+				<!-- Comentarios -->
+				<mat-card *ngFor="let usuario of reviews.Resenias" class="example-card">
+					<mat-card-header>
+						<div mat-card-avatar class="example-header-image"></div>
+						<mat-card-title>{{ usuario.nombre }}</mat-card-title>
+						<mat-card-subtitle class="valoracion">
+							<span [class.star]="usuario.calificacion >= 5" class="material-icons">star</span>
+							<span [class.star]="usuario.calificacion >= 4" class="material-icons">star</span>
+							<span [class.star]="usuario.calificacion >= 3" class="material-icons">star</span>
+							<span [class.star]="usuario.calificacion >= 2" class="material-icons">star</span>
+							<span [class.star]="usuario.calificacion >= 1" class="material-icons">star</span>
+						</mat-card-subtitle>
+						<mat-card-footer class="fecha">{{ usuario.fecha_resenia }}</mat-card-footer>
+					</mat-card-header>
+
+					<mat-card-content class="m-t-1">
+						<p>{{ usuario.comentario }}</p>
+					</mat-card-content>
+				</mat-card>
+
+			</div>
+
+
+
+
+
+		</div>
+	</div>
+
+</div>
+
+

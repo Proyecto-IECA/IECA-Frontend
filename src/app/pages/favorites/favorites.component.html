@@ -1,0 +1,64 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <!-- Spinner -->
+        <div *ngIf="!vacantes" class="row justify-content-center align-items-center vh-100">
+            <mat-spinner></mat-spinner>
+        </div>
+
+        <!-- Carousel -->
+        <!--<div class="row">
+			<div class="col-md-12">
+				<mat-carousel timings="250ms ease-in" [autoplay]="true" interval="5000" color="primary" maxWidth="auto" proportion="25" slides="5" [loop]="true" [hideArrows]="false" [hideIndicators]="false" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
+					<mat-carousel-slide #matCarouselSlide *ngFor="let slide of slides; let i = index" [image]="slide.image" overlayColor="#e0e0e0  " [hideOverlay]="false"></mat-carousel-slide>
+				</mat-carousel>
+			</div>
+		</div>-->
+
+
+
+        <!-- Cards de lista de vacantes disponibles -->
+        <div class="row">
+
+            <div class="col-md-12" *ngFor="let vacante of vacantes | paginate:page_size:page_number">
+                <div class="card mb-3">
+                    <div class="posicion-t-r">
+                        <!-- Boton de Favorito -->
+                        <mat-icon *ngIf="!vacante.Vacante.disponible || !vacante.Vacante.activo || !vacante.Vacante.publicada" class="text-danger justify-content-md-end fa fa-heart-broken" matTooltip="Agregar a favoritas"></mat-icon>
+                        <mat-icon *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="unmarkFavorite(vacante.id_vacante_favorita)" class="text-danger justify-content-md-end" matTooltip="Quitar de favoritas" style="cursor:pointer">favorite</mat-icon>
+                    </div>
+                    <div class="row g-0 align-items-center justify-content-center">
+                        <div class="col-md-2">
+                            <img *ngIf="!vacante.Vacante.Usuario.foto_perfil" src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="Foto de perfil predeterminada de IECA">
+                            <img *ngIf="vacante.Vacante.Usuario.foto_perfil" [src]="vacante.Vacante.Usuario.foto_perfil" class="card-img-bottom" alt="Foto de perfil asignada por la empresa">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4 class="card-title">Puesto: <b class="text-primary">{{vacante.Vacante.puesto}}</b> </h4>
+                                <p class="card-text">Nivel: <b class="text-primary">{{vacante.Vacante.nivel}}</b> / Modalidad: <b class="text-primary">{{vacante.Vacante.modalidad}}</b></p>
+                                <p class="card-text">{{vacante.Vacante.Usuario.nombre}}</p>
+                                <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.Vacante.fecha_publicacion}}</small></p>
+                            </div>
+                        </div>
+                        <div class="posicion-b-r">
+                            <a class="text-danger" *ngIf="!vacante.Vacante.publicada && vacante.Vacante.activo && vacante.Vacante.disponible">Esta vacante ya no esta pública</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada">Esta vacante se cerr</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.disponible && vacante.Vacante.activo && !vacante.Vacante.publicada">Esta vacante se cerró o ya no esta pública</a>
+                            <a class="text-danger" *ngIf="!vacante.Vacante.activo">Eliminaron esta vacante</a>
+                            <a class="text-primary" *ngIf="vacante.Vacante.disponible && vacante.Vacante.activo && vacante.Vacante.publicada" (click)="visualizar(vacante.Vacante.id_vacante)" matTooltip="Ver más información de esta vacante" style="cursor:pointer">Ver más ...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Paginación -->
+        <div class="row justify-content-end m-t-2">
+            <div class="col-md-12">
+                <mat-paginator [length]="vacantes.length" [pageSize]="page_size" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons (page)="handlePage($event)">
+                </mat-paginator>
+            </div>
+        </div>
+
+    </div>
+</div>

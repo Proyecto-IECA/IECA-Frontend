@@ -1,36 +1,43 @@
 import { CursoCertificacionI } from './cursos_certificaciones';
 import { ExperienciaAcademicaI } from './experiencia_academica';
 import { ExperienciaLaboralI } from './experiencia_laboral';
-import { HabilidadPostulanteI } from './habilidades_postulante';
-import { IdiomaPostulanteI } from './idioma_postulante';
-import { PerfilPostulanteI } from './perfil_postulante';
-import { ValorPostulanteI } from './valor_postulante';
 
 export class UsuarioI {
-  id_postulante?: number;
+  // Atributos generales entre Empresa y Postulante
+  id_usuario?: number;
   nombre?: string;
+  telefono?: string;
+  email: string;
+  pass?: string;
+  email_validado?: boolean;
+  sups_notificacion?: string;
+  tipo_usuario?: string;
+  foto_perfil?: string;
+  calificacion?: number;
+
+  // Atributos de Usuario
   apellido_paterno?: string;
   apellido_materno?: string;
   fecha_nacimiento?: Date;
-  sexo?: string;
-  telefono_casa?: string;
-  telefono_celular?: string;
+  cv?: string;
   pais?: string;
   codigo_postal?: string;
   ciudad?: string;
   domicilio?: string;
-  foto_perfil?: string;
-  cv?: string;
-  calificacion?: number;
-  email: string;
-  email_validado?: boolean;
-  pass: string;
-  suscripcion_notificacion?: string;
+  telefono_casa?: string;
+  sexo?: string;
+  curp?: string;
+
+  // Atributos de Empresa
+  administrador?: string;
+  ubicacion?: string;
+  giro?: string;
+  pagina_web?: string;
+  numero_sucursales?: number;
+
+  // Por Eliminar
   cursos_certificaciones?: CursoCertificacionI[];
   experiencias_academicas?: ExperienciaAcademicaI[];
   experiencias_laborales?: ExperienciaLaboralI[];
-  habilidades_postulante?: HabilidadPostulanteI[];
-  idiomas_postulante?: IdiomaPostulanteI[];
-  perfiles_postulante?: PerfilPostulanteI[];
-  valores_postulante?: ValorPostulanteI[]; /*Preguntar como temina*/
+  /*Preguntar como temina*/
 }

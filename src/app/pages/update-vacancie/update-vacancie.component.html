@@ -1,0 +1,85 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-icon class="m-l-5" style="cursor:pointer" matTooltip="Regresar" routerLink="/my-vacancies">arrow_back_ios</mat-icon>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-stats">
+                    <div class="card-header card-header-bblue card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">visibility</i>
+                        </div>
+                        <p class="card-category">Vistas</p>
+                        <h3 class="card-title">{{vistas}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-primary">visibility</i>
+                            <a>Vistas totales de tu vacante</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">person</i>
+                        </div>
+                        <p class="card-category">Alcance</p>
+                        <h3 class="card-title">{{alcance}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-info">person</i>
+                            <a>Usuarios que vieron tu vacante</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-stats">
+                    <div class="card-header card-header-color card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">contact_page</i>
+                        </div>
+                        <p class="card-category">Postulaciones</p>
+                        <h3 class="card-title">{{numPostulaciones}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-color">contact_page</i>
+                            <a>Postulaciones a tu vacante</a>
+                        </div>
+                        <i class="material-icons text-primary posicion-b-r" matTooltip="Ver Postulaciones" style="cursor: pointer;" (click)="verPostulaciones()">engineering</i>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="card m-t-3">
+                    <!-- Header -->
+                    <div class="card-header card-header-bdark">
+                        <h4 class="card-title">Vacante</h4>
+                        <p class="card-category">Actualiza la vacante</p>
+                    </div>
+                    <div class="card-body" *ngIf="vacante">
+                        <app-vacante-form [vacante]="vacante"></app-vacante-form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <app-perfiles [perfiles]="perfiles" [id]="idVacante" [type]="'Vacante'"></app-perfiles>
+            </div>
+        </div>
+
+    </div>
+</div>

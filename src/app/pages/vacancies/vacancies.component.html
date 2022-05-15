@@ -1,0 +1,118 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- Carousel
+        <div class="row">
+            <div class="col-md-12">
+                <mat-carousel timings="250ms ease-in" [autoplay]="true" interval="5000" color="primary" maxWidth="auto" proportion="25" slides="5" [loop]="true" [hideArrows]="false" [hideIndicators]="false" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
+                    <mat-carousel-slide #matCarouselSlide *ngFor="let slide of slides; let i = index" [image]="slide.image" overlayColor="#e0e0e0  " [hideOverlay]="false"></mat-carousel-slide>
+                </mat-carousel>
+            </div>
+        </div> -->
+        <!-- Cards de lista de vacantes disponibles -->
+
+        <h3>Vacantes</h3>
+
+        <!-- Filtros -->
+        <div class="card">
+            <div class="card-body">
+                <h4 class="text-primary">Filtros</h4>
+                <form *ngIf="!filterForm">
+                    <h3 class="font-weight-bold text-center text-primary">¡No se han encontrado resultados!</h3>
+                    <img src="../../../assets/img/without_result.svg" class="img-fluid rounded mx-auto d-block" alt="Imagen para representar que no hay resultados">
+                </form>
+                <form [formGroup]="filterForm">
+                    <div class="row  align-items-center justify-content-center">
+                        <div class="col-md-2">
+                            <div class="row justify-content-center">
+                                <mat-checkbox formControlName="recientes" (change)="changeRecientes()">Más recientes</mat-checkbox>
+                            </div>
+                            <div class="row justify-content-center">
+                                <mat-checkbox formControlName="antiguas" (change)="changeAntiguos()">Más antiguas</mat-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="">
+                                <mat-label>Perfiles</mat-label>
+                                <mat-select multiple formControlName="perfiles" (selectionChange)="changeSelection()">
+                                    <mat-option *ngFor="let perfil of perfiles" [value]="perfil.descripcion">{{perfil.descripcion}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group no-border">
+                                <input type="text" value="" class="form-control" placeholder="Buscar por puesto, modalidad, nivel o empresa ..." [formControl]="search">
+                                <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" matTooltip="Buscar">
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary" matTooltip="Filtrar" (click)="filtrarVcantes()" [disabled]="!filterActive">Filtrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Spiner -->
+        <div *ngIf="spinerActived" class="row justify-content-center align-items-center vh-100">
+            <mat-spinner></mat-spinner>
+        </div>
+
+        <!-- Sin Vacantes -->
+        <div *ngIf="vacantes.length == 0 && !spinerActived">
+            <h3 class="font-weight-bold text-center text-primary">¡Por el momento no hay vacantes públicadas!</h3>
+            <img src="../../../assets/img/without_result.svg" class="img-fluid rounded mx-auto d-block" alt="Imagen para representar que no hay resultados">
+        </div>
+
+        <!-- Lista de Vacantes -->
+        <div class="row" *ngIf="vacantes.length > 0 && !spinerActived">
+            <div class="col-md-12" *ngFor="let vacante of vacantes | paginate:page_size:page_number | search:searchValue">
+                <div class="card mb-3">
+                    <div class="posicion-t-r">
+                        <!-- Boton de Favorito -->
+                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length > 0" matTooltip="Quitar de favoritas" (click)="unmarkFavorite(vacante.Vacantes_Favoritas)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite</mat-icon>
+                        <mat-icon *ngIf="vacante.Vacantes_Favoritas.length == 0" matTooltip="Agregar a favoritas" (click)="markFavorite(vacante)" class="text-danger justify-content-md-end" style="cursor:pointer">favorite_border</mat-icon>
+                    </div>
+                    <div class="row g-0 align-items-center justify-content-center">
+                        <div class="col-md-2">
+                            <img *ngIf="!vacante.Usuario.foto_perfil" src="../../../assets/img/IECA-Blanco.jpg" class="card-img-bottom" alt="Foto de perfil predeterminada de IECA">
+                            <img *ngIf="vacante.Usuario.foto_perfil" [src]="vacante.Usuario.foto_perfil" class="card-img-bottom" alt="Foto de perfil asignada por la empresa">
+
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4 class="card-title"><b>Puesto: </b>{{vacante.puesto}}</h4>
+                                <p class="card-text"><b>Nivel: </b>{{vacante.nivel}} / <b>Modalidad: </b>{{vacante.modalidad}}</p>
+                                <p class="card-text">{{vacante.Usuario.nombre}}</p>
+                                <p class="card-text"><small class="text-muted">Fecha publicación: {{vacante.fecha_publicacion}}</small></p>
+                            </div>
+                        </div>
+                        <div class="posicion-b-r">
+                            <a class="text-primary" matTooltip="Ver más información de esta vacante" (click)="visualizar(vacante.id_vacante)" style="cursor:pointer">Ver más ...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="!filterVacantes() && !spinerActived">
+                <h3 class="font-weight-bold text-center text-primary">¡No se han encontrado coincidencias!</h3>
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <img src="../../../assets/img/without_result.svg" class="img-fluid rounded mx-auto d-block" alt="Imagen para representar que no hay resultados">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paginación -->
+        <div class="row justify-content-end m-t-2" *ngIf="vacantes.length > 0">
+            <div class="col-md-12">
+                <mat-paginator [length]="vacantes.length" [pageSize]="page_size" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons (page)="handlePage($event)">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

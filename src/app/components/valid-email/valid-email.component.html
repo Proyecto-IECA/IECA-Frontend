@@ -1,0 +1,45 @@
+<div *ngIf="!email_validado" class="row justify-content-center align-items-center vh-100">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-icon card-header-danger">
+                <div class="card-icon">
+                    <i class="material-icons">warning</i>
+                </div>
+                <h4 class="card-title">Por favor válida tu correo para ingresar</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-center">Si aún no puedes validar tu correo electrónico toca</p>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-danger pull-right" (click)="reenviarCorreo()">Aqui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="email_validado" class="row justify-content-center align-items-center vh-100">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-icon card-header-success">
+                <div class="card-icon">
+                    <i class="material-icons">check_circle</i>
+                </div>
+                <h4 class="card-title">Correo validado</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-center">Gracias por validar tu correo, puedes iniciar sesión dandole click </p>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-success pull-right" [routerLink]="getRuta()">Aqui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

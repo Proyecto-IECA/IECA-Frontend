@@ -40,12 +40,24 @@
     margin-top: 10px !important;
 }
 
+.m-t-2 {
+    margin-top: 30px !important;
+}
+
+.m-t-3 {
+    margin-top: 60px !important;
+}
+
 .m-r {
     margin-right: 10px !important;
 }
 
 .m-r-5 {
     margin-right: 50px !important;
+}
+
+.m-l-5 {
+    margin-left: 50px !important;
 }
 
 .example-action-buttons {
@@ -78,4 +90,16 @@
     height: auto !important;
     padding-top: 10px !important;
     padding-bottom: 10px !important;
+}
+
+.error-snack {
+    background-color: #B00020 !important;
+}
+
+.success-snack {
+    background-color: #20b000;
+}
+
+.tooltip-gray {
+    background: #ffffff;
 }

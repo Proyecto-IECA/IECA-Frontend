@@ -1,0 +1,56 @@
+<form [formGroup]="sucursalForm" (ngSubmit)="createBranch()">
+
+    <div class="row">
+
+        <!-- Nombre de la sucursal -->
+        <div class="col-md-4">
+            <mat-form-field>
+                <input matInput placeholder="Nombre de la Sucursal" type="text" formControlName="nombre" required>
+                <mat-error *ngIf="campoNoValido('nombre')">Este campo es obligatorio</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Ubicación de la sucursal-->
+        <div class="col-md-8">
+            <mat-form-field>
+                <input ngx-google-places-autocomplete matInput #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" type="text" placeholder="Dirección" formControlName="ubicacion" />
+                <mat-error *ngIf="campoNoValido('ubicacion')">Este campo es obligatorio</mat-error>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+    <div class="row justify-content-end">
+
+        <!-- ===== btn icon cerrar ===== -->
+        <button *ngIf="!id_sucursal" (click)="deleteBranch(id_sucursal)" type="button" class="btn btn-danger btn-sm btn-just-icon m-r" title="Cancelar">
+            <i class="material-icons">close</i>
+        </button>
+
+        <!-- ===== btn icon elmimar ===== -->
+        <button *ngIf="id_sucursal" (click)="deleteBranch(id_sucursal)" type="button" class="btn btn-danger btn-sm btn-just-icon m-r" title="Eliminar">
+            <i class="material-icons">delete</i>
+        </button>
+
+        <div *ngIf="update">
+
+            <!-- ===== btn icon restaurar || cancelar ===== -->
+            <button (click)="getBranch(id_sucursal)" type="button" class="btn btn-warning btn-sm btn-just-icon m-r" title="Restaurar">
+                <i class="material-icons">settings_backup_restore</i>
+            </button>
+
+            <!-- ===== btn icon update ===== -->
+            <button (click)="updateBranch(id_sucursal)" type="button" class="btn btn-color btn-sm btn-just-icon m-r" title="Actulizar">
+                <i class="material-icons">edit</i>
+            </button>
+
+        </div>
+
+        <!-- ===== btn icon aceptar ===== -->
+        <button *ngIf="!update" type="submit" class="btn btn-success btn-sm btn-just-icon m-r" title="Guardar">
+            <i class="material-icons">save</i>
+        </button>
+
+    </div>
+
+</form>

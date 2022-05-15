@@ -1,0 +1,10 @@
+.posicion-t-r {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    margin: 2px 15px;
+}
+
+.sin-ver {
+    background: #d0e5f7;
+}

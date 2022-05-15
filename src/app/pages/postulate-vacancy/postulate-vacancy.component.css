@@ -1,0 +1,17 @@
+.posicion-t-r {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    margin: 15px;
+}
+
+.posicion-b-r {
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    margin: 15px;
+}
+
+.m-t {
+    margin-top: 23px !important;
+}

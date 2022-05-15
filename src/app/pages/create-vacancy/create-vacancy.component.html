@@ -1,82 +1,153 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <!-- Crear Vacante -->
-            <div class="col-md-8 ">
-                <div class="card">
+            <div class="col-md-12">
+                <div class="card m-t-3">
                     <!-- Header -->
-                    <div class="card-header card-header-primary">
+                    <div class="card-header card-header-bblue">
                         <h4 class="card-title">Vacante</h4>
                         <p class="card-category">Crea una vacante para tu negocio</p>
                     </div>
-
-                    <!-- Cuerpo del Form -->
                     <div class="card-body">
-                        <!-- Formulario -->
-                        <form autocomplete="off" (ngSubmit)="create()" [formGroup]="vacantForm">
-                            <!-- Datos del puesto -->
-                            <div class="row">
-                                <!-- Mensaje de Campos requeridos -->
-                                <div class="col-md-12">
-                                    <small class="form-text text-danger ml-3">* Campos requeridos</small>
-                                </div>
-                                <!-- Puesto -->
-                                <div class="col-md-8">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Puesto" type="text" formControlName="puesto" required>
-                                    </mat-form-field>
-                                </div>
-                                <!-- Sueldo -->
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Sueldo" type="number" formControlName="sueldo" required>
-                                    </mat-form-field>
-                                </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <!-- Formulario -->
+                                <form autocomplete="off" [formGroup]="vacanteForm">
+                                    <!-- Datos del puesto -->
+                                    <div class="row">
+
+                                        <!-- Puesto -->
+                                        <div class="col-md-8">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Puesto" type="text" formControlName="puesto" required>
+                                                <mat-error *ngIf="campoNoValido('puesto')">Este campo es obligatorio*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <!-- Nivel -->
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Nivel</mat-label>
+                                                <mat-select formControlName="nivel" required>
+                                                    <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
+                                                        {{nivel.viewValue}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="campoNoValido('nivel')">Este campo es obligatorio*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- Sueldo Negociable -->
+                                        <div class="col-md-4 m-t">
+                                            <mat-slide-toggle formControlName="negociable" (toggleChange)="isNegociable()">
+                                                Sueldo Negociable
+                                            </mat-slide-toggle>
+                                        </div>
+                                        <!-- Sueldo -->
+                                        <div *ngIf="!negociable" class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Sueldo" type="number" formControlName="sueldo" required>
+                                                <mat-error *ngIf="campoNoValido('sueldo')">Este campo es obligatorio*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div *ngIf="negociable" class="col-md-4">
+                                            <p>Sueldo Negociable</p>
+                                        </div>
+
+                                        <!-- Modalidad -->
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Modalidad</mat-label>
+                                                <mat-select formControlName="modalidad" required>
+                                                    <mat-option *ngFor="let modalidad of modalidades" [value]="modalidad.value">
+                                                        {{modalidad.viewValue}}
+                                                    </mat-option>
+                                                    <mat-error *ngIf="campoNoValido('modalidad')">Este campo es obligatorio*</mat-error>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <!-- Descripción del Puesto -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Descripción del Puesto</mat-label>
+                                                <textarea matInput formControlName="descripcion" required></textarea>
+                                                <mat-error *ngIf="campoNoValido('descripcion')">Este campo es obligatorio*</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sucursal -->
+                                    <div *ngIf="sucursales" class="row">
+                                        <div class="col-md-4 m-t">
+                                            <mat-slide-toggle formControlName="elegirSucursal" (toggleChange)="isSucursal()">
+                                                Elegir Sucursal
+                                            </mat-slide-toggle>
+                                        </div>
+                                        <div *ngIf="elegirSucursal" class="col-md-8">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Sucursal</mat-label>
+                                                <mat-select formControlName="id_sucursal_fk">
+                                                    <mat-option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">
+                                                        {{sucursal.nombre}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
                             </div>
+                            <div class="col-md-4">
 
-                            <!-- Descripción del Puesto -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Descripción del Puesto</mat-label>
-                                        <textarea matInput formControlName="descripcion" required></textarea>
-                                    </mat-form-field>
+                                <div class="col-md-12 m-t-2">
+                                    <div class="card">
+                                        <!-- ===== Encabezado de card ===== -->
+                                        <div class="card-header card-header-bdark">
+                                            <h4 class="card-title">
+                                                Perfiles
+                                            </h4>
+                                            <p class="card-catergory">
+                                                Para tu vacante
+                                            </p>
+                                        </div>
+                                        <!-- ===== Cuerpo del card ===== -->
+                                        <div class="card-body">
+                                            <!-- ===== Chips de perfiles ===== -->
+                                            <mat-form-field class="example-chip-list">
+                                                <mat-label>Perfiles a buscar</mat-label>
+                                                <mat-chip-list #chipListP aria-label="valor selection">
+                                                    <mat-chip *ngFor="let perfil of perfiles" [selectable]="selectable" [removable]="removable" (removed)="removePer(perfil)">
+                                                        {{perfil.descripcion}}
+                                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                                    </mat-chip>
+                                                    <input placeholder="Nuevo Perfil" #perfilInput [formControl]="perfilCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipListP" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addPer($event)">
+                                                </mat-chip-list>
+                                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedPer($event)">
+                                                    <mat-option *ngFor="let perfil of filteredPerfil | async" [value]="perfil">
+                                                        {{perfil.descripcion}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
+                        </div>
 
-                            <!-- Archivo -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field>
-
-                                        <ngx-mat-file-input placeholder="Archivo adicional (opcional)" formControlName="imagen"></ngx-mat-file-input>
-
-                                        <i class="material-icons" matSuffix>upload_file</i>
-                                        <!--<i *ngIf="vacantForm.value.imagen !== null" class="material-icons" matSuffix (click)="vacantForm.controls['imagen'].reset()">highlight_off</i>
-										<small *ngIf="vacantForm.value.imagen === null" class="form-text">Los formatos que acepta son PDF, JPG y PNG</small>-->
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-                            <button mat-raised-button type="submit" class="btn btn-primary pull-right">Crear vacante</button>
-                            <div class="clearfix"></div>
-
-                            <!-- Mensajes de error del formControlName -->
-                            <small *ngIf="controlNoValid('puesto')" class="form-text text-danger">
-								* Favor de poner el nombre del puesto mayor a 5 letras
-							</small>
-                            <small *ngIf="controlNoValid('sueldo')" class="form-text text-danger">
-								* El sueldo debe ser mayor a cero
-							</small>
-                            <small *ngIf="controlNoValid('descripcion')" class="form-text text-danger">
-								* Favor de poner la descripción del puesto
-							</small>
-
-                        </form>
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button mat-raised-button class="btn btn-success pull-right" (click)="guardarVacante(1)" matTooltip="Guardar">Guardar</button>
+                <button mat-raised-button class="btn btn-primary m-r pull-right" (click)="guardarVacante(2)" matTooltip="Publicar">Publicar</button>
+            </div>
         </div>
     </div>
 </div>

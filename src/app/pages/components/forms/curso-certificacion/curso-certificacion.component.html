@@ -1,0 +1,51 @@
+<form [formGroup]="certificadoForm" (ngSubmit)="actionForm(formDirective)" #formDirective="ngForm">
+    <!-- ===== Renglón  -->
+    <div class="row">
+        <!-- ===== Columna de Nombre ===== -->
+        <div class="col-md-6">
+            <mat-form-field>
+                <input matInput placeholder="Nombre" type="text" formControlName="nombre" required>
+                <mat-error *ngIf="campoNoValido('nombre')">Este campo es obligatorio*</mat-error>
+            </mat-form-field>
+        </div>
+        <!-- ===== Columna de Descripcion ===== -->
+        <div class="col-md-6">
+            <mat-form-field>
+                <input matInput placeholder="Descripción" type="text" formControlName="descripcion" required>
+                <mat-error *ngIf="campoNoValido('descripcion')">Este campo es obligatorio*</mat-error>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <!-- ===== Renglón ===== -->
+    <div class="row">
+        <div class="col-md-12">
+            <mat-form-field>
+                <input matInput placeholder="Link" type="url" formControlName="link">
+            </mat-form-field>
+        </div>
+
+    </div>
+    <!-- Renglón justificado al final -->
+    <div *ngIf="tipo=='add'" class="row justify-content-end">
+        <!-- ===== btn icon cancelar ===== -->
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r" (click)="cancelarAdd(formDirective)" matTooltip="Cerrar">
+            <i class="material-icons">close</i>
+        </button>
+        <!-- ===== btn icon aceptar ===== -->
+        <button type="submit" class="btn btn-success btn-sm btn-just-icon m-r" matTooltip="Guardar">
+            <i class="material-icons">save</i>
+        </button>
+    </div>
+    <!-- Renglón justificado al final -->
+    <div *ngIf="tipo=='update'" class="row justify-content-end">
+        <!-- ===== btn icon cancelar ===== -->
+        <button type="button" class="btn btn-danger btn-sm btn-just-icon m-r " (click)="deleteCursoCert()" matTooltip="Eliminar">
+            <i class="material-icons">delete</i>
+        </button>
+        <!-- ===== btn icon aceptar ===== -->
+        <button type="submit" class="btn btn-color btn-sm btn-just-icon m-r" matTooltip="Editar">
+            <i class="material-icons">edit</i>
+        </button>
+    </div>
+</form>

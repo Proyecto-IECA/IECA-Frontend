@@ -3,5 +3,5 @@ export class CursoCertificacionI {
     nombre?: string;
     descripcion?: string;
     link?: string;
-    id_postulante?: number;
+    id_usuario_fk?: number;
 }
