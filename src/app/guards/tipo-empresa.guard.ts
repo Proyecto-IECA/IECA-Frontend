@@ -13,7 +13,9 @@ export class TipoEmpresa implements CanActivate {
         route: ActivatedRouteSnapshot, 
         state: RouterStateSnapshot): boolean {
         
-        const tipoUsuario = localStorage.getItem('tipo_usuario');
+        let tipoUsuario = localStorage.getItem('tipo_usuario');
+        if (tipoUsuario == null) return false
+
         if (tipoUsuario == 'Empresa') { 
             return true;
         } else {

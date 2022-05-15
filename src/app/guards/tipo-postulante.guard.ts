@@ -13,7 +13,10 @@ export class TipoPostulante implements CanActivate {
         route: ActivatedRouteSnapshot, 
         state: RouterStateSnapshot): boolean {
         
-        const tipoUsuario = localStorage.getItem('tipo_usuario');
+        
+        let tipoUsuario = localStorage.getItem('tipo_usuario');
+        if (tipoUsuario == null) return false
+
         if (tipoUsuario == 'Postulante') { 
             return true;
         } else {
